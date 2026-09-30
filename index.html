@@ -528,167 +528,285 @@ button{cursor:pointer}
 <body>
 <div id="loginScreen">
   <form class="loginBox" id="loginForm">
-    <div class="loginTitle"><span>Stock</span> iPhone</div>
-<div class="field">
-  <label>Usuario</label>
-  <input id="loginUser" autocomplete="username" required>
-</div>
-<div class="field">
-  <label>Contraseña</label>
-  <input id="loginPassword" type="password" autocomplete="current-password" required>
-</div>
-<button class="primary" id="loginButton">Ingresar</button>
-<div id="loginError" class="error"></div>
+    <div class="loginTitle">
+      <span>Stock</span> iPhone
+    </div>
+    <div class="field">
+      <label>Usuario</label>
+      <input
+        id="loginUser"
+        autocomplete="username"
+        required
+      >
+    </div>
+    <div class="field">
+      <label>Contraseña</label>
+      <input
+        id="loginPassword"
+        type="password"
+        autocomplete="current-password"
+        required
+      >
+    </div>
+    <button
+      class="primary"
+      id="loginButton"
+      type="submit"
+    >
+      Ingresar
+    </button>
+    <div id="loginError" class="error"></div>
   </form>
 </div>
 <main class="app hidden" id="app">
 <header class="topbar">
   <div class="brand">
-    <div class="brandUser">Agustín</div>
-    <div class="brandName"><span>Stock</span> iPhone</div>
+    <div class="brandUser">
+      Agustín
+    </div>
+    <div class="brandName">
+      <span>Stock</span> iPhone
+    </div>
   </div>
-
-Salir
-
+  <button
+    class="logout"
+    id="logoutBtn"
+    type="button"
+  >
+    Salir
+  </button>
 </header>
 <div class="searchRow">
-  <input class="search" id="search" placeholder="Buscar producto...">
-  <button class="addBtn" id="addProductBtn">＋ Agregar producto</button>
+  <input
+    class="search"
+    id="search"
+    placeholder="Buscar producto..."
+  >
+  <button
+    class="addBtn"
+    id="addProductBtn"
+    type="button"
+  >
+    ＋ Agregar producto
+  </button>
 </div>
 <section id="providers"></section>
 </main>
-<button class="calcBtn" id="calcBtn">
+<button
+  class="calcBtn"
+  id="calcBtn"
+  type="button"
+>
   🧮
-  <span class="badge" id="calcBadge">0</span>
+  <span
+    class="badge"
+    id="calcBadge"
+  >
+    0
+  </span>
 </button>
-<div class="overlay" id="overlay"></div>
-<aside class="sideCalc" id="sideCalc">
+<div
+  class="overlay"
+  id="overlay"
+></div>
+<aside
+  class="sideCalc"
+  id="sideCalc"
+>
   <div class="calcHead">
-    <h2>Calculadora</h2>
-    <button class="calcClose" id="calcClose">✕</button>
+    <h2>
+      Calculadora
+    </h2>
+    <button
+      class="calcClose"
+      id="calcClose"
+      type="button"
+    >
+      ✕
+    </button>
   </div>
-  <div class="calcItems" id="calcItems"></div>
+  <div
+    class="calcItems"
+    id="calcItems"
+  ></div>
   <div class="calcTotals">
     <div class="totalLine">
       <span>Ganancia</span>
       <strong id="calcProfit">$0</strong>
     </div>
-<div class="totalLine">
-  <span>Total costo</span>
-  <strong id="calcCost">$0</strong>
-</div>
-<div class="totalSale">
-  <span>TOTAL DE VENTA</span>
-  <span id="calcSale">$0</span>
-</div>
-<button class="clearCalc" id="clearCalc">
-  Vaciar calculadora
-</button>
+    <div class="totalLine">
+      <span>Total costo</span>
+      <strong id="calcCost">$0</strong>
+    </div>
+    <div class="totalSale">
+      <span>TOTAL DE VENTA</span>
+      <span id="calcSale">$0</span>
+    </div>
+    <button
+      class="clearCalc"
+      id="clearCalc"
+      type="button"
+    >
+      Vaciar calculadora
+    </button>
   </div>
 </aside>
-<div class="modal" id="modal"></div>
-<div class="toast" id="toast"></div>
+<div
+  class="modal"
+  id="modal"
+></div>
+<div
+  class="toast"
+  id="toast"
+></div>
 <script>
 const API_URL =
   "https://noisy-sound-2a71.agus-eloy-oviedo.workers.dev";
+const TOKEN_KEY =
+  "stock_iphone_session";
 let token = "";
 let proveedores = [];
 let productos = [];
 let calc = {};
-const $ = id => document.getElementById(id);
+const $ =
+  id => document.getElementById(id);
 function money(n){
-  return "$" + Number(n || 0).toLocaleString("es-AR",{
-    maximumFractionDigits:0
-  });
+  return "$" +
+    Number(n || 0).toLocaleString(
+      "es-AR",
+      {
+        maximumFractionDigits:0
+      }
+    );
 }
 function esc(v){
-  return String(v ?? "").replace(/[&<>"']/g,m => ({
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    '"':"&quot;",
-    "'":"&#039;"
-  }[m]));
+  return String(v ?? "")
+    .replace(
+      /[&<>"']/g,
+      m => ({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#039;"
+      }[m])
+    );
 }
 function toast(m){
-  const t = $("toast");
+  const t =
+    $("toast");
   t.textContent = m;
   t.classList.add("show");
-  clearTimeout(toast.timer);
-  toast.timer = setTimeout(() => {
-    t.classList.remove("show");
-  },1800);
+  clearTimeout(
+    toast.timer
+  );
+  toast.timer =
+    setTimeout(
+      () => {
+        t.classList.remove("show");
+      },
+      1800
+    );
 }
 /* =========================================================
-   SESIÓN — CORREGIDA
+   SESIÓN
 ========================================================= */
-const TOKEN_KEY = "stock_iphone_session";
 function saveToken(newToken){
-  if(typeof newToken !== "string"){
-    throw new Error("Token de sesión inválido.");
+  if(
+    typeof newToken !==
+    "string"
+  ){
+    throw new Error(
+      "Token de sesión inválido."
+    );
   }
-  newToken = newToken.trim();
+  newToken =
+    newToken.trim();
   if(!newToken){
-    throw new Error("El servidor no devolvió un token válido.");
+    throw new Error(
+      "El servidor no devolvió un token válido."
+    );
   }
-  token = newToken;
-  localStorage.setItem(TOKEN_KEY, token);
+  token =
+    newToken;
+  localStorage.setItem(
+    TOKEN_KEY,
+    token
+  );
 }
 function getStoredToken(){
   const saved =
-    localStorage.getItem(TOKEN_KEY);
-  if(typeof saved !== "string"){
+    localStorage.getItem(
+      TOKEN_KEY
+    );
+  if(
+    typeof saved !==
+    "string"
+  ){
     return "";
   }
-  const value = saved.trim();
+  const value =
+    saved.trim();
   if(
     !value ||
     value === "null" ||
     value === "undefined"
   ){
-    localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(
+      TOKEN_KEY
+    );
     return "";
   }
   return value;
 }
 function clearSession(){
   token = "";
-  localStorage.removeItem(TOKEN_KEY);
-  $("app").classList.add("hidden");
-  $("loginScreen").classList.remove("hidden");
-  $("loginError").textContent = "";
-  $("loginPassword").value = "";
-  setTimeout(() => {
-    $("loginUser").focus();
-  },50);
+  localStorage.removeItem(
+    TOKEN_KEY
+  );
+  $("app")
+    .classList
+    .add("hidden");
+  $("loginScreen")
+    .classList
+    .remove("hidden");
+  $("loginError")
+    .textContent = "";
+  $("loginPassword")
+    .value = "";
 }
 function authHeaders(){
-  if(!token){
-    return {
-      "Content-Type":"application/json"
-    };
-  }
   return {
-    "Content-Type":"application/json",
-    "Authorization":"Bearer " + token
+    "Content-Type":
+      "application/json",
+    "Authorization":
+      "Bearer " + token
   };
 }
 /* =========================================================
-   PETICIÓN POST AUTENTICADA
+   API POST
 ========================================================= */
 async function api(body){
   if(!token){
     clearSession();
-    throw new Error("Sesión expirada.");
+    throw new Error(
+      "Sesión expirada."
+    );
   }
   let response;
   try{
-    response = await fetch(API_URL,{
-      method:"POST",
-      headers:authHeaders(),
-      body:JSON.stringify(body),
-      cache:"no-store"
-    });
+    response =
+      await fetch(
+        API_URL,
+        {
+          method:"POST",
+          headers:
+            authHeaders(),
+          body:
+            JSON.stringify(body),
+          cache:"no-store"
+        }
+      );
   }catch(error){
     throw new Error(
       "No se pudo conectar con el servidor."
@@ -696,14 +814,18 @@ async function api(body){
   }
   let data = {};
   try{
-    data = await response.json();
+    data =
+      await response.json();
   }catch{
     data = {};
   }
-  if(response.status === 401){
+  if(
+    response.status ===
+    401
+  ){
     clearSession();
     throw new Error(
-      "Sesión expirada. Ingresá nuevamente."
+      "Sesión inválida. Ingresá nuevamente."
     );
   }
   if(!response.ok){
@@ -723,7 +845,7 @@ async function api(body){
   return data;
 }
 /* =========================================================
-   GET — AUTENTICACIÓN CORREGIDA
+   GET
 ========================================================= */
 async function load(){
   if(!token){
@@ -732,34 +854,44 @@ async function load(){
   }
   let response;
   try{
-    response = await fetch(API_URL,{
-      method:"GET",
-      headers:{
-        "Authorization":"Bearer " + token,
-        "Accept":"application/json",
-        "Cache-Control":"no-cache"
-      },
-      cache:"no-store"
-    });
+    response =
+      await fetch(
+        API_URL,
+        {
+          method:"GET",
+          headers:{
+            "Authorization":
+              "Bearer " + token,
+            "Accept":
+              "application/json",
+            "Cache-Control":
+              "no-cache"
+          },
+          cache:
+            "no-store"
+        }
+      );
   }catch(error){
-    toast("No se pudo conectar con el servidor.");
+    toast(
+      "No se pudo conectar con el servidor."
+    );
     return false;
   }
   let data = {};
   try{
-    data = await response.json();
+    data =
+      await response.json();
   }catch{
     data = {};
   }
-  /*
-    IMPORTANTE:
-    Solo eliminamos el token si el Worker devuelve 401.
-    No se elimina por una respuesta JSON inesperada.
-  */
-  if(response.status === 401){
+  if(
+    response.status ===
+    401
+  ){
     clearSession();
-    $("loginError").textContent =
-      "Sesión expirada. Ingresá nuevamente.";
+    $("loginError")
+      .textContent =
+      "Sesión inválida. Ingresá nuevamente.";
     return false;
   }
   if(!response.ok){
@@ -779,11 +911,15 @@ async function load(){
     return false;
   }
   proveedores =
-    Array.isArray(data.proveedores)
+    Array.isArray(
+      data.proveedores
+    )
       ? data.proveedores
       : [];
   productos =
-    Array.isArray(data.productos)
+    Array.isArray(
+      data.productos
+    )
       ? data.productos
       : [];
   appShow();
@@ -794,31 +930,52 @@ async function load(){
    LOGIN
 ========================================================= */
 function loginShow(){
-  $("loginScreen").classList.remove("hidden");
-  $("app").classList.add("hidden");
-  setTimeout(() => {
-    $("loginUser").focus();
-  },50);
+  $("loginScreen")
+    .classList
+    .remove("hidden");
+  $("app")
+    .classList
+    .add("hidden");
+  setTimeout(
+    () => {
+      $("loginUser").focus();
+    },
+    50
+  );
 }
 function appShow(){
-  $("loginScreen").classList.add("hidden");
-  $("app").classList.remove("hidden");
+  $("loginScreen")
+    .classList
+    .add("hidden");
+  $("app")
+    .classList
+    .remove("hidden");
 }
-async function login(usuario,password){
+async function login(
+  usuario,
+  password
+){
   let response;
   try{
-    response = await fetch(API_URL,{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json",
-        "Accept":"application/json"
-      },
-      body:JSON.stringify({
-        usuario,
-        password
-      }),
-      cache:"no-store"
-    });
+    response =
+      await fetch(
+        API_URL + "/login",
+        {
+          method:"POST",
+          headers:{
+            "Content-Type":
+              "application/json",
+            "Accept":
+              "application/json"
+          },
+          body:
+            JSON.stringify({
+              usuario,
+              password
+            }),
+          cache:"no-store"
+        }
+      );
   }catch(error){
     throw new Error(
       "No se pudo conectar con el servidor."
@@ -826,7 +983,8 @@ async function login(usuario,password){
   }
   let data = {};
   try{
-    data = await response.json();
+    data =
+      await response.json();
   }catch{
     data = {};
   }
@@ -844,7 +1002,8 @@ async function login(usuario,password){
     );
   }
   const newToken =
-    typeof data.token === "string"
+    typeof data.token ===
+    "string"
       ? data.token.trim()
       : "";
   if(!newToken){
@@ -852,154 +1011,233 @@ async function login(usuario,password){
       "El servidor no devolvió el token de sesión."
     );
   }
-  saveToken(newToken);
+  saveToken(
+    newToken
+  );
   return data;
 }
-$("loginForm").onsubmit = async e => {
-  e.preventDefault();
-  const button = $("loginButton");
-  const errorBox = $("loginError");
-  errorBox.textContent = "";
-  const usuario =
-    $("loginUser").value.trim();
-  const password =
-    $("loginPassword").value;
-  if(!usuario || !password){
+$("loginForm").onsubmit =
+  async e => {
+    e.preventDefault();
+    const button =
+      $("loginButton");
+    const errorBox =
+      $("loginError");
     errorBox.textContent =
-      "Completá usuario y contraseña.";
-    return;
-  }
-  button.disabled = true;
-  button.textContent = "Ingresando...";
-  try{
-    await login(usuario,password);
-    const loaded =
-      await load();
-    if(!loaded){
-      /*
-        Si el token recién creado fue rechazado
-        por el Worker, se elimina inmediatamente.
-      */
-      if(token){
-        clearSession();
-      }
-      throw new Error(
-        "El servidor rechazó la nueva sesión."
-      );
+      "";
+    const usuario =
+      $("loginUser")
+        .value
+        .trim();
+    const password =
+      $("loginPassword")
+        .value;
+    if(
+      !usuario ||
+      !password
+    ){
+      errorBox.textContent =
+        "Completá usuario y contraseña.";
+      return;
     }
-  }catch(error){
-    errorBox.textContent =
-      error.message ||
-      "No se pudo iniciar sesión.";
-  }finally{
-    button.disabled = false;
-    button.textContent = "Ingresar";
-  }
-};
+    button.disabled =
+      true;
+    button.textContent =
+      "Ingresando...";
+    try{
+      await login(
+        usuario,
+        password
+      );
+      const loaded =
+        await load();
+      if(!loaded){
+        clearSession();
+        throw new Error(
+          "El servidor rechazó la nueva sesión."
+        );
+      }
+    }catch(error){
+      errorBox.textContent =
+        error.message ||
+        "No se pudo iniciar sesión.";
+    }finally{
+      button.disabled =
+        false;
+      button.textContent =
+        "Ingresar";
+    }
+  };
 /* =========================================================
    LOGOUT
 ========================================================= */
-$("logoutBtn").onclick = async () => {
-  const oldToken = token;
-  clearSession();
-  if(!oldToken){
-    return;
-  }
-  try{
-    await fetch(API_URL,{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json",
-        "Authorization":"Bearer " + oldToken
-      },
-      body:JSON.stringify({
-        accion:"logout"
-      }),
-      cache:"no-store"
-    });
-  }catch{
-    /* La sesión local ya fue eliminada. */
-  }
-};
+$("logoutBtn").onclick =
+  async () => {
+    const oldToken =
+      token;
+    clearSession();
+    if(!oldToken){
+      return;
+    }
+    try{
+      await fetch(
+        API_URL,
+        {
+          method:"POST",
+          headers:{
+            "Content-Type":
+              "application/json",
+            "Authorization":
+              "Bearer " + oldToken
+          },
+          body:
+            JSON.stringify({
+              accion:"logout"
+            }),
+          cache:"no-store"
+        }
+      );
+    }catch{
+      // La sesión local ya fue eliminada.
+    }
+  };
 /* =========================================================
    RENDER
 ========================================================= */
 function render(){
   const q =
-    $("search").value.trim().toLowerCase();
-  const root = $("providers");
+    $("search")
+      .value
+      .trim()
+      .toLowerCase();
+  const root =
+    $("providers");
   root.innerHTML = "";
-  proveedores.forEach(p => {
-    const list =
-      productos.filter(x =>
-        Number(x.proveedor_id) === Number(p.id) &&
-        (
-          !q ||
-          String(x.producto || "")
-            .toLowerCase()
-            .includes(q) ||
-          String(x.capacidad || "")
-            .toLowerCase()
-            .includes(q)
-        )
+  proveedores.forEach(
+    p => {
+      const list =
+        productos.filter(
+          x =>
+            Number(
+              x.proveedor_id
+            ) ===
+            Number(p.id) &&
+            (
+              !q ||
+              String(
+                x.producto || ""
+              )
+              .toLowerCase()
+              .includes(q) ||
+              String(
+                x.capacidad || ""
+              )
+              .toLowerCase()
+              .includes(q)
+            )
+        );
+      const box =
+        document.createElement(
+          "section"
+        );
+      box.className =
+        "provider";
+      box.innerHTML = `
+        <div class="providerHead">
+          <button
+            class="providerToggle"
+            type="button"
+          >
+            ⌄
+          </button>
+          <div class="providerName">
+            ${esc(p.nombre)}
+          </div>
+          <div class="providerTools">
+            <button
+              class="smallBtn rename"
+              type="button"
+            >
+              Renombrar
+            </button>
+            <button
+              class="smallBtn adjust"
+              type="button"
+            >
+              Precios
+            </button>
+          </div>
+          <button
+            class="providerMenu"
+            type="button"
+          >
+            ⋮
+          </button>
+        </div>
+        <div class="products"></div>
+      `;
+      const pe =
+        box.querySelector(
+          ".products"
+        );
+      list.forEach(
+        x => {
+          pe.appendChild(
+            productEl(x)
+          );
+        }
       );
-    const box =
-      document.createElement("section");
-    box.className = "provider";
-    box.innerHTML = `
-      <div class="providerHead">
-        <button class="providerToggle">
-          ⌄
-        </button>
-        <div class="providerName">
-          ${esc(p.nombre)}
-        </div>
-        <div class="providerTools">
-          <button class="smallBtn rename">
-            Renombrar
-          </button>
-          <button class="smallBtn adjust">
-            Precios
-          </button>
-        </div>
-        <button class="providerMenu">
-          ⋮
-        </button>
-      </div>
-      <div class="products"></div>
-    `;
-    const pe =
-      box.querySelector(".products");
-    list.forEach(x => {
-      pe.appendChild(productEl(x));
-    });
-    if(!list.length){
-      pe.innerHTML =
-        '<div class="empty">Sin productos.</div>';
-    }else{
-      const h =
-        document.createElement("div");
-      h.className = "dragHint";
-      h.textContent =
-        "Mantén presionado y arrastra para cambiar el orden";
-      pe.appendChild(h);
-      setupDrag(pe,p.id);
+      if(!list.length){
+        pe.innerHTML =
+          '<div class="empty">Sin productos.</div>';
+      }else{
+        const h =
+          document.createElement(
+            "div"
+          );
+        h.className =
+          "dragHint";
+        h.textContent =
+          "Mantén presionado y arrastra para cambiar el orden";
+        pe.appendChild(h);
+        setupDrag(
+          pe,
+          p.id
+        );
+      }
+      box.querySelector(
+        ".providerToggle"
+      ).onclick = () => {
+        pe.classList.toggle(
+          "hidden"
+        );
+        box.querySelector(
+          ".providerToggle"
+        ).textContent =
+          pe.classList.contains(
+            "hidden"
+          )
+            ? "›"
+            : "⌄";
+      };
+      box.querySelector(
+        ".rename"
+      ).onclick =
+        () =>
+          renameProvider(p);
+      box.querySelector(
+        ".adjust"
+      ).onclick =
+        () =>
+          adjustProvider(p);
+      box.querySelector(
+        ".providerMenu"
+      ).onclick =
+        () =>
+          deleteProvider(p);
+      root.appendChild(box);
     }
-    box.querySelector(".providerToggle").onclick = () => {
-      pe.classList.toggle("hidden");
-      box.querySelector(".providerToggle").textContent =
-        pe.classList.contains("hidden")
-          ? "›"
-          : "⌄";
-    };
-    box.querySelector(".rename").onclick =
-      () => renameProvider(p);
-    box.querySelector(".adjust").onclick =
-      () => adjustProvider(p);
-    box.querySelector(".providerMenu").onclick =
-      () => deleteProvider(p);
-    root.appendChild(box);
-  });
+  );
   updateCalc();
 }
 /* =========================================================
@@ -1007,16 +1245,25 @@ function render(){
 ========================================================= */
 function productEl(p){
   const el =
-    document.createElement("article");
+    document.createElement(
+      "article"
+    );
   const cap =
     p.capacidad &&
-    p.capacidad !== "Ninguno"
-      ? `<div class="capacity">${esc(p.capacidad)}</div>`
+    p.capacidad !==
+      "Ninguno"
+      ? `
+        <div class="capacity">
+          ${esc(p.capacidad)}
+        </div>
+      `
       : "";
   const q =
     calc[p.id] || 0;
-  el.className = "product";
-  el.dataset.id = p.id;
+  el.className =
+    "product";
+  el.dataset.id =
+    p.id;
   el.innerHTML = `
     <div class="productInfo">
       <div class="productName">
@@ -1038,40 +1285,84 @@ function productEl(p){
         </span>
       </div>
       <div class="calcControls">
-        <button class="minus">−</button>
+        <button
+          class="minus"
+          type="button"
+        >
+          −
+        </button>
         <div class="calcQty">
           ${q}
         </div>
-        <button class="plus">+</button>
+        <button
+          class="plus"
+          type="button"
+        >
+          +
+        </button>
       </div>
     </div>
     <div class="productMenu">
-      <button>⋮</button>
+      <button
+        type="button"
+      >
+        ⋮
+      </button>
       <div class="menuBox hidden">
-        <button class="edit">
+        <button
+          class="edit"
+          type="button"
+        >
           Editar
         </button>
-        <button class="delete danger">
+        <button
+          class="delete danger"
+          type="button"
+        >
           Eliminar
         </button>
       </div>
     </div>
   `;
-  el.querySelector(".plus").onclick =
-    () => changeCalc(p,1);
-  el.querySelector(".minus").onclick =
-    () => changeCalc(p,-1);
+  el.querySelector(
+    ".plus"
+  ).onclick =
+    () =>
+      changeCalc(
+        p,
+        1
+      );
+  el.querySelector(
+    ".minus"
+  ).onclick =
+    () =>
+      changeCalc(
+        p,
+        -1
+      );
   const menu =
-    el.querySelector(".menuBox");
-  el.querySelector(".productMenu>button").onclick =
+    el.querySelector(
+      ".menuBox"
+    );
+  el.querySelector(
+    ".productMenu>button"
+  ).onclick =
     e => {
       e.stopPropagation();
-      menu.classList.toggle("hidden");
+      menu.classList.toggle(
+        "hidden"
+      );
     };
-  el.querySelector(".edit").onclick =
-    () => editProduct(p);
-  el.querySelector(".delete").onclick =
-    () => deleteProduct(p);
+  el.querySelector(
+    ".edit"
+  ).onclick =
+    () =>
+      editProduct(p);
+  el.querySelector(
+    ".delete"
+  ).onclick =
+    () =>
+      deleteProduct(p);
   return el;
 }
 function changeCalc(p,d){
@@ -1079,82 +1370,130 @@ function changeCalc(p,d){
     Math.max(
       0,
       Math.min(
-        Number(p.cantidad) || 0,
+        Number(
+          p.cantidad
+        ) || 0,
         (calc[p.id] || 0) + d
       )
     );
   if(n){
-    calc[p.id] = n;
+    calc[p.id] =
+      n;
   }else{
     delete calc[p.id];
   }
   render();
 }
 function updateCalc(){
-  const ids = Object.keys(calc);
+  const ids =
+    Object.keys(calc);
   let cost = 0;
   let sale = 0;
-  const items = $("calcItems");
-  items.innerHTML = "";
-  ids.forEach(id => {
-    const p =
-      productos.find(
-        x => String(x.id) === String(id)
-      );
-    if(!p) return;
-    const q = calc[id];
-    cost +=
-      q * Number(p.costo || 0);
-    sale +=
-      q * Number(p.venta || 0);
-    const r =
-      document.createElement("div");
-    r.className = "calcItem";
-    r.innerHTML = `
-      <span>
-        ${esc(p.producto)} × ${q}
-      </span>
-      <strong>
-        ${money(q * p.venta)}
-      </strong>
-    `;
-    items.appendChild(r);
-  });
-  $("calcCost").textContent = money(cost);
-  $("calcSale").textContent = money(sale);
-  $("calcProfit").textContent = money(sale-cost);
-  $("calcBadge").textContent =
+  const items =
+    $("calcItems");
+  items.innerHTML =
+    "";
+  ids.forEach(
+    id => {
+      const p =
+        productos.find(
+          x =>
+            String(x.id) ===
+            String(id)
+        );
+      if(!p){
+        return;
+      }
+      const q =
+        calc[id];
+      cost +=
+        q *
+        Number(
+          p.costo || 0
+        );
+      sale +=
+        q *
+        Number(
+          p.venta || 0
+        );
+      const r =
+        document.createElement(
+          "div"
+        );
+      r.className =
+        "calcItem";
+      r.innerHTML = `
+        <span>
+          ${esc(p.producto)} × ${q}
+        </span>
+        <strong>
+          ${money(q * p.venta)}
+        </strong>
+      `;
+      items.appendChild(r);
+    }
+  );
+  $("calcCost")
+    .textContent =
+    money(cost);
+  $("calcSale")
+    .textContent =
+    money(sale);
+  $("calcProfit")
+    .textContent =
+    money(
+      sale - cost
+    );
+  $("calcBadge")
+    .textContent =
     ids.reduce(
-      (a,id) => a + calc[id],
+      (a,id) =>
+        a + calc[id],
       0
     );
 }
 /* =========================================================
    MODALES
 ========================================================= */
-function openModal(title,html,fn){
+function openModal(
+  title,
+  html,
+  fn
+){
   $("modal").innerHTML = `
     <h3>${title}</h3>
     ${html}
     <div class="modalActions">
-      <button class="cancel">
+      <button
+        class="cancel"
+        type="button"
+      >
         Cancelar
       </button>
-      <button class="confirm">
+      <button
+        class="confirm"
+        type="button"
+      >
         Guardar
       </button>
     </div>
   `;
-  $("overlay").classList.add("show");
-  $("modal").classList.add("show");
+  $("overlay")
+    .classList
+    .add("show");
+  $("modal")
+    .classList
+    .add("show");
   $("modal .cancel").onclick =
     closeModal;
   $("modal .confirm").onclick =
     async () => {
       const button =
         $("modal .confirm");
-      button.disabled = true;
-      button.textContent = "Guardando...";
+      button.disabled =
+        true;
+      button.textContent =
+        "Guardando...";
       try{
         await fn();
         closeModal();
@@ -1164,19 +1503,28 @@ function openModal(title,html,fn){
           e.message ||
           "No se pudo guardar."
         );
-        button.disabled = false;
-        button.textContent = "Guardar";
+        button.disabled =
+          false;
+        button.textContent =
+          "Guardar";
       }
     };
 }
 function closeModal(){
-  $("overlay").classList.remove("show");
-  $("modal").classList.remove("show");
+  $("overlay")
+    .classList
+    .remove("show");
+  $("modal")
+    .classList
+    .remove("show");
 }
-$("overlay").onclick = () => {
-  $("sideCalc").classList.remove("open");
-  closeModal();
-};
+$("overlay").onclick =
+  () => {
+    $("sideCalc")
+      .classList
+      .remove("open");
+    closeModal();
+  };
 /* =========================================================
    PROVEEDORES
 ========================================================= */
@@ -1185,7 +1533,9 @@ function renameProvider(p){
     "Renombrar proveedor",
     `
       <div class="field">
-        <label>Nombre</label>
+        <label>
+          Nombre
+        </label>
         <input
           id="mName"
           value="${esc(p.nombre)}"
@@ -1194,9 +1544,14 @@ function renameProvider(p){
     `,
     () =>
       api({
-        accion:"renombrar_proveedor",
-        id:p.id,
-        nombre:$("mName").value.trim()
+        accion:
+          "renombrar_proveedor",
+        id:
+          p.id,
+        nombre:
+          $("mName")
+            .value
+            .trim()
       })
   );
 }
@@ -1205,7 +1560,9 @@ function adjustProvider(p){
     "Ajustar precios",
     `
       <div class="field">
-        <label>Monto</label>
+        <label>
+          Monto
+        </label>
         <input
           id="mAmount"
           type="number"
@@ -1216,11 +1573,17 @@ function adjustProvider(p){
       </div>
       <div class="checks">
         <label>
-          <input id="mCost" type="checkbox">
+          <input
+            id="mCost"
+            type="checkbox"
+          >
           Proveedor / Costo
         </label>
         <label>
-          <input id="mSale" type="checkbox">
+          <input
+            id="mSale"
+            type="checkbox"
+          >
           Vendedor / Venta
         </label>
       </div>
@@ -1231,22 +1594,32 @@ function adjustProvider(p){
           -1000,
           Math.min(
             1000,
-            Number($("mAmount").value) || 0
+            Number(
+              $("mAmount")
+                .value
+            ) || 0
           )
         );
-      const c = $("mCost").checked;
-      const s = $("mSale").checked;
+      const c =
+        $("mCost").checked;
+      const s =
+        $("mSale").checked;
       if(!c && !s){
         throw new Error(
           "Seleccioná Costo, Venta o ambos."
         );
       }
       return api({
-        accion:"ajustar_precios",
-        proveedor_id:p.id,
-        monto:m,
-        costo:c,
-        venta:s
+        accion:
+          "ajustar_precios",
+        proveedor_id:
+          p.id,
+        monto:
+          m,
+        costo:
+          c,
+        venta:
+          s
       });
     }
   );
@@ -1259,12 +1632,16 @@ async function deleteProvider(p){
   }
   try{
     await api({
-      accion:"eliminar_proveedor",
-      id:p.id
+      accion:
+        "eliminar_proveedor",
+      id:
+        p.id
     });
     await load();
   }catch(e){
-    toast(e.message);
+    toast(
+      e.message
+    );
   }
 }
 /* =========================================================
@@ -1273,36 +1650,49 @@ async function deleteProvider(p){
 function productForm(p=null){
   const opts =
     proveedores
-      .map(x => `
-        <option
-          value="${x.id}"
-          ${
-            p &&
-            +p.proveedor_id === +x.id
-              ? "selected"
-              : ""
-          }
-        >
-          ${esc(x.nombre)}
-        </option>
-      `)
+      .map(
+        x => `
+          <option
+            value="${x.id}"
+            ${
+              p &&
+              +p.proveedor_id ===
+              +x.id
+                ? "selected"
+                : ""
+            }
+          >
+            ${esc(x.nombre)}
+          </option>
+        `
+      )
       .join("");
   return `
     <div class="field">
-      <label>Producto</label>
+      <label>
+        Producto
+      </label>
       <input
         id="mProduct"
-        value="${p ? esc(p.producto) : ""}"
+        value="${
+          p
+            ? esc(p.producto)
+            : ""
+        }"
       >
     </div>
     <div class="field">
-      <label>Proveedor</label>
+      <label>
+        Proveedor
+      </label>
       <select id="mProvider">
         ${opts}
       </select>
     </div>
     <div class="field">
-      <label>Capacidad</label>
+      <label>
+        Capacidad
+      </label>
       <select id="mCapacity">
         ${
           [
@@ -1312,46 +1702,60 @@ function productForm(p=null){
             "512 GB",
             "1 TB"
           ]
-          .map(x => `
-            <option
-              ${
-                p?.capacidad === x
-                  ? "selected"
-                  : ""
-              }
-            >
-              ${x}
-            </option>
-          `)
+          .map(
+            x => `
+              <option
+                ${
+                  p?.capacidad === x
+                    ? "selected"
+                    : ""
+                }
+              >
+                ${x}
+              </option>
+            `
+          )
           .join("")
         }
       </select>
     </div>
     <div class="field">
-      <label>Precio de venta</label>
+      <label>
+        Precio de venta
+      </label>
       <input
         id="mSalePrice"
         type="number"
         min="0"
-        value="${p?.venta || 0}"
+        value="${
+          p?.venta || 0
+        }"
       >
     </div>
     <div class="field">
-      <label>Costo</label>
+      <label>
+        Costo
+      </label>
       <input
         id="mCostPrice"
         type="number"
         min="0"
-        value="${p?.costo || 0}"
+        value="${
+          p?.costo || 0
+        }"
       >
     </div>
     <div class="field">
-      <label>Stock</label>
+      <label>
+        Stock
+      </label>
       <input
         id="mStock"
         type="number"
         min="0"
-        value="${p?.cantidad || 0}"
+        value="${
+          p?.cantidad || 0
+        }"
       >
     </div>
   `;
@@ -1367,13 +1771,26 @@ function addProduct(){
     productForm(),
     () =>
       api({
-        accion:"agregar_producto",
-        proveedor_id:+$("mProvider").value,
-        producto:$("mProduct").value.trim(),
-        capacidad:$("mCapacity").value,
-        venta:+$("mSalePrice").value || 0,
-        costo:+$("mCostPrice").value || 0,
-        cantidad:+$("mStock").value || 0
+        accion:
+          "agregar_producto",
+        proveedor_id:
+          +$("mProvider").value,
+        producto:
+          $("mProduct")
+            .value
+            .trim(),
+        capacidad:
+          $("mCapacity")
+            .value,
+        venta:
+          +$("mSalePrice")
+            .value || 0,
+        costo:
+          +$("mCostPrice")
+            .value || 0,
+        cantidad:
+          +$("mStock")
+            .value || 0
       })
   );
 }
@@ -1383,14 +1800,28 @@ function editProduct(p){
     productForm(p),
     () =>
       api({
-        accion:"editar_producto",
-        id:p.id,
-        proveedor_id:+$("mProvider").value,
-        producto:$("mProduct").value.trim(),
-        capacidad:$("mCapacity").value,
-        venta:+$("mSalePrice").value || 0,
-        costo:+$("mCostPrice").value || 0,
-        cantidad:+$("mStock").value || 0
+        accion:
+          "editar_producto",
+        id:
+          p.id,
+        proveedor_id:
+          +$("mProvider").value,
+        producto:
+          $("mProduct")
+            .value
+            .trim(),
+        capacidad:
+          $("mCapacity")
+            .value,
+        venta:
+          +$("mSalePrice")
+            .value || 0,
+        costo:
+          +$("mCostPrice")
+            .value || 0,
+        cantidad:
+          +$("mStock")
+            .value || 0
       })
   );
 }
@@ -1403,12 +1834,16 @@ async function deleteProduct(p){
   try{
     delete calc[p.id];
     await api({
-      accion:"eliminar_producto",
-      id:p.id
+      accion:
+        "eliminar_producto",
+      id:
+        p.id
     });
     await load();
   }catch(e){
-    toast(e.message);
+    toast(
+      e.message
+    );
   }
 }
 /* =========================================================
@@ -1418,185 +1853,289 @@ $("addProductBtn").onclick =
   addProduct;
 $("search").oninput =
   render;
-$("calcBtn").onclick = () => {
-  $("sideCalc").classList.add("open");
-  $("overlay").classList.add("show");
-};
-$("calcClose").onclick = () => {
-  $("sideCalc").classList.remove("open");
-  $("overlay").classList.remove("show");
-};
-$("clearCalc").onclick = () => {
-  calc = {};
-  updateCalc();
-  render();
-};
+$("calcBtn").onclick =
+  () => {
+    $("sideCalc")
+      .classList
+      .add("open");
+    $("overlay")
+      .classList
+      .add("show");
+  };
+$("calcClose").onclick =
+  () => {
+    $("sideCalc")
+      .classList
+      .remove("open");
+    $("overlay")
+      .classList
+      .remove("show");
+  };
+$("clearCalc").onclick =
+  () => {
+    calc = {};
+    updateCalc();
+    render();
+  };
 /* =========================================================
    DRAG & DROP
 ========================================================= */
-function setupDrag(container,providerId){
+function setupDrag(
+  container,
+  providerId
+){
   const cards =
-    [...container.querySelectorAll(".product")];
+    [
+      ...container
+        .querySelectorAll(
+          ".product"
+        )
+    ];
   let active = null;
   let pointerId = null;
   let startY = 0;
   let dragging = false;
   let longTimer = null;
-  cards.forEach(card => {
-    card.draggable = false;
-    card.style.cursor = "grab";
-    const clearDrag = () => {
-      clearTimeout(longTimer);
-      if(active){
-        active.classList.remove("dragging");
-        active.style.cursor = "grab";
-      }
-      cards.forEach(c =>
-        c.classList.remove("dropTarget")
-      );
-      active = null;
-      pointerId = null;
-      dragging = false;
-    };
-    card.addEventListener(
-      "pointerdown",
-      e => {
-        if(
-          e.button !== undefined &&
-          e.button !== 0
-        ){
-          return;
-        }
-        if(
-          e.target.closest(
-            "button,input,select,a,.menuBox"
-          )
-        ){
-          return;
-        }
-        active = card;
-        pointerId = e.pointerId;
-        startY = e.clientY;
-        dragging = false;
-        card.setPointerCapture?.(pointerId);
-        longTimer =
-          setTimeout(() => {
-            if(active === card){
-              dragging = true;
-              card.classList.add("dragging");
-              card.style.cursor = "grabbing";
-            }
-          },180);
-      }
-    );
-    card.addEventListener(
-      "pointermove",
-      e => {
-        if(
-          active !== card ||
-          e.pointerId !== pointerId
-        ){
-          return;
-        }
-        const distance =
-          Math.abs(e.clientY - startY);
-        if(!dragging){
-          if(distance > 10){
-            clearTimeout(longTimer);
-            dragging = true;
-            card.classList.add("dragging");
-            card.style.cursor = "grabbing";
-          }else{
+  cards.forEach(
+    card => {
+      card.draggable =
+        false;
+      card.style.cursor =
+        "grab";
+      const clearDrag =
+        () => {
+          clearTimeout(
+            longTimer
+          );
+          if(active){
+            active.classList
+              .remove(
+                "dragging"
+              );
+            active.style.cursor =
+              "grab";
+          }
+          cards.forEach(
+            c =>
+              c.classList
+                .remove(
+                  "dropTarget"
+                )
+          );
+          active =
+            null;
+          pointerId =
+            null;
+          dragging =
+            false;
+        };
+      card.addEventListener(
+        "pointerdown",
+        e => {
+          if(
+            e.button !==
+              undefined &&
+            e.button !== 0
+          ){
             return;
           }
-        }
-        e.preventDefault();
-        const others =
-          [
-            ...container.querySelectorAll(".product")
-          ].filter(c => c !== active);
-        const target =
-          others.find(c => {
-            const r =
-              c.getBoundingClientRect();
-            return (
-              e.clientY >= r.top &&
-              e.clientY <= r.bottom
-            );
-          });
-        if(target){
-          cards.forEach(c =>
-            c.classList.remove("dropTarget")
-          );
-          target.classList.add("dropTarget");
-          const r =
-            target.getBoundingClientRect();
           if(
-            e.clientY <
-            r.top + r.height / 2
+            e.target.closest(
+              "button,input,select,a,.menuBox"
+            )
           ){
-            container.insertBefore(
-              active,
+            return;
+          }
+          active =
+            card;
+          pointerId =
+            e.pointerId;
+          startY =
+            e.clientY;
+          dragging =
+            false;
+          card.setPointerCapture?.(
+            pointerId
+          );
+          longTimer =
+            setTimeout(
+              () => {
+                if(
+                  active ===
+                  card
+                ){
+                  dragging =
+                    true;
+                  card.classList
+                    .add(
+                      "dragging"
+                    );
+                  card.style.cursor =
+                    "grabbing";
+                }
+              },
+              180
+            );
+        }
+      );
+      card.addEventListener(
+        "pointermove",
+        e => {
+          if(
+            active !== card ||
+            e.pointerId !==
+              pointerId
+          ){
+            return;
+          }
+          const distance =
+            Math.abs(
+              e.clientY -
+              startY
+            );
+          if(!dragging){
+            if(distance > 10){
+              clearTimeout(
+                longTimer
+              );
+              dragging =
+                true;
+              card.classList
+                .add(
+                  "dragging"
+                );
+              card.style.cursor =
+                "grabbing";
+            }else{
+              return;
+            }
+          }
+          e.preventDefault();
+          const others =
+            [
+              ...container
+                .querySelectorAll(
+                  ".product"
+                )
+            ]
+            .filter(
+              c =>
+                c !== active
+            );
+          const target =
+            others.find(
+              c => {
+                const r =
+                  c.getBoundingClientRect();
+                return (
+                  e.clientY >=
+                    r.top &&
+                  e.clientY <=
+                    r.bottom
+                );
+              }
+            );
+          if(target){
+            cards.forEach(
+              c =>
+                c.classList
+                  .remove(
+                    "dropTarget"
+                  )
+            );
+            target.classList
+              .add(
+                "dropTarget"
+              );
+            const r =
               target
+                .getBoundingClientRect();
+            if(
+              e.clientY <
+              r.top +
+              r.height / 2
+            ){
+              container.insertBefore(
+                active,
+                target
+              );
+            }else{
+              container.insertBefore(
+                active,
+                target.nextSibling
+              );
+            }
+          }
+        },
+        {
+          passive:false
+        }
+      );
+      card.addEventListener(
+        "pointerup",
+        async e => {
+          if(
+            active !== card ||
+            e.pointerId !==
+              pointerId
+          ){
+            return;
+          }
+          clearTimeout(
+            longTimer
+          );
+          const wasDragging =
+            dragging;
+          try{
+            card.releasePointerCapture?.(
+              pointerId
+            );
+          }catch{}
+          if(wasDragging){
+            card.classList
+              .remove(
+                "dragging"
+              );
+            cards.forEach(
+              c =>
+                c.classList
+                  .remove(
+                    "dropTarget"
+                  )
+            );
+            active =
+              null;
+            pointerId =
+              null;
+            dragging =
+              false;
+            await saveDomOrder(
+              container,
+              providerId
             );
           }else{
-            container.insertBefore(
-              active,
-              target.nextSibling
-            );
+            clearDrag();
           }
         }
-      },
-      {passive:false}
-    );
-    card.addEventListener(
-      "pointerup",
-      async e => {
-        if(
-          active !== card ||
-          e.pointerId !== pointerId
-        ){
-          return;
+      );
+      card.addEventListener(
+        "pointercancel",
+        () =>
+          clearDrag()
+      );
+      card.addEventListener(
+        "lostpointercapture",
+        () => {
+          if(
+            active === card &&
+            !dragging
+          ){
+            clearDrag();
+          }
         }
-        clearTimeout(longTimer);
-        const wasDragging =
-          dragging;
-        try{
-          card.releasePointerCapture?.(pointerId);
-        }catch{}
-        if(wasDragging){
-          card.classList.remove("dragging");
-          cards.forEach(c =>
-            c.classList.remove("dropTarget")
-          );
-          active = null;
-          pointerId = null;
-          dragging = false;
-          await saveDomOrder(
-            container,
-            providerId
-          );
-        }else{
-          clearDrag();
-        }
-      }
-    );
-    card.addEventListener(
-      "pointercancel",
-      () => clearDrag()
-    );
-    card.addEventListener(
-      "lostpointercapture",
-      () => {
-        if(
-          active === card &&
-          !dragging
-        ){
-          clearDrag();
-        }
-      }
-    );
-  });
+      );
+    }
+  );
 }
 /* =========================================================
    GUARDAR ORDEN
@@ -1607,20 +2146,34 @@ async function saveDomOrder(
 ){
   const ids =
     [
-      ...container.querySelectorAll(".product")
+      ...container
+        .querySelectorAll(
+          ".product"
+        )
     ]
-    .map(x => Number(x.dataset.id))
-    .filter(Number.isFinite);
+    .map(
+      x =>
+        Number(
+          x.dataset.id
+        )
+    )
+    .filter(
+      Number.isFinite
+    );
   if(!ids.length){
     return;
   }
   try{
     await api({
-      accion:"reordenar_productos",
-      proveedor_id:Number(providerId),
+      accion:
+        "reordenar_productos",
+      proveedor_id:
+        Number(providerId),
       ids
     });
-    toast("Orden guardado");
+    toast(
+      "Orden guardado"
+    );
   }catch(e){
     toast(
       e.message ||
@@ -1632,18 +2185,15 @@ async function saveDomOrder(
    INICIO
 ========================================================= */
 (async function init(){
-  token = getStoredToken();
+  token =
+    getStoredToken();
   if(!token){
     loginShow();
     return;
   }
-  /*
-    No mostramos datos hasta comprobar el token
-    contra el Worker.
-  */
   const ok =
     await load();
-  if(!ok && token){
+  if(!ok){
     clearSession();
   }
 })();
