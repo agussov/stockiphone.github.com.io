@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 <title>Stock iPhone</title>
-
 <style>
 :root{
   --bg:#09090d;
@@ -18,9 +17,7 @@
   --violet:#8b5cf6;
   --violet2:#6d3de8
 }
-
 *{box-sizing:border-box}
-
 html,body{
   margin:0;
   min-height:100%;
@@ -28,18 +25,15 @@ html,body{
   color:var(--text);
   font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
 }
-
 button,input,select{font:inherit}
 button{cursor:pointer}
 .hidden{display:none!important}
-
 #loginScreen{
   min-height:100vh;
   display:grid;
   place-items:center;
   padding:24px
 }
-
 .loginBox{
   width:min(420px,100%);
   background:var(--panel);
@@ -47,25 +41,20 @@ button{cursor:pointer}
   border-radius:22px;
   padding:28px
 }
-
 .loginTitle{
   text-align:center;
   font-size:28px;
   font-weight:900;
   margin-bottom:24px
 }
-
 .loginTitle span{color:var(--gold)}
-
 .field{margin-bottom:14px}
-
 .field label{
   display:block;
   color:var(--muted);
   font-size:13px;
   margin-bottom:7px
 }
-
 .field input,
 .field select,
 .modal input,
@@ -78,7 +67,6 @@ button{cursor:pointer}
   padding:12px 13px;
   outline:none
 }
-
 .primary{
   width:100%;
   border:0;
@@ -88,20 +76,21 @@ button{cursor:pointer}
   color:white;
   font-weight:800
 }
-
+.primary:disabled{
+  opacity:.65;
+  cursor:wait
+}
 .error{
   color:#ff6b6b;
   font-size:13px;
   margin-top:10px;
   text-align:center
 }
-
 .app{
   max-width:1120px;
   margin:auto;
   padding:18px 18px 80px
 }
-
 .topbar{
   position:relative;
   display:flex;
@@ -110,9 +99,7 @@ button{cursor:pointer}
   min-height:82px;
   margin-bottom:18px
 }
-
 .brand{text-align:center}
-
 .brandUser{
   font-family:"Trebuchet MS",cursive;
   font-style:italic;
@@ -123,16 +110,13 @@ button{cursor:pointer}
   text-shadow:2px 2px 0 #000;
   margin-bottom:2px
 }
-
 .brandName{
   font-size:30px;
   font-weight:950;
   letter-spacing:-1px;
   color:#fff
 }
-
 .brandName span{color:var(--gold)}
-
 .logout{
   position:absolute;
   right:0;
@@ -144,13 +128,11 @@ button{cursor:pointer}
   padding:7px 10px;
   font-size:12px
 }
-
 .searchRow{
   display:flex;
   gap:10px;
   margin-bottom:16px
 }
-
 .search{
   flex:1;
   background:var(--panel);
@@ -160,7 +142,6 @@ button{cursor:pointer}
   padding:12px 14px;
   outline:none
 }
-
 .addBtn{
   border:0;
   background:var(--violet);
@@ -170,7 +151,6 @@ button{cursor:pointer}
   font-weight:850;
   font-size:12px
 }
-
 .provider{
   background:var(--panel);
   border:1px solid var(--border);
@@ -178,7 +158,6 @@ button{cursor:pointer}
   margin:12px 0;
   overflow:hidden
 }
-
 .providerHead{
   display:flex;
   align-items:center;
@@ -186,7 +165,6 @@ button{cursor:pointer}
   padding:13px 14px;
   user-select:none
 }
-
 .providerToggle{
   border:0;
   background:transparent;
@@ -195,13 +173,11 @@ button{cursor:pointer}
   width:24px;
   padding:0
 }
-
 .providerName{
   font-size:15px;
   font-weight:850;
   flex:1
 }
-
 .providerMenu{
   border:0;
   background:transparent;
@@ -209,12 +185,10 @@ button{cursor:pointer}
   font-size:20px;
   padding:2px 6px
 }
-
 .providerTools{
   display:flex;
   gap:7px
 }
-
 .smallBtn{
   border:1px solid var(--border);
   background:#15151d;
@@ -223,9 +197,7 @@ button{cursor:pointer}
   padding:6px 8px;
   font-size:11px
 }
-
 .products{padding:0 10px 10px}
-
 .product{
   position:relative;
   display:flex;
@@ -241,25 +213,20 @@ button{cursor:pointer}
   touch-action:none;
   cursor:grab
 }
-
 .product:active{cursor:grabbing}
-
 .product.dragging{
   opacity:.45;
   transform:scale(.985);
   border-color:var(--gold)
 }
-
 .product.dropTarget{
   border-color:var(--violet);
   transform:translateY(2px)
 }
-
 .productInfo{
   min-width:0;
   flex:1
 }
-
 .productName{
   font-size:16px;
   font-weight:850;
@@ -267,43 +234,36 @@ button{cursor:pointer}
   color:#fff;
   word-break:break-word
 }
-
 .capacity{
   font-size:16px;
   font-weight:750;
   color:var(--gold2);
   margin-top:4px
 }
-
 .cost{
   font-size:13px;
   color:#8f8f99;
   margin-top:4px
 }
-
 .sale{
   font-size:18px;
   font-weight:900;
   color:#fff;
   margin-top:4px
 }
-
 .productRight{
   display:flex;
   align-items:center;
   gap:9px;
   flex-shrink:0
 }
-
 .stockText{
   font-size:12px;
   font-weight:800;
   color:#ddd;
   white-space:nowrap
 }
-
 .stockNumber{color:var(--gold2)}
-
 .calcControls{
   display:flex;
   align-items:center;
@@ -312,7 +272,6 @@ button{cursor:pointer}
   overflow:hidden;
   background:#0c0c11
 }
-
 .calcControls button{
   width:30px;
   height:30px;
@@ -321,14 +280,12 @@ button{cursor:pointer}
   color:white;
   font-size:17px
 }
-
 .calcQty{
   min-width:25px;
   text-align:center;
   font-size:13px;
   font-weight:850
 }
-
 .productMenu>button{
   border:0;
   background:transparent;
@@ -336,11 +293,9 @@ button{cursor:pointer}
   font-size:19px;
   padding:3px
 }
-
 .productMenu{
   position:relative
 }
-
 .menuBox{
   position:absolute;
   right:0;
@@ -353,7 +308,6 @@ button{cursor:pointer}
   min-width:130px;
   box-shadow:0 15px 40px #0009
 }
-
 .menuBox button{
   display:block;
   width:100%;
@@ -365,23 +319,19 @@ button{cursor:pointer}
   border-radius:7px;
   font-size:12px
 }
-
 .danger{color:#ff7777!important}
-
 .dragHint{
   color:#666;
   font-size:11px;
   padding:7px 5px 2px;
   text-align:center
 }
-
 .empty{
   color:var(--muted);
   padding:25px;
   text-align:center;
   font-size:13px
 }
-
 .calcBtn{
   position:fixed;
   right:18px;
@@ -395,7 +345,6 @@ button{cursor:pointer}
   font-size:22px;
   z-index:100
 }
-
 .badge{
   position:absolute;
   right:-3px;
@@ -411,7 +360,6 @@ button{cursor:pointer}
   place-items:center;
   padding:0 5px
 }
-
 .sideCalc{
   position:fixed;
   right:0;
@@ -426,9 +374,7 @@ button{cursor:pointer}
   display:flex;
   flex-direction:column
 }
-
 .sideCalc.open{transform:translateX(0)}
-
 .calcHead{
   display:flex;
   align-items:center;
@@ -436,25 +382,21 @@ button{cursor:pointer}
   padding:18px;
   border-bottom:1px solid var(--border)
 }
-
 .calcHead h2{
   margin:0;
   font-size:18px
 }
-
 .calcClose,.clearCalc{
   border:0;
   background:transparent;
   color:var(--muted);
   padding:7px
 }
-
 .calcItems{
   flex:1;
   overflow:auto;
   padding:12px 18px
 }
-
 .calcItem{
   display:flex;
   justify-content:space-between;
@@ -463,24 +405,19 @@ button{cursor:pointer}
   border-bottom:1px solid #20202a;
   font-size:13px
 }
-
 .calcTotals{
   padding:15px 18px;
   border-top:1px solid var(--border)
 }
-
 .totalLine,.totalSale{
   display:flex;
   justify-content:space-between
 }
-
 .totalLine{
   margin:7px 0;
   color:var(--muted)
 }
-
 .totalLine strong{color:white}
-
 .totalSale{
   align-items:center;
   margin-top:12px;
@@ -489,12 +426,10 @@ button{cursor:pointer}
   font-size:18px;
   font-weight:950
 }
-
 .totalSale span:last-child{
   color:var(--gold2);
   font-size:24px
 }
-
 .overlay{
   position:fixed;
   inset:0;
@@ -502,9 +437,7 @@ button{cursor:pointer}
   z-index:150;
   display:none
 }
-
 .overlay.show{display:block}
-
 .modal{
   position:fixed;
   left:50%;
@@ -520,20 +453,16 @@ button{cursor:pointer}
   z-index:250;
   display:none
 }
-
 .modal.show{display:block}
-
 .modal h3{
   margin:0 0 17px;
   font-size:18px
 }
-
 .modalActions{
   display:flex;
   gap:8px;
   margin-top:16px
 }
-
 .modalActions button{
   flex:1;
   border:0;
@@ -541,24 +470,20 @@ button{cursor:pointer}
   padding:11px;
   font-weight:800
 }
-
 .cancel{
   background:#24242e;
   color:#ddd
 }
-
 .confirm{
   background:var(--violet);
   color:#fff
 }
-
 .checks{
   display:flex;
   gap:16px;
   flex-wrap:wrap;
   margin-top:8px
 }
-
 .checks label{
   display:flex;
   gap:7px;
@@ -566,7 +491,6 @@ button{cursor:pointer}
   font-size:13px;
   color:#ddd
 }
-
 .toast{
   position:fixed;
   left:50%;
@@ -583,161 +507,100 @@ button{cursor:pointer}
   transition:.2s;
   z-index:500
 }
-
 .toast.show{
   opacity:1;
   transform:translateX(-50%) translateY(0)
 }
-
 @media(max-width:650px){
-  .app{
-    padding:12px 10px 90px
-  }
-
+  .app{padding:12px 10px 90px}
   .topbar{min-height:74px}
-
   .brandUser{font-size:22px}
-
   .brandName{font-size:27px}
-
-  .logout{
-    font-size:10px;
-    padding:6px 7px
-  }
-
+  .logout{font-size:10px;padding:6px 7px}
   .searchRow{align-items:stretch}
-
   .addBtn{padding:9px 10px}
-
-  .product{
-    min-height:112px;
-    padding:11px 9px
-  }
-
-  .productRight{
-    gap:6px;
-    flex-direction:column;
-    align-items:flex-end
-  }
-
+  .product{min-height:112px;padding:11px 9px}
+  .productRight{gap:6px;flex-direction:column;align-items:flex-end}
   .stockText{font-size:11px}
 }
 </style>
 </head>
-
 <body>
-
 <div id="loginScreen">
   <form class="loginBox" id="loginForm">
     <div class="loginTitle"><span>Stock</span> iPhone</div>
-
-    <div class="field">
-      <label>Usuario</label>
-      <input id="loginUser" autocomplete="username" required>
-    </div>
-
-    <div class="field">
-      <label>Contraseña</label>
-      <input id="loginPassword" type="password" autocomplete="current-password" required>
-    </div>
-
-    <button class="primary" id="loginButton">Ingresar</button>
-    <div id="loginError" class="error"></div>
+<div class="field">
+  <label>Usuario</label>
+  <input id="loginUser" autocomplete="username" required>
+</div>
+<div class="field">
+  <label>Contraseña</label>
+  <input id="loginPassword" type="password" autocomplete="current-password" required>
+</div>
+<button class="primary" id="loginButton">Ingresar</button>
+<div id="loginError" class="error"></div>
   </form>
 </div>
-
 <main class="app hidden" id="app">
-
 <header class="topbar">
   <div class="brand">
     <div class="brandUser">Agustín</div>
     <div class="brandName"><span>Stock</span> iPhone</div>
   </div>
 
-  <button class="logout" id="logoutBtn">Salir</button>
-</header>
+Salir
 
+</header>
 <div class="searchRow">
   <input class="search" id="search" placeholder="Buscar producto...">
   <button class="addBtn" id="addProductBtn">＋ Agregar producto</button>
 </div>
-
 <section id="providers"></section>
-
 </main>
-
 <button class="calcBtn" id="calcBtn">
   🧮
   <span class="badge" id="calcBadge">0</span>
 </button>
-
 <div class="overlay" id="overlay"></div>
-
 <aside class="sideCalc" id="sideCalc">
   <div class="calcHead">
     <h2>Calculadora</h2>
     <button class="calcClose" id="calcClose">✕</button>
   </div>
-
   <div class="calcItems" id="calcItems"></div>
-
   <div class="calcTotals">
     <div class="totalLine">
       <span>Ganancia</span>
       <strong id="calcProfit">$0</strong>
     </div>
-
-    <div class="totalLine">
-      <span>Total costo</span>
-      <strong id="calcCost">$0</strong>
-    </div>
-
-    <div class="totalSale">
-      <span>TOTAL DE VENTA</span>
-      <span id="calcSale">$0</span>
-    </div>
-
-    <button class="clearCalc" id="clearCalc">
-      Vaciar calculadora
-    </button>
+<div class="totalLine">
+  <span>Total costo</span>
+  <strong id="calcCost">$0</strong>
+</div>
+<div class="totalSale">
+  <span>TOTAL DE VENTA</span>
+  <span id="calcSale">$0</span>
+</div>
+<button class="clearCalc" id="clearCalc">
+  Vaciar calculadora
+</button>
   </div>
 </aside>
-
 <div class="modal" id="modal"></div>
 <div class="toast" id="toast"></div>
-
 <script>
-
-/* =========================================================
-   CONFIGURACIÓN
-========================================================= */
-
 const API_URL =
   "https://noisy-sound-2a71.agus-eloy-oviedo.workers.dev";
-
-
-/* =========================================================
-   ESTADO
-========================================================= */
-
 let token = "";
 let proveedores = [];
 let productos = [];
 let calc = {};
-
-
-/* =========================================================
-   UTILIDADES
-========================================================= */
-
 const $ = id => document.getElementById(id);
-
 function money(n){
   return "$" + Number(n || 0).toLocaleString("es-AR",{
     maximumFractionDigits:0
   });
 }
-
 function esc(v){
   return String(v ?? "").replace(/[&<>"']/g,m => ({
     "&":"&amp;",
@@ -747,319 +610,208 @@ function esc(v){
     "'":"&#039;"
   }[m]));
 }
-
 function toast(m){
   const t = $("toast");
-
   t.textContent = m;
   t.classList.add("show");
-
   clearTimeout(toast.timer);
-
   toast.timer = setTimeout(() => {
     t.classList.remove("show");
   },1800);
 }
-
-
 /* =========================================================
-   SESIÓN
+   SESIÓN — CORREGIDA
 ========================================================= */
-
-/*
-  IMPORTANTE:
-  El token se guarda solamente cuando el servidor devuelve
-  un token válido.
-
-  También lo recuperamos al abrir la página.
-*/
-
+const TOKEN_KEY = "stock_iphone_session";
 function saveToken(newToken){
-
-  if(!newToken || typeof newToken !== "string"){
+  if(typeof newToken !== "string"){
+    throw new Error("Token de sesión inválido.");
+  }
+  newToken = newToken.trim();
+  if(!newToken){
     throw new Error("El servidor no devolvió un token válido.");
   }
-
-  token = newToken.trim();
-
-  localStorage.setItem("stock_token", token);
+  token = newToken;
+  localStorage.setItem(TOKEN_KEY, token);
 }
-
-
 function getStoredToken(){
-
   const saved =
-    localStorage.getItem("stock_token");
-
-  if(
-    !saved ||
-    saved === "null" ||
-    saved === "undefined"
-  ){
+    localStorage.getItem(TOKEN_KEY);
+  if(typeof saved !== "string"){
     return "";
   }
-
-  return saved.trim();
-}
-
-
-function clearSession(){
-
-  token = "";
-
-  localStorage.removeItem("stock_token");
-
-  loginShow();
-}
-
-
-function headers(){
-
-  const h = {
-    "Content-Type":"application/json"
-  };
-
-  if(token){
-    h["Authorization"] = "Bearer " + token;
+  const value = saved.trim();
+  if(
+    !value ||
+    value === "null" ||
+    value === "undefined"
+  ){
+    localStorage.removeItem(TOKEN_KEY);
+    return "";
   }
-
-  return h;
+  return value;
 }
-
-
+function clearSession(){
+  token = "";
+  localStorage.removeItem(TOKEN_KEY);
+  $("app").classList.add("hidden");
+  $("loginScreen").classList.remove("hidden");
+  $("loginError").textContent = "";
+  $("loginPassword").value = "";
+  setTimeout(() => {
+    $("loginUser").focus();
+  },50);
+}
+function authHeaders(){
+  if(!token){
+    return {
+      "Content-Type":"application/json"
+    };
+  }
+  return {
+    "Content-Type":"application/json",
+    "Authorization":"Bearer " + token
+  };
+}
 /* =========================================================
-   API
+   PETICIÓN POST AUTENTICADA
 ========================================================= */
-
 async function api(body){
-
   if(!token){
     clearSession();
-    throw new Error("No hay una sesión activa.");
+    throw new Error("Sesión expirada.");
   }
-
   let response;
-
   try{
-
     response = await fetch(API_URL,{
       method:"POST",
-      headers:headers(),
+      headers:authHeaders(),
       body:JSON.stringify(body),
       cache:"no-store"
     });
-
   }catch(error){
-
     throw new Error(
       "No se pudo conectar con el servidor."
     );
   }
-
-
   let data = {};
-
   try{
     data = await response.json();
   }catch{
     data = {};
   }
-
-
-  /*
-    SOLAMENTE un 401 significa realmente que
-    el servidor rechazó la sesión.
-  */
-
   if(response.status === 401){
-
     clearSession();
-
-    throw new Error("Sesión expirada. Iniciá sesión nuevamente.");
+    throw new Error(
+      "Sesión expirada. Ingresá nuevamente."
+    );
   }
-
-
   if(!response.ok){
-
     throw new Error(
       data.error ||
       data.message ||
       "Error del servidor."
     );
   }
-
-
   if(data.ok === false){
-
     throw new Error(
       data.error ||
       data.message ||
       "La operación no pudo realizarse."
     );
   }
-
-
   return data;
 }
-
-
 /* =========================================================
-   CARGAR DATOS
+   GET — AUTENTICACIÓN CORREGIDA
 ========================================================= */
-
 async function load(){
-
   if(!token){
-    loginShow();
-    return;
+    clearSession();
+    return false;
   }
-
-
   let response;
-
   try{
-
     response = await fetch(API_URL,{
       method:"GET",
       headers:{
         "Authorization":"Bearer " + token,
+        "Accept":"application/json",
         "Cache-Control":"no-cache"
       },
       cache:"no-store"
     });
-
   }catch(error){
-
     toast("No se pudo conectar con el servidor.");
-    return;
+    return false;
   }
-
-
   let data = {};
-
   try{
     data = await response.json();
   }catch{
     data = {};
   }
-
-
   /*
-    ESTA ES UNA DE LAS CORRECCIONES IMPORTANTES.
-
-    Antes:
-      if(r.status===401 || !d.ok)
-        logout(false);
-
-    Eso podía cerrar la sesión aunque el servidor
-    hubiera respondido correctamente pero no tuviera
-    exactamente d.ok.
-
-    Ahora solamente se cierra por 401.
+    IMPORTANTE:
+    Solo eliminamos el token si el Worker devuelve 401.
+    No se elimina por una respuesta JSON inesperada.
   */
-
   if(response.status === 401){
-
     clearSession();
-
     $("loginError").textContent =
       "Sesión expirada. Ingresá nuevamente.";
-
-    return;
+    return false;
   }
-
-
   if(!response.ok){
-
     toast(
       data.error ||
       data.message ||
       "No se pudieron cargar los datos."
     );
-
-    return;
+    return false;
   }
-
-
-  /*
-    Aceptamos tanto:
-      {ok:true, proveedores:[], productos:[]}
-
-    como una respuesta que simplemente tenga
-    proveedores/productos.
-  */
-
   if(data.ok === false){
-
     toast(
       data.error ||
       data.message ||
       "No se pudieron cargar los datos."
     );
-
-    return;
+    return false;
   }
-
-
   proveedores =
     Array.isArray(data.proveedores)
       ? data.proveedores
       : [];
-
   productos =
     Array.isArray(data.productos)
       ? data.productos
       : [];
-
-
   appShow();
-
   render();
+  return true;
 }
-
-
 /* =========================================================
-   LOGIN / LOGOUT
+   LOGIN
 ========================================================= */
-
 function loginShow(){
-
-  $("loginScreen")
-    .classList
-    .remove("hidden");
-
-  $("app")
-    .classList
-    .add("hidden");
-
+  $("loginScreen").classList.remove("hidden");
+  $("app").classList.add("hidden");
   setTimeout(() => {
     $("loginUser").focus();
   },50);
 }
-
-
 function appShow(){
-
-  $("loginScreen")
-    .classList
-    .add("hidden");
-
-  $("app")
-    .classList
-    .remove("hidden");
+  $("loginScreen").classList.add("hidden");
+  $("app").classList.remove("hidden");
 }
-
-
 async function login(usuario,password){
-
   let response;
-
   try{
-
     response = await fetch(API_URL,{
       method:"POST",
       headers:{
-        "Content-Type":"application/json"
+        "Content-Type":"application/json",
+        "Accept":"application/json"
       },
       body:JSON.stringify({
         usuario,
@@ -1067,140 +819,93 @@ async function login(usuario,password){
       }),
       cache:"no-store"
     });
-
   }catch(error){
-
     throw new Error(
       "No se pudo conectar con el servidor."
     );
   }
-
-
   let data = {};
-
   try{
     data = await response.json();
   }catch{
     data = {};
   }
-
-
   if(!response.ok){
-
     throw new Error(
       data.error ||
       data.message ||
       "Usuario o contraseña incorrectos."
     );
   }
-
-
-  if(data.ok === false){
-
+  if(data.ok !== true){
     throw new Error(
       data.error ||
-      data.message ||
-      "Usuario o contraseña incorrectos."
+      "El servidor no confirmó el inicio de sesión."
     );
   }
-
-
-  /*
-    Algunas APIs devuelven el token directamente
-    y otras dentro de data.token.
-  */
-
   const newToken =
-    data.token ||
-    data.access_token ||
-    data.accessToken;
-
-
+    typeof data.token === "string"
+      ? data.token.trim()
+      : "";
   if(!newToken){
-
     throw new Error(
       "El servidor no devolvió el token de sesión."
     );
   }
-
-
   saveToken(newToken);
-
   return data;
 }
-
-
 $("loginForm").onsubmit = async e => {
-
   e.preventDefault();
-
   const button = $("loginButton");
   const errorBox = $("loginError");
-
   errorBox.textContent = "";
-
   const usuario =
     $("loginUser").value.trim();
-
   const password =
     $("loginPassword").value;
-
-
   if(!usuario || !password){
-
     errorBox.textContent =
       "Completá usuario y contraseña.";
-
     return;
   }
-
-
   button.disabled = true;
   button.textContent = "Ingresando...";
-
-
   try{
-
     await login(usuario,password);
-
-    appShow();
-
-    await load();
-
+    const loaded =
+      await load();
+    if(!loaded){
+      /*
+        Si el token recién creado fue rechazado
+        por el Worker, se elimina inmediatamente.
+      */
+      if(token){
+        clearSession();
+      }
+      throw new Error(
+        "El servidor rechazó la nueva sesión."
+      );
+    }
   }catch(error){
-
     errorBox.textContent =
       error.message ||
       "No se pudo iniciar sesión.";
-
   }finally{
-
     button.disabled = false;
     button.textContent = "Ingresar";
   }
 };
-
-
+/* =========================================================
+   LOGOUT
+========================================================= */
 $("logoutBtn").onclick = async () => {
-
   const oldToken = token;
-
-  /*
-    Primero limpiamos localmente.
-    Así aunque el servidor tarde o falle,
-    la sesión del navegador queda cerrada.
-  */
-
   clearSession();
-
-
   if(!oldToken){
     return;
   }
-
-
   try{
-
     await fetch(API_URL,{
       method:"POST",
       headers:{
@@ -1212,35 +917,19 @@ $("logoutBtn").onclick = async () => {
       }),
       cache:"no-store"
     });
-
   }catch{
-    /*
-      No hacemos nada.
-      La sesión local ya fue eliminada.
-    */
+    /* La sesión local ya fue eliminada. */
   }
 };
-
-
 /* =========================================================
    RENDER
 ========================================================= */
-
 function render(){
-
   const q =
-    $("search")
-      .value
-      .trim()
-      .toLowerCase();
-
+    $("search").value.trim().toLowerCase();
   const root = $("providers");
-
   root.innerHTML = "";
-
-
   proveedores.forEach(p => {
-
     const list =
       productos.filter(x =>
         Number(x.proveedor_id) === Number(p.id) &&
@@ -1254,250 +943,138 @@ function render(){
             .includes(q)
         )
       );
-
-
     const box =
       document.createElement("section");
-
     box.className = "provider";
-
-
     box.innerHTML = `
       <div class="providerHead">
-
         <button class="providerToggle">
           ⌄
         </button>
-
         <div class="providerName">
           ${esc(p.nombre)}
         </div>
-
         <div class="providerTools">
-
           <button class="smallBtn rename">
             Renombrar
           </button>
-
           <button class="smallBtn adjust">
             Precios
           </button>
-
         </div>
-
         <button class="providerMenu">
           ⋮
         </button>
-
       </div>
-
       <div class="products"></div>
     `;
-
-
     const pe =
       box.querySelector(".products");
-
-
     list.forEach(x => {
-
-      pe.appendChild(
-        productEl(x)
-      );
-
+      pe.appendChild(productEl(x));
     });
-
-
     if(!list.length){
-
       pe.innerHTML =
         '<div class="empty">Sin productos.</div>';
-
     }else{
-
       const h =
         document.createElement("div");
-
       h.className = "dragHint";
-
       h.textContent =
         "Mantén presionado y arrastra para cambiar el orden";
-
       pe.appendChild(h);
-
       setupDrag(pe,p.id);
     }
-
-
-    box.querySelector(
-      ".providerToggle"
-    ).onclick = () => {
-
+    box.querySelector(".providerToggle").onclick = () => {
       pe.classList.toggle("hidden");
-
-      box.querySelector(
-        ".providerToggle"
-      ).textContent =
+      box.querySelector(".providerToggle").textContent =
         pe.classList.contains("hidden")
           ? "›"
           : "⌄";
     };
-
-
-    box.querySelector(
-      ".rename"
-    ).onclick = () =>
-      renameProvider(p);
-
-
-    box.querySelector(
-      ".adjust"
-    ).onclick = () =>
-      adjustProvider(p);
-
-
-    box.querySelector(
-      ".providerMenu"
-    ).onclick = () =>
-      deleteProvider(p);
-
-
+    box.querySelector(".rename").onclick =
+      () => renameProvider(p);
+    box.querySelector(".adjust").onclick =
+      () => adjustProvider(p);
+    box.querySelector(".providerMenu").onclick =
+      () => deleteProvider(p);
     root.appendChild(box);
-
   });
-
-
   updateCalc();
 }
-
-
 /* =========================================================
    PRODUCTOS
 ========================================================= */
-
 function productEl(p){
-
   const el =
     document.createElement("article");
-
   const cap =
     p.capacidad &&
     p.capacidad !== "Ninguno"
       ? `<div class="capacity">${esc(p.capacidad)}</div>`
       : "";
-
   const q =
     calc[p.id] || 0;
-
-
   el.className = "product";
-
   el.dataset.id = p.id;
-
-
   el.innerHTML = `
     <div class="productInfo">
-
       <div class="productName">
         ${esc(p.producto)}
       </div>
-
       ${cap}
-
       <div class="cost">
         Costo: ${money(p.costo)}
       </div>
-
       <div class="sale">
         ${money(p.venta)}
       </div>
-
     </div>
-
     <div class="productRight">
-
       <div class="stockText">
         STOCK:
         <span class="stockNumber">
           ${Number(p.cantidad)}
         </span>
       </div>
-
       <div class="calcControls">
-
-        <button class="minus">
-          −
-        </button>
-
+        <button class="minus">−</button>
         <div class="calcQty">
           ${q}
         </div>
-
-        <button class="plus">
-          +
-        </button>
-
+        <button class="plus">+</button>
       </div>
-
     </div>
-
     <div class="productMenu">
-
-      <button>
-        ⋮
-      </button>
-
+      <button>⋮</button>
       <div class="menuBox hidden">
-
         <button class="edit">
           Editar
         </button>
-
         <button class="delete danger">
           Eliminar
         </button>
-
       </div>
-
     </div>
   `;
-
-
   el.querySelector(".plus").onclick =
     () => changeCalc(p,1);
-
   el.querySelector(".minus").onclick =
     () => changeCalc(p,-1);
-
-
   const menu =
     el.querySelector(".menuBox");
-
-
-  el.querySelector(
-    ".productMenu>button"
-  ).onclick = e => {
-
-    e.stopPropagation();
-
-    menu.classList.toggle("hidden");
-  };
-
-
+  el.querySelector(".productMenu>button").onclick =
+    e => {
+      e.stopPropagation();
+      menu.classList.toggle("hidden");
+    };
   el.querySelector(".edit").onclick =
     () => editProduct(p);
-
-
   el.querySelector(".delete").onclick =
     () => deleteProduct(p);
-
-
   return el;
 }
-
-
 function changeCalc(p,d){
-
   const n =
     Math.max(
       0,
@@ -1506,202 +1083,115 @@ function changeCalc(p,d){
         (calc[p.id] || 0) + d
       )
     );
-
-
   if(n){
     calc[p.id] = n;
   }else{
     delete calc[p.id];
   }
-
-
   render();
 }
-
-
 function updateCalc(){
-
-  const ids =
-    Object.keys(calc);
-
+  const ids = Object.keys(calc);
   let cost = 0;
   let sale = 0;
-
-  const items =
-    $("calcItems");
-
+  const items = $("calcItems");
   items.innerHTML = "";
-
-
   ids.forEach(id => {
-
     const p =
       productos.find(
         x => String(x.id) === String(id)
       );
-
     if(!p) return;
-
-
-    const q =
-      calc[id];
-
-
+    const q = calc[id];
     cost +=
       q * Number(p.costo || 0);
-
     sale +=
       q * Number(p.venta || 0);
-
-
     const r =
       document.createElement("div");
-
     r.className = "calcItem";
-
     r.innerHTML = `
       <span>
         ${esc(p.producto)} × ${q}
       </span>
-
       <strong>
         ${money(q * p.venta)}
       </strong>
     `;
-
     items.appendChild(r);
   });
-
-
-  $("calcCost").textContent =
-    money(cost);
-
-  $("calcSale").textContent =
-    money(sale);
-
-  $("calcProfit").textContent =
-    money(sale-cost);
-
+  $("calcCost").textContent = money(cost);
+  $("calcSale").textContent = money(sale);
+  $("calcProfit").textContent = money(sale-cost);
   $("calcBadge").textContent =
     ids.reduce(
       (a,id) => a + calc[id],
       0
     );
 }
-
-
 /* =========================================================
    MODALES
 ========================================================= */
-
 function openModal(title,html,fn){
-
   $("modal").innerHTML = `
     <h3>${title}</h3>
-
     ${html}
-
     <div class="modalActions">
-
       <button class="cancel">
         Cancelar
       </button>
-
       <button class="confirm">
         Guardar
       </button>
-
     </div>
   `;
-
-
-  $("overlay")
-    .classList
-    .add("show");
-
-  $("modal")
-    .classList
-    .add("show");
-
-
+  $("overlay").classList.add("show");
+  $("modal").classList.add("show");
   $("modal .cancel").onclick =
     closeModal;
-
-
   $("modal .confirm").onclick =
     async () => {
-
       const button =
         $("modal .confirm");
-
       button.disabled = true;
       button.textContent = "Guardando...";
-
-
       try{
-
         await fn();
-
         closeModal();
-
         await load();
-
       }catch(e){
-
         toast(
           e.message ||
           "No se pudo guardar."
         );
-
         button.disabled = false;
         button.textContent = "Guardar";
       }
     };
 }
-
-
 function closeModal(){
-
-  $("overlay")
-    .classList
-    .remove("show");
-
-  $("modal")
-    .classList
-    .remove("show");
+  $("overlay").classList.remove("show");
+  $("modal").classList.remove("show");
 }
-
-
 $("overlay").onclick = () => {
-
-  $("sideCalc")
-    .classList
-    .remove("open");
-
+  $("sideCalc").classList.remove("open");
   closeModal();
 };
-
-
 /* =========================================================
    PROVEEDORES
 ========================================================= */
-
 function renameProvider(p){
-
   openModal(
     "Renombrar proveedor",
-
     `
       <div class="field">
         <label>Nombre</label>
-
         <input
           id="mName"
           value="${esc(p.nombre)}"
         >
       </div>
     `,
-
     () =>
       api({
         accion:"renombrar_proveedor",
@@ -1710,18 +1200,12 @@ function renameProvider(p){
       })
   );
 }
-
-
 function adjustProvider(p){
-
   openModal(
     "Ajustar precios",
-
     `
       <div class="field">
-
         <label>Monto</label>
-
         <input
           id="mAmount"
           type="number"
@@ -1729,26 +1213,19 @@ function adjustProvider(p){
           max="1000"
           value="0"
         >
-
       </div>
-
       <div class="checks">
-
         <label>
           <input id="mCost" type="checkbox">
           Proveedor / Costo
         </label>
-
         <label>
           <input id="mSale" type="checkbox">
           Vendedor / Venta
         </label>
-
       </div>
     `,
-
     () => {
-
       const m =
         Math.max(
           -1000,
@@ -1757,22 +1234,13 @@ function adjustProvider(p){
             Number($("mAmount").value) || 0
           )
         );
-
-      const c =
-        $("mCost").checked;
-
-      const s =
-        $("mSale").checked;
-
-
+      const c = $("mCost").checked;
+      const s = $("mSale").checked;
       if(!c && !s){
-
         throw new Error(
           "Seleccioná Costo, Venta o ambos."
         );
       }
-
-
       return api({
         accion:"ajustar_precios",
         proveedor_id:p.id,
@@ -1783,39 +1251,26 @@ function adjustProvider(p){
     }
   );
 }
-
-
 async function deleteProvider(p){
-
   if(!confirm(
     `¿Eliminar el proveedor "${p.nombre}" y todos sus productos?`
   )){
     return;
   }
-
-
   try{
-
     await api({
       accion:"eliminar_proveedor",
       id:p.id
     });
-
     await load();
-
   }catch(e){
-
     toast(e.message);
   }
 }
-
-
 /* =========================================================
    FORMULARIO PRODUCTO
 ========================================================= */
-
 function productForm(p=null){
-
   const opts =
     proveedores
       .map(x => `
@@ -1832,39 +1287,23 @@ function productForm(p=null){
         </option>
       `)
       .join("");
-
-
   return `
-
     <div class="field">
-
       <label>Producto</label>
-
       <input
         id="mProduct"
         value="${p ? esc(p.producto) : ""}"
       >
-
     </div>
-
-
     <div class="field">
-
       <label>Proveedor</label>
-
       <select id="mProvider">
         ${opts}
       </select>
-
     </div>
-
-
     <div class="field">
-
       <label>Capacidad</label>
-
       <select id="mCapacity">
-
         ${
           [
             "Ninguno",
@@ -1886,71 +1325,46 @@ function productForm(p=null){
           `)
           .join("")
         }
-
       </select>
-
     </div>
-
-
     <div class="field">
-
       <label>Precio de venta</label>
-
       <input
         id="mSalePrice"
         type="number"
         min="0"
         value="${p?.venta || 0}"
       >
-
     </div>
-
-
     <div class="field">
-
       <label>Costo</label>
-
       <input
         id="mCostPrice"
         type="number"
         min="0"
         value="${p?.costo || 0}"
       >
-
     </div>
-
-
     <div class="field">
-
       <label>Stock</label>
-
       <input
         id="mStock"
         type="number"
         min="0"
         value="${p?.cantidad || 0}"
       >
-
     </div>
-
   `;
 }
-
-
 function addProduct(){
-
   if(!proveedores.length){
-
     return toast(
       "Primero agregá un proveedor."
     );
   }
-
-
   openModal(
     "Agregar producto",
     productForm(),
-
     () =>
       api({
         accion:"agregar_producto",
@@ -1963,14 +1377,10 @@ function addProduct(){
       })
   );
 }
-
-
 function editProduct(p){
-
   openModal(
     "Editar producto",
     productForm(p),
-
     () =>
       api({
         accion:"editar_producto",
@@ -1984,137 +1394,79 @@ function editProduct(p){
       })
   );
 }
-
-
 async function deleteProduct(p){
-
   if(!confirm(
     `¿Eliminar "${p.producto}"?`
   )){
     return;
   }
-
-
   try{
-
     delete calc[p.id];
-
     await api({
       accion:"eliminar_producto",
       id:p.id
     });
-
     await load();
-
   }catch(e){
-
     toast(e.message);
   }
 }
-
-
 /* =========================================================
    BUSCADOR / CALCULADORA
 ========================================================= */
-
 $("addProductBtn").onclick =
   addProduct;
-
-
 $("search").oninput =
   render;
-
-
 $("calcBtn").onclick = () => {
-
-  $("sideCalc")
-    .classList
-    .add("open");
-
-  $("overlay")
-    .classList
-    .add("show");
+  $("sideCalc").classList.add("open");
+  $("overlay").classList.add("show");
 };
-
-
 $("calcClose").onclick = () => {
-
-  $("sideCalc")
-    .classList
-    .remove("open");
-
-  $("overlay")
-    .classList
-    .remove("show");
+  $("sideCalc").classList.remove("open");
+  $("overlay").classList.remove("show");
 };
-
-
 $("clearCalc").onclick = () => {
-
   calc = {};
-
   updateCalc();
-
   render();
 };
-
-
 /* =========================================================
    DRAG & DROP
 ========================================================= */
-
 function setupDrag(container,providerId){
-
   const cards =
     [...container.querySelectorAll(".product")];
-
   let active = null;
   let pointerId = null;
   let startY = 0;
   let dragging = false;
   let longTimer = null;
-
-
   cards.forEach(card => {
-
     card.draggable = false;
     card.style.cursor = "grab";
-
-
     const clearDrag = () => {
-
       clearTimeout(longTimer);
-
       if(active){
-
         active.classList.remove("dragging");
         active.style.cursor = "grab";
       }
-
-
       cards.forEach(c =>
         c.classList.remove("dropTarget")
       );
-
-
       active = null;
       pointerId = null;
       dragging = false;
     };
-
-
     card.addEventListener(
       "pointerdown",
       e => {
-
         if(
           e.button !== undefined &&
           e.button !== 0
         ){
           return;
         }
-
-
         if(
           e.target.closest(
             "button,input,select,a,.menuBox"
@@ -2122,305 +1474,179 @@ function setupDrag(container,providerId){
         ){
           return;
         }
-
-
         active = card;
         pointerId = e.pointerId;
         startY = e.clientY;
         dragging = false;
-
-
-        card.setPointerCapture?.(
-          pointerId
-        );
-
-
+        card.setPointerCapture?.(pointerId);
         longTimer =
           setTimeout(() => {
-
             if(active === card){
-
               dragging = true;
-
-              card.classList.add(
-                "dragging"
-              );
-
-              card.style.cursor =
-                "grabbing";
+              card.classList.add("dragging");
+              card.style.cursor = "grabbing";
             }
-
           },180);
       }
     );
-
-
     card.addEventListener(
       "pointermove",
       e => {
-
         if(
           active !== card ||
           e.pointerId !== pointerId
         ){
           return;
         }
-
-
         const distance =
-          Math.abs(
-            e.clientY - startY
-          );
-
-
+          Math.abs(e.clientY - startY);
         if(!dragging){
-
           if(distance > 10){
-
             clearTimeout(longTimer);
-
             dragging = true;
-
-            card.classList.add(
-              "dragging"
-            );
-
-            card.style.cursor =
-              "grabbing";
-
+            card.classList.add("dragging");
+            card.style.cursor = "grabbing";
           }else{
-
             return;
           }
         }
-
-
         e.preventDefault();
-
-
         const others =
           [
-            ...container.querySelectorAll(
-              ".product"
-            )
-          ].filter(
-            c => c !== active
-          );
-
-
+            ...container.querySelectorAll(".product")
+          ].filter(c => c !== active);
         const target =
           others.find(c => {
-
             const r =
               c.getBoundingClientRect();
-
             return (
               e.clientY >= r.top &&
               e.clientY <= r.bottom
             );
           });
-
-
         if(target){
-
           cards.forEach(c =>
-            c.classList.remove(
-              "dropTarget"
-            )
+            c.classList.remove("dropTarget")
           );
-
-
-          target.classList.add(
-            "dropTarget"
-          );
-
-
+          target.classList.add("dropTarget");
           const r =
             target.getBoundingClientRect();
-
-
           if(
             e.clientY <
             r.top + r.height / 2
           ){
-
             container.insertBefore(
               active,
               target
             );
-
           }else{
-
             container.insertBefore(
               active,
               target.nextSibling
             );
           }
         }
-
       },
       {passive:false}
     );
-
-
     card.addEventListener(
       "pointerup",
       async e => {
-
         if(
           active !== card ||
           e.pointerId !== pointerId
         ){
           return;
         }
-
-
         clearTimeout(longTimer);
-
         const wasDragging =
           dragging;
-
-
         try{
-          card.releasePointerCapture?.(
-            pointerId
-          );
+          card.releasePointerCapture?.(pointerId);
         }catch{}
-
-
         if(wasDragging){
-
-          card.classList.remove(
-            "dragging"
-          );
-
-
+          card.classList.remove("dragging");
           cards.forEach(c =>
-            c.classList.remove(
-              "dropTarget"
-            )
+            c.classList.remove("dropTarget")
           );
-
-
           active = null;
           pointerId = null;
           dragging = false;
-
-
           await saveDomOrder(
             container,
             providerId
           );
-
         }else{
-
           clearDrag();
         }
-
       }
     );
-
-
     card.addEventListener(
       "pointercancel",
       () => clearDrag()
     );
-
-
     card.addEventListener(
       "lostpointercapture",
       () => {
-
         if(
           active === card &&
           !dragging
         ){
           clearDrag();
         }
-
       }
     );
-
   });
 }
-
-
 /* =========================================================
    GUARDAR ORDEN
 ========================================================= */
-
 async function saveDomOrder(
   container,
   providerId
 ){
-
   const ids =
     [
-      ...container.querySelectorAll(
-        ".product"
-      )
+      ...container.querySelectorAll(".product")
     ]
-    .map(
-      x => Number(x.dataset.id)
-    )
-    .filter(
-      Number.isFinite
-    );
-
-
+    .map(x => Number(x.dataset.id))
+    .filter(Number.isFinite);
   if(!ids.length){
     return;
   }
-
-
   try{
-
     await api({
       accion:"reordenar_productos",
       proveedor_id:Number(providerId),
       ids
     });
-
-
     toast("Orden guardado");
-
   }catch(e){
-
     toast(
       e.message ||
       "No se pudo guardar el orden."
     );
   }
 }
-
-
 /* =========================================================
-   INICIO DE LA PÁGINA
+   INICIO
 ========================================================= */
-
-/*
-  Recuperamos el token guardado.
-
-  NO iniciamos una sesión falsa.
-  Primero mostramos la aplicación y después
-  verificamos el token contra el servidor.
-*/
-
-token = getStoredToken();
-
-
-if(token){
-
-  appShow();
-
-  load();
-
-}else{
-
-  loginShow();
-}
-
+(async function init(){
+  token = getStoredToken();
+  if(!token){
+    loginShow();
+    return;
+  }
+  /*
+    No mostramos datos hasta comprobar el token
+    contra el Worker.
+  */
+  const ok =
+    await load();
+  if(!ok && token){
+    clearSession();
+  }
+})();
 </script>
-
 </body>
 </html>
