@@ -632,7 +632,7 @@ button{
 }
 
 .product[draggable="true"]{
-  -webkit-user-drag:element;
+  -webkit-user-drag:none;
 }
 
 .product:last-child{
@@ -2576,7 +2576,8 @@ function activarArrastre(
       product => {
 
 
-        product.draggable = true;
+        // Usamos arrastre personalizado para evitar que el navegador trate la tarjeta como un enlace/imagen.
+        product.draggable = false;
 
 
         // -------------------------------
@@ -2723,7 +2724,7 @@ function activarArrastre(
           e => {
 
             if(
-              e.pointerType !== "touch"
+              e.pointerType !== "touch" && e.pointerType !== "mouse"
             ) return;
 
             pointerId =
@@ -2747,7 +2748,7 @@ function activarArrastre(
           e => {
 
             if(
-              e.pointerType !== "touch" ||
+              e.pointerType !== "touch" && e.pointerType !== "mouse" ||
               e.pointerId !== pointerId
             ) return;
 
@@ -2767,6 +2768,8 @@ function activarArrastre(
             if(!isDragging){
 
               isDragging = true;
+              product.dataset.wasDragged = "1";
+              e.preventDefault();
 
               dragged = product;
 
@@ -2855,7 +2858,7 @@ function activarArrastre(
           async e => {
 
             if(
-              e.pointerType !== "touch" ||
+              e.pointerType !== "touch" && e.pointerType !== "mouse" ||
               e.pointerId !== pointerId
             ) return;
 
@@ -2907,6 +2910,18 @@ function activarArrastre(
             pointerId = null;
 
           }
+        );
+
+        product.addEventListener(
+          "click",
+          e => {
+            if(product.dataset.wasDragged === "1"){
+              product.dataset.wasDragged = "0";
+              e.preventDefault();
+              e.stopPropagation();
+            }
+          },
+          true
         );
 
       }
