@@ -1,128 +1,3179 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+
 <title>Stock iPhone</title>
+
 <style>
-:root{--bg:#09090d;--panel:#111118;--panel2:#171720;--border:#292934;--text:#f5f5f7;--muted:#9696a3;--gold:#e7b93f;--gold2:#f1c84d;--violet:#8b5cf6;--violet2:#6d3de8}
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}
-#loginScreen{min-height:100vh;display:grid;place-items:center;padding:24px}.loginBox{width:min(420px,100%);background:var(--panel);border:1px solid var(--border);border-radius:22px;padding:28px}.loginTitle{text-align:center;font-size:28px;font-weight:900;margin-bottom:24px}.loginTitle span{color:var(--gold)}.field{margin-bottom:14px}.field label{display:block;color:var(--muted);font-size:13px;margin-bottom:7px}.field input,.field select,.modal input,.modal select{width:100%;background:#0b0b10;color:var(--text);border:1px solid var(--border);border-radius:11px;padding:12px 13px;outline:none}.primary{width:100%;border:0;border-radius:11px;padding:12px;background:var(--violet);color:white;font-weight:800}.error{color:#ff6b6b;font-size:13px;margin-top:10px;text-align:center}
-.app{max-width:1120px;margin:auto;padding:18px 18px 80px}.topbar{position:relative;display:flex;align-items:center;justify-content:center;min-height:82px;margin-bottom:18px}.brand{text-align:center}.brandUser{font-family:"Trebuchet MS",cursive;font-style:italic;font-weight:900;font-size:25px;letter-spacing:1.5px;color:#fff;text-shadow:2px 2px 0 #000;margin-bottom:2px}.brandName{font-size:30px;font-weight:950;letter-spacing:-1px;color:#fff}.brandName span{color:var(--gold)}.logout{position:absolute;right:0;top:8px;background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:9px;padding:7px 10px;font-size:12px}
-.searchRow{display:flex;gap:10px;margin-bottom:16px}.search{flex:1;background:var(--panel);border:1px solid var(--border);border-radius:12px;color:white;padding:12px 14px;outline:none}.addBtn{border:0;background:var(--violet);color:white;border-radius:11px;padding:9px 13px;font-weight:850;font-size:12px}
-.provider{background:var(--panel);border:1px solid var(--border);border-radius:16px;margin:12px 0;overflow:hidden}.providerHead{display:flex;align-items:center;gap:9px;padding:13px 14px;user-select:none}.providerToggle{border:0;background:transparent;color:var(--gold);font-size:18px;width:24px;padding:0}.providerName{font-size:15px;font-weight:850;flex:1}.providerMenu{border:0;background:transparent;color:var(--muted);font-size:20px;padding:2px 6px}.providerTools{display:flex;gap:7px}.smallBtn{border:1px solid var(--border);background:#15151d;color:var(--muted);border-radius:8px;padding:6px 8px;font-size:11px}
-.products{padding:0 10px 10px}.product{position:relative;display:flex;align-items:center;gap:12px;min-height:104px;background:var(--panel2);border:1px solid #25252f;border-radius:13px;padding:12px;margin-top:8px;transition:transform .18s,opacity .18s,border-color .18s;touch-action:none;cursor:grab}.product:active{cursor:grabbing}.product.dragging{opacity:.45;transform:scale(.985);border-color:var(--gold)}.product.dropTarget{border-color:var(--violet);transform:translateY(2px)}.productInfo{min-width:0;flex:1}.productName{font-size:16px;font-weight:850;line-height:1.18;color:#fff;word-break:break-word}.capacity{font-size:16px;font-weight:750;color:var(--gold2);margin-top:4px}.cost{font-size:13px;color:#8f8f99;margin-top:4px}.sale{font-size:18px;font-weight:900;color:#fff;margin-top:4px}.productRight{display:flex;align-items:center;gap:9px;flex-shrink:0}.stockText{font-size:12px;font-weight:800;color:#ddd;white-space:nowrap}.stockNumber{color:var(--gold2)}.calcControls{display:flex;align-items:center;border:1px solid var(--border);border-radius:9px;overflow:hidden;background:#0c0c11}.calcControls button{width:30px;height:30px;border:0;background:#15151d;color:white;font-size:17px}.calcQty{min-width:25px;text-align:center;font-size:13px;font-weight:850}.productMenu>button{border:0;background:transparent;color:#777;font-size:19px;padding:3px}.productMenu{position:relative}.menuBox{position:absolute;right:0;top:30px;z-index:20;background:#15151d;border:1px solid var(--border);border-radius:10px;padding:5px;min-width:130px;box-shadow:0 15px 40px #0009}.menuBox button{display:block;width:100%;text-align:left;background:transparent;border:0;color:white;padding:9px;border-radius:7px;font-size:12px}.danger{color:#ff7777!important}.dragHint{color:#666;font-size:11px;padding:7px 5px 2px;text-align:center}.empty{color:var(--muted);padding:25px;text-align:center;font-size:13px}
-.calcBtn{position:fixed;right:18px;bottom:18px;width:54px;height:54px;border-radius:50%;border:1px solid #3b3b47;background:#171720;color:white;font-size:22px;z-index:100}.badge{position:absolute;right:-3px;top:-3px;min-width:20px;height:20px;border-radius:10px;background:#ef4444;color:white;font-size:11px;font-weight:900;display:grid;place-items:center;padding:0 5px}.sideCalc{position:fixed;right:0;top:0;height:100%;width:min(390px,100%);background:#0e0e14;border-left:1px solid var(--border);z-index:200;transform:translateX(100%);transition:transform .22s;display:flex;flex-direction:column}.sideCalc.open{transform:translateX(0)}.calcHead{display:flex;align-items:center;justify-content:space-between;padding:18px;border-bottom:1px solid var(--border)}.calcHead h2{margin:0;font-size:18px}.calcClose,.clearCalc{border:0;background:transparent;color:var(--muted);padding:7px}.calcItems{flex:1;overflow:auto;padding:12px 18px}.calcItem{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #20202a;font-size:13px}.calcTotals{padding:15px 18px;border-top:1px solid var(--border)}.totalLine,.totalSale{display:flex;justify-content:space-between}.totalLine{margin:7px 0;color:var(--muted)}.totalLine strong{color:white}.totalSale{align-items:center;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:18px;font-weight:950}.totalSale span:last-child{color:var(--gold2);font-size:24px}
-.overlay{position:fixed;inset:0;background:#0009;z-index:150;display:none}.overlay.show{display:block}.modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(460px,calc(100% - 28px));max-height:90vh;overflow:auto;background:#13131b;border:1px solid var(--border);border-radius:18px;padding:20px;z-index:250;display:none}.modal.show{display:block}.modal h3{margin:0 0 17px;font-size:18px}.modalActions{display:flex;gap:8px;margin-top:16px}.modalActions button{flex:1;border:0;border-radius:10px;padding:11px;font-weight:800}.cancel{background:#24242e;color:#ddd}.confirm{background:var(--violet);color:#fff}.checks{display:flex;gap:16px;flex-wrap:wrap;margin-top:8px}.checks label{display:flex;gap:7px;align-items:center;font-size:13px;color:#ddd}.toast{position:fixed;left:50%;bottom:25px;transform:translateX(-50%) translateY(20px);background:#1b1b25;color:white;border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-size:12px;opacity:0;pointer-events:none;transition:.2s;z-index:500}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-@media(max-width:650px){.app{padding:12px 10px 90px}.topbar{min-height:74px}.brandUser{font-size:22px}.brandName{font-size:27px}.logout{font-size:10px;padding:6px 7px}.searchRow{align-items:stretch}.addBtn{padding:9px 10px}.product{min-height:112px;padding:11px 9px}.productRight{gap:6px;flex-direction:column;align-items:flex-end}.stockText{font-size:11px}}
+:root{
+  --bg:#171124;
+  --bg2:#211735;
+  --panel:#251b3a;
+  --panel2:#2b2043;
+  --border:#49355f;
+
+  --gold:#d8b35a;
+  --gold2:#f0d27b;
+
+  --text:#ffffff;
+  --muted:#aaa2b8;
+
+  --green:#62d39b;
+  --red:#e77878;
+
+  --shadow:0 12px 35px rgba(0,0,0,.30);
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html,body{
+  margin:0;
+  padding:0;
+  min-height:100%;
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  background:
+    radial-gradient(
+      circle at top,
+      #302047 0%,
+      var(--bg) 48%,
+      #120d1c 100%
+    );
+  color:var(--text);
+}
+
+button,
+input,
+select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.hidden{
+  display:none !important;
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+.login-screen{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.login-box{
+  width:100%;
+  max-width:360px;
+  padding:30px;
+  border:1px solid var(--border);
+  border-radius:22px;
+  background:rgba(37,27,58,.92);
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(15px);
+}
+
+.login-logo{
+  text-align:center;
+  font-size:25px;
+  font-weight:800;
+  margin-bottom:6px;
+}
+
+.login-sub{
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+  margin-bottom:25px;
+}
+
+.field{
+  margin-bottom:14px;
+}
+
+.field label{
+  display:block;
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+
+.field input,
+.field select{
+  width:100%;
+  height:42px;
+  padding:0 12px;
+  color:white;
+  background:#171222;
+  border:1px solid var(--border);
+  border-radius:10px;
+  outline:none;
+}
+
+.field input:focus,
+.field select:focus{
+  border-color:var(--gold);
+}
+
+.login-button{
+  width:100%;
+  height:43px;
+  border:0;
+  border-radius:11px;
+  background:linear-gradient(
+    135deg,
+    var(--gold),
+    var(--gold2)
+  );
+  color:#241a08;
+  font-weight:800;
+}
+
+.login-error{
+  min-height:18px;
+  margin-top:12px;
+  color:var(--red);
+  font-size:13px;
+  text-align:center;
+}
+
+
+/* =========================
+   APP
+========================= */
+
+.app{
+  width:100%;
+  max-width:1100px;
+  margin:auto;
+  padding:22px 18px 60px;
+}
+
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  margin-bottom:22px;
+}
+
+.brand{
+  display:flex;
+  flex-direction:column;
+}
+
+.brand-title{
+  font-size:25px;
+  line-height:1.1;
+  font-weight:850;
+  letter-spacing:-.5px;
+}
+
+.brand-title span{
+  color:var(--gold2);
+}
+
+.brand-sub{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:4px;
+}
+
+.header-actions{
+  display:flex;
+  gap:8px;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn{
+  border:1px solid var(--border);
+  border-radius:10px;
+  height:38px;
+  padding:0 13px;
+  color:white;
+  background:#2a203d;
+  font-size:13px;
+  font-weight:700;
+  transition:.15s;
+}
+
+.btn:hover{
+  transform:translateY(-1px);
+  border-color:var(--gold);
+}
+
+.btn-gold{
+  background:linear-gradient(
+    135deg,
+    #c99e42,
+    #ebca70
+  );
+  color:#251b0b;
+  border-color:#e3c36c;
+}
+
+.btn-small{
+  height:30px;
+  padding:0 9px;
+  font-size:12px;
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.toolbar{
+  display:flex;
+  gap:10px;
+  margin-bottom:18px;
+}
+
+.search{
+  flex:1;
+}
+
+.search input{
+  width:100%;
+  height:40px;
+  border-radius:11px;
+  border:1px solid var(--border);
+  background:rgba(24,17,37,.9);
+  color:white;
+  padding:0 13px;
+  outline:none;
+}
+
+.search input:focus{
+  border-color:var(--gold);
+}
+
+.search input::placeholder{
+  color:#777082;
+}
+
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty{
+  border:1px dashed var(--border);
+  border-radius:16px;
+  padding:35px 20px;
+  text-align:center;
+  color:var(--muted);
+  background:rgba(37,27,58,.5);
+}
+
+.empty-title{
+  color:white;
+  font-weight:700;
+  margin-bottom:6px;
+}
+
+.empty-text{
+  font-size:13px;
+}
+
+
+/* =========================
+   PROVIDER
+========================= */
+
+.provider{
+  background:rgba(37,27,58,.88);
+  border:1px solid var(--border);
+  border-radius:17px;
+  margin-bottom:15px;
+  overflow:hidden;
+  box-shadow:0 8px 25px rgba(0,0,0,.18);
+}
+
+.provider-head{
+  min-height:55px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:10px 13px;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(216,179,90,.10),
+      rgba(216,179,90,.02)
+    );
+  border-bottom:1px solid var(--border);
+}
+
+.provider-name{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  min-width:0;
+}
+
+.provider-icon{
+  width:30px;
+  height:30px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:8px;
+  background:rgba(216,179,90,.12);
+  color:var(--gold2);
+  font-weight:800;
+  font-size:13px;
+}
+
+.provider-title{
+  font-size:15px;
+  font-weight:800;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.provider-actions{
+  display:flex;
+  gap:5px;
+}
+
+.icon-btn{
+  width:30px;
+  height:30px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid var(--border);
+  border-radius:8px;
+  background:#211830;
+  color:#d5cedf;
+  font-size:13px;
+}
+
+.icon-btn:hover{
+  border-color:var(--gold);
+  color:var(--gold2);
+}
+
+
+/* =========================
+   PRODUCTS
+========================= */
+
+.products{
+  padding:4px 9px 9px;
+}
+
+.product{
+  display:grid;
+
+  grid-template-columns:
+    24px
+    minmax(150px,1.6fr)
+    90px
+    95px
+    120px
+    105px;
+
+  align-items:center;
+  gap:9px;
+
+  min-height:58px;
+
+  padding:8px 6px;
+
+  border-bottom:1px solid rgba(73,53,95,.55);
+}
+
+.product:last-child{
+  border-bottom:0;
+}
+
+.product:hover{
+  background:rgba(255,255,255,.025);
+  border-radius:9px;
+}
+
+.drag{
+  color:#766c83;
+  cursor:grab;
+  font-size:16px;
+  text-align:center;
+}
+
+.product-main{
+  min-width:0;
+}
+
+.product-name{
+  font-size:13px;
+  font-weight:750;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.product-capacity{
+  display:inline-block;
+  margin-top:3px;
+  padding:2px 6px;
+  border-radius:5px;
+  background:#352849;
+  color:#c7bdd2;
+  font-size:10px;
+}
+
+.price{
+  font-size:12px;
+}
+
+.price-label{
+  display:block;
+  color:#81768d;
+  font-size:9px;
+  text-transform:uppercase;
+  margin-bottom:2px;
+}
+
+.price-value{
+  font-weight:700;
+}
+
+.stock{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+}
+
+.stock button{
+  width:27px;
+  height:27px;
+  padding:0;
+  border-radius:7px;
+  border:1px solid var(--border);
+  background:#211830;
+  color:white;
+  font-weight:800;
+}
+
+.stock button:hover{
+  border-color:var(--gold);
+}
+
+.stock-number{
+  min-width:25px;
+  text-align:center;
+  font-size:13px;
+  font-weight:800;
+}
+
+.stock-zero{
+  color:var(--red);
+}
+
+.product-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:5px;
+}
+
+.add-product{
+  margin:5px 6px 2px;
+  width:calc(100% - 12px);
+  height:32px;
+  border:1px dashed var(--border);
+  border-radius:8px;
+  background:transparent;
+  color:var(--gold2);
+  font-size:12px;
+  font-weight:700;
+}
+
+.add-product:hover{
+  background:rgba(216,179,90,.07);
+  border-color:var(--gold);
+}
+
+
+/* =====================================================
+   CALCULADORA LATERAL
+===================================================== */
+
+.calc-overlay{
+  position:fixed;
+  inset:0;
+  z-index:100;
+
+  background:rgba(5,3,10,.48);
+
+  opacity:0;
+  pointer-events:none;
+
+  transition:.22s;
+}
+
+.calc-overlay.open{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.calc-panel{
+  position:fixed;
+  top:0;
+  right:0;
+
+  width:390px;
+  max-width:94vw;
+  height:100vh;
+
+  z-index:101;
+
+  display:flex;
+  flex-direction:column;
+
+  background:
+    linear-gradient(
+      180deg,
+      #2b2043 0%,
+      #211832 100%
+    );
+
+  border-left:1px solid var(--border);
+
+  box-shadow:
+    -15px 0 45px rgba(0,0,0,.40);
+
+  transform:translateX(100%);
+  transition:.25s ease;
+}
+
+.calc-panel.open{
+  transform:translateX(0);
+}
+
+
+/* calculator header */
+
+.calc-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:17px 18px;
+
+  border-bottom:1px solid var(--border);
+}
+
+.calc-title{
+  font-size:18px;
+  font-weight:850;
+}
+
+.calc-subtitle{
+  margin-top:2px;
+  color:var(--muted);
+  font-size:11px;
+}
+
+.calc-close{
+  width:34px;
+  height:34px;
+
+  border:1px solid var(--border);
+  border-radius:9px;
+
+  background:#1b1429;
+  color:white;
+
+  font-size:20px;
+}
+
+
+/* selected products */
+
+.calc-products{
+  flex:1;
+  overflow:auto;
+  padding:12px 14px;
+}
+
+.calc-empty{
+  padding:35px 15px;
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.calc-item{
+  padding:11px;
+
+  margin-bottom:8px;
+
+  border:1px solid var(--border);
+  border-radius:12px;
+
+  background:rgba(20,14,31,.38);
+}
+
+.calc-item-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.calc-item-name{
+  min-width:0;
+}
+
+.calc-item-product{
+  font-size:13px;
+  font-weight:800;
+
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.calc-item-capacity{
+  margin-top:2px;
+  color:var(--muted);
+  font-size:10px;
+}
+
+.calc-item-price{
+  text-align:right;
+  white-space:nowrap;
+  color:var(--gold2);
+  font-size:12px;
+  font-weight:700;
+}
+
+.calc-item-bottom{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  margin-top:9px;
+}
+
+.calc-stock{
+  color:var(--muted);
+  font-size:10px;
+}
+
+.calc-stock strong{
+  color:white;
+}
+
+.calc-qty{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.calc-qty button{
+  width:28px;
+  height:28px;
+
+  border:1px solid var(--border);
+  border-radius:7px;
+
+  background:#302345;
+  color:white;
+
+  font-weight:800;
+}
+
+.calc-qty button:hover{
+  border-color:var(--gold);
+}
+
+.calc-qty-number{
+  min-width:22px;
+  text-align:center;
+  font-size:13px;
+  font-weight:800;
+}
+
+
+/* totals */
+
+.calc-summary{
+  padding:14px 17px 18px;
+
+  border-top:1px solid var(--border);
+
+  background:
+    rgba(17,11,27,.35);
+}
+
+
+/* SALE - BIG */
+
+.total-sale{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+
+  padding-bottom:13px;
+  margin-bottom:12px;
+
+  border-bottom:1px solid rgba(73,53,95,.65);
+}
+
+.total-sale-label{
+  color:white;
+  font-size:12px;
+  font-weight:800;
+  text-transform:uppercase;
+}
+
+.total-sale-value{
+  color:white;
+  font-size:31px;
+  line-height:1;
+  font-weight:900;
+  letter-spacing:-1px;
+}
+
+
+/* cost / profit */
+
+.total-small{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  margin-top:7px;
+}
+
+.total-small-label{
+  color:var(--gold2);
+  font-size:11px;
+  font-weight:700;
+  text-transform:uppercase;
+}
+
+.total-small-value{
+  color:var(--gold2);
+  font-size:15px;
+  font-weight:800;
+}
+
+
+/* clear */
+
+.calc-clear{
+  width:100%;
+  height:36px;
+
+  margin-top:13px;
+
+  border:1px solid var(--border);
+  border-radius:9px;
+
+  background:#211830;
+  color:#aaa2b8;
+
+  font-size:11px;
+  font-weight:700;
+}
+
+.calc-clear:hover{
+  border-color:var(--red);
+  color:white;
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+.modal-backdrop{
+  position:fixed;
+  inset:0;
+  z-index:150;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:18px;
+
+  background:rgba(8,5,14,.72);
+  backdrop-filter:blur(7px);
+}
+
+.modal{
+  width:100%;
+  max-width:430px;
+  max-height:90vh;
+  overflow:auto;
+
+  border:1px solid var(--border);
+  border-radius:18px;
+
+  background:#251b3a;
+  box-shadow:0 25px 70px rgba(0,0,0,.5);
+}
+
+.modal-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:16px 17px;
+  border-bottom:1px solid var(--border);
+}
+
+.modal-title{
+  font-size:16px;
+  font-weight:800;
+}
+
+.modal-close{
+  width:30px;
+  height:30px;
+  border:1px solid var(--border);
+  border-radius:8px;
+  background:#1b1429;
+  color:white;
+}
+
+.modal-body{
+  padding:17px;
+}
+
+.modal-footer{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  padding:13px 17px;
+  border-top:1px solid var(--border);
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:700px){
+
+  .app{
+    padding:16px 11px 45px;
+  }
+
+  .header{
+    align-items:flex-start;
+  }
+
+  .brand-title{
+    font-size:22px;
+  }
+
+  .header-actions{
+    flex-direction:column;
+  }
+
+  .header-actions .btn{
+    height:34px;
+    font-size:11px;
+  }
+
+  .toolbar{
+    flex-direction:column;
+  }
+
+  .product{
+    grid-template-columns:
+      20px
+      minmax(120px,1fr)
+      80px
+      90px;
+
+    gap:6px;
+  }
+
+  .product .price:nth-of-type(2){
+    display:none;
+  }
+
+  .product-actions{
+    grid-column:2 / -1;
+    justify-content:flex-end;
+  }
+
+  .stock{
+    justify-content:flex-start;
+  }
+
+  .provider-title{
+    max-width:170px;
+  }
+
+  .calc-panel{
+    width:390px;
+    max-width:100vw;
+  }
+
+}
 </style>
 </head>
+
 <body>
-<div id="loginScreen"><form class="loginBox" id="loginForm"><div class="loginTitle"><span>Stock</span> iPhone</div><div class="field"><label>Usuario</label><input id="loginUser" autocomplete="username" required></div><div class="field"><label>Contraseña</label><input id="loginPassword" type="password" autocomplete="current-password" required></div><button class="primary">Ingresar</button><div id="loginError" class="error"></div></form></div>
-<main class="app hidden" id="app"><header class="topbar"><div class="brand"><div class="brandUser">Agustín</div><div class="brandName"><span>Stock</span> iPhone</div></div><button class="logout" id="logoutBtn">Salir</button></header><div class="searchRow"><input class="search" id="search" placeholder="Buscar producto..."><button class="addBtn" id="addProductBtn">＋ Agregar producto</button></div><section id="providers"></section></main>
-<button class="calcBtn" id="calcBtn">🧮<span class="badge" id="calcBadge">0</span></button><div class="overlay" id="overlay"></div><aside class="sideCalc" id="sideCalc"><div class="calcHead"><h2>Calculadora</h2><button class="calcClose" id="calcClose">✕</button></div><div class="calcItems" id="calcItems"></div><div class="calcTotals"><div class="totalLine"><span>Ganancia</span><strong id="calcProfit">$0</strong></div><div class="totalLine"><span>Total costo</span><strong id="calcCost">$0</strong></div><div class="totalSale"><span>TOTAL DE VENTA</span><span id="calcSale">$0</span></div><button class="clearCalc" id="clearCalc">Vaciar calculadora</button></div></aside><div class="modal" id="modal"></div><div class="toast" id="toast"></div>
+
+
+<!-- =====================================================
+     LOGIN
+===================================================== -->
+
+<section id="loginScreen" class="login-screen">
+
+  <div class="login-box">
+
+    <div class="login-logo">
+      Stock iPhone
+    </div>
+
+    <div class="login-sub">
+      Panel de administración
+    </div>
+
+    <form id="loginForm">
+
+      <div class="field">
+        <label>Usuario</label>
+
+        <input
+          id="loginUser"
+          type="text"
+          autocomplete="username"
+          required
+        >
+      </div>
+
+      <div class="field">
+        <label>Contraseña</label>
+
+        <input
+          id="loginPassword"
+          type="password"
+          autocomplete="current-password"
+          required
+        >
+      </div>
+
+      <button
+        class="login-button"
+        type="submit"
+      >
+        INGRESAR
+      </button>
+
+      <div
+        id="loginError"
+        class="login-error"
+      ></div>
+
+    </form>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     APP
+===================================================== -->
+
+<main
+  id="app"
+  class="app hidden"
+>
+
+  <header class="header">
+
+    <div class="brand">
+
+      <div class="brand-title">
+        Agustín · <span>Stock iPhone</span>
+      </div>
+
+      <div class="brand-sub">
+        Control de productos, costos y stock
+      </div>
+
+    </div>
+
+
+    <div class="header-actions">
+
+      <button
+        id="btnProveedor"
+        class="btn btn-gold"
+      >
+        ＋ Proveedor
+      </button>
+
+      <button
+        id="btnProducto"
+        class="btn"
+      >
+        ＋ Producto
+      </button>
+
+      <button
+        id="btnCalculadora"
+        class="btn"
+      >
+        🧮 Calculadora
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <div class="toolbar">
+
+    <div class="search">
+
+      <input
+        id="buscar"
+        type="search"
+        placeholder="Buscar iPhone, capacidad o proveedor..."
+      >
+
+    </div>
+
+  </div>
+
+
+  <section id="stockContainer"></section>
+
+</main>
+
+
+<!-- =====================================================
+     CALCULADORA LATERAL
+===================================================== -->
+
+<div
+  id="calcOverlay"
+  class="calc-overlay"
+></div>
+
+
+<aside
+  id="calcPanel"
+  class="calc-panel"
+>
+
+  <div class="calc-header">
+
+    <div>
+
+      <div class="calc-title">
+        Venta
+      </div>
+
+      <div class="calc-subtitle">
+        Equipos seleccionados
+      </div>
+
+    </div>
+
+    <button
+      id="calcClose"
+      class="calc-close"
+    >
+      ×
+    </button>
+
+  </div>
+
+
+  <div
+    id="calcProducts"
+    class="calc-products"
+  ></div>
+
+
+  <div class="calc-summary">
+
+    <div class="total-sale">
+
+      <div class="total-sale-label">
+        Venta
+      </div>
+
+      <div
+        id="calcVenta"
+        class="total-sale-value"
+      >
+        $0
+      </div>
+
+    </div>
+
+
+    <div class="total-small">
+
+      <div class="total-small-label">
+        Costo
+      </div>
+
+      <div
+        id="calcCosto"
+        class="total-small-value"
+      >
+        $0
+      </div>
+
+    </div>
+
+
+    <div class="total-small">
+
+      <div class="total-small-label">
+        Ganancia
+      </div>
+
+      <div
+        id="calcGanancia"
+        class="total-small-value"
+      >
+        $0
+      </div>
+
+    </div>
+
+
+    <button
+      id="calcClear"
+      class="calc-clear"
+    >
+      Vaciar calculadora
+    </button>
+
+  </div>
+
+</aside>
+
+
+<!-- =====================================================
+     MODAL
+===================================================== -->
+
+<div
+  id="modalBackdrop"
+  class="modal-backdrop hidden"
+>
+
+  <div class="modal">
+
+    <div class="modal-head">
+
+      <div
+        id="modalTitle"
+        class="modal-title"
+      >
+        Ventana
+      </div>
+
+      <button
+        id="modalClose"
+        class="modal-close"
+      >
+        ×
+      </button>
+
+    </div>
+
+    <div
+      id="modalBody"
+      class="modal-body"
+    ></div>
+
+    <div
+      id="modalFooter"
+      class="modal-footer"
+    ></div>
+
+  </div>
+
+</div>
+
+
 <script>
-const API_URL="https://noisy-sound-2a71.agus-eloy-oviedo.workers.dev";let token=localStorage.getItem("stock_token")||"",proveedores=[],productos=[],calc={};const $=id=>document.getElementById(id);function money(n){return "$"+Number(n||0).toLocaleString("es-AR",{maximumFractionDigits:0})}function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]))}function toast(m){let t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove("show"),1800)}function headers(){return{"Content-Type":"application/json",Authorization:"Bearer "+token}}async function api(b){let r=await fetch(API_URL,{method:"POST",headers:headers(),body:JSON.stringify(b)}),d=await r.json();if(r.status===401){logout(false);throw Error("Sesión expirada")}if(!r.ok||d.ok===false)throw Error(d.error||"Error");return d}async function load(){let r=await fetch(API_URL,{headers:{Authorization:"Bearer "+token}}),d=await r.json();if(r.status===401||!d.ok)return logout(false);proveedores=d.proveedores||[];productos=d.productos||[];render()}function loginShow(){$("loginScreen").classList.remove("hidden");$("app").classList.add("hidden")}function appShow(){$("loginScreen").classList.add("hidden");$("app").classList.remove("hidden")}function logout(server=true){if(server&&token)fetch(API_URL,{method:"POST",headers:headers(),body:JSON.stringify({accion:"logout"})}).catch(()=>{});token="";localStorage.removeItem("stock_token");loginShow()}$("loginForm").onsubmit=async e=>{e.preventDefault();try{let r=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({usuario:$('loginUser').value,password:$('loginPassword').value})}),d=await r.json();if(!r.ok||!d.ok)throw Error(d.error||"Usuario o contraseña incorrectos");token=d.token;localStorage.setItem("stock_token",token);appShow();load()}catch(e){$("loginError").textContent=e.message}};$('logoutBtn').onclick=()=>logout();
-function render(){let q=$("search").value.trim().toLowerCase(),root=$("providers");root.innerHTML="";proveedores.forEach(p=>{let list=productos.filter(x=>Number(x.proveedor_id)===Number(p.id)&&(!q||String(x.producto).toLowerCase().includes(q)||String(x.capacidad||"").toLowerCase().includes(q)));let box=document.createElement("section");box.className="provider";box.innerHTML=`<div class="providerHead"><button class="providerToggle">⌄</button><div class="providerName">${esc(p.nombre)}</div><div class="providerTools"><button class="smallBtn rename">Renombrar</button><button class="smallBtn adjust">Precios</button></div><button class="providerMenu">⋮</button></div><div class="products"></div>`;let pe=box.querySelector(".products");list.forEach(x=>pe.appendChild(productEl(x)));if(!list.length)pe.innerHTML='<div class="empty">Sin productos.</div>';else{let h=document.createElement("div");h.className="dragHint";h.textContent="Mantén presionado y arrastra para cambiar el orden";pe.appendChild(h);setupDrag(pe,p.id)}box.querySelector(".providerToggle").onclick=()=>{pe.classList.toggle("hidden");box.querySelector(".providerToggle").textContent=pe.classList.contains("hidden")?"›":"⌄"};box.querySelector(".rename").onclick=()=>renameProvider(p);box.querySelector(".adjust").onclick=()=>adjustProvider(p);box.querySelector(".providerMenu").onclick=()=>deleteProvider(p);root.appendChild(box)});updateCalc()}
-function productEl(p){let el=document.createElement("article"),cap=p.capacidad&&p.capacidad!=="Ninguno"?`<div class="capacity">${esc(p.capacidad)}</div>`:"",q=calc[p.id]||0;el.className="product";el.dataset.id=p.id;el.innerHTML=`<div class="productInfo"><div class="productName">${esc(p.producto)}</div>${cap}<div class="cost">Costo: ${money(p.costo)}</div><div class="sale">${money(p.venta)}</div></div><div class="productRight"><div class="stockText">STOCK: <span class="stockNumber">${Number(p.cantidad)}</span></div><div class="calcControls"><button class="minus">−</button><div class="calcQty">${q}</div><button class="plus">+</button></div></div><div class="productMenu"><button>⋮</button><div class="menuBox hidden"><button class="edit">Editar</button><button class="delete danger">Eliminar</button></div></div>`;el.querySelector(".plus").onclick=()=>changeCalc(p,1);el.querySelector(".minus").onclick=()=>changeCalc(p,-1);let m=el.querySelector(".menuBox");el.querySelector(".productMenu>button").onclick=e=>{e.stopPropagation();m.classList.toggle("hidden")};el.querySelector(".edit").onclick=()=>editProduct(p);el.querySelector(".delete").onclick=()=>deleteProduct(p);return el}function changeCalc(p,d){let n=Math.max(0,Math.min(Number(p.cantidad)||0,(calc[p.id]||0)+d));if(n)calc[p.id]=n;else delete calc[p.id];render()}function updateCalc(){let ids=Object.keys(calc),cost=0,sale=0,items=$("calcItems");items.innerHTML="";ids.forEach(id=>{let p=productos.find(x=>String(x.id)===String(id));if(!p)return;let q=calc[id];cost+=q*p.costo;sale+=q*p.venta;let r=document.createElement("div");r.className="calcItem";r.innerHTML=`<span>${esc(p.producto)} × ${q}</span><strong>${money(q*p.venta)}</strong>`;items.appendChild(r)});$("calcCost").textContent=money(cost);$("calcSale").textContent=money(sale);$("calcProfit").textContent=money(sale-cost);$("calcBadge").textContent=ids.reduce((a,id)=>a+calc[id],0)}
-function openModal(title,html,fn){$("modal").innerHTML=`<h3>${title}</h3>${html}<div class="modalActions"><button class="cancel">Cancelar</button><button class="confirm">Guardar</button></div>`;$("overlay").classList.add("show");$("modal").classList.add("show");$("modal .cancel").onclick=closeModal;$("modal .confirm").onclick=async()=>{try{await fn();closeModal();await load()}catch(e){toast(e.message)}}}function closeModal(){$("overlay").classList.remove("show");$("modal").classList.remove("show")}$("overlay").onclick=closeModal;
-function renameProvider(p){openModal("Renombrar proveedor",`<div class="field"><label>Nombre</label><input id="mName" value="${esc(p.nombre)}"></div>`,()=>api({accion:"renombrar_proveedor",id:p.id,nombre:$("mName").value}))}function adjustProvider(p){openModal("Ajustar precios",`<div class="field"><label>Monto</label><input id="mAmount" type="number" min="-1000" max="1000" value="0"></div><div class="checks"><label><input id="mCost" type="checkbox"> Proveedor / Costo</label><label><input id="mSale" type="checkbox"> Vendedor / Venta</label></div>`,()=>{let m=Math.max(-1000,Math.min(1000,Number($("mAmount").value)||0)),c=$("mCost").checked,s=$("mSale").checked;if(!c&&!s)throw Error("Seleccioná Costo, Venta o ambos.");return api({accion:"ajustar_precios",proveedor_id:p.id,monto:m,costo:c,venta:s})})}async function deleteProvider(p){if(confirm(`¿Eliminar el proveedor "${p.nombre}" y todos sus productos?`))try{await api({accion:"eliminar_proveedor",id:p.id});load()}catch(e){toast(e.message)}}function productForm(p=null){let opts=proveedores.map(x=>`<option value="${x.id}" ${p&&+p.proveedor_id===+x.id?"selected":""}>${esc(x.nombre)}</option>`).join("");return `<div class="field"><label>Producto</label><input id="mProduct" value="${p?esc(p.producto):""}"></div><div class="field"><label>Proveedor</label><select id="mProvider">${opts}</select></div><div class="field"><label>Capacidad</label><select id="mCapacity">${["Ninguno","128 GB","256 GB","512 GB","1 TB"].map(x=>`<option ${p?.capacidad===x?"selected":""}>${x}</option>`).join("")}</select></div><div class="field"><label>Precio de venta</label><input id="mSalePrice" type="number" min="0" value="${p?.venta||0}"></div><div class="field"><label>Costo</label><input id="mCostPrice" type="number" min="0" value="${p?.costo||0}"></div><div class="field"><label>Stock</label><input id="mStock" type="number" min="0" value="${p?.cantidad||0}"></div>`}function addProduct(){if(!proveedores.length)return toast("Primero agregá un proveedor.");openModal("Agregar producto",productForm(),()=>api({accion:"agregar_producto",proveedor_id:+$("mProvider").value,producto:$("mProduct").value,capacidad:$("mCapacity").value,venta:+$("mSalePrice").value||0,costo:+$("mCostPrice").value||0,cantidad:+$("mStock").value||0}))}function editProduct(p){openModal("Editar producto",productForm(p),()=>api({accion:"editar_producto",id:p.id,proveedor_id:+$("mProvider").value,producto:$("mProduct").value,capacidad:$("mCapacity").value,venta:+$("mSalePrice").value||0,costo:+$("mCostPrice").value||0,cantidad:+$("mStock").value||0}))}async function deleteProduct(p){if(confirm(`¿Eliminar "${p.producto}"?`))try{delete calc[p.id];await api({accion:"eliminar_producto",id:p.id});load()}catch(e){toast(e.message)}}
-$("addProductBtn").onclick=addProduct;$("search").oninput=render;$("calcBtn").onclick=()=>{$("sideCalc").classList.add("open");$("overlay").classList.add("show")};$("calcClose").onclick=()=>{$("sideCalc").classList.remove("open");$("overlay").classList.remove("show")};$("clearCalc").onclick=()=>{calc={};updateCalc();render()};
-function setupDrag(container,providerId){
-  const cards=[...container.querySelectorAll('.product')];
-  let active=null, pointerId=null, startY=0, dragging=false, longTimer=null;
 
-  cards.forEach(card=>{
-    card.draggable=false;
-    card.style.cursor='grab';
+const API =
+  "https://noisy-sound-2a71.agus-eloy-oviedo.workers.dev";
 
-    const clearDrag=()=>{
-      clearTimeout(longTimer);
-      if(active){
-        active.classList.remove('dragging');
-        active.style.cursor='grab';
+
+let proveedores = [];
+let productos = [];
+
+let draggedProduct = null;
+
+
+/*
+  CALCULADORA
+
+  Guarda únicamente las unidades seleccionadas
+  para la venta.
+
+  Ejemplo:
+
+  {
+    15: 2,
+    23: 1
+  }
+
+  significa:
+
+  producto 15 → 2 unidades
+  producto 23 → 1 unidad
+*/
+
+let calculadora = {};
+
+
+const $ = id =>
+  document.getElementById(id);
+
+
+function escapeHTML(text){
+
+  return String(text ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+function dinero(valor){
+
+  return new Intl.NumberFormat(
+    "es-AR",
+    {
+      style:"currency",
+      currency:"ARS",
+      maximumFractionDigits:0
+    }
+  ).format(Number(valor) || 0);
+
+}
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+$("loginForm").addEventListener(
+  "submit",
+  async event => {
+
+    event.preventDefault();
+
+    $("loginError").textContent = "";
+
+    try{
+
+      const response =
+        await fetch(
+          API + "/login",
+          {
+            method:"POST",
+            headers:{
+              "Content-Type":
+                "application/json"
+            },
+            body:JSON.stringify({
+
+              usuario:
+                $("loginUser")
+                  .value
+                  .trim(),
+
+              password:
+                $("loginPassword")
+                  .value
+
+            })
+          }
+        );
+
+
+      const result =
+        await response.json();
+
+
+      if(
+        !response.ok ||
+        result.ok === false
+      ){
+
+        throw new Error(
+          result.error ||
+          "Usuario o contraseña incorrectos"
+        );
+
       }
-      cards.forEach(c=>c.classList.remove('dropTarget'));
-      active=null; pointerId=null; dragging=false;
-    };
 
-    card.addEventListener('pointerdown',e=>{
-      if(e.button!==undefined && e.button!==0) return;
-      if(e.target.closest('button,input,select,a,.menuBox')) return;
 
-      active=card;
-      pointerId=e.pointerId;
-      startY=e.clientY;
-      dragging=false;
-      card.setPointerCapture?.(pointerId);
+      $("loginScreen")
+        .classList
+        .add("hidden");
 
-      longTimer=setTimeout(()=>{
-        if(active===card){
-          dragging=true;
-          card.classList.add('dragging');
-          card.style.cursor='grabbing';
+      $("app")
+        .classList
+        .remove("hidden");
+
+      await cargarStock();
+
+    }
+    catch(error){
+
+      $("loginError")
+        .textContent =
+          error.message;
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   STOCK
+===================================================== */
+
+async function cargarStock(){
+
+  try{
+
+    const response =
+      await fetch(
+        API + "/stock"
+      );
+
+
+    const result =
+      await response.json();
+
+
+    if(
+      !response.ok ||
+      result.ok === false
+    ){
+
+      throw new Error(
+        result.error ||
+        "No se pudo cargar el stock"
+      );
+
+    }
+
+
+    proveedores =
+      result.proveedores || [];
+
+    productos =
+      result.productos || [];
+
+
+    /*
+      Si algún producto fue eliminado,
+      lo sacamos de la calculadora.
+    */
+
+    const ids =
+      new Set(
+        productos.map(
+          p => Number(p.id)
+        )
+      );
+
+
+    Object.keys(calculadora)
+      .forEach(id => {
+
+        if(!ids.has(Number(id))){
+
+          delete calculadora[id];
+
         }
-      },180);
-    });
 
-    card.addEventListener('pointermove',e=>{
-      if(active!==card || e.pointerId!==pointerId) return;
-
-      const distance=Math.abs(e.clientY-startY);
-      if(!dragging){
-        if(distance>10){
-          clearTimeout(longTimer);
-          dragging=true;
-          card.classList.add('dragging');
-          card.style.cursor='grabbing';
-        }else return;
-      }
-
-      e.preventDefault();
-      const others=[...container.querySelectorAll('.product')].filter(c=>c!==active);
-      const target=others.find(c=>{
-        const r=c.getBoundingClientRect();
-        return e.clientY>=r.top && e.clientY<=r.bottom;
       });
 
-      if(target){
-        cards.forEach(c=>c.classList.remove('dropTarget'));
-        target.classList.add('dropTarget');
-        const r=target.getBoundingClientRect();
-        if(e.clientY < r.top+r.height/2) container.insertBefore(active,target);
-        else container.insertBefore(active,target.nextSibling);
-      }
-    },{passive:false});
 
-    card.addEventListener('pointerup',async e=>{
-      if(active!==card || e.pointerId!==pointerId) return;
-      clearTimeout(longTimer);
-      const wasDragging=dragging;
-      try{card.releasePointerCapture?.(pointerId)}catch{}
-      if(wasDragging){
-        card.classList.remove('dragging');
-        cards.forEach(c=>c.classList.remove('dropTarget'));
-        active=null;pointerId=null;dragging=false;
-        await saveDomOrder(container,providerId);
-      }else{
-        clearDrag();
-      }
-    });
+    render();
 
-    card.addEventListener('pointercancel',()=>clearDrag());
-    card.addEventListener('lostpointercapture',()=>{
-      if(active===card && !dragging) clearDrag();
-    });
-  });
+    renderCalculadora();
+
+  }
+  catch(error){
+
+    $("stockContainer").innerHTML = `
+
+      <div class="empty">
+
+        <div class="empty-title">
+          No se pudo cargar el stock
+        </div>
+
+        <div class="empty-text">
+          ${escapeHTML(error.message)}
+        </div>
+
+      </div>
+
+    `;
+
+  }
+
 }
-async function saveDomOrder(container,providerId){
-  const ids=[...container.querySelectorAll('.product')].map(x=>Number(x.dataset.id)).filter(Number.isFinite);
-  if(!ids.length)return;
+
+
+/* =====================================================
+   API
+===================================================== */
+
+async function apiPost(data){
+
+  const response =
+    await fetch(
+      API,
+      {
+        method:"POST",
+        headers:{
+          "Content-Type":
+            "application/json"
+        },
+        body:
+          JSON.stringify(data)
+      }
+    );
+
+
+  let result;
+
   try{
-    await api({accion:'reordenar_productos',proveedor_id:Number(providerId),ids});
-    showToast('Orden guardado');
-  }catch(e){showToast(e.message)}
+
+    result =
+      await response.json();
+
+  }
+  catch{
+
+    throw new Error(
+      "El servidor devolvió una respuesta inválida"
+    );
+
+  }
+
+
+  if(
+    !response.ok ||
+    result.ok === false
+  ){
+
+    throw new Error(
+      result.error ||
+      "Error del servidor"
+    );
+
+  }
+
+
+  return result;
+
 }
 
-if(token){appShow();load()}else loginShow();
-</script></body></html>''' > /mnt/data/stock_iphone_actualizado.html
-ls -lh /mnt/data/stock_iphone_actualizado.html
+
+/* =====================================================
+   RENDER STOCK
+===================================================== */
+
+function render(){
+
+  const container =
+    $("stockContainer");
+
+  const buscar =
+    $("buscar")
+      .value
+      .trim()
+      .toLowerCase();
+
+
+  if(!proveedores.length){
+
+    container.innerHTML = `
+
+      <div class="empty">
+
+        <div class="empty-title">
+          Todavía no hay proveedores
+        </div>
+
+        <div class="empty-text">
+          Agregá tu primer proveedor para comenzar a cargar productos.
+        </div>
+
+        <br>
+
+        <button
+          class="btn btn-gold"
+          onclick="abrirProveedor()"
+        >
+          ＋ Agregar proveedor
+        </button>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  let html = "";
+
+
+  proveedores.forEach(proveedor => {
+
+    let lista =
+      productos.filter(
+        p =>
+          Number(p.proveedor_id) ===
+          Number(proveedor.id)
+      );
+
+
+    if(buscar){
+
+      lista =
+        lista.filter(p => {
+
+          const texto = [
+
+            p.producto,
+            p.capacidad,
+            proveedor.nombre
+
+          ]
+          .join(" ")
+          .toLowerCase();
+
+          return texto.includes(buscar);
+
+        });
+
+    }
+
+
+    html += `
+
+      <section
+        class="provider"
+      >
+
+        <div class="provider-head">
+
+          <div class="provider-name">
+
+            <div class="provider-icon">
+              
+            </div>
+
+            <div class="provider-title">
+              ${escapeHTML(proveedor.nombre)}
+            </div>
+
+          </div>
+
+
+          <div class="provider-actions">
+
+            <button
+              class="icon-btn"
+              title="Renombrar"
+              onclick="renombrarProveedor(${proveedor.id})"
+            >
+              ✎
+            </button>
+
+            <button
+              class="icon-btn"
+              title="Ajustar precios"
+              onclick="ajustarPrecios(${proveedor.id})"
+            >
+              $
+            </button>
+
+            <button
+              class="icon-btn"
+              title="Eliminar"
+              onclick="eliminarProveedor(${proveedor.id})"
+            >
+              🗑
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="products"
+          data-products="${proveedor.id}"
+        >
+
+    `;
+
+
+    if(!lista.length){
+
+      html += `
+
+        <div
+          style="
+            padding:18px;
+            text-align:center;
+            color:var(--muted);
+            font-size:12px;
+          "
+        >
+          ${
+            buscar
+              ? "No se encontraron productos."
+              : "Todavía no hay productos en este proveedor."
+          }
+        </div>
+
+      `;
+
+    }
+
+
+    lista.forEach(p => {
+
+      html += productoHTML(p);
+
+    });
+
+
+    html += `
+
+          <button
+            class="add-product"
+            onclick="abrirProducto(null,${proveedor.id})"
+          >
+            ＋ Agregar producto a ${escapeHTML(proveedor.nombre)}
+          </button>
+
+        </div>
+
+      </section>
+
+    `;
+
+  });
+
+
+  container.innerHTML = html;
+
+  activarDragDrop();
+
+}
+
+
+/* =====================================================
+   PRODUCTO
+===================================================== */
+
+function productoHTML(p){
+
+  const stock =
+    Number(p.cantidad) || 0;
+
+  const seleccionado =
+    Number(
+      calculadora[p.id] || 0
+    );
+
+
+  return `
+
+    <div
+      class="product"
+      draggable="true"
+      data-id="${p.id}"
+    >
+
+      <div
+        class="drag"
+        title="Arrastrar para ordenar"
+      >
+        ☷
+      </div>
+
+
+      <div class="product-main">
+
+        <div class="product-name">
+          ${escapeHTML(p.producto)}
+        </div>
+
+        <span class="product-capacity">
+          ${escapeHTML(p.capacidad || "Ninguno")}
+        </span>
+
+      </div>
+
+
+      <div class="price">
+
+        <span class="price-label">
+          Costo
+        </span>
+
+        <span class="price-value">
+          ${dinero(p.costo)}
+        </span>
+
+      </div>
+
+
+      <div class="price">
+
+        <span class="price-label">
+          Venta
+        </span>
+
+        <span class="price-value">
+          ${dinero(p.venta)}
+        </span>
+
+      </div>
+
+
+      <div class="stock">
+
+        <button
+          onclick="agregarCalculadora(${p.id})"
+          title="Agregar a la venta"
+        >
+          +
+        </button>
+
+        <span
+          class="
+            stock-number
+            ${stock === 0 ? "stock-zero" : ""}
+          "
+        >
+          ${stock}
+        </span>
+
+        <button
+          onclick="quitarCalculadora(${p.id})"
+          title="Quitar de la venta"
+        >
+          −
+        </button>
+
+      </div>
+
+
+      <div class="product-actions">
+
+        <span
+          style="
+            color:var(--gold2);
+            font-size:11px;
+            min-width:18px;
+            text-align:center;
+          "
+          title="Cantidad agregada a la calculadora"
+        >
+          ${
+            seleccionado > 0
+              ? seleccionado
+              : ""
+          }
+        </span>
+
+        <button
+          class="icon-btn"
+          title="Editar"
+          onclick="abrirProducto(${p.id})"
+        >
+          ✎
+        </button>
+
+        <button
+          class="icon-btn"
+          title="Eliminar"
+          onclick="eliminarProducto(${p.id})"
+        >
+          🗑
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   CALCULADORA
+===================================================== */
+
+function agregarCalculadora(id){
+
+  const producto =
+    productos.find(
+      p =>
+        Number(p.id) ===
+        Number(id)
+    );
+
+
+  if(!producto){
+    return;
+  }
+
+
+  const stock =
+    Math.max(
+      0,
+      Number(producto.cantidad) || 0
+    );
+
+
+  const actual =
+    Number(
+      calculadora[id] || 0
+    );
+
+
+  /*
+    No dejamos agregar más unidades
+    de las que existen en stock.
+  */
+
+  if(actual >= stock){
+
+    alert(
+      `No hay más stock disponible de ${producto.producto}.`
+    );
+
+    return;
+
+  }
+
+
+  calculadora[id] =
+    actual + 1;
+
+
+  render();
+
+  renderCalculadora();
+
+  abrirCalculadora();
+
+}
+
+
+function quitarCalculadora(id){
+
+  const actual =
+    Number(
+      calculadora[id] || 0
+    );
+
+
+  if(actual <= 0){
+    return;
+  }
+
+
+  if(actual === 1){
+
+    delete calculadora[id];
+
+  }
+  else{
+
+    calculadora[id] =
+      actual - 1;
+
+  }
+
+
+  render();
+
+  renderCalculadora();
+
+}
+
+
+function renderCalculadora(){
+
+  const container =
+    $("calcProducts");
+
+
+  const seleccionados =
+    productos.filter(
+      p =>
+        Number(
+          calculadora[p.id] || 0
+        ) > 0
+    );
+
+
+  if(!seleccionados.length){
+
+    container.innerHTML = `
+
+      <div class="calc-empty">
+
+        <div style="
+          font-size:25px;
+          margin-bottom:10px;
+        ">
+          🛒
+        </div>
+
+        Todavía no agregaste equipos.
+
+        <div style="
+          margin-top:6px;
+          font-size:11px;
+        ">
+          Usá + en los productos para agregarlos.
+        </div>
+
+      </div>
+
+    `;
+
+  }
+  else{
+
+    container.innerHTML =
+      seleccionados
+        .map(
+          p =>
+            calculadoraProductoHTML(p)
+        )
+        .join("");
+
+  }
+
+
+  calcularTotales();
+
+}
+
+
+function calculadoraProductoHTML(p){
+
+  const cantidad =
+    Number(
+      calculadora[p.id] || 0
+    );
+
+
+  const stock =
+    Number(
+      p.cantidad || 0
+    );
+
+
+  const subtotal =
+    cantidad *
+    (Number(p.venta) || 0);
+
+
+  return `
+
+    <div class="calc-item">
+
+      <div class="calc-item-top">
+
+        <div class="calc-item-name">
+
+          <div class="calc-item-product">
+            ${escapeHTML(p.producto)}
+          </div>
+
+          <div class="calc-item-capacity">
+            ${escapeHTML(p.capacidad || "Ninguno")}
+          </div>
+
+        </div>
+
+
+        <div class="calc-item-price">
+          ${dinero(subtotal)}
+        </div>
+
+      </div>
+
+
+      <div class="calc-item-bottom">
+
+        <div class="calc-stock">
+          Stock disponible:
+          <strong>${stock}</strong>
+        </div>
+
+
+        <div class="calc-qty">
+
+          <button
+            onclick="quitarCalculadora(${p.id})"
+          >
+            −
+          </button>
+
+          <div class="calc-qty-number">
+            ${cantidad}
+          </div>
+
+          <button
+            onclick="agregarCalculadora(${p.id})"
+          >
+            +
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+function calcularTotales(){
+
+  let venta = 0;
+  let costo = 0;
+
+
+  Object.keys(calculadora)
+    .forEach(id => {
+
+      const cantidad =
+        Number(
+          calculadora[id] || 0
+        );
+
+
+      const producto =
+        productos.find(
+          p =>
+            Number(p.id) ===
+            Number(id)
+        );
+
+
+      if(!producto){
+        return;
+      }
+
+
+      venta +=
+        cantidad *
+        (Number(producto.venta) || 0);
+
+
+      costo +=
+        cantidad *
+        (Number(producto.costo) || 0);
+
+    });
+
+
+  const ganancia =
+    venta - costo;
+
+
+  $("calcVenta")
+    .textContent =
+      dinero(venta);
+
+
+  $("calcCosto")
+    .textContent =
+      dinero(costo);
+
+
+  $("calcGanancia")
+    .textContent =
+      dinero(ganancia);
+
+}
+
+
+function abrirCalculadora(){
+
+  $("calcOverlay")
+    .classList
+    .add("open");
+
+  $("calcPanel")
+    .classList
+    .add("open");
+
+  renderCalculadora();
+
+}
+
+
+function cerrarCalculadora(){
+
+  $("calcOverlay")
+    .classList
+    .remove("open");
+
+  $("calcPanel")
+    .classList
+    .remove("open");
+
+}
+
+
+$("btnCalculadora")
+  .addEventListener(
+    "click",
+    abrirCalculadora
+  );
+
+
+$("calcClose")
+  .addEventListener(
+    "click",
+    cerrarCalculadora
+  );
+
+
+$("calcOverlay")
+  .addEventListener(
+    "click",
+    cerrarCalculadora
+  );
+
+
+$("calcClear")
+  .addEventListener(
+    "click",
+    () => {
+
+      calculadora = {};
+
+      render();
+
+      renderCalculadora();
+
+    }
+  );
+
+
+/* =====================================================
+   DRAG & DROP
+===================================================== */
+
+function activarDragDrop(){
+
+  document
+    .querySelectorAll(".product")
+    .forEach(element => {
+
+      element.addEventListener(
+        "dragstart",
+        () => {
+
+          draggedProduct =
+            element;
+
+          element.style.opacity =
+            ".45";
+
+        }
+      );
+
+
+      element.addEventListener(
+        "dragend",
+        () => {
+
+          element.style.opacity =
+            "1";
+
+          draggedProduct =
+            null;
+
+        }
+      );
+
+
+      element.addEventListener(
+        "dragover",
+        event => {
+
+          event.preventDefault();
+
+        }
+      );
+
+
+      element.addEventListener(
+        "drop",
+        async event => {
+
+          event.preventDefault();
+
+
+          if(
+            !draggedProduct ||
+            draggedProduct === element
+          ){
+            return;
+          }
+
+
+          const container =
+            element.parentElement;
+
+
+          const items =
+            [
+              ...container
+                .querySelectorAll(".product")
+            ];
+
+
+          const from =
+            items.indexOf(
+              draggedProduct
+            );
+
+
+          const to =
+            items.indexOf(
+              element
+            );
+
+
+          if(from < to){
+
+            container.insertBefore(
+              draggedProduct,
+              element.nextSibling
+            );
+
+          }
+          else{
+
+            container.insertBefore(
+              draggedProduct,
+              element
+            );
+
+          }
+
+
+          const ids =
+            [
+              ...container
+                .querySelectorAll(".product")
+            ]
+            .map(
+              el =>
+                Number(
+                  el.dataset.id
+                )
+            );
+
+
+          const proveedorId =
+            Number(
+              container.dataset.products
+            );
+
+
+          try{
+
+            await apiPost({
+
+              accion:
+                "ordenar_productos",
+
+              proveedor_id:
+                proveedorId,
+
+              ids
+
+            });
+
+
+            await cargarStock();
+
+          }
+          catch(error){
+
+            alert(
+              error.message
+            );
+
+            await cargarStock();
+
+          }
+
+        }
+      );
+
+    });
+
+}
+
+
+/* =====================================================
+   MODALES
+===================================================== */
+
+function abrirModal(){
+
+  $("modalBackdrop")
+    .classList
+    .remove("hidden");
+
+}
+
+
+function cerrarModal(){
+
+  $("modalBackdrop")
+    .classList
+    .add("hidden");
+
+}
+
+
+$("modalClose")
+  .addEventListener(
+    "click",
+    cerrarModal
+  );
+
+
+$("modalBackdrop")
+  .addEventListener(
+    "click",
+    event => {
+
+      if(
+        event.target ===
+        $("modalBackdrop")
+      ){
+
+        cerrarModal();
+
+      }
+
+    }
+  );
+
+
+/* =====================================================
+   PROVEEDORES
+===================================================== */
+
+function abrirProveedor(){
+
+  $("modalTitle")
+    .textContent =
+      "Nuevo proveedor";
+
+
+  $("modalBody")
+    .innerHTML = `
+
+      <div class="field">
+
+        <label>
+          Nombre del proveedor
+        </label>
+
+        <input
+          id="nuevoProveedor"
+          type="text"
+          placeholder="Ej: Proveedor USA"
+          autofocus
+        >
+
+      </div>
+
+    `;
+
+
+  $("modalFooter")
+    .innerHTML = `
+
+      <button
+        class="btn"
+        onclick="cerrarModal()"
+      >
+        Cancelar
+      </button>
+
+      <button
+        class="btn btn-gold"
+        onclick="crearProveedor()"
+      >
+        Guardar
+      </button>
+
+    `;
+
+
+  abrirModal();
+
+}
+
+
+async function crearProveedor(){
+
+  const nombre =
+    $("nuevoProveedor")
+      .value
+      .trim();
+
+
+  if(!nombre){
+
+    alert(
+      "Ingresá un nombre."
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    await apiPost({
+
+      accion:
+        "crear_proveedor",
+
+      nombre
+
+    });
+
+
+    cerrarModal();
+
+    await cargarStock();
+
+  }
+  catch(error){
+
+    alert(error.message);
+
+  }
+
+}
+
+
+async function renombrarProveedor(id){
+
+  const proveedor =
+    proveedores.find(
+      p =>
+        Number(p.id) ===
+        Number(id)
+    );
+
+
+  if(!proveedor){
+    return;
+  }
+
+
+  const nombre =
+    prompt(
+      "Nuevo nombre del proveedor:",
+      proveedor.nombre
+    );
+
+
+  if(
+    nombre === null ||
+    !nombre.trim()
+  ){
+    return;
+  }
+
+
+  try{
+
+    await apiPost({
+
+      accion:
+        "renombrar_proveedor",
+
+      id,
+
+      nombre:
+        nombre.trim()
+
+    });
+
+
+    await cargarStock();
+
+  }
+  catch(error){
+
+    alert(error.message);
+
+  }
+
+}
+
+
+async function eliminarProveedor(id){
+
+  const proveedor =
+    proveedores.find(
+      p =>
+        Number(p.id) ===
+        Number(id)
+    );
+
+
+  if(!proveedor){
+    return;
+  }
+
+
+  if(
+    !confirm(
+      `¿Eliminar "${proveedor.nombre}" y todos sus productos?`
+    )
+  ){
+    return;
+  }
+
+
+  try{
+
+    await apiPost({
+
+      accion:
+        "eliminar_proveedor",
+
+      id
+
+    });
+
+
+    await cargarStock();
+
+  }
+  catch(error){
+
+    alert(error.message);
+
+  }
+
+}
+
+
+/* =====================================================
+   PRODUCTOS
+===================================================== */
+
+function abrirProducto(
+  productoId=null,
+  proveedorInicial=null
+){
+
+  const producto =
+    productoId
+      ? productos.find(
+          p =>
+            Number(p.id) ===
+            Number(productoId)
+        )
+      : null;
+
+
+  $("modalTitle")
+    .textContent =
+      producto
+        ? "Editar producto"
+        : "Nuevo producto";
+
+
+  const proveedorSeleccionado =
+    producto
+      ? producto.proveedor_id
+      : proveedorInicial ||
+        (proveedores[0]?.id || "");
+
+
+  $("modalBody")
+    .innerHTML = `
+
+      <div class="field">
+
+        <label>
+          Proveedor
+        </label>
+
+        <select
+          id="productoProveedor"
+        >
+
+          ${
+            proveedores
+              .map(
+                p => `
+
+                  <option
+                    value="${p.id}"
+                    ${
+                      Number(p.id) ===
+                      Number(proveedorSeleccionado)
+                        ? "selected"
+                        : ""
+                    }
+                  >
+                    ${escapeHTML(p.nombre)}
+                  </option>
+
+                `
+              )
+              .join("")
+          }
+
+        </select>
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Producto
+        </label>
+
+        <input
+          id="productoNombre"
+          type="text"
+          value="${escapeHTML(
+            producto?.producto || ""
+          )}"
+          placeholder="Ej: iPhone 15 Pro"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Capacidad
+        </label>
+
+        <select
+          id="productoCapacidad"
+        >
+
+          <option value="Ninguno">
+            Ninguno
+          </option>
+
+          <option value="128 GB">
+            128 GB
+          </option>
+
+          <option value="256 GB">
+            256 GB
+          </option>
+
+          <option value="512 GB">
+            512 GB
+          </option>
+
+          <option value="1 TB">
+            1 TB
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Precio proveedor / costo
+        </label>
+
+        <input
+          id="productoCosto"
+          type="number"
+          min="0"
+          value="${producto?.costo ?? 0}"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Precio de venta
+        </label>
+
+        <input
+          id="productoVenta"
+          type="number"
+          min="0"
+          value="${producto?.venta ?? 0}"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Stock
+        </label>
+
+        <input
+          id="productoCantidad"
+          type="number"
+          min="0"
+          value="${producto?.cantidad ?? 0}"
+        >
+
+      </div>
+
+    `;
+
+
+  if(producto){
+
+    $("productoCapacidad")
+      .value =
+        producto.capacidad ||
+        "Ninguno";
+
+  }
+
+
+  $("modalFooter")
+    .innerHTML = `
+
+      <button
+        class="btn"
+        onclick="cerrarModal()"
+      >
+        Cancelar
+      </button>
+
+      <button
+        class="btn btn-gold"
+        onclick="guardarProducto(${productoId || "null"})"
+      >
+        Guardar
+      </button>
+
+    `;
+
+
+  abrirModal();
+
+}
+
+
+async function guardarProducto(id){
+
+  const proveedor_id =
+    Number(
+      $("productoProveedor")
+        .value
+    );
+
+
+  const producto =
+    $("productoNombre")
+      .value
+      .trim();
+
+
+  const capacidad =
+    $("productoCapacidad")
+      .value;
+
+
+  const costo =
+    Number(
+      $("productoCosto")
+        .value
+    ) || 0;
+
+
+  const venta =
+    Number(
+      $("productoVenta")
+        .value
+    ) || 0;
+
+
+  const cantidad =
+    Math.max(
+      0,
+      Number(
+        $("productoCantidad")
+          .value
+      ) || 0
+    );
+
+
+  if(!proveedor_id){
+
+    alert(
+      "Primero tenés que crear un proveedor."
+    );
+
+    return;
+
+  }
+
+
+  if(!producto){
+
+    alert(
+      "Ingresá el nombre del producto."
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    if(id){
+
+      await apiPost({
+
+        accion:
+          "editar_producto",
+
+        id,
+        proveedor_id,
+        producto,
+        capacidad,
+        costo,
+        venta,
+        cantidad
+
+      });
+
+    }
+    else{
+
+      await apiPost({
+
+        accion:
+          "agregar_producto",
+
+        proveedor_id,
+        producto,
+        capacidad,
+        costo,
+        venta,
+        cantidad
+
+      });
+
+    }
+
+
+    cerrarModal();
+
+    await cargarStock();
+
+  }
+  catch(error){
+
+    alert(error.message);
+
+  }
+
+}
+
+
+async function eliminarProducto(id){
+
+  const producto =
+    productos.find(
+      p =>
+        Number(p.id) ===
+        Number(id)
+    );
+
+
+  if(!producto){
+    return;
+  }
+
+
+  if(
+    !confirm(
+      `¿Eliminar "${producto.producto}"?`
+    )
+  ){
+    return;
+  }
+
+
+  try{
+
+    await apiPost({
+
+      accion:
+        "eliminar_producto",
+
+      id
+
+    });
+
+
+    delete calculadora[id];
+
+    await cargarStock();
+
+  }
+  catch(error){
+
+    alert(error.message);
+
+  }
+
+}
+
+
+/* =====================================================
+   AJUSTAR PRECIOS
+===================================================== */
+
+async function ajustarPrecios(id){
+
+  const proveedor =
+    proveedores.find(
+      p =>
+        Number(p.id) ===
+        Number(id)
+    );
+
+
+  if(!proveedor){
+    return;
+  }
+
+
+  const monto =
+    prompt(
+      `Modificar precios de ${proveedor.nombre}\n\n` +
+      `Ejemplo: 10000 suma $10.000\n` +
+      `Ejemplo: -5000 resta $5.000`,
+      "0"
+    );
+
+
+  if(monto === null){
+    return;
+  }
+
+
+  const numero =
+    Number(monto);
+
+
+  if(!Number.isFinite(numero)){
+
+    alert(
+      "Monto inválido."
+    );
+
+    return;
+
+  }
+
+
+  const tipo =
+    prompt(
+      "Escribí:\n\n" +
+      "COSTO\n" +
+      "VENTA\n" +
+      "AMBOS",
+      "VENTA"
+    );
+
+
+  if(tipo === null){
+    return;
+  }
+
+
+  const valor =
+    tipo
+      .trim()
+      .toUpperCase();
+
+
+  const modificarCosto =
+    valor === "COSTO" ||
+    valor === "AMBOS";
+
+
+  const modificarVenta =
+    valor === "VENTA" ||
+    valor === "AMBOS";
+
+
+  if(
+    !modificarCosto &&
+    !modificarVenta
+  ){
+
+    alert(
+      "Escribí COSTO, VENTA o AMBOS."
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    await apiPost({
+
+      accion:
+        "ajustar_precios",
+
+      proveedor_id:
+        id,
+
+      monto:
+        numero,
+
+      costo:
+        modificarCosto,
+
+      venta:
+        modificarVenta
+
+    });
+
+
+    await cargarStock();
+
+  }
+  catch(error){
+
+    alert(error.message);
+
+  }
+
+}
+
+
+/* =====================================================
+   BOTONES
+===================================================== */
+
+$("btnProveedor")
+  .addEventListener(
+    "click",
+    abrirProveedor
+  );
+
+
+$("btnProducto")
+  .addEventListener(
+    "click",
+    () => {
+
+      if(!proveedores.length){
+
+        abrirProveedor();
+
+        return;
+
+      }
+
+      abrirProducto();
+
+    }
+  );
+
+
+$("buscar")
+  .addEventListener(
+    "input",
+    render
+  );
+
+</script>
+
+</body>
+</html>
