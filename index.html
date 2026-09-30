@@ -32,7 +32,6 @@ button{
 .hidden{
   display:none!important;
 }
-/* LOGIN */
 #loginScreen{
   min-height:100vh;
   display:flex;
@@ -93,7 +92,6 @@ input:focus,select:focus{
   font-size:13px;
   margin-top:12px;
 }
-/* APP */
 .app{
   min-height:100vh;
 }
@@ -230,10 +228,6 @@ input:focus,select:focus{
   color:var(--muted);
   font-size:12px;
 }
-.stock{
-  color:var(--muted);
-  font-size:12px;
-}
 .empty{
   color:var(--muted);
   text-align:center;
@@ -290,7 +284,6 @@ input:focus,select:focus{
 </style>
 </head>
 <body>
-<!-- LOGIN -->
 <div id="loginScreen">
   <form class="loginBox" id="loginForm">
     <div class="loginTitle">
@@ -329,14 +322,15 @@ input:focus,select:focus{
     ></div>
   </form>
 </div>
-<!-- APP -->
 <main
   class="app hidden"
   id="app"
 >
 <header class="topbar">
   <div>
-    <div class="brandUser">Agustín</div>
+    <div class="brandUser">
+      Agustín
+    </div>
     <div class="brandName">
       <span>Stock</span> iPhone
     </div>
@@ -375,7 +369,6 @@ input:focus,select:focus{
   </section>
 </div>
 </main>
-<!-- MODAL -->
 <div
   class="modal hidden"
   id="modal"
@@ -409,20 +402,25 @@ const $ = id =>
   document.getElementById(id);
 /* =========================
    SESIÓN
-   SIN EXPIRACIÓN
 ========================= */
 function saveToken(newToken){
-  token = String(newToken || "").trim();
-  if(token){
-    localStorage.setItem(
-      TOKEN_KEY,
-      token
+  token =
+    String(newToken || "").trim();
+  if(!token){
+    throw new Error(
+      "El servidor no devolvió un token de sesión."
     );
   }
+  localStorage.setItem(
+    TOKEN_KEY,
+    token
+  );
 }
 function getStoredToken(){
   return (
-    localStorage.getItem(TOKEN_KEY) || ""
+    localStorage.getItem(
+      TOKEN_KEY
+    ) || ""
   ).trim();
 }
 function clearSession(){
@@ -430,13 +428,17 @@ function clearSession(){
   localStorage.removeItem(
     TOKEN_KEY
   );
-  $("app").classList.add("hidden");
-  $("loginScreen").classList.remove("hidden");
+  $("app")
+    .classList.add("hidden");
+  $("loginScreen")
+    .classList.remove("hidden");
 }
 function authHeaders(){
   return {
-    "Content-Type":"application/json",
-    "Accept":"application/json",
+    "Content-Type":
+      "application/json",
+    "Accept":
+      "application/json",
     "Authorization":
       "Bearer " + token
   };
@@ -444,7 +446,10 @@ function authHeaders(){
 /* =========================
    LOGIN
 ========================= */
-async function login(usuario,password){
+async function login(
+  usuario,
+  password
+){
   const response =
     await fetch(
       API_URL + "/login",
@@ -457,73 +462,45 @@ async function login(usuario,password){
             "application/json"
         },
         body:JSON.stringify({
-          usuario,
-          password
+          usuario:usuario,
+          password:password
         }),
         cache:"no-store"
       }
     );
   let data;
   try{
-    data = await response.json();
+    data =
+      await response.json();
   }catch{
     throw new Error(
-      "El servidor devolvió una respuesta inválida."
+      "El servidor no devolvió JSON."
     );
   }
   if(
     !response.ok ||
-    !data.ok ||
-    !data.token
+    !data.ok
   ){
     throw new Error(
       data.error ||
-      "No se pudo iniciar sesión."
+      "Error de inicio de sesión."
+    );
+  }
+  if(!data.token){
+    throw new Error(
+      "El servidor aceptó el usuario pero no devolvió una sesión."
     );
   }
   saveToken(data.token);
   return true;
 }
 /* =========================
-   API
-========================= */
-async function api(body){
-  const response =
-    await fetch(
-      API_URL,
-      {
-        method:"POST",
-        headers:authHeaders(),
-        body:JSON.stringify(body),
-        cache:"no-store"
-      }
-    );
-  let data;
-  try{
-    data = await response.json();
-  }catch{
-    throw new Error(
-      "Respuesta inválida del servidor."
-    );
-  }
-  if(response.status === 401){
-    clearSession();
-    throw new Error(
-      "Sesión inválida. Volvé a iniciar sesión."
-    );
-  }
-  if(!response.ok || !data.ok){
-    throw new Error(
-      data.error ||
-      "Error del servidor."
-    );
-  }
-  return data;
-}
-/* =========================
-   CARGAR
+   CARGAR STOCK
 ========================= */
 async function load(){
+  if(!token){
+    return false;
+  }
   try{
     const response =
       await fetch(
@@ -541,19 +518,23 @@ async function load(){
       );
     let data;
     try{
-      data = await response.json();
+      data =
+        await response.json();
     }catch{
       throw new Error(
-        "Respuesta inválida del servidor."
+        "El servidor no devolvió JSON."
       );
     }
     if(response.status === 401){
       clearSession();
       throw new Error(
-        "Sesión inválida."
+        "El servidor rechazó la sesión."
       );
     }
-    if(!response.ok || !data.ok){
+    if(
+      !response.ok ||
+      !data.ok
+    ){
       throw new Error(
         data.error ||
         "No se pudieron cargar los datos."
@@ -563,17 +544,69 @@ async function load(){
       data.proveedores || [],
       data.productos || []
     );
-    $("loginScreen").classList.add("hidden");
-    $("app").classList.remove("hidden");
+    $("loginScreen")
+      .classList.add("hidden");
+    $("app")
+      .classList.remove("hidden");
     return true;
   }catch(error){
-    console.error(error);
+    console.error(
+      "ERROR LOAD:",
+      error
+    );
     $("stock").innerHTML =
       `<div class="empty">
         ${escapeHtml(error.message)}
       </div>`;
     return false;
   }
+}
+/* =========================
+   API POST
+========================= */
+async function api(body){
+  if(!token){
+    throw new Error(
+      "No hay una sesión activa."
+    );
+  }
+  const response =
+    await fetch(
+      API_URL,
+      {
+        method:"POST",
+        headers:
+          authHeaders(),
+        body:
+          JSON.stringify(body),
+        cache:"no-store"
+      }
+    );
+  let data;
+  try{
+    data =
+      await response.json();
+  }catch{
+    throw new Error(
+      "El servidor no devolvió JSON."
+    );
+  }
+  if(response.status === 401){
+    clearSession();
+    throw new Error(
+      "El servidor rechazó la sesión."
+    );
+  }
+  if(
+    !response.ok ||
+    !data.ok
+  ){
+    throw new Error(
+      data.error ||
+      "Error del servidor."
+    );
+  }
+  return data;
 }
 /* =========================
    ESCAPE
@@ -589,7 +622,10 @@ function escapeHtml(value){
 /* =========================
    RENDER
 ========================= */
-function render(proveedores,productos){
+function render(
+  proveedores,
+  productos
+){
   const stock =
     $("stock");
   if(!proveedores.length){
@@ -600,21 +636,32 @@ function render(proveedores,productos){
     return;
   }
   stock.innerHTML = "";
-  for(const proveedor of proveedores){
-    const productosProveedor =
+  for(
+    const proveedor
+    of proveedores
+  ){
+    const lista =
       productos.filter(
         p =>
-          Number(p.proveedor_id) ===
-          Number(proveedor.id)
+          Number(
+            p.proveedor_id
+          ) ===
+          Number(
+            proveedor.id
+          )
       );
     const box =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
     box.className =
       "provider";
     box.innerHTML = `
       <div class="providerHead">
         <div class="providerName">
-          ${escapeHtml(proveedor.nombre)}
+          ${escapeHtml(
+            proveedor.nombre
+          )}
         </div>
         <div class="actions">
           <button
@@ -645,24 +692,42 @@ function render(proveedores,productos){
       </div>
       <div class="products">
         ${
-          productosProveedor.length
-          ? productosProveedor.map(p => `
+          lista.length
+          ?
+          lista.map(p => `
             <div class="product">
               <div>
                 <div class="productName">
-                  ${escapeHtml(p.producto)}
+                  ${escapeHtml(
+                    p.producto
+                  )}
                 </div>
                 <div class="productInfo">
-                  ${escapeHtml(p.capacidad)}
-                  · Stock: ${Number(p.cantidad || 0)}
+                  ${escapeHtml(
+                    p.capacidad
+                  )}
+                  · Stock:
+                  ${Number(
+                    p.cantidad || 0
+                  )}
                 </div>
               </div>
               <div class="productPrices">
                 <div class="sale">
-                  Venta: $${Number(p.venta || 0).toLocaleString("es-AR")}
+                  Venta:
+                  $${Number(
+                    p.venta || 0
+                  ).toLocaleString(
+                    "es-AR"
+                  )}
                 </div>
                 <div class="cost">
-                  Costo: $${Number(p.costo || 0).toLocaleString("es-AR")}
+                  Costo:
+                  $${Number(
+                    p.costo || 0
+                  ).toLocaleString(
+                    "es-AR"
+                  )}
                 </div>
                 <div class="actions">
                   <button
@@ -691,50 +756,67 @@ function render(proveedores,productos){
     stock.appendChild(box);
   }
   stock
-    .querySelectorAll("button[data-action]")
+    .querySelectorAll(
+      "button[data-action]"
+    )
     .forEach(button => {
       button.onclick =
-        () => handleAction(
-          button.dataset.action,
-          Number(button.dataset.id)
-        );
+        () =>
+          handleAction(
+            button.dataset.action,
+            Number(
+              button.dataset.id
+            )
+          );
     });
 }
 /* =========================
    MODAL
 ========================= */
-function openModal(title,content,onConfirm){
-  $("modalTitle").textContent =
-    title;
-  $("modalContent").innerHTML =
-    content;
-  $("modal").classList.remove(
-    "hidden"
-  );
-  $("modalConfirm").onclick =
-    async () => {
-      try{
-        await onConfirm();
-        closeModal();
-        await load();
-      }catch(error){
-        alert(error.message);
-      }
-    };
+function openModal(
+  title,
+  content,
+  onConfirm
+){
+  $("modalTitle")
+    .textContent = title;
+  $("modalContent")
+    .innerHTML = content;
+  $("modal")
+    .classList.remove(
+      "hidden"
+    );
+  $("modalConfirm")
+    .onclick =
+      async () => {
+        try{
+          await onConfirm();
+          closeModal();
+          await load();
+        }catch(error){
+          alert(
+            error.message
+          );
+        }
+      };
 }
 function closeModal(){
-  $("modal").classList.add(
-    "hidden"
-  );
-  $("modalConfirm").onclick =
-    null;
+  $("modal")
+    .classList.add(
+      "hidden"
+    );
+  $("modalConfirm")
+    .onclick = null;
 }
 $("modalCancel").onclick =
   closeModal;
 /* =========================
    ACCIONES
 ========================= */
-async function handleAction(action,id){
+async function handleAction(
+  action,
+  id
+){
   if(action === "add"){
     openModal(
       "Agregar producto",
@@ -755,26 +837,49 @@ async function handleAction(action,id){
         </div>
         <div class="field">
           <label>Precio venta</label>
-          <input id="mVenta" type="number">
+          <input
+            id="mVenta"
+            type="number"
+          >
         </div>
         <div class="field">
           <label>Precio costo</label>
-          <input id="mCosto" type="number">
+          <input
+            id="mCosto"
+            type="number"
+          >
         </div>
         <div class="field">
           <label>Cantidad</label>
-          <input id="mCantidad" type="number" value="0">
+          <input
+            id="mCantidad"
+            type="number"
+            value="0"
+          >
         </div>
       `,
       () =>
         api({
-          accion:"agregar_producto",
-          proveedor_id:id,
-          producto:$("mProducto").value,
-          capacidad:$("mCapacidad").value,
-          venta:Number($("mVenta").value) || 0,
-          costo:Number($("mCosto").value) || 0,
-          cantidad:Number($("mCantidad").value) || 0
+          accion:
+            "agregar_producto",
+          proveedor_id:
+            id,
+          producto:
+            $("mProducto").value,
+          capacidad:
+            $("mCapacidad").value,
+          venta:
+            Number(
+              $("mVenta").value
+            ) || 0,
+          costo:
+            Number(
+              $("mCosto").value
+            ) || 0,
+          cantidad:
+            Number(
+              $("mCantidad").value
+            ) || 0
         })
     );
     return;
@@ -790,9 +895,11 @@ async function handleAction(action,id){
       `,
       () =>
         api({
-          accion:"renombrar_proveedor",
-          id,
-          nombre:$("mNombre").value
+          accion:
+            "renombrar_proveedor",
+          id:id,
+          nombre:
+            $("mNombre").value
         })
     );
     return;
@@ -802,15 +909,26 @@ async function handleAction(action,id){
       "Ajustar precios",
       `
         <div class="field">
-          <label>Monto a sumar/restar</label>
-          <input id="mMonto" type="number" value="0">
+          <label>
+            Monto a sumar/restar
+          </label>
+          <input
+            id="mMonto"
+            type="number"
+            value="0"
+          >
         </div>
       `,
       () =>
         api({
-          accion:"ajustar_precios",
-          proveedor_id:id,
-          monto:Number($("mMonto").value) || 0
+          accion:
+            "ajustar_precios",
+          proveedor_id:
+            id,
+          monto:
+            Number(
+              $("mMonto").value
+            ) || 0
         })
     );
     return;
@@ -820,10 +938,13 @@ async function handleAction(action,id){
       !confirm(
         "¿Eliminar este proveedor y todos sus productos?"
       )
-    ) return;
+    ){
+      return;
+    }
     await api({
-      accion:"eliminar_proveedor",
-      id
+      accion:
+        "eliminar_proveedor",
+      id:id
     });
     await load();
     return;
@@ -833,10 +954,13 @@ async function handleAction(action,id){
       !confirm(
         "¿Eliminar este producto?"
       )
-    ) return;
+    ){
+      return;
+    }
     await api({
-      accion:"eliminar_producto",
-      id
+      accion:
+        "eliminar_producto",
+      id:id
     });
     await load();
     return;
@@ -861,26 +985,47 @@ async function handleAction(action,id){
         </div>
         <div class="field">
           <label>Precio venta</label>
-          <input id="mVenta" type="number">
+          <input
+            id="mVenta"
+            type="number"
+          >
         </div>
         <div class="field">
           <label>Precio costo</label>
-          <input id="mCosto" type="number">
+          <input
+            id="mCosto"
+            type="number"
+          >
         </div>
         <div class="field">
           <label>Cantidad</label>
-          <input id="mCantidad" type="number">
+          <input
+            id="mCantidad"
+            type="number"
+          >
         </div>
       `,
       () =>
         api({
-          accion:"editar_producto",
-          id,
-          producto:$("mProducto").value,
-          capacidad:$("mCapacidad").value,
-          venta:Number($("mVenta").value) || 0,
-          costo:Number($("mCosto").value) || 0,
-          cantidad:Number($("mCantidad").value) || 0
+          accion:
+            "editar_producto",
+          id:id,
+          producto:
+            $("mProducto").value,
+          capacidad:
+            $("mCapacidad").value,
+          venta:
+            Number(
+              $("mVenta").value
+            ) || 0,
+          costo:
+            Number(
+              $("mCosto").value
+            ) || 0,
+          cantidad:
+            Number(
+              $("mCantidad").value
+            ) || 0
         })
     );
   }
@@ -900,8 +1045,10 @@ $("addProviderBtn").onclick =
       `,
       () =>
         api({
-          accion:"crear_proveedor",
-          nombre:$("mNombre").value
+          accion:
+            "crear_proveedor",
+          nombre:
+            $("mNombre").value
         })
     );
   };
@@ -910,7 +1057,9 @@ $("addProviderBtn").onclick =
 ========================= */
 $("refreshBtn").onclick =
   async () => {
-    if(!token) return;
+    if(!token){
+      return;
+    }
     await load();
   };
 /* =========================
@@ -924,21 +1073,26 @@ $("logoutBtn").onclick =
           API_URL,
           {
             method:"POST",
-            headers:authHeaders(),
-            body:JSON.stringify({
-              accion:"logout"
-            }),
+            headers:
+              authHeaders(),
+            body:
+              JSON.stringify({
+                accion:
+                  "logout"
+              }),
             cache:"no-store"
           }
         );
       }
     }catch(error){
-      console.error(error);
+      console.error(
+        error
+      );
     }
     clearSession();
   };
 /* =========================
-   LOGIN FORM
+   LOGIN
 ========================= */
 $("loginForm").onsubmit =
   async event => {
@@ -950,24 +1104,42 @@ $("loginForm").onsubmit =
     button.disabled = true;
     button.textContent =
       "Ingresando...";
-    error.textContent = "";
+    error.textContent =
+      "";
+    /*
+      Borramos solamente el token
+      viejo antes de iniciar una
+      sesión nueva.
+    */
+    localStorage.removeItem(
+      TOKEN_KEY
+    );
+    token = "";
     try{
       await login(
-        $("loginUser").value.trim(),
-        $("loginPassword").value
+        $("loginUser")
+          .value
+          .trim(),
+        $("loginPassword")
+          .value
       );
+      /*
+        Comprobamos inmediatamente
+        que el token recién creado
+        funcione.
+      */
       const ok =
         await load();
       if(!ok){
-        clearSession();
         throw new Error(
-          "El servidor aceptó el login pero rechazó la sesión."
+          "El servidor rechazó la nueva sesión."
         );
       }
     }catch(error){
       clearSession();
-      $("loginError").textContent =
-        error.message;
+      $("loginError")
+        .textContent =
+          error.message;
     }finally{
       button.disabled = false;
       button.textContent =
@@ -982,9 +1154,13 @@ $("loginForm").onsubmit =
     getStoredToken();
   if(!token){
     $("loginScreen")
-      .classList.remove("hidden");
+      .classList.remove(
+        "hidden"
+      );
     $("app")
-      .classList.add("hidden");
+      .classList.add(
+        "hidden"
+      );
     return;
   }
   const ok =
