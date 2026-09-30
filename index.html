@@ -11,525 +11,293 @@
   --panel2:#171720;
   --border:#292934;
   --text:#f5f5f7;
-  --muted:#9696a3;
-  --gold:#e7b93f;
-  --gold2:#f1c84d;
-  --violet:#8b5cf6;
-  --violet2:#6d3de8
+  --muted:#9999a8;
+  --accent:#007aff;
+  --danger:#ff453a;
+  --green:#30d158;
 }
 *{box-sizing:border-box}
-html,body{
+body{
   margin:0;
-  min-height:100%;
   background:var(--bg);
   color:var(--text);
-  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
-button,input,select{font:inherit}
-button{cursor:pointer}
-.hidden{display:none!important}
+button,input,select{
+  font:inherit;
+}
+button{
+  cursor:pointer;
+}
+.hidden{
+  display:none!important;
+}
+/* LOGIN */
 #loginScreen{
   min-height:100vh;
-  display:grid;
-  place-items:center;
-  padding:24px
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
 }
 .loginBox{
-  width:min(420px,100%);
+  width:100%;
+  max-width:380px;
   background:var(--panel);
   border:1px solid var(--border);
   border-radius:22px;
-  padding:28px
+  padding:30px;
+  box-shadow:0 20px 60px #0008;
 }
 .loginTitle{
-  text-align:center;
   font-size:28px;
-  font-weight:900;
-  margin-bottom:24px
+  font-weight:800;
+  margin-bottom:6px;
 }
-.loginTitle span{color:var(--gold)}
-.field{margin-bottom:14px}
+.loginSub{
+  color:var(--muted);
+  margin-bottom:25px;
+}
+.field{
+  margin-bottom:15px;
+}
 .field label{
   display:block;
   color:var(--muted);
   font-size:13px;
-  margin-bottom:7px
+  margin-bottom:7px;
 }
-.field input,
-.field select,
-.modal input,
-.modal select{
+input,select{
   width:100%;
-  background:#0b0b10;
+  background:var(--panel2);
   color:var(--text);
   border:1px solid var(--border);
-  border-radius:11px;
+  border-radius:12px;
   padding:12px 13px;
-  outline:none
+  outline:none;
+}
+input:focus,select:focus{
+  border-color:var(--accent);
 }
 .primary{
   width:100%;
   border:0;
-  border-radius:11px;
-  padding:12px;
-  background:var(--violet);
+  border-radius:12px;
+  padding:13px;
+  background:var(--accent);
   color:white;
-  font-weight:800
-}
-.primary:disabled{
-  opacity:.65;
-  cursor:wait
+  font-weight:700;
 }
 .error{
-  color:#ff6b6b;
+  color:var(--danger);
   font-size:13px;
-  margin-top:10px;
-  text-align:center
+  margin-top:12px;
 }
+/* APP */
 .app{
-  max-width:1120px;
-  margin:auto;
-  padding:18px 18px 80px
+  min-height:100vh;
 }
 .topbar{
-  position:relative;
+  position:sticky;
+  top:0;
+  z-index:20;
   display:flex;
   align-items:center;
-  justify-content:center;
-  min-height:82px;
-  margin-bottom:18px
+  justify-content:space-between;
+  padding:15px 20px;
+  background:#09090df2;
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
 }
-.brand{text-align:center}
 .brandUser{
-  font-family:"Trebuchet MS",cursive;
-  font-style:italic;
-  font-weight:900;
-  font-size:25px;
-  letter-spacing:1.5px;
-  color:#fff;
-  text-shadow:2px 2px 0 #000;
-  margin-bottom:2px
+  font-size:12px;
+  color:var(--muted);
 }
 .brandName{
-  font-size:30px;
-  font-weight:950;
-  letter-spacing:-1px;
-  color:#fff
+  font-size:22px;
+  font-weight:800;
 }
-.brandName span{color:var(--gold)}
+.brandName span{
+  color:var(--accent);
+}
 .logout{
-  position:absolute;
-  right:0;
-  top:8px;
-  background:transparent;
   border:1px solid var(--border);
-  color:var(--muted);
-  border-radius:9px;
-  padding:7px 10px;
-  font-size:12px
+  background:var(--panel);
+  color:var(--text);
+  padding:9px 14px;
+  border-radius:10px;
 }
-.searchRow{
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:20px;
+}
+.toolbar{
   display:flex;
   gap:10px;
-  margin-bottom:16px
+  flex-wrap:wrap;
+  margin-bottom:20px;
 }
-.search{
-  flex:1;
+.toolbar button{
+  border:1px solid var(--border);
+  background:var(--panel);
+  color:var(--text);
+  padding:10px 14px;
+  border-radius:10px;
+}
+.section{
   background:var(--panel);
   border:1px solid var(--border);
-  border-radius:12px;
-  color:white;
-  padding:12px 14px;
-  outline:none
+  border-radius:18px;
+  margin-bottom:18px;
+  overflow:hidden;
 }
-.addBtn{
-  border:0;
-  background:var(--violet);
-  color:white;
-  border-radius:11px;
-  padding:9px 13px;
-  font-weight:850;
-  font-size:12px
+.sectionHead{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  padding:15px 18px;
+  border-bottom:1px solid var(--border);
+}
+.sectionTitle{
+  font-weight:800;
+  font-size:18px;
+}
+.sectionBody{
+  padding:15px;
 }
 .provider{
-  background:var(--panel);
+  margin-bottom:15px;
   border:1px solid var(--border);
-  border-radius:16px;
-  margin:12px 0;
-  overflow:hidden
+  border-radius:15px;
+  overflow:hidden;
 }
 .providerHead{
   display:flex;
   align-items:center;
-  gap:9px;
-  padding:13px 14px;
-  user-select:none
-}
-.providerToggle{
-  border:0;
-  background:transparent;
-  color:var(--gold);
-  font-size:18px;
-  width:24px;
-  padding:0
+  justify-content:space-between;
+  gap:10px;
+  padding:13px 15px;
+  background:var(--panel2);
 }
 .providerName{
-  font-size:15px;
-  font-weight:850;
-  flex:1
+  font-weight:800;
 }
-.providerMenu{
-  border:0;
-  background:transparent;
-  color:var(--muted);
-  font-size:20px;
-  padding:2px 6px
-}
-.providerTools{
+.actions{
   display:flex;
-  gap:7px
+  gap:6px;
+  flex-wrap:wrap;
 }
-.smallBtn{
+.actions button{
   border:1px solid var(--border);
-  background:#15151d;
-  color:var(--muted);
+  background:var(--panel);
+  color:var(--text);
+  padding:7px 10px;
   border-radius:8px;
-  padding:6px 8px;
-  font-size:11px
+  font-size:12px;
 }
-.products{padding:0 10px 10px}
+.products{
+  padding:10px;
+}
 .product{
-  position:relative;
-  display:flex;
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:10px;
   align-items:center;
-  gap:12px;
-  min-height:104px;
-  background:var(--panel2);
-  border:1px solid #25252f;
-  border-radius:13px;
   padding:12px;
-  margin-top:8px;
-  transition:transform .18s,opacity .18s,border-color .18s;
-  touch-action:none;
-  cursor:grab
+  border-bottom:1px solid var(--border);
 }
-.product:active{cursor:grabbing}
-.product.dragging{
-  opacity:.45;
-  transform:scale(.985);
-  border-color:var(--gold)
-}
-.product.dropTarget{
-  border-color:var(--violet);
-  transform:translateY(2px)
-}
-.productInfo{
-  min-width:0;
-  flex:1
+.product:last-child{
+  border-bottom:0;
 }
 .productName{
-  font-size:16px;
-  font-weight:850;
-  line-height:1.18;
-  color:#fff;
-  word-break:break-word
+  font-weight:700;
 }
-.capacity{
-  font-size:16px;
-  font-weight:750;
-  color:var(--gold2);
-  margin-top:4px
-}
-.cost{
+.productInfo{
+  color:var(--muted);
   font-size:13px;
-  color:#8f8f99;
-  margin-top:4px
+  margin-top:4px;
+}
+.productPrices{
+  text-align:right;
 }
 .sale{
-  font-size:18px;
-  font-weight:900;
-  color:#fff;
-  margin-top:4px
-}
-.productRight{
-  display:flex;
-  align-items:center;
-  gap:9px;
-  flex-shrink:0
-}
-.stockText{
-  font-size:12px;
   font-weight:800;
-  color:#ddd;
-  white-space:nowrap
+  color:var(--green);
 }
-.stockNumber{color:var(--gold2)}
-.calcControls{
-  display:flex;
-  align-items:center;
-  border:1px solid var(--border);
-  border-radius:9px;
-  overflow:hidden;
-  background:#0c0c11
+.cost{
+  color:var(--muted);
+  font-size:12px;
 }
-.calcControls button{
-  width:30px;
-  height:30px;
-  border:0;
-  background:#15151d;
-  color:white;
-  font-size:17px
-}
-.calcQty{
-  min-width:25px;
-  text-align:center;
-  font-size:13px;
-  font-weight:850
-}
-.productMenu>button{
-  border:0;
-  background:transparent;
-  color:#777;
-  font-size:19px;
-  padding:3px
-}
-.productMenu{
-  position:relative
-}
-.menuBox{
-  position:absolute;
-  right:0;
-  top:30px;
-  z-index:20;
-  background:#15151d;
-  border:1px solid var(--border);
-  border-radius:10px;
-  padding:5px;
-  min-width:130px;
-  box-shadow:0 15px 40px #0009
-}
-.menuBox button{
-  display:block;
-  width:100%;
-  text-align:left;
-  background:transparent;
-  border:0;
-  color:white;
-  padding:9px;
-  border-radius:7px;
-  font-size:12px
-}
-.danger{color:#ff7777!important}
-.dragHint{
-  color:#666;
-  font-size:11px;
-  padding:7px 5px 2px;
-  text-align:center
+.stock{
+  color:var(--muted);
+  font-size:12px;
 }
 .empty{
   color:var(--muted);
-  padding:25px;
   text-align:center;
-  font-size:13px
+  padding:25px;
 }
-.calcBtn{
-  position:fixed;
-  right:18px;
-  bottom:18px;
-  width:54px;
-  height:54px;
-  border-radius:50%;
-  border:1px solid #3b3b47;
-  background:#171720;
-  color:white;
-  font-size:22px;
-  z-index:100
-}
-.badge{
-  position:absolute;
-  right:-3px;
-  top:-3px;
-  min-width:20px;
-  height:20px;
-  border-radius:10px;
-  background:#ef4444;
-  color:white;
-  font-size:11px;
-  font-weight:900;
-  display:grid;
-  place-items:center;
-  padding:0 5px
-}
-.sideCalc{
-  position:fixed;
-  right:0;
-  top:0;
-  height:100%;
-  width:min(390px,100%);
-  background:#0e0e14;
-  border-left:1px solid var(--border);
-  z-index:200;
-  transform:translateX(100%);
-  transition:transform .22s;
-  display:flex;
-  flex-direction:column
-}
-.sideCalc.open{transform:translateX(0)}
-.calcHead{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:18px;
-  border-bottom:1px solid var(--border)
-}
-.calcHead h2{
-  margin:0;
-  font-size:18px
-}
-.calcClose,.clearCalc{
-  border:0;
-  background:transparent;
-  color:var(--muted);
-  padding:7px
-}
-.calcItems{
-  flex:1;
-  overflow:auto;
-  padding:12px 18px
-}
-.calcItem{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  padding:10px 0;
-  border-bottom:1px solid #20202a;
-  font-size:13px
-}
-.calcTotals{
-  padding:15px 18px;
-  border-top:1px solid var(--border)
-}
-.totalLine,.totalSale{
-  display:flex;
-  justify-content:space-between
-}
-.totalLine{
-  margin:7px 0;
-  color:var(--muted)
-}
-.totalLine strong{color:white}
-.totalSale{
-  align-items:center;
-  margin-top:12px;
-  padding-top:12px;
-  border-top:1px solid var(--border);
-  font-size:18px;
-  font-weight:950
-}
-.totalSale span:last-child{
-  color:var(--gold2);
-  font-size:24px
-}
-.overlay{
-  position:fixed;
-  inset:0;
-  background:#0009;
-  z-index:150;
-  display:none
-}
-.overlay.show{display:block}
 .modal{
   position:fixed;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  width:min(460px,calc(100% - 28px));
-  max-height:90vh;
-  overflow:auto;
-  background:#13131b;
-  border:1px solid var(--border);
-  border-radius:18px;
+  inset:0;
+  z-index:50;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   padding:20px;
-  z-index:250;
-  display:none
+  background:#000b;
 }
-.modal.show{display:block}
-.modal h3{
-  margin:0 0 17px;
-  font-size:18px
+.modalBox{
+  width:100%;
+  max-width:430px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:20px;
+}
+.modalTitle{
+  font-size:20px;
+  font-weight:800;
+  margin-bottom:18px;
 }
 .modalActions{
   display:flex;
-  gap:8px;
-  margin-top:16px
+  gap:10px;
+  margin-top:18px;
 }
 .modalActions button{
   flex:1;
-  border:0;
-  border-radius:10px;
   padding:11px;
-  font-weight:800
-}
-.cancel{
-  background:#24242e;
-  color:#ddd
-}
-.confirm{
-  background:var(--violet);
-  color:#fff
-}
-.checks{
-  display:flex;
-  gap:16px;
-  flex-wrap:wrap;
-  margin-top:8px
-}
-.checks label{
-  display:flex;
-  gap:7px;
-  align-items:center;
-  font-size:13px;
-  color:#ddd
-}
-.toast{
-  position:fixed;
-  left:50%;
-  bottom:25px;
-  transform:translateX(-50%) translateY(20px);
-  background:#1b1b25;
-  color:white;
-  border:1px solid var(--border);
   border-radius:10px;
-  padding:10px 14px;
-  font-size:12px;
-  opacity:0;
-  pointer-events:none;
-  transition:.2s;
-  z-index:500
+  border:1px solid var(--border);
+  background:var(--panel2);
+  color:var(--text);
 }
-.toast.show{
-  opacity:1;
-  transform:translateX(-50%) translateY(0)
+.modalActions .confirm{
+  background:var(--accent);
+  border-color:var(--accent);
 }
-@media(max-width:650px){
-  .app{padding:12px 10px 90px}
-  .topbar{min-height:74px}
-  .brandUser{font-size:22px}
-  .brandName{font-size:27px}
-  .logout{font-size:10px;padding:6px 7px}
-  .searchRow{align-items:stretch}
-  .addBtn{padding:9px 10px}
-  .product{min-height:112px;padding:11px 9px}
-  .productRight{gap:6px;flex-direction:column;align-items:flex-end}
-  .stockText{font-size:11px}
+@media(max-width:600px){
+  .product{
+    grid-template-columns:1fr;
+  }
+  .productPrices{
+    text-align:left;
+  }
 }
 </style>
 </head>
 <body>
+<!-- LOGIN -->
 <div id="loginScreen">
   <form class="loginBox" id="loginForm">
     <div class="loginTitle">
-      <span>Stock</span> iPhone
+      Stock <span style="color:#007aff">iPhone</span>
+    </div>
+    <div class="loginSub">
+      Ingresá para administrar el stock
     </div>
     <div class="field">
       <label>Usuario</label>
@@ -555,15 +323,20 @@ button{cursor:pointer}
     >
       Ingresar
     </button>
-    <div id="loginError" class="error"></div>
+    <div
+      id="loginError"
+      class="error"
+    ></div>
   </form>
 </div>
-<main class="app hidden" id="app">
+<!-- APP -->
+<main
+  class="app hidden"
+  id="app"
+>
 <header class="topbar">
-  <div class="brand">
-    <div class="brandUser">
-      Agustín
-    </div>
+  <div>
+    <div class="brandUser">Agustín</div>
     <div class="brandName">
       <span>Stock</span> iPhone
     </div>
@@ -576,1619 +349,642 @@ button{cursor:pointer}
     Salir
   </button>
 </header>
-<div class="searchRow">
-  <input
-    class="search"
-    id="search"
-    placeholder="Buscar producto..."
-  >
-  <button
-    class="addBtn"
-    id="addProductBtn"
-    type="button"
-  >
-    ＋ Agregar producto
-  </button>
+<div class="container">
+  <div class="toolbar">
+    <button id="addProviderBtn">
+      + Proveedor
+    </button>
+    <button id="refreshBtn">
+      Actualizar
+    </button>
+  </div>
+  <section class="section">
+    <div class="sectionHead">
+      <div class="sectionTitle">
+        Stock
+      </div>
+    </div>
+    <div
+      class="sectionBody"
+      id="stock"
+    >
+      <div class="empty">
+        Cargando...
+      </div>
+    </div>
+  </section>
 </div>
-<section id="providers"></section>
 </main>
-<button
-  class="calcBtn"
-  id="calcBtn"
-  type="button"
->
-  🧮
-  <span
-    class="badge"
-    id="calcBadge"
-  >
-    0
-  </span>
-</button>
+<!-- MODAL -->
 <div
-  class="overlay"
-  id="overlay"
-></div>
-<aside
-  class="sideCalc"
-  id="sideCalc"
->
-  <div class="calcHead">
-    <h2>
-      Calculadora
-    </h2>
-    <button
-      class="calcClose"
-      id="calcClose"
-      type="button"
-    >
-      ✕
-    </button>
-  </div>
-  <div
-    class="calcItems"
-    id="calcItems"
-  ></div>
-  <div class="calcTotals">
-    <div class="totalLine">
-      <span>Ganancia</span>
-      <strong id="calcProfit">$0</strong>
-    </div>
-    <div class="totalLine">
-      <span>Total costo</span>
-      <strong id="calcCost">$0</strong>
-    </div>
-    <div class="totalSale">
-      <span>TOTAL DE VENTA</span>
-      <span id="calcSale">$0</span>
-    </div>
-    <button
-      class="clearCalc"
-      id="clearCalc"
-      type="button"
-    >
-      Vaciar calculadora
-    </button>
-  </div>
-</aside>
-<div
-  class="modal"
+  class="modal hidden"
   id="modal"
-></div>
-<div
-  class="toast"
-  id="toast"
-></div>
+>
+  <div class="modalBox">
+    <div
+      class="modalTitle"
+      id="modalTitle"
+    ></div>
+    <div id="modalContent"></div>
+    <div class="modalActions">
+      <button id="modalCancel">
+        Cancelar
+      </button>
+      <button
+        class="confirm"
+        id="modalConfirm"
+      >
+        Guardar
+      </button>
+    </div>
+  </div>
+</div>
 <script>
 const API_URL =
   "https://noisy-sound-2a71.agus-eloy-oviedo.workers.dev";
 const TOKEN_KEY =
   "stock_iphone_session";
 let token = "";
-let proveedores = [];
-let productos = [];
-let calc = {};
-const $ =
-  id => document.getElementById(id);
-function money(n){
-  return "$" +
-    Number(n || 0).toLocaleString(
-      "es-AR",
-      {
-        maximumFractionDigits:0
-      }
-    );
-}
-function esc(v){
-  return String(v ?? "")
-    .replace(
-      /[&<>"']/g,
-      m => ({
-        "&":"&amp;",
-        "<":"&lt;",
-        ">":"&gt;",
-        '"':"&quot;",
-        "'":"&#039;"
-      }[m])
-    );
-}
-function toast(m){
-  const t =
-    $("toast");
-  t.textContent = m;
-  t.classList.add("show");
-  clearTimeout(
-    toast.timer
-  );
-  toast.timer =
-    setTimeout(
-      () => {
-        t.classList.remove("show");
-      },
-      1800
-    );
-}
-/* =========================================================
+const $ = id =>
+  document.getElementById(id);
+/* =========================
    SESIÓN
-========================================================= */
+   SIN EXPIRACIÓN
+========================= */
 function saveToken(newToken){
-  if(
-    typeof newToken !==
-    "string"
-  ){
-    throw new Error(
-      "Token de sesión inválido."
+  token = String(newToken || "").trim();
+  if(token){
+    localStorage.setItem(
+      TOKEN_KEY,
+      token
     );
   }
-  newToken =
-    newToken.trim();
-  if(!newToken){
-    throw new Error(
-      "El servidor no devolvió un token válido."
-    );
-  }
-  token =
-    newToken;
-  localStorage.setItem(
-    TOKEN_KEY,
-    token
-  );
 }
 function getStoredToken(){
-  const saved =
-    localStorage.getItem(
-      TOKEN_KEY
-    );
-  if(
-    typeof saved !==
-    "string"
-  ){
-    return "";
-  }
-  const value =
-    saved.trim();
-  if(
-    !value ||
-    value === "null" ||
-    value === "undefined"
-  ){
-    localStorage.removeItem(
-      TOKEN_KEY
-    );
-    return "";
-  }
-  return value;
+  return (
+    localStorage.getItem(TOKEN_KEY) || ""
+  ).trim();
 }
 function clearSession(){
   token = "";
   localStorage.removeItem(
     TOKEN_KEY
   );
-  $("app")
-    .classList
-    .add("hidden");
-  $("loginScreen")
-    .classList
-    .remove("hidden");
-  $("loginError")
-    .textContent = "";
-  $("loginPassword")
-    .value = "";
+  $("app").classList.add("hidden");
+  $("loginScreen").classList.remove("hidden");
 }
 function authHeaders(){
   return {
-    "Content-Type":
-      "application/json",
+    "Content-Type":"application/json",
+    "Accept":"application/json",
     "Authorization":
       "Bearer " + token
   };
 }
-/* =========================================================
-   API POST
-========================================================= */
-async function api(body){
-  if(!token){
-    clearSession();
-    throw new Error(
-      "Sesión expirada."
+/* =========================
+   LOGIN
+========================= */
+async function login(usuario,password){
+  const response =
+    await fetch(
+      API_URL + "/login",
+      {
+        method:"POST",
+        headers:{
+          "Content-Type":
+            "application/json",
+          "Accept":
+            "application/json"
+        },
+        body:JSON.stringify({
+          usuario,
+          password
+        }),
+        cache:"no-store"
+      }
     );
-  }
-  let response;
+  let data;
   try{
-    response =
-      await fetch(
-        API_URL,
-        {
-          method:"POST",
-          headers:
-            authHeaders(),
-          body:
-            JSON.stringify(body),
-          cache:"no-store"
-        }
-      );
-  }catch(error){
-    throw new Error(
-      "No se pudo conectar con el servidor."
-    );
-  }
-  let data = {};
-  try{
-    data =
-      await response.json();
+    data = await response.json();
   }catch{
-    data = {};
+    throw new Error(
+      "El servidor devolvió una respuesta inválida."
+    );
   }
   if(
-    response.status ===
-    401
+    !response.ok ||
+    !data.ok ||
+    !data.token
   ){
+    throw new Error(
+      data.error ||
+      "No se pudo iniciar sesión."
+    );
+  }
+  saveToken(data.token);
+  return true;
+}
+/* =========================
+   API
+========================= */
+async function api(body){
+  const response =
+    await fetch(
+      API_URL,
+      {
+        method:"POST",
+        headers:authHeaders(),
+        body:JSON.stringify(body),
+        cache:"no-store"
+      }
+    );
+  let data;
+  try{
+    data = await response.json();
+  }catch{
+    throw new Error(
+      "Respuesta inválida del servidor."
+    );
+  }
+  if(response.status === 401){
     clearSession();
     throw new Error(
-      "Sesión inválida. Ingresá nuevamente."
+      "Sesión inválida. Volvé a iniciar sesión."
     );
   }
-  if(!response.ok){
+  if(!response.ok || !data.ok){
     throw new Error(
       data.error ||
-      data.message ||
       "Error del servidor."
-    );
-  }
-  if(data.ok === false){
-    throw new Error(
-      data.error ||
-      data.message ||
-      "La operación no pudo realizarse."
     );
   }
   return data;
 }
-/* =========================================================
-   GET
-========================================================= */
+/* =========================
+   CARGAR
+========================= */
 async function load(){
-  if(!token){
-    clearSession();
-    return false;
-  }
-  let response;
   try{
-    response =
+    const response =
       await fetch(
         API_URL,
         {
           method:"GET",
           headers:{
+            "Accept":
+              "application/json",
             "Authorization":
-              "Bearer " + token,
-            "Accept":
-              "application/json",
-            "Cache-Control":
-              "no-cache"
+              "Bearer " + token
           },
-          cache:
-            "no-store"
-        }
-      );
-  }catch(error){
-    toast(
-      "No se pudo conectar con el servidor."
-    );
-    return false;
-  }
-  let data = {};
-  try{
-    data =
-      await response.json();
-  }catch{
-    data = {};
-  }
-  if(
-    response.status ===
-    401
-  ){
-    clearSession();
-    $("loginError")
-      .textContent =
-      "Sesión inválida. Ingresá nuevamente.";
-    return false;
-  }
-  if(!response.ok){
-    toast(
-      data.error ||
-      data.message ||
-      "No se pudieron cargar los datos."
-    );
-    return false;
-  }
-  if(data.ok === false){
-    toast(
-      data.error ||
-      data.message ||
-      "No se pudieron cargar los datos."
-    );
-    return false;
-  }
-  proveedores =
-    Array.isArray(
-      data.proveedores
-    )
-      ? data.proveedores
-      : [];
-  productos =
-    Array.isArray(
-      data.productos
-    )
-      ? data.productos
-      : [];
-  appShow();
-  render();
-  return true;
-}
-/* =========================================================
-   LOGIN
-========================================================= */
-function loginShow(){
-  $("loginScreen")
-    .classList
-    .remove("hidden");
-  $("app")
-    .classList
-    .add("hidden");
-  setTimeout(
-    () => {
-      $("loginUser").focus();
-    },
-    50
-  );
-}
-function appShow(){
-  $("loginScreen")
-    .classList
-    .add("hidden");
-  $("app")
-    .classList
-    .remove("hidden");
-}
-async function login(
-  usuario,
-  password
-){
-  let response;
-  try{
-    response =
-      await fetch(
-        API_URL + "/login",
-        {
-          method:"POST",
-          headers:{
-            "Content-Type":
-              "application/json",
-            "Accept":
-              "application/json"
-          },
-          body:
-            JSON.stringify({
-              usuario,
-              password
-            }),
           cache:"no-store"
         }
       );
-  }catch(error){
-    throw new Error(
-      "No se pudo conectar con el servidor."
-    );
-  }
-  let data = {};
-  try{
-    data =
-      await response.json();
-  }catch{
-    data = {};
-  }
-  if(!response.ok){
-    throw new Error(
-      data.error ||
-      data.message ||
-      "Usuario o contraseña incorrectos."
-    );
-  }
-  if(data.ok !== true){
-    throw new Error(
-      data.error ||
-      "El servidor no confirmó el inicio de sesión."
-    );
-  }
-  const newToken =
-    typeof data.token ===
-    "string"
-      ? data.token.trim()
-      : "";
-  if(!newToken){
-    throw new Error(
-      "El servidor no devolvió el token de sesión."
-    );
-  }
-  saveToken(
-    newToken
-  );
-  return data;
-}
-$("loginForm").onsubmit =
-  async e => {
-    e.preventDefault();
-    const button =
-      $("loginButton");
-    const errorBox =
-      $("loginError");
-    errorBox.textContent =
-      "";
-    const usuario =
-      $("loginUser")
-        .value
-        .trim();
-    const password =
-      $("loginPassword")
-        .value;
-    if(
-      !usuario ||
-      !password
-    ){
-      errorBox.textContent =
-        "Completá usuario y contraseña.";
-      return;
-    }
-    button.disabled =
-      true;
-    button.textContent =
-      "Ingresando...";
+    let data;
     try{
-      await login(
-        usuario,
-        password
-      );
-      const loaded =
-        await load();
-      if(!loaded){
-        clearSession();
-        throw new Error(
-          "El servidor rechazó la nueva sesión."
-        );
-      }
-    }catch(error){
-      errorBox.textContent =
-        error.message ||
-        "No se pudo iniciar sesión.";
-    }finally{
-      button.disabled =
-        false;
-      button.textContent =
-        "Ingresar";
-    }
-  };
-/* =========================================================
-   LOGOUT
-========================================================= */
-$("logoutBtn").onclick =
-  async () => {
-    const oldToken =
-      token;
-    clearSession();
-    if(!oldToken){
-      return;
-    }
-    try{
-      await fetch(
-        API_URL,
-        {
-          method:"POST",
-          headers:{
-            "Content-Type":
-              "application/json",
-            "Authorization":
-              "Bearer " + oldToken
-          },
-          body:
-            JSON.stringify({
-              accion:"logout"
-            }),
-          cache:"no-store"
-        }
-      );
+      data = await response.json();
     }catch{
-      // La sesión local ya fue eliminada.
+      throw new Error(
+        "Respuesta inválida del servidor."
+      );
     }
-  };
-/* =========================================================
-   RENDER
-========================================================= */
-function render(){
-  const q =
-    $("search")
-      .value
-      .trim()
-      .toLowerCase();
-  const root =
-    $("providers");
-  root.innerHTML = "";
-  proveedores.forEach(
-    p => {
-      const list =
-        productos.filter(
-          x =>
-            Number(
-              x.proveedor_id
-            ) ===
-            Number(p.id) &&
-            (
-              !q ||
-              String(
-                x.producto || ""
-              )
-              .toLowerCase()
-              .includes(q) ||
-              String(
-                x.capacidad || ""
-              )
-              .toLowerCase()
-              .includes(q)
-            )
-        );
-      const box =
-        document.createElement(
-          "section"
-        );
-      box.className =
-        "provider";
-      box.innerHTML = `
-        <div class="providerHead">
-          <button
-            class="providerToggle"
-            type="button"
-          >
-            ⌄
-          </button>
-          <div class="providerName">
-            ${esc(p.nombre)}
-          </div>
-          <div class="providerTools">
-            <button
-              class="smallBtn rename"
-              type="button"
-            >
-              Renombrar
-            </button>
-            <button
-              class="smallBtn adjust"
-              type="button"
-            >
-              Precios
-            </button>
-          </div>
-          <button
-            class="providerMenu"
-            type="button"
-          >
-            ⋮
-          </button>
-        </div>
-        <div class="products"></div>
-      `;
-      const pe =
-        box.querySelector(
-          ".products"
-        );
-      list.forEach(
-        x => {
-          pe.appendChild(
-            productEl(x)
-          );
-        }
+    if(response.status === 401){
+      clearSession();
+      throw new Error(
+        "Sesión inválida."
       );
-      if(!list.length){
-        pe.innerHTML =
-          '<div class="empty">Sin productos.</div>';
-      }else{
-        const h =
-          document.createElement(
-            "div"
-          );
-        h.className =
-          "dragHint";
-        h.textContent =
-          "Mantén presionado y arrastra para cambiar el orden";
-        pe.appendChild(h);
-        setupDrag(
-          pe,
-          p.id
-        );
-      }
-      box.querySelector(
-        ".providerToggle"
-      ).onclick = () => {
-        pe.classList.toggle(
-          "hidden"
-        );
-        box.querySelector(
-          ".providerToggle"
-        ).textContent =
-          pe.classList.contains(
-            "hidden"
-          )
-            ? "›"
-            : "⌄";
-      };
-      box.querySelector(
-        ".rename"
-      ).onclick =
-        () =>
-          renameProvider(p);
-      box.querySelector(
-        ".adjust"
-      ).onclick =
-        () =>
-          adjustProvider(p);
-      box.querySelector(
-        ".providerMenu"
-      ).onclick =
-        () =>
-          deleteProvider(p);
-      root.appendChild(box);
     }
-  );
-  updateCalc();
-}
-/* =========================================================
-   PRODUCTOS
-========================================================= */
-function productEl(p){
-  const el =
-    document.createElement(
-      "article"
-    );
-  const cap =
-    p.capacidad &&
-    p.capacidad !==
-      "Ninguno"
-      ? `
-        <div class="capacity">
-          ${esc(p.capacidad)}
-        </div>
-      `
-      : "";
-  const q =
-    calc[p.id] || 0;
-  el.className =
-    "product";
-  el.dataset.id =
-    p.id;
-  el.innerHTML = `
-    <div class="productInfo">
-      <div class="productName">
-        ${esc(p.producto)}
-      </div>
-      ${cap}
-      <div class="cost">
-        Costo: ${money(p.costo)}
-      </div>
-      <div class="sale">
-        ${money(p.venta)}
-      </div>
-    </div>
-    <div class="productRight">
-      <div class="stockText">
-        STOCK:
-        <span class="stockNumber">
-          ${Number(p.cantidad)}
-        </span>
-      </div>
-      <div class="calcControls">
-        <button
-          class="minus"
-          type="button"
-        >
-          −
-        </button>
-        <div class="calcQty">
-          ${q}
-        </div>
-        <button
-          class="plus"
-          type="button"
-        >
-          +
-        </button>
-      </div>
-    </div>
-    <div class="productMenu">
-      <button
-        type="button"
-      >
-        ⋮
-      </button>
-      <div class="menuBox hidden">
-        <button
-          class="edit"
-          type="button"
-        >
-          Editar
-        </button>
-        <button
-          class="delete danger"
-          type="button"
-        >
-          Eliminar
-        </button>
-      </div>
-    </div>
-  `;
-  el.querySelector(
-    ".plus"
-  ).onclick =
-    () =>
-      changeCalc(
-        p,
-        1
+    if(!response.ok || !data.ok){
+      throw new Error(
+        data.error ||
+        "No se pudieron cargar los datos."
       );
-  el.querySelector(
-    ".minus"
-  ).onclick =
-    () =>
-      changeCalc(
-        p,
-        -1
-      );
-  const menu =
-    el.querySelector(
-      ".menuBox"
+    }
+    render(
+      data.proveedores || [],
+      data.productos || []
     );
-  el.querySelector(
-    ".productMenu>button"
-  ).onclick =
-    e => {
-      e.stopPropagation();
-      menu.classList.toggle(
-        "hidden"
-      );
-    };
-  el.querySelector(
-    ".edit"
-  ).onclick =
-    () =>
-      editProduct(p);
-  el.querySelector(
-    ".delete"
-  ).onclick =
-    () =>
-      deleteProduct(p);
-  return el;
-}
-function changeCalc(p,d){
-  const n =
-    Math.max(
-      0,
-      Math.min(
-        Number(
-          p.cantidad
-        ) || 0,
-        (calc[p.id] || 0) + d
-      )
-    );
-  if(n){
-    calc[p.id] =
-      n;
-  }else{
-    delete calc[p.id];
+    $("loginScreen").classList.add("hidden");
+    $("app").classList.remove("hidden");
+    return true;
+  }catch(error){
+    console.error(error);
+    $("stock").innerHTML =
+      `<div class="empty">
+        ${escapeHtml(error.message)}
+      </div>`;
+    return false;
   }
-  render();
 }
-function updateCalc(){
-  const ids =
-    Object.keys(calc);
-  let cost = 0;
-  let sale = 0;
-  const items =
-    $("calcItems");
-  items.innerHTML =
-    "";
-  ids.forEach(
-    id => {
-      const p =
-        productos.find(
-          x =>
-            String(x.id) ===
-            String(id)
+/* =========================
+   ESCAPE
+========================= */
+function escapeHtml(value){
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+/* =========================
+   RENDER
+========================= */
+function render(proveedores,productos){
+  const stock =
+    $("stock");
+  if(!proveedores.length){
+    stock.innerHTML =
+      `<div class="empty">
+        No hay proveedores cargados.
+      </div>`;
+    return;
+  }
+  stock.innerHTML = "";
+  for(const proveedor of proveedores){
+    const productosProveedor =
+      productos.filter(
+        p =>
+          Number(p.proveedor_id) ===
+          Number(proveedor.id)
+      );
+    const box =
+      document.createElement("div");
+    box.className =
+      "provider";
+    box.innerHTML = `
+      <div class="providerHead">
+        <div class="providerName">
+          ${escapeHtml(proveedor.nombre)}
+        </div>
+        <div class="actions">
+          <button
+            data-action="add"
+            data-id="${proveedor.id}"
+          >
+            + Producto
+          </button>
+          <button
+            data-action="rename"
+            data-id="${proveedor.id}"
+          >
+            Renombrar
+          </button>
+          <button
+            data-action="price"
+            data-id="${proveedor.id}"
+          >
+            Ajustar precios
+          </button>
+          <button
+            data-action="delete-provider"
+            data-id="${proveedor.id}"
+          >
+            Eliminar
+          </button>
+        </div>
+      </div>
+      <div class="products">
+        ${
+          productosProveedor.length
+          ? productosProveedor.map(p => `
+            <div class="product">
+              <div>
+                <div class="productName">
+                  ${escapeHtml(p.producto)}
+                </div>
+                <div class="productInfo">
+                  ${escapeHtml(p.capacidad)}
+                  · Stock: ${Number(p.cantidad || 0)}
+                </div>
+              </div>
+              <div class="productPrices">
+                <div class="sale">
+                  Venta: $${Number(p.venta || 0).toLocaleString("es-AR")}
+                </div>
+                <div class="cost">
+                  Costo: $${Number(p.costo || 0).toLocaleString("es-AR")}
+                </div>
+                <div class="actions">
+                  <button
+                    data-action="edit"
+                    data-id="${p.id}"
+                  >
+                    Editar
+                  </button>
+                  <button
+                    data-action="delete-product"
+                    data-id="${p.id}"
+                  >
+                    Eliminar
+                  </button>
+                </div>
+              </div>
+            </div>
+          `).join("")
+          :
+          `<div class="empty">
+            No hay productos.
+          </div>`
+        }
+      </div>
+    `;
+    stock.appendChild(box);
+  }
+  stock
+    .querySelectorAll("button[data-action]")
+    .forEach(button => {
+      button.onclick =
+        () => handleAction(
+          button.dataset.action,
+          Number(button.dataset.id)
         );
-      if(!p){
-        return;
-      }
-      const q =
-        calc[id];
-      cost +=
-        q *
-        Number(
-          p.costo || 0
-        );
-      sale +=
-        q *
-        Number(
-          p.venta || 0
-        );
-      const r =
-        document.createElement(
-          "div"
-        );
-      r.className =
-        "calcItem";
-      r.innerHTML = `
-        <span>
-          ${esc(p.producto)} × ${q}
-        </span>
-        <strong>
-          ${money(q * p.venta)}
-        </strong>
-      `;
-      items.appendChild(r);
-    }
+    });
+}
+/* =========================
+   MODAL
+========================= */
+function openModal(title,content,onConfirm){
+  $("modalTitle").textContent =
+    title;
+  $("modalContent").innerHTML =
+    content;
+  $("modal").classList.remove(
+    "hidden"
   );
-  $("calcCost")
-    .textContent =
-    money(cost);
-  $("calcSale")
-    .textContent =
-    money(sale);
-  $("calcProfit")
-    .textContent =
-    money(
-      sale - cost
-    );
-  $("calcBadge")
-    .textContent =
-    ids.reduce(
-      (a,id) =>
-        a + calc[id],
-      0
-    );
-}
-/* =========================================================
-   MODALES
-========================================================= */
-function openModal(
-  title,
-  html,
-  fn
-){
-  $("modal").innerHTML = `
-    <h3>${title}</h3>
-    ${html}
-    <div class="modalActions">
-      <button
-        class="cancel"
-        type="button"
-      >
-        Cancelar
-      </button>
-      <button
-        class="confirm"
-        type="button"
-      >
-        Guardar
-      </button>
-    </div>
-  `;
-  $("overlay")
-    .classList
-    .add("show");
-  $("modal")
-    .classList
-    .add("show");
-  $("modal .cancel").onclick =
-    closeModal;
-  $("modal .confirm").onclick =
+  $("modalConfirm").onclick =
     async () => {
-      const button =
-        $("modal .confirm");
-      button.disabled =
-        true;
-      button.textContent =
-        "Guardando...";
       try{
-        await fn();
+        await onConfirm();
         closeModal();
         await load();
-      }catch(e){
-        toast(
-          e.message ||
-          "No se pudo guardar."
-        );
-        button.disabled =
-          false;
-        button.textContent =
-          "Guardar";
+      }catch(error){
+        alert(error.message);
       }
     };
 }
 function closeModal(){
-  $("overlay")
-    .classList
-    .remove("show");
-  $("modal")
-    .classList
-    .remove("show");
-}
-$("overlay").onclick =
-  () => {
-    $("sideCalc")
-      .classList
-      .remove("open");
-    closeModal();
-  };
-/* =========================================================
-   PROVEEDORES
-========================================================= */
-function renameProvider(p){
-  openModal(
-    "Renombrar proveedor",
-    `
-      <div class="field">
-        <label>
-          Nombre
-        </label>
-        <input
-          id="mName"
-          value="${esc(p.nombre)}"
-        >
-      </div>
-    `,
-    () =>
-      api({
-        accion:
-          "renombrar_proveedor",
-        id:
-          p.id,
-        nombre:
-          $("mName")
-            .value
-            .trim()
-      })
+  $("modal").classList.add(
+    "hidden"
   );
+  $("modalConfirm").onclick =
+    null;
 }
-function adjustProvider(p){
-  openModal(
-    "Ajustar precios",
-    `
-      <div class="field">
-        <label>
-          Monto
-        </label>
-        <input
-          id="mAmount"
-          type="number"
-          min="-1000"
-          max="1000"
-          value="0"
-        >
-      </div>
-      <div class="checks">
-        <label>
-          <input
-            id="mCost"
-            type="checkbox"
-          >
-          Proveedor / Costo
-        </label>
-        <label>
-          <input
-            id="mSale"
-            type="checkbox"
-          >
-          Vendedor / Venta
-        </label>
-      </div>
-    `,
-    () => {
-      const m =
-        Math.max(
-          -1000,
-          Math.min(
-            1000,
-            Number(
-              $("mAmount")
-                .value
-            ) || 0
-          )
-        );
-      const c =
-        $("mCost").checked;
-      const s =
-        $("mSale").checked;
-      if(!c && !s){
-        throw new Error(
-          "Seleccioná Costo, Venta o ambos."
+$("modalCancel").onclick =
+  closeModal;
+/* =========================
+   ACCIONES
+========================= */
+async function handleAction(action,id){
+  if(action === "add"){
+    openModal(
+      "Agregar producto",
+      `
+        <div class="field">
+          <label>Producto</label>
+          <input id="mProducto">
+        </div>
+        <div class="field">
+          <label>Capacidad</label>
+          <select id="mCapacidad">
+            <option>Ninguno</option>
+            <option>128 GB</option>
+            <option>256 GB</option>
+            <option>512 GB</option>
+            <option>1 TB</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Precio venta</label>
+          <input id="mVenta" type="number">
+        </div>
+        <div class="field">
+          <label>Precio costo</label>
+          <input id="mCosto" type="number">
+        </div>
+        <div class="field">
+          <label>Cantidad</label>
+          <input id="mCantidad" type="number" value="0">
+        </div>
+      `,
+      () =>
+        api({
+          accion:"agregar_producto",
+          proveedor_id:id,
+          producto:$("mProducto").value,
+          capacidad:$("mCapacidad").value,
+          venta:Number($("mVenta").value) || 0,
+          costo:Number($("mCosto").value) || 0,
+          cantidad:Number($("mCantidad").value) || 0
+        })
+    );
+    return;
+  }
+  if(action === "rename"){
+    openModal(
+      "Renombrar proveedor",
+      `
+        <div class="field">
+          <label>Nuevo nombre</label>
+          <input id="mNombre">
+        </div>
+      `,
+      () =>
+        api({
+          accion:"renombrar_proveedor",
+          id,
+          nombre:$("mNombre").value
+        })
+    );
+    return;
+  }
+  if(action === "price"){
+    openModal(
+      "Ajustar precios",
+      `
+        <div class="field">
+          <label>Monto a sumar/restar</label>
+          <input id="mMonto" type="number" value="0">
+        </div>
+      `,
+      () =>
+        api({
+          accion:"ajustar_precios",
+          proveedor_id:id,
+          monto:Number($("mMonto").value) || 0
+        })
+    );
+    return;
+  }
+  if(action === "delete-provider"){
+    if(
+      !confirm(
+        "¿Eliminar este proveedor y todos sus productos?"
+      )
+    ) return;
+    await api({
+      accion:"eliminar_proveedor",
+      id
+    });
+    await load();
+    return;
+  }
+  if(action === "delete-product"){
+    if(
+      !confirm(
+        "¿Eliminar este producto?"
+      )
+    ) return;
+    await api({
+      accion:"eliminar_producto",
+      id
+    });
+    await load();
+    return;
+  }
+  if(action === "edit"){
+    openModal(
+      "Editar producto",
+      `
+        <div class="field">
+          <label>Producto</label>
+          <input id="mProducto">
+        </div>
+        <div class="field">
+          <label>Capacidad</label>
+          <select id="mCapacidad">
+            <option>Ninguno</option>
+            <option>128 GB</option>
+            <option>256 GB</option>
+            <option>512 GB</option>
+            <option>1 TB</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Precio venta</label>
+          <input id="mVenta" type="number">
+        </div>
+        <div class="field">
+          <label>Precio costo</label>
+          <input id="mCosto" type="number">
+        </div>
+        <div class="field">
+          <label>Cantidad</label>
+          <input id="mCantidad" type="number">
+        </div>
+      `,
+      () =>
+        api({
+          accion:"editar_producto",
+          id,
+          producto:$("mProducto").value,
+          capacidad:$("mCapacidad").value,
+          venta:Number($("mVenta").value) || 0,
+          costo:Number($("mCosto").value) || 0,
+          cantidad:Number($("mCantidad").value) || 0
+        })
+    );
+  }
+}
+/* =========================
+   NUEVO PROVEEDOR
+========================= */
+$("addProviderBtn").onclick =
+  () => {
+    openModal(
+      "Nuevo proveedor",
+      `
+        <div class="field">
+          <label>Nombre</label>
+          <input id="mNombre">
+        </div>
+      `,
+      () =>
+        api({
+          accion:"crear_proveedor",
+          nombre:$("mNombre").value
+        })
+    );
+  };
+/* =========================
+   ACTUALIZAR
+========================= */
+$("refreshBtn").onclick =
+  async () => {
+    if(!token) return;
+    await load();
+  };
+/* =========================
+   LOGOUT
+========================= */
+$("logoutBtn").onclick =
+  async () => {
+    try{
+      if(token){
+        await fetch(
+          API_URL,
+          {
+            method:"POST",
+            headers:authHeaders(),
+            body:JSON.stringify({
+              accion:"logout"
+            }),
+            cache:"no-store"
+          }
         );
       }
-      return api({
-        accion:
-          "ajustar_precios",
-        proveedor_id:
-          p.id,
-        monto:
-          m,
-        costo:
-          c,
-        venta:
-          s
-      });
+    }catch(error){
+      console.error(error);
     }
-  );
-}
-async function deleteProvider(p){
-  if(!confirm(
-    `¿Eliminar el proveedor "${p.nombre}" y todos sus productos?`
-  )){
-    return;
-  }
-  try{
-    await api({
-      accion:
-        "eliminar_proveedor",
-      id:
-        p.id
-    });
-    await load();
-  }catch(e){
-    toast(
-      e.message
-    );
-  }
-}
-/* =========================================================
-   FORMULARIO PRODUCTO
-========================================================= */
-function productForm(p=null){
-  const opts =
-    proveedores
-      .map(
-        x => `
-          <option
-            value="${x.id}"
-            ${
-              p &&
-              +p.proveedor_id ===
-              +x.id
-                ? "selected"
-                : ""
-            }
-          >
-            ${esc(x.nombre)}
-          </option>
-        `
-      )
-      .join("");
-  return `
-    <div class="field">
-      <label>
-        Producto
-      </label>
-      <input
-        id="mProduct"
-        value="${
-          p
-            ? esc(p.producto)
-            : ""
-        }"
-      >
-    </div>
-    <div class="field">
-      <label>
-        Proveedor
-      </label>
-      <select id="mProvider">
-        ${opts}
-      </select>
-    </div>
-    <div class="field">
-      <label>
-        Capacidad
-      </label>
-      <select id="mCapacity">
-        ${
-          [
-            "Ninguno",
-            "128 GB",
-            "256 GB",
-            "512 GB",
-            "1 TB"
-          ]
-          .map(
-            x => `
-              <option
-                ${
-                  p?.capacidad === x
-                    ? "selected"
-                    : ""
-                }
-              >
-                ${x}
-              </option>
-            `
-          )
-          .join("")
-        }
-      </select>
-    </div>
-    <div class="field">
-      <label>
-        Precio de venta
-      </label>
-      <input
-        id="mSalePrice"
-        type="number"
-        min="0"
-        value="${
-          p?.venta || 0
-        }"
-      >
-    </div>
-    <div class="field">
-      <label>
-        Costo
-      </label>
-      <input
-        id="mCostPrice"
-        type="number"
-        min="0"
-        value="${
-          p?.costo || 0
-        }"
-      >
-    </div>
-    <div class="field">
-      <label>
-        Stock
-      </label>
-      <input
-        id="mStock"
-        type="number"
-        min="0"
-        value="${
-          p?.cantidad || 0
-        }"
-      >
-    </div>
-  `;
-}
-function addProduct(){
-  if(!proveedores.length){
-    return toast(
-      "Primero agregá un proveedor."
-    );
-  }
-  openModal(
-    "Agregar producto",
-    productForm(),
-    () =>
-      api({
-        accion:
-          "agregar_producto",
-        proveedor_id:
-          +$("mProvider").value,
-        producto:
-          $("mProduct")
-            .value
-            .trim(),
-        capacidad:
-          $("mCapacity")
-            .value,
-        venta:
-          +$("mSalePrice")
-            .value || 0,
-        costo:
-          +$("mCostPrice")
-            .value || 0,
-        cantidad:
-          +$("mStock")
-            .value || 0
-      })
-  );
-}
-function editProduct(p){
-  openModal(
-    "Editar producto",
-    productForm(p),
-    () =>
-      api({
-        accion:
-          "editar_producto",
-        id:
-          p.id,
-        proveedor_id:
-          +$("mProvider").value,
-        producto:
-          $("mProduct")
-            .value
-            .trim(),
-        capacidad:
-          $("mCapacity")
-            .value,
-        venta:
-          +$("mSalePrice")
-            .value || 0,
-        costo:
-          +$("mCostPrice")
-            .value || 0,
-        cantidad:
-          +$("mStock")
-            .value || 0
-      })
-  );
-}
-async function deleteProduct(p){
-  if(!confirm(
-    `¿Eliminar "${p.producto}"?`
-  )){
-    return;
-  }
-  try{
-    delete calc[p.id];
-    await api({
-      accion:
-        "eliminar_producto",
-      id:
-        p.id
-    });
-    await load();
-  }catch(e){
-    toast(
-      e.message
-    );
-  }
-}
-/* =========================================================
-   BUSCADOR / CALCULADORA
-========================================================= */
-$("addProductBtn").onclick =
-  addProduct;
-$("search").oninput =
-  render;
-$("calcBtn").onclick =
-  () => {
-    $("sideCalc")
-      .classList
-      .add("open");
-    $("overlay")
-      .classList
-      .add("show");
+    clearSession();
   };
-$("calcClose").onclick =
-  () => {
-    $("sideCalc")
-      .classList
-      .remove("open");
-    $("overlay")
-      .classList
-      .remove("show");
-  };
-$("clearCalc").onclick =
-  () => {
-    calc = {};
-    updateCalc();
-    render();
-  };
-/* =========================================================
-   DRAG & DROP
-========================================================= */
-function setupDrag(
-  container,
-  providerId
-){
-  const cards =
-    [
-      ...container
-        .querySelectorAll(
-          ".product"
-        )
-    ];
-  let active = null;
-  let pointerId = null;
-  let startY = 0;
-  let dragging = false;
-  let longTimer = null;
-  cards.forEach(
-    card => {
-      card.draggable =
-        false;
-      card.style.cursor =
-        "grab";
-      const clearDrag =
-        () => {
-          clearTimeout(
-            longTimer
-          );
-          if(active){
-            active.classList
-              .remove(
-                "dragging"
-              );
-            active.style.cursor =
-              "grab";
-          }
-          cards.forEach(
-            c =>
-              c.classList
-                .remove(
-                  "dropTarget"
-                )
-          );
-          active =
-            null;
-          pointerId =
-            null;
-          dragging =
-            false;
-        };
-      card.addEventListener(
-        "pointerdown",
-        e => {
-          if(
-            e.button !==
-              undefined &&
-            e.button !== 0
-          ){
-            return;
-          }
-          if(
-            e.target.closest(
-              "button,input,select,a,.menuBox"
-            )
-          ){
-            return;
-          }
-          active =
-            card;
-          pointerId =
-            e.pointerId;
-          startY =
-            e.clientY;
-          dragging =
-            false;
-          card.setPointerCapture?.(
-            pointerId
-          );
-          longTimer =
-            setTimeout(
-              () => {
-                if(
-                  active ===
-                  card
-                ){
-                  dragging =
-                    true;
-                  card.classList
-                    .add(
-                      "dragging"
-                    );
-                  card.style.cursor =
-                    "grabbing";
-                }
-              },
-              180
-            );
-        }
+/* =========================
+   LOGIN FORM
+========================= */
+$("loginForm").onsubmit =
+  async event => {
+    event.preventDefault();
+    const button =
+      $("loginButton");
+    const error =
+      $("loginError");
+    button.disabled = true;
+    button.textContent =
+      "Ingresando...";
+    error.textContent = "";
+    try{
+      await login(
+        $("loginUser").value.trim(),
+        $("loginPassword").value
       );
-      card.addEventListener(
-        "pointermove",
-        e => {
-          if(
-            active !== card ||
-            e.pointerId !==
-              pointerId
-          ){
-            return;
-          }
-          const distance =
-            Math.abs(
-              e.clientY -
-              startY
-            );
-          if(!dragging){
-            if(distance > 10){
-              clearTimeout(
-                longTimer
-              );
-              dragging =
-                true;
-              card.classList
-                .add(
-                  "dragging"
-                );
-              card.style.cursor =
-                "grabbing";
-            }else{
-              return;
-            }
-          }
-          e.preventDefault();
-          const others =
-            [
-              ...container
-                .querySelectorAll(
-                  ".product"
-                )
-            ]
-            .filter(
-              c =>
-                c !== active
-            );
-          const target =
-            others.find(
-              c => {
-                const r =
-                  c.getBoundingClientRect();
-                return (
-                  e.clientY >=
-                    r.top &&
-                  e.clientY <=
-                    r.bottom
-                );
-              }
-            );
-          if(target){
-            cards.forEach(
-              c =>
-                c.classList
-                  .remove(
-                    "dropTarget"
-                  )
-            );
-            target.classList
-              .add(
-                "dropTarget"
-              );
-            const r =
-              target
-                .getBoundingClientRect();
-            if(
-              e.clientY <
-              r.top +
-              r.height / 2
-            ){
-              container.insertBefore(
-                active,
-                target
-              );
-            }else{
-              container.insertBefore(
-                active,
-                target.nextSibling
-              );
-            }
-          }
-        },
-        {
-          passive:false
-        }
-      );
-      card.addEventListener(
-        "pointerup",
-        async e => {
-          if(
-            active !== card ||
-            e.pointerId !==
-              pointerId
-          ){
-            return;
-          }
-          clearTimeout(
-            longTimer
-          );
-          const wasDragging =
-            dragging;
-          try{
-            card.releasePointerCapture?.(
-              pointerId
-            );
-          }catch{}
-          if(wasDragging){
-            card.classList
-              .remove(
-                "dragging"
-              );
-            cards.forEach(
-              c =>
-                c.classList
-                  .remove(
-                    "dropTarget"
-                  )
-            );
-            active =
-              null;
-            pointerId =
-              null;
-            dragging =
-              false;
-            await saveDomOrder(
-              container,
-              providerId
-            );
-          }else{
-            clearDrag();
-          }
-        }
-      );
-      card.addEventListener(
-        "pointercancel",
-        () =>
-          clearDrag()
-      );
-      card.addEventListener(
-        "lostpointercapture",
-        () => {
-          if(
-            active === card &&
-            !dragging
-          ){
-            clearDrag();
-          }
-        }
-      );
+      const ok =
+        await load();
+      if(!ok){
+        clearSession();
+        throw new Error(
+          "El servidor aceptó el login pero rechazó la sesión."
+        );
+      }
+    }catch(error){
+      clearSession();
+      $("loginError").textContent =
+        error.message;
+    }finally{
+      button.disabled = false;
+      button.textContent =
+        "Ingresar";
     }
-  );
-}
-/* =========================================================
-   GUARDAR ORDEN
-========================================================= */
-async function saveDomOrder(
-  container,
-  providerId
-){
-  const ids =
-    [
-      ...container
-        .querySelectorAll(
-          ".product"
-        )
-    ]
-    .map(
-      x =>
-        Number(
-          x.dataset.id
-        )
-    )
-    .filter(
-      Number.isFinite
-    );
-  if(!ids.length){
-    return;
-  }
-  try{
-    await api({
-      accion:
-        "reordenar_productos",
-      proveedor_id:
-        Number(providerId),
-      ids
-    });
-    toast(
-      "Orden guardado"
-    );
-  }catch(e){
-    toast(
-      e.message ||
-      "No se pudo guardar el orden."
-    );
-  }
-}
-/* =========================================================
+  };
+/* =========================
    INICIO
-========================================================= */
+========================= */
 (async function init(){
   token =
     getStoredToken();
   if(!token){
-    loginShow();
+    $("loginScreen")
+      .classList.remove("hidden");
+    $("app")
+      .classList.add("hidden");
     return;
   }
   const ok =
