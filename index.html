@@ -27,8 +27,102 @@ function productEl(p){let el=document.createElement("article"),cap=p.capacidad&&
 function openModal(title,html,fn){$("modal").innerHTML=`<h3>${title}</h3>${html}<div class="modalActions"><button class="cancel">Cancelar</button><button class="confirm">Guardar</button></div>`;$("overlay").classList.add("show");$("modal").classList.add("show");$("modal .cancel").onclick=closeModal;$("modal .confirm").onclick=async()=>{try{await fn();closeModal();await load()}catch(e){toast(e.message)}}}function closeModal(){$("overlay").classList.remove("show");$("modal").classList.remove("show")}$("overlay").onclick=closeModal;
 function renameProvider(p){openModal("Renombrar proveedor",`<div class="field"><label>Nombre</label><input id="mName" value="${esc(p.nombre)}"></div>`,()=>api({accion:"renombrar_proveedor",id:p.id,nombre:$("mName").value}))}function adjustProvider(p){openModal("Ajustar precios",`<div class="field"><label>Monto</label><input id="mAmount" type="number" min="-1000" max="1000" value="0"></div><div class="checks"><label><input id="mCost" type="checkbox"> Proveedor / Costo</label><label><input id="mSale" type="checkbox"> Vendedor / Venta</label></div>`,()=>{let m=Math.max(-1000,Math.min(1000,Number($("mAmount").value)||0)),c=$("mCost").checked,s=$("mSale").checked;if(!c&&!s)throw Error("Seleccioná Costo, Venta o ambos.");return api({accion:"ajustar_precios",proveedor_id:p.id,monto:m,costo:c,venta:s})})}async function deleteProvider(p){if(confirm(`¿Eliminar el proveedor "${p.nombre}" y todos sus productos?`))try{await api({accion:"eliminar_proveedor",id:p.id});load()}catch(e){toast(e.message)}}function productForm(p=null){let opts=proveedores.map(x=>`<option value="${x.id}" ${p&&+p.proveedor_id===+x.id?"selected":""}>${esc(x.nombre)}</option>`).join("");return `<div class="field"><label>Producto</label><input id="mProduct" value="${p?esc(p.producto):""}"></div><div class="field"><label>Proveedor</label><select id="mProvider">${opts}</select></div><div class="field"><label>Capacidad</label><select id="mCapacity">${["Ninguno","128 GB","256 GB","512 GB","1 TB"].map(x=>`<option ${p?.capacidad===x?"selected":""}>${x}</option>`).join("")}</select></div><div class="field"><label>Precio de venta</label><input id="mSalePrice" type="number" min="0" value="${p?.venta||0}"></div><div class="field"><label>Costo</label><input id="mCostPrice" type="number" min="0" value="${p?.costo||0}"></div><div class="field"><label>Stock</label><input id="mStock" type="number" min="0" value="${p?.cantidad||0}"></div>`}function addProduct(){if(!proveedores.length)return toast("Primero agregá un proveedor.");openModal("Agregar producto",productForm(),()=>api({accion:"agregar_producto",proveedor_id:+$("mProvider").value,producto:$("mProduct").value,capacidad:$("mCapacity").value,venta:+$("mSalePrice").value||0,costo:+$("mCostPrice").value||0,cantidad:+$("mStock").value||0}))}function editProduct(p){openModal("Editar producto",productForm(p),()=>api({accion:"editar_producto",id:p.id,proveedor_id:+$("mProvider").value,producto:$("mProduct").value,capacidad:$("mCapacity").value,venta:+$("mSalePrice").value||0,costo:+$("mCostPrice").value||0,cantidad:+$("mStock").value||0}))}async function deleteProduct(p){if(confirm(`¿Eliminar "${p.producto}"?`))try{delete calc[p.id];await api({accion:"eliminar_producto",id:p.id});load()}catch(e){toast(e.message)}}
 $("addProductBtn").onclick=addProduct;$("search").oninput=render;$("calcBtn").onclick=()=>{$("sideCalc").classList.add("open");$("overlay").classList.add("show")};$("calcClose").onclick=()=>{$("sideCalc").classList.remove("open");$("overlay").classList.remove("show")};$("clearCalc").onclick=()=>{calc={};updateCalc();render()};
-function setupDrag(container,providerId){let active=null,moved=false,startX=0,startY=0,pressTimer=null,pointerId=null;const cards=[...container.querySelectorAll(".product")];cards.forEach(card=>{card.draggable=true;card.addEventListener("dragstart",e=>{active=card;card.classList.add("dragging");e.dataTransfer.effectAllowed="move";e.dataTransfer.setData("text/plain",card.dataset.id)});card.addEventListener("dragover",e=>{e.preventDefault();if(!active||active===card)return;card.classList.add("dropTarget");const r=card.getBoundingClientRect();container.insertBefore(active,e.clientY<r.top+r.height/2?card:card.nextSibling)});card.addEventListener("dragend",async()=>{if(active)active.classList.remove("dragging");cards.forEach(c=>c.classList.remove("dropTarget"));if(active)await saveDomOrder(container,providerId);active=null});card.addEventListener("pointerdown",e=>{if(e.pointerType!=="touch")return;if(e.target.closest("button"))return;pointerId=e.pointerId;active=card;startX=e.clientX;startY=e.clientY;moved=false;card.setPointerCapture?.(pointerId);clearTimeout(pressTimer);pressTimer=setTimeout(()=>{moved=true;card.classList.add("dragging")},220)});card.addEventListener("pointermove",e=>{if(e.pointerType!=="touch"||pointerId!==e.pointerId||active!==card)return;if(!moved){if(Math.hypot(e.clientX-startX,e.clientY-startY)>8){clearTimeout(pressTimer);active=null}return}e.preventDefault();const target=cards.find(c=>c!==card&&(()=>{const r=c.getBoundingClientRect();return e.clientY>=r.top&&e.clientY<=r.bottom})());if(target){cards.forEach(c=>c.classList.remove("dropTarget"));target.classList.add("dropTarget");const r=target.getBoundingClientRect();container.insertBefore(card,e.clientY<r.top+r.height/2?target:target.nextSibling)}},{passive:false});card.addEventListener("pointerup",async e=>{if(e.pointerType!=="touch"||pointerId!==e.pointerId)return;clearTimeout(pressTimer);if(moved){card.classList.remove("dragging");cards.forEach(c=>c.classList.remove("dropTarget"));await saveDomOrder(container,providerId)}active=null;moved=false;pointerId=null});card.addEventListener("pointercancel",()=>{clearTimeout(pressTimer);card.classList.remove("dragging");cards.forEach(c=>c.classList.remove("dropTarget"));active=null;moved=false;pointerId=null})})}
-async function saveDomOrder(container,providerId){let ids=[...container.querySelectorAll(".product")].map(x=>+x.dataset.id).filter(Number.isFinite);if(!ids.length)return;try{await api({accion:"reordenar_productos",proveedor_id:+providerId,ids});toast("Orden guardado")}catch(e){toast(e.message)}}
+function setupDrag(container,providerId){
+  const cards=[...container.querySelectorAll('.product')];
+  let active=null, pointerId=null, startY=0, dragging=false, longTimer=null;
+
+  cards.forEach(card=>{
+    card.draggable=false;
+    card.style.cursor='grab';
+
+    const clearDrag=()=>{
+      clearTimeout(longTimer);
+      if(active){
+        active.classList.remove('dragging');
+        active.style.cursor='grab';
+      }
+      cards.forEach(c=>c.classList.remove('dropTarget'));
+      active=null; pointerId=null; dragging=false;
+    };
+
+    card.addEventListener('pointerdown',e=>{
+      if(e.button!==undefined && e.button!==0) return;
+      if(e.target.closest('button,input,select,a,.menuBox')) return;
+
+      active=card;
+      pointerId=e.pointerId;
+      startY=e.clientY;
+      dragging=false;
+      card.setPointerCapture?.(pointerId);
+
+      longTimer=setTimeout(()=>{
+        if(active===card){
+          dragging=true;
+          card.classList.add('dragging');
+          card.style.cursor='grabbing';
+        }
+      },180);
+    });
+
+    card.addEventListener('pointermove',e=>{
+      if(active!==card || e.pointerId!==pointerId) return;
+
+      const distance=Math.abs(e.clientY-startY);
+      if(!dragging){
+        if(distance>10){
+          clearTimeout(longTimer);
+          dragging=true;
+          card.classList.add('dragging');
+          card.style.cursor='grabbing';
+        }else return;
+      }
+
+      e.preventDefault();
+      const others=[...container.querySelectorAll('.product')].filter(c=>c!==active);
+      const target=others.find(c=>{
+        const r=c.getBoundingClientRect();
+        return e.clientY>=r.top && e.clientY<=r.bottom;
+      });
+
+      if(target){
+        cards.forEach(c=>c.classList.remove('dropTarget'));
+        target.classList.add('dropTarget');
+        const r=target.getBoundingClientRect();
+        if(e.clientY < r.top+r.height/2) container.insertBefore(active,target);
+        else container.insertBefore(active,target.nextSibling);
+      }
+    },{passive:false});
+
+    card.addEventListener('pointerup',async e=>{
+      if(active!==card || e.pointerId!==pointerId) return;
+      clearTimeout(longTimer);
+      const wasDragging=dragging;
+      try{card.releasePointerCapture?.(pointerId)}catch{}
+      if(wasDragging){
+        card.classList.remove('dragging');
+        cards.forEach(c=>c.classList.remove('dropTarget'));
+        active=null;pointerId=null;dragging=false;
+        await saveDomOrder(container,providerId);
+      }else{
+        clearDrag();
+      }
+    });
+
+    card.addEventListener('pointercancel',()=>clearDrag());
+    card.addEventListener('lostpointercapture',()=>{
+      if(active===card && !dragging) clearDrag();
+    });
+  });
+}
+async function saveDomOrder(container,providerId){
+  const ids=[...container.querySelectorAll('.product')].map(x=>Number(x.dataset.id)).filter(Number.isFinite);
+  if(!ids.length)return;
+  try{
+    await api({accion:'reordenar_productos',proveedor_id:Number(providerId),ids});
+    showToast('Orden guardado');
+  }catch(e){showToast(e.message)}
+}
+
 if(token){appShow();load()}else loginShow();
 </script></body></html>''' > /mnt/data/stock_iphone_actualizado.html
 ls -lh /mnt/data/stock_iphone_actualizado.html
