@@ -6,53 +6,72 @@
 
 <title>Stock iPhone</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+
 <style>
 :root{
-  --black:#08080b;
-  --black2:#101014;
+  --black:#07070a;
+  --black2:#101016;
+  --black3:#15151d;
+
   --purple:#7c3aed;
   --purple2:#a855f7;
+  --purple3:#c084fc;
+
   --gold:#f5c542;
   --gold2:#ffd95a;
+
   --white:#ffffff;
-  --gray:#a8a8b3;
-  --gray2:#1b1b22;
+  --gray:#aaaab7;
+  --gray2:#24242e;
+
   --red:#ef4444;
   --green:#22c55e;
+
+  --border:rgba(255,255,255,.08);
+  --glass:rgba(17,17,23,.82);
 }
 
 *{
   box-sizing:border-box;
 }
 
+html{
+  scroll-behavior:smooth;
+}
+
 body{
   margin:0;
+  min-height:100vh;
+
   background:
     radial-gradient(
       ellipse 70% 45% at 50% -5%,
-      rgba(124,58,237,.38),
+      rgba(124,58,237,.42),
       transparent 65%
     ),
     radial-gradient(
-      ellipse 55% 35% at 90% 25%,
-      rgba(168,85,247,.16),
+      ellipse 55% 40% at 100% 30%,
+      rgba(168,85,247,.17),
       transparent 70%
     ),
     radial-gradient(
-      ellipse 45% 30% at 5% 70%,
-      rgba(76,29,149,.12),
+      ellipse 50% 35% at 0% 80%,
+      rgba(76,29,149,.13),
       transparent 70%
     ),
     linear-gradient(
       145deg,
-      #07070a 0%,
+      #060609 0%,
       #100b18 45%,
       #08080c 100%
     );
+
   background-attachment:fixed;
   color:var(--white);
   font-family:Arial,Helvetica,sans-serif;
-  min-height:100vh;
 }
 
 button,
@@ -69,9 +88,10 @@ button{
   display:none!important;
 }
 
-/* =========================
+
+/* =========================================================
    LOGIN
-========================= */
+========================================================= */
 
 #loginScreen{
   min-height:100vh;
@@ -84,18 +104,27 @@ button{
 .loginBox{
   width:100%;
   max-width:390px;
-  background:rgba(16,16,20,.94);
-  border:1px solid rgba(168,85,247,.35);
-  border-radius:22px;
-  padding:30px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(25,20,34,.94),
+      rgba(12,12,17,.96)
+    );
+
+  border:1px solid rgba(168,85,247,.32);
+  border-radius:24px;
+  padding:31px;
+
   box-shadow:
-    0 20px 70px rgba(0,0,0,.45),
-    0 0 45px rgba(124,58,237,.08);
-  backdrop-filter:blur(14px);
+    0 25px 80px rgba(0,0,0,.55),
+    0 0 60px rgba(124,58,237,.10);
+
+  backdrop-filter:blur(18px);
 }
 
 .loginTitle{
-  font-size:28px;
+  font-size:29px;
   font-weight:900;
   margin-bottom:8px;
 }
@@ -115,15 +144,17 @@ button{
 .loginBox input{
   width:100%;
   border:1px solid #292933;
-  background:#0a0a0d;
+  background:#09090d;
   color:white;
   border-radius:12px;
   padding:14px;
   outline:none;
+  transition:.2s;
 }
 
 .loginBox input:focus{
   border-color:var(--purple2);
+  box-shadow:0 0 0 3px rgba(168,85,247,.10);
 }
 
 .loginButton{
@@ -132,20 +163,35 @@ button{
   padding:14px;
   border:0;
   border-radius:12px;
-  background:var(--purple);
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--purple),
+      var(--purple2)
+    );
+
   color:white;
   font-weight:800;
+
+  box-shadow:
+    0 8px 25px rgba(124,58,237,.25);
+}
+
+.loginButton:hover{
+  filter:brightness(1.1);
 }
 
 .loginError{
-  color:#ff6b6b;
+  color:#ff7777;
   font-size:13px;
   margin-top:12px;
 }
 
-/* =========================
-   APP
-========================= */
+
+/* =========================================================
+   APP / TOPBAR
+========================================================= */
 
 #app{
   min-height:100vh;
@@ -155,16 +201,22 @@ button{
   position:sticky;
   top:0;
   z-index:50;
-  background:rgba(8,8,11,.82);
-  backdrop-filter:blur(16px);
-  border-bottom:1px solid rgba(168,85,247,.16);
-  box-shadow:0 8px 30px rgba(0,0,0,.22);
+
+  background:rgba(7,7,10,.78);
+  backdrop-filter:blur(20px);
+
+  border-bottom:1px solid rgba(168,85,247,.15);
+
+  box-shadow:
+    0 10px 35px rgba(0,0,0,.25);
 }
 
 .topbarInner{
   max-width:1100px;
   margin:auto;
-  padding:15px 18px;
+
+  padding:14px 18px;
+
   display:grid;
   grid-template-columns:1fr auto 1fr;
   align-items:center;
@@ -174,37 +226,38 @@ button{
 .brand{
   grid-column:1;
   justify-self:start;
+
   font-size:21px;
   font-weight:900;
+  letter-spacing:-.4px;
 }
 
 .brand span{
   color:var(--gold);
 }
 
-/* AGUSTÍN */
-
 .centerBrand{
   grid-column:2;
   justify-self:center;
-  font-size:24px;
-  font-weight:900;
+
+  font-family:"Permanent Marker","Brush Script MT","Segoe Print",cursive;
+  font-size:25px;
+  font-weight:400;
   letter-spacing:1px;
+
   color:#fff;
-  font-family:
-    "Brush Script MT",
-    "Segoe Print",
-    "Comic Sans MS",
-    cursive;
-  transform:rotate(-2deg);
+
   text-shadow:
-    0 0 8px rgba(168,85,247,.55),
-    0 0 18px rgba(124,58,237,.35);
+    0 0 10px rgba(168,85,247,.55),
+    2px 2px 0 rgba(124,58,237,.35);
+
+  transform:rotate(-2deg);
 }
 
 .topActions{
   grid-column:3;
   justify-self:end;
+
   display:flex;
   align-items:center;
   gap:8px;
@@ -212,13 +265,29 @@ button{
 
 .iconButton{
   position:relative;
+
   width:43px;
   height:43px;
-  border:1px solid #2a2a34;
+
+  border:1px solid #30303a;
   border-radius:12px;
-  background:#121218;
+
+  background:
+    linear-gradient(
+      145deg,
+      #191920,
+      #101016
+    );
+
   color:white;
   font-size:19px;
+
+  transition:.2s;
+}
+
+.iconButton:hover{
+  border-color:rgba(168,85,247,.65);
+  transform:translateY(-1px);
 }
 
 .logoutButton{
@@ -233,46 +302,68 @@ button{
   position:absolute;
   right:-5px;
   top:-5px;
+
   min-width:19px;
   height:19px;
+
   padding:0 5px;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   background:var(--red);
   color:white;
+
   border-radius:99px;
+
   font-size:10px;
   font-weight:900;
+
+  box-shadow:0 3px 10px rgba(239,68,68,.35);
 }
 
-/* =========================
+
+/* =========================================================
    CONTENT
-========================= */
+========================================================= */
 
 .container{
   max-width:1100px;
   margin:auto;
-  padding:20px 18px 60px;
+  padding:22px 18px 70px;
 }
 
 .sectionTitle{
   font-size:22px;
   font-weight:900;
-  margin:10px 0 15px;
+  margin:12px 0 15px;
+
+  letter-spacing:-.3px;
 }
 
 .card{
-  background:rgba(16,16,20,.90);
-  border:1px solid #24242d;
-  border-radius:17px;
-  padding:16px;
-  margin-bottom:16px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(20,20,27,.92),
+      rgba(12,12,17,.88)
+    );
+
+  border:1px solid var(--border);
+  border-radius:18px;
+
+  padding:17px;
+  margin-bottom:18px;
+
   box-shadow:
-    0 10px 30px rgba(0,0,0,.12);
+    0 14px 38px rgba(0,0,0,.15);
+
+  backdrop-filter:blur(10px);
 }
 
-/* SOLO ACHICAMOS EL BLOQUE DE AGREGAR PROVEEDOR */
+
+/* PROVEEDOR */
 
 .providerAddCard{
   padding:11px;
@@ -294,10 +385,13 @@ button{
   margin-bottom:4px;
 }
 
+
+/* FORM */
+
 .formGrid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:10px;
+  gap:11px;
 }
 
 .formGroup label{
@@ -310,17 +404,26 @@ button{
 .formGroup input,
 .formGroup select{
   width:100%;
-  background:#09090c;
+
+  background:#09090d;
   border:1px solid #292933;
+
   color:white;
-  border-radius:10px;
+
+  border-radius:11px;
   padding:12px;
+
   outline:none;
+
+  transition:.2s;
 }
 
 .formGroup input:focus,
 .formGroup select:focus{
   border-color:var(--purple2);
+
+  box-shadow:
+    0 0 0 3px rgba(168,85,247,.08);
 }
 
 .full{
@@ -330,31 +433,65 @@ button{
 .primaryButton{
   border:0;
   border-radius:11px;
+
   padding:12px 15px;
-  background:var(--purple);
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--purple),
+      var(--purple2)
+    );
+
   color:white;
   font-weight:800;
+
+  box-shadow:
+    0 7px 20px rgba(124,58,237,.18);
+
+  transition:.2s;
 }
 
 .primaryButton:hover{
-  background:var(--purple2);
+  filter:brightness(1.08);
+  transform:translateY(-1px);
 }
 
 .goldButton{
-  background:var(--gold);
+  background:
+    linear-gradient(
+      135deg,
+      var(--gold),
+      var(--gold2)
+    );
+
   color:#111;
+
+  box-shadow:
+    0 7px 20px rgba(245,197,66,.12);
 }
 
-/* =========================
+
+/* =========================================================
    PROVIDERS
-========================= */
+========================================================= */
 
 .provider{
   border:1px solid #272731;
-  border-radius:16px;
+  border-radius:17px;
   overflow:hidden;
-  margin-bottom:13px;
-  background:#101015;
+
+  margin-bottom:14px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #111117,
+      #0d0d12
+    );
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.14);
 }
 
 .providerHeader{
@@ -362,15 +499,24 @@ button{
   align-items:center;
   justify-content:space-between;
   gap:10px;
+
   padding:15px;
-  background:#13131a;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.025),
+      rgba(124,58,237,.035)
+    );
 }
 
 .providerLeft{
   display:flex;
   align-items:center;
   gap:10px;
+
   min-width:0;
+
   cursor:pointer;
 }
 
@@ -378,11 +524,13 @@ button{
   color:var(--gold);
   font-size:15px;
   width:20px;
+  text-align:center;
 }
 
 .providerName{
   font-size:18px;
   font-weight:900;
+
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
@@ -396,33 +544,61 @@ button{
 .smallButton{
   width:36px;
   height:36px;
+
   border-radius:9px;
+
   border:1px solid #30303a;
-  background:#191920;
+
+  background:
+    linear-gradient(
+      145deg,
+      #1c1c24,
+      #15151b
+    );
+
   color:white;
+
+  transition:.2s;
+}
+
+.smallButton:hover{
+  border-color:#50505d;
 }
 
 .products{
   padding:10px;
 }
 
-/* =========================
+
+/* =========================================================
    PRODUCT
-========================= */
+========================================================= */
 
 .product{
   position:relative;
+
   display:grid;
   grid-template-columns:minmax(0,1fr) auto;
   gap:10px;
+
   padding:14px;
   margin-bottom:8px;
-  border-radius:13px;
-  background:#0c0c10;
+
+  border-radius:14px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #0e0e13,
+      #0a0a0e
+    );
+
   border:1px solid #202028;
+
   touch-action:none;
   user-select:none;
   cursor:grab;
+
   transition:
     transform .18s ease,
     opacity .18s ease,
@@ -441,14 +617,20 @@ button{
 .product.dragging{
   opacity:.45;
   transform:scale(1.025);
+
   border-color:var(--purple2);
+
   cursor:grabbing;
-  box-shadow:0 10px 35px rgba(124,58,237,.20);
+
+  box-shadow:
+    0 10px 35px rgba(124,58,237,.20);
 }
 
 .product.dragOver{
   border-color:var(--gold);
-  box-shadow:0 0 0 2px rgba(245,197,66,.25);
+
+  box-shadow:
+    0 0 0 2px rgba(245,197,66,.25);
 }
 
 .productMain{
@@ -476,9 +658,12 @@ button{
 
 .productBottom{
   margin-top:11px;
+
   display:flex;
   align-items:center;
-  gap:12px;
+
+  gap:10px;
+
   flex-wrap:wrap;
 }
 
@@ -497,17 +682,25 @@ button{
 .calcControls{
   display:flex;
   align-items:center;
-  gap:6px;
+  gap:5px;
 }
 
 .calcControls button{
   width:30px;
   height:30px;
+
   border:1px solid #33333d;
   border-radius:8px;
+
   background:#17171d;
   color:white;
+
   font-size:18px;
+}
+
+.calcControls button:hover{
+  border-color:var(--purple2);
+  background:#20202a;
 }
 
 .calcQty{
@@ -516,37 +709,82 @@ button{
   font-weight:800;
 }
 
+
+/* PEDIR */
+
+.orderButton{
+  height:30px;
+
+  border:1px solid rgba(245,197,66,.35);
+  border-radius:8px;
+
+  background:
+    rgba(245,197,66,.08);
+
+  color:var(--gold2);
+
+  padding:0 11px;
+
+  font-size:12px;
+  font-weight:900;
+
+  transition:.2s;
+}
+
+.orderButton:hover{
+  background:rgba(245,197,66,.16);
+  border-color:var(--gold);
+}
+
+
+/* MENU PRODUCTO */
+
 .productMenuButton{
   width:35px;
   height:35px;
+
   border:1px solid #30303a;
   border-radius:9px;
+
   background:#15151b;
   color:white;
+
   font-size:18px;
 }
 
 .productMenu{
   position:absolute;
+
   right:10px;
   top:50px;
+
   z-index:20;
+
   min-width:145px;
+
   background:#191920;
   border:1px solid #353540;
+
   border-radius:11px;
   padding:5px;
-  box-shadow:0 15px 35px rgba(0,0,0,.5);
+
+  box-shadow:
+    0 15px 35px rgba(0,0,0,.5);
 }
 
 .productMenu button{
   display:block;
   width:100%;
+
   border:0;
   background:transparent;
+
   color:white;
+
   text-align:left;
+
   padding:11px;
+
   border-radius:8px;
 }
 
@@ -558,30 +796,49 @@ button{
   color:#ff7777;
 }
 
-/* =========================
+
+/* =========================================================
    MODALS
-========================= */
+========================================================= */
 
 .modalBackdrop{
   position:fixed;
   inset:0;
+
   z-index:100;
-  background:rgba(0,0,0,.68);
+
+  background:rgba(0,0,0,.72);
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   padding:18px;
+
+  backdrop-filter:blur(4px);
 }
 
 .modal{
   width:100%;
   max-width:450px;
-  background:#111116;
+
+  background:
+    linear-gradient(
+      145deg,
+      #15151d,
+      #0e0e13
+    );
+
   border:1px solid #32323d;
-  border-radius:18px;
+  border-radius:19px;
+
   padding:20px;
+
   max-height:90vh;
   overflow:auto;
+
+  box-shadow:
+    0 25px 80px rgba(0,0,0,.55);
 }
 
 .modalTitle{
@@ -604,6 +861,7 @@ button{
   border:1px solid #34343e;
   background:#191920;
   color:white;
+
   border-radius:11px;
   padding:12px;
 }
@@ -612,8 +870,11 @@ button{
   display:flex;
   align-items:center;
   gap:10px;
+
   padding:11px;
+
   background:#18181f;
+
   border-radius:10px;
   margin-bottom:8px;
 }
@@ -623,23 +884,41 @@ button{
   height:18px;
 }
 
-/* =========================
-   CALCULATOR
-========================= */
+
+/* =========================================================
+   DRAWERS
+========================================================= */
 
 .calculator{
   position:fixed;
+
   right:0;
   top:0;
+
   height:100%;
+
   width:390px;
   max-width:100%;
+
   z-index:200;
-  background:#0c0c10;
+
+  background:
+    linear-gradient(
+      145deg,
+      #111117,
+      #09090d
+    );
+
   border-left:1px solid #2a2a35;
-  box-shadow:-20px 0 60px rgba(0,0,0,.5);
+
+  box-shadow:
+    -20px 0 60px rgba(0,0,0,.55);
+
   transform:translateX(100%);
-  transition:transform .25s ease;
+
+  transition:
+    transform .25s ease;
+
   display:flex;
   flex-direction:column;
 }
@@ -650,7 +929,9 @@ button{
 
 .calcHeader{
   padding:18px;
+
   border-bottom:1px solid #292933;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -669,9 +950,14 @@ button{
 
 .calcItem{
   padding:12px;
+
   border:1px solid #25252e;
+
   border-radius:11px;
+
   margin-bottom:8px;
+
+  background:rgba(255,255,255,.015);
 }
 
 .calcItemName{
@@ -692,7 +978,9 @@ button{
 .calcLine{
   display:flex;
   justify-content:space-between;
+
   margin-bottom:9px;
+
   color:var(--gray);
 }
 
@@ -709,7 +997,9 @@ button{
   display:flex;
   justify-content:space-between;
   align-items:center;
+
   margin:15px 0;
+
   font-size:21px;
   font-weight:900;
 }
@@ -718,29 +1008,197 @@ button{
   color:var(--gold);
 }
 
+
+/* BOTONES DE CALCULADORA */
+
+.calcActions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-bottom:8px;
+}
+
+.soldButton{
+  width:100%;
+
+  border:0;
+  border-radius:11px;
+
+  padding:12px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #16a34a,
+      #22c55e
+    );
+
+  color:white;
+  font-weight:900;
+
+  box-shadow:
+    0 8px 20px rgba(34,197,94,.13);
+}
+
 .clearCalc{
   width:100%;
+
   border:1px solid #42252a;
   background:#211216;
+
   color:#ff7777;
+
   padding:12px;
+
   border-radius:11px;
+
   font-weight:800;
 }
 
-/* =========================
+
+/* =========================================================
+   PEDIDOS
+========================================================= */
+
+.orderDrawer{
+  position:fixed;
+
+  right:0;
+  top:0;
+
+  height:100%;
+
+  width:390px;
+  max-width:100%;
+
+  z-index:210;
+
+  background:
+    linear-gradient(
+      145deg,
+      #111117,
+      #09090d
+    );
+
+  border-left:1px solid #2a2a35;
+
+  box-shadow:
+    -20px 0 60px rgba(0,0,0,.55);
+
+  transform:translateX(100%);
+
+  transition:
+    transform .25s ease;
+
+  display:flex;
+  flex-direction:column;
+}
+
+.orderDrawer.open{
+  transform:translateX(0);
+}
+
+.orderHeader{
+  padding:18px;
+
+  border-bottom:1px solid #292933;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.orderTitle{
+  font-size:20px;
+  font-weight:900;
+}
+
+.orderItems{
+  flex:1;
+  overflow:auto;
+  padding:15px;
+}
+
+.orderItem{
+  padding:13px;
+
+  border:1px solid #292932;
+
+  border-radius:13px;
+
+  margin-bottom:9px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.025),
+      rgba(124,58,237,.025)
+    );
+}
+
+.orderItemTop{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.orderItemName{
+  font-weight:900;
+}
+
+.orderItemCapacity{
+  color:var(--gold2);
+  font-size:13px;
+  margin-top:3px;
+}
+
+.orderItemInfo{
+  color:var(--gray);
+  font-size:13px;
+  margin-top:6px;
+}
+
+.addOrderButton{
+  width:100%;
+
+  margin-top:11px;
+
+  border:0;
+  border-radius:10px;
+
+  padding:11px;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--purple),
+      var(--purple2)
+    );
+
+  color:white;
+
+  font-weight:900;
+}
+
+.addOrderButton:hover{
+  filter:brightness(1.08);
+}
+
+
+/* =========================================================
    EMPTY
-========================= */
+========================================================= */
 
 .empty{
   color:var(--gray);
   text-align:center;
-  padding:25px 10px;
+  padding:28px 10px;
 }
 
-/* =========================
+
+/* =========================================================
    MOBILE
-========================= */
+========================================================= */
 
 @media(max-width:650px){
 
@@ -754,7 +1212,7 @@ button{
   }
 
   .centerBrand{
-    font-size:22px;
+    font-size:23px;
   }
 
   .logoutButton{
@@ -783,15 +1241,20 @@ button{
   }
 
   .productBottom{
-    gap:8px;
+    gap:7px;
   }
 
   .sale{
     font-size:18px;
   }
 
-  .calculator{
+  .calculator,
+  .orderDrawer{
     width:100%;
+  }
+
+  .calcActions{
+    grid-template-columns:1fr 1fr;
   }
 }
 </style>
@@ -799,9 +1262,10 @@ button{
 
 <body>
 
-<!-- =========================
+
+<!-- =========================================================
      LOGIN
-========================= -->
+========================================================= -->
 
 <section id="loginScreen">
 
@@ -858,9 +1322,9 @@ button{
 </section>
 
 
-<!-- =========================
+<!-- =========================================================
      APP
-========================= -->
+========================================================= -->
 
 <section id="app" class="hidden">
 
@@ -873,10 +1337,32 @@ button{
       </div>
 
       <div class="centerBrand">
-        Agustín
+        Agus
       </div>
 
       <div class="topActions">
+
+        <!-- PEDIDOS -->
+
+        <button
+          class="iconButton"
+          id="ordersButton"
+          type="button"
+          aria-label="Pedidos"
+        >
+          📦
+
+          <span
+            id="ordersBadge"
+            class="badge hidden"
+          >
+            0
+          </span>
+
+        </button>
+
+
+        <!-- CALCULADORA -->
 
         <button
           class="iconButton"
@@ -885,13 +1371,16 @@ button{
           aria-label="Calculadora"
         >
           🧮
+
           <span
             id="calculatorBadge"
             class="badge hidden"
           >
             0
           </span>
+
         </button>
+
 
         <button
           id="logoutButton"
@@ -910,7 +1399,9 @@ button{
 
   <main class="container">
 
-    <!-- AGREGAR PROVEEDOR -->
+    <!-- =====================================================
+         PROVEEDORES
+    ====================================================== -->
 
     <div class="sectionTitle">
       Proveedores
@@ -951,7 +1442,9 @@ button{
     </div>
 
 
-    <!-- AGREGAR PRODUCTO -->
+    <!-- =====================================================
+         PRODUCTO
+    ====================================================== -->
 
     <div class="sectionTitle">
       Agregar producto
@@ -1095,7 +1588,9 @@ button{
     </div>
 
 
-    <!-- PRODUCTOS -->
+    <!-- =====================================================
+         STOCK
+    ====================================================== -->
 
     <div class="sectionTitle">
       Stock
@@ -1108,9 +1603,9 @@ button{
 </section>
 
 
-<!-- =========================
+<!-- =========================================================
      CALCULADORA
-========================= -->
+========================================================= -->
 
 <aside
   id="calculator"
@@ -1120,7 +1615,7 @@ button{
   <div class="calcHeader">
 
     <div class="calcTitle">
-      Calculadora
+      🧮 Calculadora
     </div>
 
     <button
@@ -1141,48 +1636,111 @@ button{
   <div class="calcFooter">
 
     <div class="calcLine">
-      <span>Ganancia</span>
+
+      <span>
+        Ganancia
+      </span>
+
       <strong
         id="calcProfit"
         class="calcProfit"
       >
         $0
       </strong>
+
     </div>
 
+
     <div class="calcLine">
-      <span>Total costo</span>
+
+      <span>
+        Total costo
+      </span>
+
       <strong
         id="calcCost"
         class="calcTotalCost"
       >
         $0
       </strong>
+
     </div>
 
+
     <div class="calcTotalSale">
-      <span>TOTAL DE VENTA</span>
+
+      <span>
+        TOTAL DE VENTA
+      </span>
+
       <strong id="calcSale">
         $0
       </strong>
+
     </div>
 
-    <button
-      id="clearCalculator"
-      class="clearCalc"
-      type="button"
-    >
-      Vaciar calculadora
-    </button>
+
+    <div class="calcActions">
+
+      <button
+        id="soldCalculator"
+        class="soldButton"
+        type="button"
+      >
+        ✓ Vendido
+      </button>
+
+      <button
+        id="clearCalculator"
+        class="clearCalc"
+        type="button"
+      >
+        Vaciar
+      </button>
+
+    </div>
 
   </div>
 
 </aside>
 
 
-<!-- =========================
+<!-- =========================================================
+     PEDIDOS
+========================================================= -->
+
+<aside
+  id="orderDrawer"
+  class="orderDrawer"
+>
+
+  <div class="orderHeader">
+
+    <div class="orderTitle">
+      📦 Pedidos
+    </div>
+
+    <button
+      id="closeOrders"
+      class="smallButton"
+      type="button"
+    >
+      ×
+    </button>
+
+  </div>
+
+  <div
+    id="orderItems"
+    class="orderItems"
+  ></div>
+
+</aside>
+
+
+<!-- =========================================================
      MODAL
-========================= -->
+========================================================= -->
 
 <div
   id="modalBackdrop"
@@ -1202,50 +1760,70 @@ button{
 const API_URL =
   "https://noisy-sound-2a71.agus-eloy-oviedo.workers.dev";
 
+
 let sessionToken =
   sessionStorage.getItem("stock_session");
 
+
 let proveedores = [];
+
 let productos = [];
 
 let calculator = {};
 
-/*
-  IMPORTANTE:
 
-  No usamos localStorage para el estado de los proveedores.
+// =========================================================
+// PEDIDOS
+// =========================================================
 
-  Al iniciar:
-  todos arrancan cerrados.
+let pedidos =
+  JSON.parse(
+    localStorage.getItem("stock_pedidos") || "[]"
+  );
 
-  Durante la sesión:
-  si abrís uno, queda abierto.
-  si lo cerrás, queda cerrado.
 
-  Cuando la página vuelve a renderizar por sumar,
-  restar o modificar algo, mantiene exactamente
-  el estado que tenía.
-*/
+function guardarPedidos(){
+
+  localStorage.setItem(
+    "stock_pedidos",
+    JSON.stringify(pedidos)
+  );
+
+}
+
+
+// =========================================================
+// PROVEEDORES
+// =========================================================
+//
+// IMPORTANTE:
+// Al entrar a la página todos comienzan cerrados.
+// Después se respeta exactamente lo que el usuario
+// haga manualmente.
+// =========================================================
 
 let collapsedProviders = {};
 
+let providersInitialized = false;
 
-// =====================================
+
+// =========================================================
 // UTILIDADES
-// =====================================
+// =========================================================
 
 function money(value){
 
   const numero =
     Number(value) || 0;
 
-  return "$" + numero.toLocaleString(
-    "es-AR",
-    {
-      minimumFractionDigits:0,
-      maximumFractionDigits:2
-    }
-  );
+  return "$" +
+    numero.toLocaleString(
+      "es-AR",
+      {
+        minimumFractionDigits:0,
+        maximumFractionDigits:2
+      }
+    );
 }
 
 
@@ -1260,19 +1838,22 @@ function escapeHtml(value){
 }
 
 
-// =====================================
+// =========================================================
 // API
-// =====================================
+// =========================================================
 
 async function apiFetch(){
 
   const response =
-    await fetch(API_URL,{
-      headers:{
-        Authorization:
-          "Bearer " + sessionToken
+    await fetch(
+      API_URL,
+      {
+        headers:{
+          Authorization:
+            "Bearer " + sessionToken
+        }
       }
-    });
+    );
 
   if(response.status === 401){
 
@@ -1284,7 +1865,9 @@ async function apiFetch(){
 
     showLogin();
 
-    throw new Error("Sesión expirada");
+    throw new Error(
+      "Sesión expirada"
+    );
   }
 
   return response.json();
@@ -1294,19 +1877,22 @@ async function apiFetch(){
 async function apiPost(data){
 
   const response =
-    await fetch(API_URL,{
-      method:"POST",
+    await fetch(
+      API_URL,
+      {
+        method:"POST",
 
-      headers:{
-        "Content-Type":
-          "application/json",
+        headers:{
+          "Content-Type":
+            "application/json",
 
-        Authorization:
-          "Bearer " + sessionToken
-      },
+          Authorization:
+            "Bearer " + sessionToken
+        },
 
-      body:JSON.stringify(data)
-    });
+        body:JSON.stringify(data)
+      }
+    );
 
   if(response.status === 401){
 
@@ -1318,16 +1904,18 @@ async function apiPost(data){
 
     showLogin();
 
-    throw new Error("Sesión expirada");
+    throw new Error(
+      "Sesión expirada"
+    );
   }
 
   return response.json();
 }
 
 
-// =====================================
+// =========================================================
 // LOGIN
-// =====================================
+// =========================================================
 
 document
   .getElementById("loginForm")
@@ -1352,7 +1940,9 @@ document
           "loginError"
         );
 
-      error.classList.add("hidden");
+      error.classList.add(
+        "hidden"
+      );
 
       try{
 
@@ -1400,20 +1990,18 @@ document
 
         showApp();
 
-        /*
-          Cada vez que iniciamos una sesión
-          los proveedores arrancan cerrados.
-        */
-        collapsedProviders = {};
-
         await cargarDatos();
 
       }catch(error){
 
-        error.textContent =
+        document.getElementById(
+          "loginError"
+        ).textContent =
           "No se pudo conectar con el servidor.";
 
-        error.classList.remove(
+        document.getElementById(
+          "loginError"
+        ).classList.remove(
           "hidden"
         );
       }
@@ -1422,9 +2010,9 @@ document
   );
 
 
-// =====================================
+// =========================================================
 // MOSTRAR APP
-// =====================================
+// =========================================================
 
 function showLogin(){
 
@@ -1435,6 +2023,7 @@ function showLogin(){
   document
     .getElementById("app")
     .classList.add("hidden");
+
 }
 
 
@@ -1447,12 +2036,13 @@ function showApp(){
   document
     .getElementById("app")
     .classList.remove("hidden");
+
 }
 
 
-// =====================================
+// =========================================================
 // CARGAR DATOS
-// =====================================
+// =========================================================
 
 async function cargarDatos(){
 
@@ -1472,17 +2062,44 @@ async function cargarDatos(){
   productos =
     data.productos || [];
 
+
+  // -----------------------------------------
+  // Primera carga:
+  // TODOS LOS PROVEEDORES CERRADOS.
+  // -----------------------------------------
+
+  if(!providersInitialized){
+
+    collapsedProviders = {};
+
+    proveedores.forEach(
+      provider => {
+
+        collapsedProviders[
+          provider.id
+        ] = true;
+
+      }
+    );
+
+    providersInitialized = true;
+  }
+
+
   renderProviders();
 
   renderProviderSelect();
 
   renderCalculator();
+
+  renderOrders();
+
 }
 
 
-// =====================================
+// =========================================================
 // SELECT PROVEEDORES
-// =====================================
+// =========================================================
 
 function renderProviderSelect(){
 
@@ -1496,7 +2113,9 @@ function renderProviderSelect(){
   if(!proveedores.length){
 
     const option =
-      document.createElement("option");
+      document.createElement(
+        "option"
+      );
 
     option.value = "";
 
@@ -1508,26 +2127,32 @@ function renderProviderSelect(){
     return;
   }
 
-  proveedores.forEach(provider => {
+  proveedores.forEach(
+    provider => {
 
-    const option =
-      document.createElement("option");
+      const option =
+        document.createElement(
+          "option"
+        );
 
-    option.value =
-      provider.id;
+      option.value =
+        provider.id;
 
-    option.textContent =
-      provider.nombre;
+      option.textContent =
+        provider.nombre;
 
-    select.appendChild(option);
+      select.appendChild(
+        option
+      );
 
-  });
+    }
+  );
 }
 
 
-// =====================================
+// =========================================================
 // RENDER PROVEEDORES
-// =====================================
+// =========================================================
 
 function renderProviders(){
 
@@ -1548,135 +2173,137 @@ function renderProviders(){
     return;
   }
 
-  proveedores.forEach(provider => {
 
-    const providerDiv =
-      document.createElement("div");
+  proveedores.forEach(
+    provider => {
 
-    providerDiv.className =
-      "provider";
-
-    /*
-      CLAVE:
-
-      Si el proveedor nunca fue tocado,
-      collapsed será TRUE.
-
-      Eso hace que todos arranquen cerrados.
-
-      Una vez abierto:
-      collapsedProviders[id] = false
-
-      Y las siguientes renderizaciones
-      mantienen ese estado.
-    */
-
-    const collapsed =
-      collapsedProviders[provider.id] !== false;
-
-    providerDiv.innerHTML = `
-
-      <div class="providerHeader">
-
-        <div
-          class="providerLeft"
-          data-provider-toggle="${provider.id}"
-        >
-
-          <div class="providerArrow">
-            ${collapsed ? "▶" : "▼"}
-          </div>
-
-          <div class="providerName">
-            ${escapeHtml(provider.nombre)}
-          </div>
-
-        </div>
-
-        <div class="providerActions">
-
-          <button
-            class="smallButton"
-            type="button"
-            data-action="provider-menu"
-            data-id="${provider.id}"
-          >
-            ⋮
-          </button>
-
-        </div>
-
-      </div>
-
-      <div
-        class="products ${collapsed ? "hidden" : ""}"
-        id="products-${provider.id}"
-      ></div>
-    `;
-
-    container.appendChild(
-      providerDiv
-    );
-
-    const productsContainer =
-      providerDiv.querySelector(
-        `#products-${provider.id}`
-      );
-
-    const providerProducts =
-      productos
-        .filter(
-          p =>
-            Number(p.proveedor_id) ===
-            Number(provider.id)
-        )
-        .sort(
-          (a,b) =>
-            Number(a.orden) -
-              Number(b.orden) ||
-            Number(b.id) -
-              Number(a.id)
+      const providerDiv =
+        document.createElement(
+          "div"
         );
 
-    if(!providerProducts.length){
+      providerDiv.className =
+        "provider";
 
-      productsContainer.innerHTML =
-        `<div class="empty">
-          No hay productos.
-        </div>`;
 
-    }else{
+      const collapsed =
+        collapsedProviders[
+          provider.id
+        ] !== false;
 
-      providerProducts.forEach(
-        product => {
 
-          productsContainer.appendChild(
-            createProductElement(
-              product
-            )
+      providerDiv.innerHTML = `
+
+        <div class="providerHeader">
+
+          <div
+            class="providerLeft"
+            data-provider-toggle="${provider.id}"
+          >
+
+            <div class="providerArrow">
+              ${collapsed ? "▶" : "▼"}
+            </div>
+
+            <div class="providerName">
+              ${escapeHtml(provider.nombre)}
+            </div>
+
+          </div>
+
+          <div class="providerActions">
+
+            <button
+              class="smallButton"
+              type="button"
+              data-action="provider-menu"
+              data-id="${provider.id}"
+            >
+              ⋮
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="products ${collapsed ? "hidden" : ""}"
+          id="products-${provider.id}"
+        ></div>
+
+      `;
+
+
+      container.appendChild(
+        providerDiv
+      );
+
+
+      const productsContainer =
+        providerDiv.querySelector(
+          `#products-${provider.id}`
+        );
+
+
+      const providerProducts =
+        productos
+          .filter(
+            p =>
+              Number(p.proveedor_id) ===
+              Number(provider.id)
+          )
+          .sort(
+            (a,b) =>
+              Number(a.orden) -
+                Number(b.orden) ||
+              Number(b.id) -
+                Number(a.id)
           );
 
-        }
-      );
 
-      activarArrastre(
-        productsContainer,
-        provider.id
-      );
+      if(!providerProducts.length){
+
+        productsContainer.innerHTML =
+          `<div class="empty">
+            No hay productos.
+          </div>`;
+
+      }else{
+
+        providerProducts.forEach(
+          product => {
+
+            productsContainer.appendChild(
+              createProductElement(
+                product
+              )
+            );
+
+          }
+        );
+
+        activarArrastre(
+          productsContainer,
+          provider.id
+        );
+      }
+
     }
-
-  });
+  );
 }
 
 
-// =====================================
+// =========================================================
 // CREAR PRODUCTO
-// =====================================
+// =========================================================
 
 function createProductElement(product){
 
   const div =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
   div.className =
     "product";
@@ -1686,10 +2313,14 @@ function createProductElement(product){
   div.dataset.productId =
     product.id;
 
+
   const qty =
     Number(
-      calculator[product.id] || 0
+      calculator[
+        product.id
+      ] || 0
     );
+
 
   const capacity =
     product.capacidad &&
@@ -1700,6 +2331,7 @@ function createProductElement(product){
         </div>
       `
       : "";
+
 
   div.innerHTML = `
 
@@ -1725,6 +2357,7 @@ function createProductElement(product){
           STOCK: ${product.cantidad}
         </div>
 
+
         <div class="calcControls">
 
           <button
@@ -1747,9 +2380,19 @@ function createProductElement(product){
 
         </div>
 
+
+        <button
+          class="orderButton"
+          type="button"
+          data-order-product="${product.id}"
+        >
+          📦 Pedir
+        </button>
+
       </div>
 
     </div>
+
 
     <div>
 
@@ -1762,6 +2405,7 @@ function createProductElement(product){
       </button>
 
     </div>
+
 
     <div
       class="productMenu hidden"
@@ -1784,15 +2428,17 @@ function createProductElement(product){
       </button>
 
     </div>
+
   `;
+
 
   return div;
 }
 
 
-// =====================================
+// =========================================================
 // ARRASTRAR PRODUCTOS
-// =====================================
+// =========================================================
 
 function activarArrastre(
   container,
@@ -1807,266 +2453,63 @@ function activarArrastre(
 
   let isDragging = false;
 
+
   container
     .querySelectorAll(".product")
-    .forEach(product => {
+    .forEach(
+      product => {
 
-      product.draggable = true;
 
-      // -------------------------------
-      // PC / MOUSE
-      // -------------------------------
+        product.draggable = true;
 
-      product.addEventListener(
-        "dragstart",
-        e => {
 
-          dragged = product;
+        // -------------------------------
+        // PC / MOUSE
+        // -------------------------------
 
-          product.classList.add(
-            "dragging"
-          );
-
-          e.dataTransfer.effectAllowed =
-            "move";
-
-          e.dataTransfer.setData(
-            "text/plain",
-            product.dataset.productId
-          );
-        }
-      );
-
-      product.addEventListener(
-        "dragend",
-        async () => {
-
-          if(!dragged) return;
-
-          product.classList.remove(
-            "dragging"
-          );
-
-          container
-            .querySelectorAll(".product")
-            .forEach(p =>
-              p.classList.remove(
-                "dragOver"
-              )
-            );
-
-          const ids =
-            Array.from(
-              container.querySelectorAll(
-                ".product"
-              )
-            ).map(
-              p =>
-                Number(
-                  p.dataset.productId
-                )
-            );
-
-          dragged = null;
-
-          await guardarOrden(
-            proveedorId,
-            ids
-          );
-        }
-      );
-
-      product.addEventListener(
-        "dragover",
-        e => {
-
-          e.preventDefault();
-
-          if(
-            !dragged ||
-            dragged === product
-          ) return;
-
-          const rect =
-            product.getBoundingClientRect();
-
-          const middle =
-            rect.top +
-            rect.height / 2;
-
-          container
-            .querySelectorAll(".product")
-            .forEach(p =>
-              p.classList.remove(
-                "dragOver"
-              )
-            );
-
-          product.classList.add(
-            "dragOver"
-          );
-
-          if(
-            e.clientY < middle
-          ){
-
-            container.insertBefore(
-              dragged,
-              product
-            );
-
-          }else{
-
-            container.insertBefore(
-              dragged,
-              product.nextSibling
-            );
-
-          }
-
-          e.dataTransfer.dropEffect =
-            "move";
-        }
-      );
-
-      // -------------------------------
-      // TOUCH / IPHONE
-      // -------------------------------
-
-      product.addEventListener(
-        "pointerdown",
-        e => {
-
-          if(
-            e.pointerType !== "touch"
-          ) return;
-
-          pointerId =
-            e.pointerId;
-
-          startY =
-            e.clientY;
-
-          isDragging = false;
-
-          product.setPointerCapture(
-            pointerId
-          );
-        }
-      );
-
-      product.addEventListener(
-        "pointermove",
-        e => {
-
-          if(
-            e.pointerType !== "touch" ||
-            e.pointerId !== pointerId
-          ) return;
-
-          const distance =
-            Math.abs(
-              e.clientY - startY
-            );
-
-          if(
-            distance < 8 &&
-            !isDragging
-          ) return;
-
-          if(!isDragging){
-
-            isDragging = true;
+        product.addEventListener(
+          "dragstart",
+          e => {
 
             dragged = product;
 
             product.classList.add(
               "dragging"
             );
+
+            e.dataTransfer.effectAllowed =
+              "move";
+
+            e.dataTransfer.setData(
+              "text/plain",
+              product.dataset.productId
+            );
+
           }
+        );
 
-          const target =
-            document.elementFromPoint(
-              e.clientX,
-              e.clientY
-            );
 
-          const targetProduct =
-            target?.closest(
-              ".product"
-            );
+        product.addEventListener(
+          "dragend",
+          async () => {
 
-          if(
-            !targetProduct ||
-            targetProduct === product ||
-            !container.contains(
-              targetProduct
-            )
-          ) return;
-
-          const rect =
-            targetProduct
-              .getBoundingClientRect();
-
-          const middle =
-            rect.top +
-            rect.height / 2;
-
-          container
-            .querySelectorAll(".product")
-            .forEach(p =>
-              p.classList.remove(
-                "dragOver"
-              )
-            );
-
-          targetProduct.classList.add(
-            "dragOver"
-          );
-
-          if(
-            e.clientY < middle
-          ){
-
-            container.insertBefore(
-              product,
-              targetProduct
-            );
-
-          }else{
-
-            container.insertBefore(
-              product,
-              targetProduct.nextSibling
-            );
-          }
-
-          e.preventDefault();
-        }
-      );
-
-      product.addEventListener(
-        "pointerup",
-        async e => {
-
-          if(
-            e.pointerType !== "touch" ||
-            e.pointerId !== pointerId
-          ) return;
-
-          if(isDragging){
+            if(!dragged) return;
 
             product.classList.remove(
               "dragging"
             );
 
             container
-              .querySelectorAll(".product")
-              .forEach(p =>
-                p.classList.remove(
-                  "dragOver"
-                )
+              .querySelectorAll(
+                ".product"
+              )
+              .forEach(
+                p =>
+                  p.classList.remove(
+                    "dragOver"
+                  )
               );
+
 
             const ids =
               Array.from(
@@ -2078,29 +2521,286 @@ function activarArrastre(
                   Number(
                     p.dataset.productId
                   )
-                );
+              );
+
 
             dragged = null;
-
-            isDragging = false;
 
             await guardarOrden(
               proveedorId,
               ids
             );
+
           }
+        );
 
-          pointerId = null;
-        }
-      );
 
-    });
+        product.addEventListener(
+          "dragover",
+          e => {
+
+            e.preventDefault();
+
+            if(
+              !dragged ||
+              dragged === product
+            ) return;
+
+
+            const rect =
+              product.getBoundingClientRect();
+
+            const middle =
+              rect.top +
+              rect.height / 2;
+
+
+            container
+              .querySelectorAll(
+                ".product"
+              )
+              .forEach(
+                p =>
+                  p.classList.remove(
+                    "dragOver"
+                  )
+              );
+
+
+            product.classList.add(
+              "dragOver"
+            );
+
+
+            if(
+              e.clientY < middle
+            ){
+
+              container.insertBefore(
+                dragged,
+                product
+              );
+
+            }else{
+
+              container.insertBefore(
+                dragged,
+                product.nextSibling
+              );
+
+            }
+
+
+            e.dataTransfer.dropEffect =
+              "move";
+
+          }
+        );
+
+
+        // -------------------------------
+        // TOUCH / IPHONE
+        // -------------------------------
+
+        product.addEventListener(
+          "pointerdown",
+          e => {
+
+            if(
+              e.pointerType !== "touch"
+            ) return;
+
+            pointerId =
+              e.pointerId;
+
+            startY =
+              e.clientY;
+
+            isDragging = false;
+
+            product.setPointerCapture(
+              pointerId
+            );
+
+          }
+        );
+
+
+        product.addEventListener(
+          "pointermove",
+          e => {
+
+            if(
+              e.pointerType !== "touch" ||
+              e.pointerId !== pointerId
+            ) return;
+
+
+            const distance =
+              Math.abs(
+                e.clientY - startY
+              );
+
+
+            if(
+              distance < 8 &&
+              !isDragging
+            ) return;
+
+
+            if(!isDragging){
+
+              isDragging = true;
+
+              dragged = product;
+
+              product.classList.add(
+                "dragging"
+              );
+
+            }
+
+
+            const target =
+              document.elementFromPoint(
+                e.clientX,
+                e.clientY
+              );
+
+
+            const targetProduct =
+              target?.closest(
+                ".product"
+              );
+
+
+            if(
+              !targetProduct ||
+              targetProduct === product ||
+              !container.contains(
+                targetProduct
+              )
+            ) return;
+
+
+            const rect =
+              targetProduct
+                .getBoundingClientRect();
+
+            const middle =
+              rect.top +
+              rect.height / 2;
+
+
+            container
+              .querySelectorAll(
+                ".product"
+              )
+              .forEach(
+                p =>
+                  p.classList.remove(
+                    "dragOver"
+                  )
+              );
+
+
+            targetProduct.classList.add(
+              "dragOver"
+            );
+
+
+            if(
+              e.clientY < middle
+            ){
+
+              container.insertBefore(
+                product,
+                targetProduct
+              );
+
+            }else{
+
+              container.insertBefore(
+                product,
+                targetProduct.nextSibling
+              );
+
+            }
+
+
+            e.preventDefault();
+
+          }
+        );
+
+
+        product.addEventListener(
+          "pointerup",
+          async e => {
+
+            if(
+              e.pointerType !== "touch" ||
+              e.pointerId !== pointerId
+            ) return;
+
+
+            if(isDragging){
+
+              product.classList.remove(
+                "dragging"
+              );
+
+              container
+                .querySelectorAll(
+                  ".product"
+                )
+                .forEach(
+                  p =>
+                    p.classList.remove(
+                      "dragOver"
+                    )
+                );
+
+
+              const ids =
+                Array.from(
+                  container.querySelectorAll(
+                    ".product"
+                  )
+                ).map(
+                  p =>
+                    Number(
+                      p.dataset.productId
+                    )
+                );
+
+
+              dragged = null;
+
+              isDragging = false;
+
+
+              await guardarOrden(
+                proveedorId,
+                ids
+              );
+
+            }
+
+
+            pointerId = null;
+
+          }
+        );
+
+      }
+    );
 }
 
 
-// =====================================
-// SALVAR ORDEN
-// =====================================
+// =========================================================
+// GUARDAR ORDEN
+// =========================================================
 
 async function guardarOrden(
   proveedorId,
@@ -2111,6 +2811,7 @@ async function guardarOrden(
 
     const data =
       await apiPost({
+
         accion:
           "reordenar_productos",
 
@@ -2118,13 +2819,16 @@ async function guardarOrden(
           proveedorId,
 
         ids
+
       });
+
 
     if(!data.ok){
 
       console.error(
         data.error
       );
+
     }
 
   }catch(error){
@@ -2133,13 +2837,14 @@ async function guardarOrden(
       "Error guardando orden:",
       error
     );
+
   }
 }
 
 
-// =====================================
+// =========================================================
 // AGREGAR PROVEEDOR
-// =====================================
+// =========================================================
 
 document
   .getElementById("providerForm")
@@ -2149,23 +2854,30 @@ document
 
       e.preventDefault();
 
+
       const input =
         document.getElementById(
           "providerName"
         );
 
+
       const nombre =
         input.value.trim();
 
+
       if(!nombre) return;
+
 
       const data =
         await apiPost({
+
           accion:
             "crear_proveedor",
 
           nombre
+
         });
+
 
       if(!data.ok){
 
@@ -2177,16 +2889,19 @@ document
         return;
       }
 
+
       input.value = "";
 
+
       await cargarDatos();
+
     }
   );
 
 
-// =====================================
+// =========================================================
 // AGREGAR PRODUCTO
-// =====================================
+// =========================================================
 
 document
   .getElementById("productForm")
@@ -2196,43 +2911,63 @@ document
 
       e.preventDefault();
 
+
       const producto =
-        document.getElementById(
-          "productName"
-        ).value.trim();
+        document
+          .getElementById(
+            "productName"
+          )
+          .value
+          .trim();
+
 
       const proveedor_id =
         Number(
-          document.getElementById(
-            "productProvider"
-          ).value
+          document
+            .getElementById(
+              "productProvider"
+            )
+            .value
         );
 
+
       const capacidad =
-        document.getElementById(
-          "productCapacity"
-        ).value;
+        document
+          .getElementById(
+            "productCapacity"
+          )
+          .value;
+
 
       const venta =
         Number(
-          document.getElementById(
-            "productSale"
-          ).value
+          document
+            .getElementById(
+              "productSale"
+            )
+            .value
         );
+
 
       const costo =
         Number(
-          document.getElementById(
-            "productCost"
-          ).value
+          document
+            .getElementById(
+              "productCost"
+            )
+            .value
         );
+
 
       const cantidad =
         Number(
-          document.getElementById(
-            "productStock"
-          ).value
+          document
+            .getElementById(
+              "productStock"
+            )
+            .value
         );
+
 
       if(!producto){
 
@@ -2242,6 +2977,7 @@ document
 
         return;
       }
+
 
       const data =
         await apiPost({
@@ -2260,7 +2996,9 @@ document
           costo,
 
           cantidad
+
         });
+
 
       if(!data.ok){
 
@@ -2272,11 +3010,13 @@ document
         return;
       }
 
+
       document
         .getElementById(
           "productForm"
         )
         .reset();
+
 
       document
         .getElementById(
@@ -2284,46 +3024,41 @@ document
         )
         .value = "0";
 
+
       await cargarDatos();
+
     }
   );
 
 
-// =====================================
+// =========================================================
 // CLICK GENERAL
-// =====================================
+// =========================================================
 
 document.addEventListener(
   "click",
   async e => {
+
+
+    // -----------------------------------------
+    // ABRIR / CERRAR PROVEEDOR
+    // -----------------------------------------
 
     const toggle =
       e.target.closest(
         "[data-provider-toggle]"
       );
 
+
     if(toggle){
 
       const id =
         toggle.dataset.providerToggle;
 
-      /*
-        PROVEEDOR:
-
-        Si nunca se tocó:
-        undefined => cerrado.
-
-        Al tocarlo:
-        pasa a false => abierto.
-
-        Si estaba abierto:
-        false => true => cerrado.
-
-        Así nunca cambia solo.
-      */
 
       collapsedProviders[id] =
         collapsedProviders[id] === false;
+
 
       renderProviders();
 
@@ -2331,10 +3066,15 @@ document.addEventListener(
     }
 
 
+    // -----------------------------------------
+    // MENU PROVEEDOR
+    // -----------------------------------------
+
     const providerMenu =
       e.target.closest(
         "[data-action='provider-menu']"
       );
+
 
     if(providerMenu){
 
@@ -2349,20 +3089,27 @@ document.addEventListener(
     }
 
 
+    // -----------------------------------------
+    // MENU PRODUCTO
+    // -----------------------------------------
+
     const productMenu =
       e.target.closest(
         "[data-product-menu]"
       );
+
 
     if(productMenu){
 
       const id =
         productMenu.dataset.productMenu;
 
+
       const menu =
         document.getElementById(
           "product-menu-" + id
         );
+
 
       menu.classList.toggle(
         "hidden"
@@ -2372,10 +3119,15 @@ document.addEventListener(
     }
 
 
+    // -----------------------------------------
+    // EDITAR PRODUCTO
+    // -----------------------------------------
+
     const editProduct =
       e.target.closest(
         "[data-edit-product]"
       );
+
 
     if(editProduct){
 
@@ -2389,10 +3141,15 @@ document.addEventListener(
     }
 
 
+    // -----------------------------------------
+    // ELIMINAR PRODUCTO
+    // -----------------------------------------
+
     const deleteProduct =
       e.target.closest(
         "[data-delete-product]"
       );
+
 
     if(deleteProduct){
 
@@ -2401,19 +3158,24 @@ document.addEventListener(
           deleteProduct.dataset.deleteProduct
         );
 
+
       if(
         !confirm(
           "¿Eliminar este producto?"
         )
       ) return;
 
+
       const data =
         await apiPost({
+
           accion:
             "eliminar_producto",
 
           id
+
         });
+
 
       if(!data.ok){
 
@@ -2425,7 +3187,20 @@ document.addEventListener(
         return;
       }
 
+
       delete calculator[id];
+
+
+      pedidos =
+        pedidos.filter(
+          p =>
+            Number(p.productId) !==
+            Number(id)
+        );
+
+
+      guardarPedidos();
+
 
       await cargarDatos();
 
@@ -2433,10 +3208,15 @@ document.addEventListener(
     }
 
 
+    // -----------------------------------------
+    // CALCULADORA +
+    // -----------------------------------------
+
     const plus =
       e.target.closest(
         "[data-calc-plus]"
       );
+
 
     if(plus){
 
@@ -2445,20 +3225,12 @@ document.addEventListener(
           plus.dataset.calcPlus
         );
 
+
       calculator[id] =
         Number(
           calculator[id] || 0
         ) + 1;
 
-      /*
-        Importante:
-        renderProviders() vuelve a dibujar
-        los productos, pero NO toca
-        collapsedProviders.
-
-        Por eso el proveedor queda abierto
-        si estaba abierto.
-      */
 
       renderProviders();
 
@@ -2468,10 +3240,15 @@ document.addEventListener(
     }
 
 
+    // -----------------------------------------
+    // CALCULADORA -
+    // -----------------------------------------
+
     const minus =
       e.target.closest(
         "[data-calc-minus]"
       );
+
 
     if(minus){
 
@@ -2479,6 +3256,7 @@ document.addEventListener(
         Number(
           minus.dataset.calcMinus
         );
+
 
       calculator[id] =
         Math.max(
@@ -2488,10 +3266,15 @@ document.addEventListener(
           ) - 1
         );
 
-      if(calculator[id] === 0){
+
+      if(
+        calculator[id] === 0
+      ){
 
         delete calculator[id];
+
       }
+
 
       renderProviders();
 
@@ -2500,13 +3283,406 @@ document.addEventListener(
       return;
     }
 
+
+    // -----------------------------------------
+    // PEDIR
+    // -----------------------------------------
+
+    const orderProduct =
+      e.target.closest(
+        "[data-order-product]"
+      );
+
+
+    if(orderProduct){
+
+      const id =
+        Number(
+          orderProduct.dataset.orderProduct
+        );
+
+
+      agregarPedido(id);
+
+      return;
+    }
+
   }
 );
 
 
-// =====================================
-// MENÚ PROVEEDOR
-// =====================================
+// =========================================================
+// PEDIR PRODUCTO
+// =========================================================
+
+function agregarPedido(productId){
+
+  const product =
+    productos.find(
+      p =>
+        Number(p.id) ===
+        Number(productId)
+    );
+
+
+  if(!product) return;
+
+
+  const existing =
+    pedidos.find(
+      p =>
+        Number(p.productId) ===
+        Number(productId)
+    );
+
+
+  if(existing){
+
+    existing.quantity =
+      Number(existing.quantity || 0) + 1;
+
+  }else{
+
+    pedidos.push({
+
+      productId:
+        Number(productId),
+
+      quantity:
+        1
+
+    });
+
+  }
+
+
+  guardarPedidos();
+
+  renderOrders();
+
+}
+
+
+// =========================================================
+// RENDER PEDIDOS
+// =========================================================
+
+function renderOrders(){
+
+  const container =
+    document.getElementById(
+      "orderItems"
+    );
+
+
+  container.innerHTML = "";
+
+
+  // Limpiamos pedidos cuyo producto
+  // ya no existe.
+
+  pedidos =
+    pedidos.filter(
+      order =>
+        productos.some(
+          product =>
+            Number(product.id) ===
+            Number(order.productId)
+        )
+    );
+
+
+  guardarPedidos();
+
+
+  let total =
+    0;
+
+
+  pedidos.forEach(
+    order => {
+
+      const product =
+        productos.find(
+          p =>
+            Number(p.id) ===
+            Number(order.productId)
+        );
+
+
+      if(!product) return;
+
+
+      const quantity =
+        Number(
+          order.quantity
+        ) || 0;
+
+
+      total += quantity;
+
+
+      const capacity =
+        product.capacidad &&
+        product.capacidad !== "Ninguno"
+          ? `
+            <div class="orderItemCapacity">
+              ${escapeHtml(product.capacidad)}
+            </div>
+          `
+          : "";
+
+
+      const item =
+        document.createElement(
+          "div"
+        );
+
+
+      item.className =
+        "orderItem";
+
+
+      item.innerHTML = `
+
+        <div class="orderItemTop">
+
+          <div>
+
+            <div class="orderItemName">
+              ${escapeHtml(product.producto)}
+            </div>
+
+            ${capacity}
+
+          </div>
+
+          <strong>
+            × ${quantity}
+          </strong>
+
+        </div>
+
+
+        <div class="orderItemInfo">
+          Pendiente de llegada
+        </div>
+
+
+        <button
+          class="addOrderButton"
+          type="button"
+          data-add-order="${product.id}"
+        >
+          + Agregar al stock
+        </button>
+
+      `;
+
+
+      container.appendChild(
+        item
+      );
+
+    }
+  );
+
+
+  if(!pedidos.length){
+
+    container.innerHTML =
+      `<div class="empty">
+        No tenés pedidos pendientes.
+      </div>`;
+
+  }
+
+
+  const badge =
+    document.getElementById(
+      "ordersBadge"
+    );
+
+
+  if(total > 0){
+
+    badge.textContent =
+      total;
+
+    badge.classList.remove(
+      "hidden"
+    );
+
+  }else{
+
+    badge.classList.add(
+      "hidden"
+    );
+
+  }
+
+}
+
+
+// =========================================================
+// AGREGAR PEDIDO AL STOCK
+// =========================================================
+
+document.addEventListener(
+  "click",
+  async e => {
+
+    const button =
+      e.target.closest(
+        "[data-add-order]"
+      );
+
+
+    if(!button) return;
+
+
+    const productId =
+      Number(
+        button.dataset.addOrder
+      );
+
+
+    const order =
+      pedidos.find(
+        p =>
+          Number(p.productId) ===
+          productId
+      );
+
+
+    if(!order) return;
+
+
+    const product =
+      productos.find(
+        p =>
+          Number(p.id) ===
+          productId
+      );
+
+
+    if(!product) return;
+
+
+    const quantity =
+      Number(
+        order.quantity
+      ) || 0;
+
+
+    if(quantity <= 0) return;
+
+
+    const nuevoStock =
+      Number(
+        product.cantidad
+      ) + quantity;
+
+
+    button.disabled =
+      true;
+
+    button.textContent =
+      "Agregando...";
+
+
+    try{
+
+      const data =
+        await apiPost({
+
+          accion:
+            "editar_producto",
+
+          id:
+            product.id,
+
+          proveedor_id:
+            Number(
+              product.proveedor_id
+            ),
+
+          producto:
+            product.producto,
+
+          capacidad:
+            product.capacidad,
+
+          venta:
+            Number(
+              product.venta
+            ),
+
+          costo:
+            Number(
+              product.costo
+            ),
+
+          cantidad:
+            nuevoStock
+
+        });
+
+
+      if(!data.ok){
+
+        alert(
+          data.error ||
+          "No se pudo agregar al stock."
+        );
+
+        button.disabled =
+          false;
+
+        button.textContent =
+          "+ Agregar al stock";
+
+        return;
+      }
+
+
+      pedidos =
+        pedidos.filter(
+          p =>
+            Number(p.productId) !==
+            productId
+        );
+
+
+      guardarPedidos();
+
+
+      await cargarDatos();
+
+
+    }catch(error){
+
+      console.error(error);
+
+      button.disabled =
+        false;
+
+      button.textContent =
+        "+ Agregar al stock";
+
+      alert(
+        "No se pudo actualizar el stock."
+      );
+
+    }
+
+  }
+);
+
+
+// =========================================================
+// MENU PROVEEDOR
+// =========================================================
 
 function abrirMenuProveedor(
   proveedorId
@@ -2519,13 +3695,16 @@ function abrirMenuProveedor(
         proveedorId
     );
 
+
   if(!provider) return;
+
 
   openModal(`
 
     <div class="modalTitle">
       ${escapeHtml(provider.nombre)}
     </div>
+
 
     <button
       class="secondaryButton"
@@ -2536,6 +3715,7 @@ function abrirMenuProveedor(
       Renombrar proveedor
     </button>
 
+
     <button
       class="secondaryButton"
       style="width:100%;margin-bottom:8px"
@@ -2545,6 +3725,7 @@ function abrirMenuProveedor(
       Ajustar precios
     </button>
 
+
     <button
       class="secondaryButton"
       style="width:100%;color:#ff7777"
@@ -2553,6 +3734,7 @@ function abrirMenuProveedor(
     >
       Eliminar proveedor
     </button>
+
 
     <div class="modalActions">
 
@@ -2565,7 +3747,9 @@ function abrirMenuProveedor(
       </button>
 
     </div>
+
   `);
+
 
   document
     .getElementById(
@@ -2573,6 +3757,7 @@ function abrirMenuProveedor(
     )
     .onclick =
       closeModal;
+
 
   document
     .getElementById(
@@ -2584,6 +3769,7 @@ function abrirMenuProveedor(
           proveedorId
         );
 
+
   document
     .getElementById(
       "adjustProviderButton"
@@ -2593,6 +3779,7 @@ function abrirMenuProveedor(
         abrirAjustarPrecios(
           proveedorId
         );
+
 
   document
     .getElementById(
@@ -2607,14 +3794,18 @@ function abrirMenuProveedor(
           )
         ) return;
 
+
         const data =
           await apiPost({
+
             accion:
               "eliminar_proveedor",
 
             id:
               proveedorId
+
           });
+
 
         if(!data.ok){
 
@@ -2626,16 +3817,19 @@ function abrirMenuProveedor(
           return;
         }
 
+
         closeModal();
 
         await cargarDatos();
+
       };
+
 }
 
 
-// =====================================
+// =========================================================
 // RENOMBRAR
-// =====================================
+// =========================================================
 
 function abrirRenombrarProveedor(
   proveedorId
@@ -2648,11 +3842,13 @@ function abrirRenombrarProveedor(
         proveedorId
     );
 
+
   openModal(`
 
     <div class="modalTitle">
       Renombrar proveedor
     </div>
+
 
     <div class="formGroup">
 
@@ -2667,6 +3863,7 @@ function abrirRenombrarProveedor(
 
     </div>
 
+
     <div class="modalActions">
 
       <button
@@ -2677,6 +3874,7 @@ function abrirRenombrarProveedor(
         Cancelar
       </button>
 
+
       <button
         class="primaryButton"
         type="button"
@@ -2686,7 +3884,9 @@ function abrirRenombrarProveedor(
       </button>
 
     </div>
+
   `);
+
 
   document
     .getElementById(
@@ -2694,6 +3894,7 @@ function abrirRenombrarProveedor(
     )
     .onclick =
       closeModal;
+
 
   document
     .getElementById(
@@ -2710,10 +3911,13 @@ function abrirRenombrarProveedor(
             .value
             .trim();
 
+
         if(!nombre) return;
+
 
         const data =
           await apiPost({
+
             accion:
               "renombrar_proveedor",
 
@@ -2721,7 +3925,9 @@ function abrirRenombrarProveedor(
               proveedorId,
 
             nombre
+
           });
+
 
         if(!data.ok){
 
@@ -2733,16 +3939,19 @@ function abrirRenombrarProveedor(
           return;
         }
 
+
         closeModal();
 
         await cargarDatos();
+
       };
+
 }
 
 
-// =====================================
+// =========================================================
 // AJUSTAR PRECIOS
-// =====================================
+// =========================================================
 
 function abrirAjustarPrecios(
   proveedorId
@@ -2753,6 +3962,7 @@ function abrirAjustarPrecios(
     <div class="modalTitle">
       Ajustar precios
     </div>
+
 
     <div class="checkRow">
 
@@ -2767,6 +3977,7 @@ function abrirAjustarPrecios(
 
     </div>
 
+
     <div class="checkRow">
 
       <input
@@ -2779,6 +3990,7 @@ function abrirAjustarPrecios(
       </label>
 
     </div>
+
 
     <div class="formGroup">
 
@@ -2796,6 +4008,7 @@ function abrirAjustarPrecios(
 
     </div>
 
+
     <div class="modalActions">
 
       <button
@@ -2806,6 +4019,7 @@ function abrirAjustarPrecios(
         Cancelar
       </button>
 
+
       <button
         class="primaryButton"
         type="button"
@@ -2815,7 +4029,9 @@ function abrirAjustarPrecios(
       </button>
 
     </div>
+
   `);
+
 
   document
     .getElementById(
@@ -2823,6 +4039,7 @@ function abrirAjustarPrecios(
     )
     .onclick =
       closeModal;
+
 
   document
     .getElementById(
@@ -2838,12 +4055,14 @@ function abrirAjustarPrecios(
             )
             .checked;
 
+
         const venta =
           document
             .getElementById(
               "adjustSale"
             )
             .checked;
+
 
         const monto =
           Number(
@@ -2854,6 +4073,7 @@ function abrirAjustarPrecios(
               .value
           );
 
+
         if(!costo && !venta){
 
           alert(
@@ -2862,6 +4082,7 @@ function abrirAjustarPrecios(
 
           return;
         }
+
 
         const data =
           await apiPost({
@@ -2877,7 +4098,9 @@ function abrirAjustarPrecios(
             venta,
 
             monto
+
           });
+
 
         if(!data.ok){
 
@@ -2889,16 +4112,19 @@ function abrirAjustarPrecios(
           return;
         }
 
+
         closeModal();
 
         await cargarDatos();
+
       };
+
 }
 
 
-// =====================================
+// =========================================================
 // EDITAR PRODUCTO
-// =====================================
+// =========================================================
 
 function abrirEditarProducto(
   id
@@ -2911,13 +4137,16 @@ function abrirEditarProducto(
         Number(id)
     );
 
+
   if(!product) return;
+
 
   openModal(`
 
     <div class="modalTitle">
       Editar producto
     </div>
+
 
     <div class="formGroup">
 
@@ -2932,7 +4161,9 @@ function abrirEditarProducto(
 
     </div>
 
+
     <br>
+
 
     <div class="formGroup">
 
@@ -2958,7 +4189,9 @@ function abrirEditarProducto(
 
     </div>
 
+
     <br>
+
 
     <div class="formGroup">
 
@@ -2968,31 +4201,36 @@ function abrirEditarProducto(
 
       <select id="editProductCapacity">
 
-        <option value="Ninguno"
+        <option
+          value="Ninguno"
           ${product.capacidad === "Ninguno" ? "selected" : ""}
         >
           Ninguno
         </option>
 
-        <option value="128 GB"
+        <option
+          value="128 GB"
           ${product.capacidad === "128 GB" ? "selected" : ""}
         >
           128 GB
         </option>
 
-        <option value="256 GB"
+        <option
+          value="256 GB"
           ${product.capacidad === "256 GB" ? "selected" : ""}
         >
           256 GB
         </option>
 
-        <option value="512 GB"
+        <option
+          value="512 GB"
           ${product.capacidad === "512 GB" ? "selected" : ""}
         >
           512 GB
         </option>
 
-        <option value="1 TB"
+        <option
+          value="1 TB"
           ${product.capacidad === "1 TB" ? "selected" : ""}
         >
           1 TB
@@ -3002,7 +4240,9 @@ function abrirEditarProducto(
 
     </div>
 
+
     <br>
+
 
     <div class="formGrid">
 
@@ -3020,6 +4260,7 @@ function abrirEditarProducto(
 
       </div>
 
+
       <div class="formGroup">
 
         <label>
@@ -3033,6 +4274,7 @@ function abrirEditarProducto(
         >
 
       </div>
+
 
       <div class="formGroup">
 
@@ -3051,6 +4293,7 @@ function abrirEditarProducto(
 
     </div>
 
+
     <div class="modalActions">
 
       <button
@@ -3061,6 +4304,7 @@ function abrirEditarProducto(
         Cancelar
       </button>
 
+
       <button
         class="primaryButton"
         type="button"
@@ -3070,7 +4314,9 @@ function abrirEditarProducto(
       </button>
 
     </div>
+
   `);
+
 
   document
     .getElementById(
@@ -3078,6 +4324,7 @@ function abrirEditarProducto(
     )
     .onclick =
       closeModal;
+
 
   document
     .getElementById(
@@ -3145,7 +4392,9 @@ function abrirEditarProducto(
                   )
                   .value
               )
+
           });
+
 
         if(!data.ok){
 
@@ -3157,16 +4406,19 @@ function abrirEditarProducto(
           return;
         }
 
+
         closeModal();
 
         await cargarDatos();
+
       };
+
 }
 
 
-// =====================================
+// =========================================================
 // MODAL
-// =====================================
+// =========================================================
 
 function openModal(html){
 
@@ -3177,6 +4429,7 @@ function openModal(html){
     .innerHTML =
       html;
 
+
   document
     .getElementById(
       "modalBackdrop"
@@ -3184,6 +4437,7 @@ function openModal(html){
     .classList.remove(
       "hidden"
     );
+
 }
 
 
@@ -3196,12 +4450,13 @@ function closeModal(){
     .classList.add(
       "hidden"
     );
+
 }
 
 
-// =====================================
+// =========================================================
 // CALCULADORA
-// =====================================
+// =========================================================
 
 function renderCalculator(){
 
@@ -3210,11 +4465,16 @@ function renderCalculator(){
       "calculatorItems"
     );
 
+
   container.innerHTML = "";
 
+
   let totalCost = 0;
+
   let totalSale = 0;
+
   let totalItems = 0;
+
 
   Object.entries(
     calculator
@@ -3228,30 +4488,39 @@ function renderCalculator(){
             Number(id)
         );
 
+
       if(!product) return;
+
 
       const qty =
         Number(quantity) || 0;
 
+
       if(qty <= 0) return;
 
+
       totalItems += qty;
+
 
       totalCost +=
         Number(product.costo) *
         qty;
 
+
       totalSale +=
         Number(product.venta) *
         qty;
+
 
       const item =
         document.createElement(
           "div"
         );
 
+
       item.className =
         "calcItem";
+
 
       const capacity =
         product.capacidad !==
@@ -3260,24 +4529,33 @@ function renderCalculator(){
             product.capacidad
           : "";
 
+
       item.innerHTML = `
 
         <div class="calcItemName">
+
           ${escapeHtml(product.producto)}
           ${escapeHtml(capacity)}
+
         </div>
 
+
         <div class="calcItemInfo">
+
           ${qty} × ${money(product.venta)}
+
         </div>
 
       `;
 
+
       container.appendChild(
         item
       );
+
     }
   );
+
 
   if(!totalItems){
 
@@ -3285,11 +4563,14 @@ function renderCalculator(){
       `<div class="empty">
         No hay productos seleccionados.
       </div>`;
+
   }
+
 
   const profit =
     totalSale -
     totalCost;
+
 
   document
     .getElementById(
@@ -3298,12 +4579,14 @@ function renderCalculator(){
     .textContent =
       money(profit);
 
+
   document
     .getElementById(
       "calcCost"
     )
     .textContent =
       money(totalCost);
+
 
   document
     .getElementById(
@@ -3312,10 +4595,12 @@ function renderCalculator(){
     .textContent =
       money(totalSale);
 
+
   const badge =
     document.getElementById(
       "calculatorBadge"
     );
+
 
   if(totalItems > 0){
 
@@ -3331,13 +4616,269 @@ function renderCalculator(){
     badge.classList.add(
       "hidden"
     );
+
   }
+
 }
 
 
-// =====================================
+// =========================================================
+// VENDIDO
+// =========================================================
+//
+// Toma todo lo que está seleccionado en la calculadora,
+// verifica que haya stock suficiente y descuenta.
+// =========================================================
+
+document
+  .getElementById(
+    "soldCalculator"
+  )
+  .addEventListener(
+    "click",
+    async () => {
+
+
+      const selected =
+        Object.entries(
+          calculator
+        )
+        .filter(
+          ([id,qty]) =>
+            Number(qty) > 0
+        );
+
+
+      if(!selected.length){
+
+        alert(
+          "No hay productos seleccionados en la calculadora."
+        );
+
+        return;
+      }
+
+
+      // -----------------------------------------
+      // PRIMERO VERIFICAMOS TODO
+      // -----------------------------------------
+
+      for(
+        const [id,qty] of selected
+      ){
+
+        const product =
+          productos.find(
+            p =>
+              Number(p.id) ===
+              Number(id)
+          );
+
+
+        if(!product){
+
+          alert(
+            "Uno de los productos seleccionados ya no existe."
+          );
+
+          return;
+        }
+
+
+        const cantidad =
+          Number(qty);
+
+
+        const stock =
+          Number(
+            product.cantidad
+          );
+
+
+        if(cantidad > stock){
+
+          alert(
+            `No hay suficiente stock de ${product.producto}. Stock disponible: ${stock}.`
+          );
+
+          return;
+        }
+
+      }
+
+
+      // -----------------------------------------
+      // CONFIRMACIÓN
+      // -----------------------------------------
+
+      const total =
+        selected.reduce(
+          (sum,[id,qty]) => {
+
+            const product =
+              productos.find(
+                p =>
+                  Number(p.id) ===
+                  Number(id)
+              );
+
+            return sum +
+              Number(product.venta) *
+              Number(qty);
+
+          },
+          0
+        );
+
+
+      if(
+        !confirm(
+          `¿Confirmar venta por ${money(total)}?`
+        )
+      ){
+
+        return;
+      }
+
+
+      const button =
+        document.getElementById(
+          "soldCalculator"
+        );
+
+
+      button.disabled =
+        true;
+
+      button.textContent =
+        "Guardando...";
+
+
+      try{
+
+        // -----------------------------------------
+        // ACTUALIZAR CADA PRODUCTO
+        // -----------------------------------------
+
+        for(
+          const [id,qty] of selected
+        ){
+
+          const product =
+            productos.find(
+              p =>
+                Number(p.id) ===
+                Number(id)
+            );
+
+
+          const nuevoStock =
+            Number(
+              product.cantidad
+            ) -
+            Number(qty);
+
+
+          const data =
+            await apiPost({
+
+              accion:
+                "editar_producto",
+
+              id:
+                product.id,
+
+              proveedor_id:
+                Number(
+                  product.proveedor_id
+                ),
+
+              producto:
+                product.producto,
+
+              capacidad:
+                product.capacidad,
+
+              venta:
+                Number(
+                  product.venta
+                ),
+
+              costo:
+                Number(
+                  product.costo
+                ),
+
+              cantidad:
+                nuevoStock
+
+            });
+
+
+          if(!data.ok){
+
+            throw new Error(
+              data.error ||
+              "No se pudo actualizar un producto."
+            );
+
+          }
+
+        }
+
+
+        // -----------------------------------------
+        // LIMPIAR CALCULADORA
+        // -----------------------------------------
+
+        calculator = {};
+
+
+        await cargarDatos();
+
+
+        document
+          .getElementById(
+            "calculator"
+          )
+          .classList.remove(
+            "open"
+          );
+
+
+        alert(
+          "Venta registrada correctamente."
+        );
+
+
+      }catch(error){
+
+        console.error(error);
+
+        alert(
+          error.message ||
+          "No se pudo registrar la venta."
+        );
+
+        await cargarDatos();
+
+      }finally{
+
+        button.disabled =
+          false;
+
+        button.textContent =
+          "✓ Vendido";
+
+      }
+
+    }
+  );
+
+
+// =========================================================
 // ABRIR CALCULADORA
-// =====================================
+// =========================================================
 
 document
   .getElementById(
@@ -3346,6 +4887,15 @@ document
   .addEventListener(
     "click",
     () => {
+
+      document
+        .getElementById(
+          "orderDrawer"
+        )
+        .classList.remove(
+          "open"
+        );
+
 
       document
         .getElementById(
@@ -3379,9 +4929,65 @@ document
   );
 
 
-// =====================================
+// =========================================================
+// ABRIR PEDIDOS
+// =========================================================
+
+document
+  .getElementById(
+    "ordersButton"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      document
+        .getElementById(
+          "calculator"
+        )
+        .classList.remove(
+          "open"
+        );
+
+
+      renderOrders();
+
+
+      document
+        .getElementById(
+          "orderDrawer"
+        )
+        .classList.add(
+          "open"
+        );
+
+    }
+  );
+
+
+document
+  .getElementById(
+    "closeOrders"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      document
+        .getElementById(
+          "orderDrawer"
+        )
+        .classList.remove(
+          "open"
+        );
+
+    }
+  );
+
+
+// =========================================================
 // VACIAR CALCULADORA
-// =====================================
+// =========================================================
 
 document
   .getElementById(
@@ -3396,13 +5002,14 @@ document
       renderProviders();
 
       renderCalculator();
+
     }
   );
 
 
-// =====================================
+// =========================================================
 // LOGOUT
-// =====================================
+// =========================================================
 
 document
   .getElementById(
@@ -3428,27 +5035,24 @@ document
 
       }
 
+
       sessionStorage.removeItem(
         "stock_session"
       );
 
+
       sessionToken = null;
 
-      /*
-        Al volver a entrar,
-        todo empieza cerrado nuevamente.
-      */
-
-      collapsedProviders = {};
 
       showLogin();
+
     }
   );
 
 
-// =====================================
+// =========================================================
 // CERRAR MODAL TOCANDO AFUERA
-// =====================================
+// =========================================================
 
 document
   .getElementById(
@@ -3466,20 +5070,14 @@ document
         closeModal();
 
       }
+
     }
   );
 
 
-// =====================================
+// =========================================================
 // INICIO
-// =====================================
-
-/*
-  Siempre empezamos con los proveedores
-  cerrados al cargar la página.
-*/
-
-collapsedProviders = {};
+// =========================================================
 
 if(sessionToken){
 
