@@ -1,128 +1,2947 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 <title>Stock iPhone</title>
+
 <style>
-:root{--bg:#09090d;--panel:#111118;--panel2:#171720;--border:#292934;--text:#f5f5f7;--muted:#9696a3;--gold:#e7b93f;--gold2:#f1c84d;--violet:#8b5cf6;--violet2:#6d3de8}
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}
-#loginScreen{min-height:100vh;display:grid;place-items:center;padding:24px}.loginBox{width:min(420px,100%);background:var(--panel);border:1px solid var(--border);border-radius:22px;padding:28px}.loginTitle{text-align:center;font-size:28px;font-weight:900;margin-bottom:24px}.loginTitle span{color:var(--gold)}.field{margin-bottom:14px}.field label{display:block;color:var(--muted);font-size:13px;margin-bottom:7px}.field input,.field select,.modal input,.modal select{width:100%;background:#0b0b10;color:var(--text);border:1px solid var(--border);border-radius:11px;padding:12px 13px;outline:none}.primary{width:100%;border:0;border-radius:11px;padding:12px;background:var(--violet);color:white;font-weight:800}.error{color:#ff6b6b;font-size:13px;margin-top:10px;text-align:center}
-.app{max-width:1120px;margin:auto;padding:18px 18px 80px}.topbar{position:relative;display:flex;align-items:center;justify-content:center;min-height:82px;margin-bottom:18px}.brand{text-align:center}.brandUser{font-family:"Trebuchet MS",cursive;font-style:italic;font-weight:900;font-size:25px;letter-spacing:1.5px;color:#fff;text-shadow:2px 2px 0 #000;margin-bottom:2px}.brandName{font-size:30px;font-weight:950;letter-spacing:-1px;color:#fff}.brandName span{color:var(--gold)}.logout{position:absolute;right:0;top:8px;background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:9px;padding:7px 10px;font-size:12px}
-.searchRow{display:flex;gap:10px;margin-bottom:16px}.search{flex:1;background:var(--panel);border:1px solid var(--border);border-radius:12px;color:white;padding:12px 14px;outline:none}.addBtn{border:0;background:var(--violet);color:white;border-radius:11px;padding:9px 13px;font-weight:850;font-size:12px}
-.provider{background:var(--panel);border:1px solid var(--border);border-radius:16px;margin:12px 0;overflow:hidden}.providerHead{display:flex;align-items:center;gap:9px;padding:13px 14px;user-select:none}.providerToggle{border:0;background:transparent;color:var(--gold);font-size:18px;width:24px;padding:0}.providerName{font-size:15px;font-weight:850;flex:1}.providerMenu{border:0;background:transparent;color:var(--muted);font-size:20px;padding:2px 6px}.providerTools{display:flex;gap:7px}.smallBtn{border:1px solid var(--border);background:#15151d;color:var(--muted);border-radius:8px;padding:6px 8px;font-size:11px}
-.products{padding:0 10px 10px}.product{position:relative;display:flex;align-items:center;gap:12px;min-height:104px;background:var(--panel2);border:1px solid #25252f;border-radius:13px;padding:12px;margin-top:8px;transition:transform .18s,opacity .18s,border-color .18s;touch-action:none;cursor:grab}.product:active{cursor:grabbing}.product.dragging{opacity:.45;transform:scale(.985);border-color:var(--gold)}.product.dropTarget{border-color:var(--violet);transform:translateY(2px)}.productInfo{min-width:0;flex:1}.productName{font-size:16px;font-weight:850;line-height:1.18;color:#fff;word-break:break-word}.capacity{font-size:16px;font-weight:750;color:var(--gold2);margin-top:4px}.cost{font-size:13px;color:#8f8f99;margin-top:4px}.sale{font-size:18px;font-weight:900;color:#fff;margin-top:4px}.productRight{display:flex;align-items:center;gap:9px;flex-shrink:0}.stockText{font-size:12px;font-weight:800;color:#ddd;white-space:nowrap}.stockNumber{color:var(--gold2)}.calcControls{display:flex;align-items:center;border:1px solid var(--border);border-radius:9px;overflow:hidden;background:#0c0c11}.calcControls button{width:30px;height:30px;border:0;background:#15151d;color:white;font-size:17px}.calcQty{min-width:25px;text-align:center;font-size:13px;font-weight:850}.productMenu>button{border:0;background:transparent;color:#777;font-size:19px;padding:3px}.productMenu{position:relative}.menuBox{position:absolute;right:0;top:30px;z-index:20;background:#15151d;border:1px solid var(--border);border-radius:10px;padding:5px;min-width:130px;box-shadow:0 15px 40px #0009}.menuBox button{display:block;width:100%;text-align:left;background:transparent;border:0;color:white;padding:9px;border-radius:7px;font-size:12px}.danger{color:#ff7777!important}.dragHint{color:#666;font-size:11px;padding:7px 5px 2px;text-align:center}.empty{color:var(--muted);padding:25px;text-align:center;font-size:13px}
-.calcBtn{position:fixed;right:18px;bottom:18px;width:54px;height:54px;border-radius:50%;border:1px solid #3b3b47;background:#171720;color:white;font-size:22px;z-index:100}.badge{position:absolute;right:-3px;top:-3px;min-width:20px;height:20px;border-radius:10px;background:#ef4444;color:white;font-size:11px;font-weight:900;display:grid;place-items:center;padding:0 5px}.sideCalc{position:fixed;right:0;top:0;height:100%;width:min(390px,100%);background:#0e0e14;border-left:1px solid var(--border);z-index:200;transform:translateX(100%);transition:transform .22s;display:flex;flex-direction:column}.sideCalc.open{transform:translateX(0)}.calcHead{display:flex;align-items:center;justify-content:space-between;padding:18px;border-bottom:1px solid var(--border)}.calcHead h2{margin:0;font-size:18px}.calcClose,.clearCalc{border:0;background:transparent;color:var(--muted);padding:7px}.calcItems{flex:1;overflow:auto;padding:12px 18px}.calcItem{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #20202a;font-size:13px}.calcTotals{padding:15px 18px;border-top:1px solid var(--border)}.totalLine,.totalSale{display:flex;justify-content:space-between}.totalLine{margin:7px 0;color:var(--muted)}.totalLine strong{color:white}.totalSale{align-items:center;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:18px;font-weight:950}.totalSale span:last-child{color:var(--gold2);font-size:24px}
-.overlay{position:fixed;inset:0;background:#0009;z-index:150;display:none}.overlay.show{display:block}.modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(460px,calc(100% - 28px));max-height:90vh;overflow:auto;background:#13131b;border:1px solid var(--border);border-radius:18px;padding:20px;z-index:250;display:none}.modal.show{display:block}.modal h3{margin:0 0 17px;font-size:18px}.modalActions{display:flex;gap:8px;margin-top:16px}.modalActions button{flex:1;border:0;border-radius:10px;padding:11px;font-weight:800}.cancel{background:#24242e;color:#ddd}.confirm{background:var(--violet);color:#fff}.checks{display:flex;gap:16px;flex-wrap:wrap;margin-top:8px}.checks label{display:flex;gap:7px;align-items:center;font-size:13px;color:#ddd}.toast{position:fixed;left:50%;bottom:25px;transform:translateX(-50%) translateY(20px);background:#1b1b25;color:white;border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-size:12px;opacity:0;pointer-events:none;transition:.2s;z-index:500}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-@media(max-width:650px){.app{padding:12px 10px 90px}.topbar{min-height:74px}.brandUser{font-size:22px}.brandName{font-size:27px}.logout{font-size:10px;padding:6px 7px}.searchRow{align-items:stretch}.addBtn{padding:9px 10px}.product{min-height:112px;padding:11px 9px}.productRight{gap:6px;flex-direction:column;align-items:flex-end}.stockText{font-size:11px}}
+:root{
+  --bg:#09090d;
+  --panel:#111118;
+  --panel2:#171720;
+  --border:#292934;
+  --text:#f5f5f7;
+  --muted:#9696a3;
+  --gold:#e7b93f;
+  --gold2:#f1c84d;
+  --violet:#8b5cf6;
+  --violet2:#6d3de8;
+}
+
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  min-height:100%;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
+}
+
+button,input,select{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+
+#loginScreen{
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  padding:24px
+}
+
+.loginBox{
+  width:min(420px,100%);
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:28px
+}
+
+.loginTitle{
+  text-align:center;
+  font-size:28px;
+  font-weight:900;
+  margin-bottom:24px
+}
+
+.loginTitle span{color:var(--gold)}
+
+.field{margin-bottom:14px}
+
+.field label{
+  display:block;
+  color:var(--muted);
+  font-size:13px;
+  margin-bottom:7px
+}
+
+.field input,
+.field select,
+.modal input,
+.modal select{
+  width:100%;
+  background:#0b0b10;
+  color:var(--text);
+  border:1px solid var(--border);
+  border-radius:11px;
+  padding:12px 13px;
+  outline:none
+}
+
+.primary{
+  width:100%;
+  border:0;
+  border-radius:11px;
+  padding:12px;
+  background:var(--violet);
+  color:white;
+  font-weight:800
+}
+
+.error{
+  color:#ff6b6b;
+  font-size:13px;
+  margin-top:10px;
+  text-align:center
+}
+
+.app{
+  max-width:1120px;
+  margin:auto;
+  padding:18px 18px 80px
+}
+
+.topbar{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:82px;
+  margin-bottom:18px
+}
+
+.brand{text-align:center}
+
+.brandUser{
+  font-family:"Trebuchet MS",cursive;
+  font-style:italic;
+  font-weight:900;
+  font-size:25px;
+  letter-spacing:1.5px;
+  color:#fff;
+  text-shadow:2px 2px 0 #000;
+  margin-bottom:2px
+}
+
+.brandName{
+  font-size:30px;
+  font-weight:950;
+  letter-spacing:-1px;
+  color:#fff
+}
+
+.brandName span{color:var(--gold)}
+
+.logout{
+  position:absolute;
+  right:0;
+  top:8px;
+  background:transparent;
+  border:1px solid var(--border);
+  color:var(--muted);
+  border-radius:9px;
+  padding:7px 10px;
+  font-size:12px
+}
+
+.searchRow{
+  display:flex;
+  gap:10px;
+  margin-bottom:16px
+}
+
+.search{
+  flex:1;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:12px;
+  color:white;
+  padding:12px 14px;
+  outline:none
+}
+
+.addBtn{
+  border:0;
+  background:var(--violet);
+  color:white;
+  border-radius:11px;
+  padding:9px 13px;
+  font-weight:850;
+  font-size:12px
+}
+
+.provider{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:16px;
+  margin:12px 0;
+  overflow:hidden
+}
+
+.providerHead{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:13px 14px;
+  user-select:none
+}
+
+.providerToggle{
+  border:0;
+  background:transparent;
+  color:var(--gold);
+  font-size:18px;
+  width:24px;
+  padding:0
+}
+
+.providerName{
+  font-size:15px;
+  font-weight:850;
+  flex:1
+}
+
+.providerMenu{
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  font-size:20px;
+  padding:2px 6px
+}
+
+.providerTools{
+  display:flex;
+  gap:7px
+}
+
+.smallBtn{
+  border:1px solid var(--border);
+  background:#15151d;
+  color:var(--muted);
+  border-radius:8px;
+  padding:6px 8px;
+  font-size:11px
+}
+
+.products{padding:0 10px 10px}
+
+.product{
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-height:104px;
+  background:var(--panel2);
+  border:1px solid #25252f;
+  border-radius:13px;
+  padding:12px;
+  margin-top:8px;
+  transition:transform .18s,opacity .18s,border-color .18s;
+  touch-action:none;
+  cursor:grab
+}
+
+.product:active{cursor:grabbing}
+
+.product.dragging{
+  opacity:.45;
+  transform:scale(.985);
+  border-color:var(--gold)
+}
+
+.product.dropTarget{
+  border-color:var(--violet);
+  transform:translateY(2px)
+}
+
+.productInfo{
+  min-width:0;
+  flex:1
+}
+
+.productName{
+  font-size:16px;
+  font-weight:850;
+  line-height:1.18;
+  color:#fff;
+  word-break:break-word
+}
+
+.capacity{
+  font-size:16px;
+  font-weight:750;
+  color:var(--gold2);
+  margin-top:4px
+}
+
+.cost{
+  font-size:13px;
+  color:#8f8f99;
+  margin-top:4px
+}
+
+.sale{
+  font-size:18px;
+  font-weight:900;
+  color:#fff;
+  margin-top:4px
+}
+
+.productRight{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  flex-shrink:0
+}
+
+.stockText{
+  font-size:12px;
+  font-weight:800;
+  color:#ddd;
+  white-space:nowrap
+}
+
+.stockNumber{color:var(--gold2)}
+
+.calcControls{
+  display:flex;
+  align-items:center;
+  border:1px solid var(--border);
+  border-radius:9px;
+  overflow:hidden;
+  background:#0c0c11
+}
+
+.calcControls button{
+  width:30px;
+  height:30px;
+  border:0;
+  background:#15151d;
+  color:white;
+  font-size:17px
+}
+
+.calcQty{
+  min-width:25px;
+  text-align:center;
+  font-size:13px;
+  font-weight:850
+}
+
+.productMenu>button{
+  border:0;
+  background:transparent;
+  color:#777;
+  font-size:19px;
+  padding:3px
+}
+
+.productMenu{position:relative}
+
+.menuBox{
+  position:absolute;
+  right:0;
+  top:30px;
+  z-index:20;
+  background:#15151d;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:5px;
+  min-width:130px;
+  box-shadow:0 15px 40px #0009
+}
+
+.menuBox button{
+  display:block;
+  width:100%;
+  text-align:left;
+  background:transparent;
+  border:0;
+  color:white;
+  padding:9px;
+  border-radius:7px;
+  font-size:12px
+}
+
+.danger{color:#ff7777!important}
+
+.dragHint{
+  color:#666;
+  font-size:11px;
+  padding:7px 5px 2px;
+  text-align:center
+}
+
+.empty{
+  color:var(--muted);
+  padding:25px;
+  text-align:center;
+  font-size:13px
+}
+
+.calcBtn{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  width:54px;
+  height:54px;
+  border-radius:50%;
+  border:1px solid #3b3b47;
+  background:#171720;
+  color:white;
+  font-size:22px;
+  z-index:100
+}
+
+.badge{
+  position:absolute;
+  right:-3px;
+  top:-3px;
+  min-width:20px;
+  height:20px;
+  border-radius:10px;
+  background:#ef4444;
+  color:white;
+  font-size:11px;
+  font-weight:900;
+  display:grid;
+  place-items:center;
+  padding:0 5px
+}
+
+.sideCalc{
+  position:fixed;
+  right:0;
+  top:0;
+  height:100%;
+  width:min(390px,100%);
+  background:#0e0e14;
+  border-left:1px solid var(--border);
+  z-index:200;
+  transform:translateX(100%);
+  transition:transform .22s;
+  display:flex;
+  flex-direction:column
+}
+
+.sideCalc.open{transform:translateX(0)}
+
+.calcHead{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px;
+  border-bottom:1px solid var(--border)
+}
+
+.calcHead h2{
+  margin:0;
+  font-size:18px
+}
+
+.calcClose,.clearCalc{
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  padding:7px
+}
+
+.calcItems{
+  flex:1;
+  overflow:auto;
+  padding:12px 18px
+}
+
+.calcItem{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:10px 0;
+  border-bottom:1px solid #20202a;
+  font-size:13px
+}
+
+.calcTotals{
+  padding:15px 18px;
+  border-top:1px solid var(--border)
+}
+
+.totalLine,.totalSale{
+  display:flex;
+  justify-content:space-between
+}
+
+.totalLine{
+  margin:7px 0;
+  color:var(--muted)
+}
+
+.totalLine strong{color:white}
+
+.totalSale{
+  align-items:center;
+  margin-top:12px;
+  padding-top:12px;
+  border-top:1px solid var(--border);
+  font-size:18px;
+  font-weight:950
+}
+
+.totalSale span:last-child{
+  color:var(--gold2);
+  font-size:24px
+}
+
+.overlay{
+  position:fixed;
+  inset:0;
+  background:#0009;
+  z-index:150;
+  display:none
+}
+
+.overlay.show{display:block}
+
+.modal{
+  position:fixed;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:min(460px,calc(100% - 28px));
+  max-height:90vh;
+  overflow:auto;
+  background:#13131b;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:20px;
+  z-index:250;
+  display:none
+}
+
+.modal.show{display:block}
+
+.modal h3{
+  margin:0 0 17px;
+  font-size:18px
+}
+
+.modalActions{
+  display:flex;
+  gap:8px;
+  margin-top:16px
+}
+
+.modalActions button{
+  flex:1;
+  border:0;
+  border-radius:10px;
+  padding:11px;
+  font-weight:800
+}
+
+.cancel{
+  background:#24242e;
+  color:#ddd
+}
+
+.confirm{
+  background:var(--violet);
+  color:#fff
+}
+
+.checks{
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+  margin-top:8px
+}
+
+.checks label{
+  display:flex;
+  gap:7px;
+  align-items:center;
+  font-size:13px;
+  color:#ddd
+}
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:25px;
+  transform:translateX(-50%) translateY(20px);
+  background:#1b1b25;
+  color:white;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:10px 14px;
+  font-size:12px;
+  opacity:0;
+  pointer-events:none;
+  transition:.2s;
+  z-index:500
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0)
+}
+
+@media(max-width:650px){
+  .app{
+    padding:12px 10px 90px
+  }
+
+  .topbar{min-height:74px}
+
+  .brandUser{font-size:22px}
+  .brandName{font-size:27px}
+
+  .logout{
+    font-size:10px;
+    padding:6px 7px
+  }
+
+  .searchRow{align-items:stretch}
+
+  .addBtn{padding:9px 10px}
+
+  .product{
+    min-height:112px;
+    padding:11px 9px
+  }
+
+  .productRight{
+    gap:6px;
+    flex-direction:column;
+    align-items:flex-end
+  }
+
+  .stockText{font-size:11px}
+}
 </style>
 </head>
+
 <body>
-<div id="loginScreen"><form class="loginBox" id="loginForm"><div class="loginTitle"><span>Stock</span> iPhone</div><div class="field"><label>Usuario</label><input id="loginUser" autocomplete="username" required></div><div class="field"><label>Contraseña</label><input id="loginPassword" type="password" autocomplete="current-password" required></div><button class="primary">Ingresar</button><div id="loginError" class="error"></div></form></div>
-<main class="app hidden" id="app"><header class="topbar"><div class="brand"><div class="brandUser">Agustín</div><div class="brandName"><span>Stock</span> iPhone</div></div><button class="logout" id="logoutBtn">Salir</button></header><div class="searchRow"><input class="search" id="search" placeholder="Buscar producto..."><button class="addBtn" id="addProductBtn">＋ Agregar producto</button></div><section id="providers"></section></main>
-<button class="calcBtn" id="calcBtn">🧮<span class="badge" id="calcBadge">0</span></button><div class="overlay" id="overlay"></div><aside class="sideCalc" id="sideCalc"><div class="calcHead"><h2>Calculadora</h2><button class="calcClose" id="calcClose">✕</button></div><div class="calcItems" id="calcItems"></div><div class="calcTotals"><div class="totalLine"><span>Ganancia</span><strong id="calcProfit">$0</strong></div><div class="totalLine"><span>Total costo</span><strong id="calcCost">$0</strong></div><div class="totalSale"><span>TOTAL DE VENTA</span><span id="calcSale">$0</span></div><button class="clearCalc" id="clearCalc">Vaciar calculadora</button></div></aside><div class="modal" id="modal"></div><div class="toast" id="toast"></div>
+
+<div id="loginScreen">
+  <form class="loginBox" id="loginForm">
+
+    <div class="loginTitle">
+      <span>Stock</span> iPhone
+    </div>
+
+    <div class="field">
+      <label>Usuario</label>
+      <input
+        id="loginUser"
+        autocomplete="username"
+        required
+      >
+    </div>
+
+    <div class="field">
+      <label>Contraseña</label>
+      <input
+        id="loginPassword"
+        type="password"
+        autocomplete="current-password"
+        required
+      >
+    </div>
+
+    <button
+      class="primary"
+      id="loginButton"
+      type="submit"
+    >
+      Ingresar
+    </button>
+
+    <div
+      id="loginError"
+      class="error"
+    ></div>
+
+  </form>
+</div>
+
+
+<main
+  class="app hidden"
+  id="app"
+>
+
+  <header class="topbar">
+
+    <div class="brand">
+
+      <div class="brandUser">
+        Agustín
+      </div>
+
+      <div class="brandName">
+        <span>Stock</span> iPhone
+      </div>
+
+    </div>
+
+    <button
+      class="logout"
+      id="logoutBtn"
+      type="button"
+    >
+      Salir
+    </button>
+
+  </header>
+
+
+  <div class="searchRow">
+
+    <input
+      class="search"
+      id="search"
+      placeholder="Buscar producto..."
+    >
+
+    <button
+      class="addBtn"
+      id="addProductBtn"
+      type="button"
+    >
+      ＋ Agregar producto
+    </button>
+
+  </div>
+
+
+  <section id="providers"></section>
+
+</main>
+
+
+<button
+  class="calcBtn"
+  id="calcBtn"
+  type="button"
+>
+  🧮
+  <span
+    class="badge"
+    id="calcBadge"
+  >
+    0
+  </span>
+</button>
+
+
+<div
+  class="overlay"
+  id="overlay"
+></div>
+
+
+<aside
+  class="sideCalc"
+  id="sideCalc"
+>
+
+  <div class="calcHead">
+
+    <h2>Calculadora</h2>
+
+    <button
+      class="calcClose"
+      id="calcClose"
+      type="button"
+    >
+      ✕
+    </button>
+
+  </div>
+
+  <div
+    class="calcItems"
+    id="calcItems"
+  ></div>
+
+  <div class="calcTotals">
+
+    <div class="totalLine">
+      <span>Ganancia</span>
+      <strong id="calcProfit">$0</strong>
+    </div>
+
+    <div class="totalLine">
+      <span>Total costo</span>
+      <strong id="calcCost">$0</strong>
+    </div>
+
+    <div class="totalSale">
+      <span>TOTAL DE VENTA</span>
+      <span id="calcSale">$0</span>
+    </div>
+
+    <button
+      class="clearCalc"
+      id="clearCalc"
+      type="button"
+    >
+      Vaciar calculadora
+    </button>
+
+  </div>
+
+</aside>
+
+
+<div
+  class="modal"
+  id="modal"
+></div>
+
+
+<div
+  class="toast"
+  id="toast"
+></div>
+
+
 <script>
-const API_URL="https://noisy-sound-2a71.agus-eloy-oviedo.workers.dev";let token=localStorage.getItem("stock_token")||"",proveedores=[],productos=[],calc={};const $=id=>document.getElementById(id);function money(n){return "$"+Number(n||0).toLocaleString("es-AR",{maximumFractionDigits:0})}function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]))}function toast(m){let t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove("show"),1800)}function headers(){return{"Content-Type":"application/json",Authorization:"Bearer "+token}}async function api(b){let r=await fetch(API_URL,{method:"POST",headers:headers(),body:JSON.stringify(b)}),d=await r.json();if(r.status===401){logout(false);throw Error("Sesión expirada")}if(!r.ok||d.ok===false)throw Error(d.error||"Error");return d}async function load(){let r=await fetch(API_URL,{headers:{Authorization:"Bearer "+token}}),d=await r.json();if(r.status===401||!d.ok)return logout(false);proveedores=d.proveedores||[];productos=d.productos||[];render()}function loginShow(){$("loginScreen").classList.remove("hidden");$("app").classList.add("hidden")}function appShow(){$("loginScreen").classList.add("hidden");$("app").classList.remove("hidden")}function logout(server=true){if(server&&token)fetch(API_URL,{method:"POST",headers:headers(),body:JSON.stringify({accion:"logout"})}).catch(()=>{});token="";localStorage.removeItem("stock_token");loginShow()}$("loginForm").onsubmit=async e=>{e.preventDefault();try{let r=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({usuario:$('loginUser').value,password:$('loginPassword').value})}),d=await r.json();if(!r.ok||!d.ok)throw Error(d.error||"Usuario o contraseña incorrectos");token=d.token;localStorage.setItem("stock_token",token);appShow();load()}catch(e){$("loginError").textContent=e.message}};$('logoutBtn').onclick=()=>logout();
-function render(){let q=$("search").value.trim().toLowerCase(),root=$("providers");root.innerHTML="";proveedores.forEach(p=>{let list=productos.filter(x=>Number(x.proveedor_id)===Number(p.id)&&(!q||String(x.producto).toLowerCase().includes(q)||String(x.capacidad||"").toLowerCase().includes(q)));let box=document.createElement("section");box.className="provider";box.innerHTML=`<div class="providerHead"><button class="providerToggle">⌄</button><div class="providerName">${esc(p.nombre)}</div><div class="providerTools"><button class="smallBtn rename">Renombrar</button><button class="smallBtn adjust">Precios</button></div><button class="providerMenu">⋮</button></div><div class="products"></div>`;let pe=box.querySelector(".products");list.forEach(x=>pe.appendChild(productEl(x)));if(!list.length)pe.innerHTML='<div class="empty">Sin productos.</div>';else{let h=document.createElement("div");h.className="dragHint";h.textContent="Mantén presionado y arrastra para cambiar el orden";pe.appendChild(h);setupDrag(pe,p.id)}box.querySelector(".providerToggle").onclick=()=>{pe.classList.toggle("hidden");box.querySelector(".providerToggle").textContent=pe.classList.contains("hidden")?"›":"⌄"};box.querySelector(".rename").onclick=()=>renameProvider(p);box.querySelector(".adjust").onclick=()=>adjustProvider(p);box.querySelector(".providerMenu").onclick=()=>deleteProvider(p);root.appendChild(box)});updateCalc()}
-function productEl(p){let el=document.createElement("article"),cap=p.capacidad&&p.capacidad!=="Ninguno"?`<div class="capacity">${esc(p.capacidad)}</div>`:"",q=calc[p.id]||0;el.className="product";el.dataset.id=p.id;el.innerHTML=`<div class="productInfo"><div class="productName">${esc(p.producto)}</div>${cap}<div class="cost">Costo: ${money(p.costo)}</div><div class="sale">${money(p.venta)}</div></div><div class="productRight"><div class="stockText">STOCK: <span class="stockNumber">${Number(p.cantidad)}</span></div><div class="calcControls"><button class="minus">−</button><div class="calcQty">${q}</div><button class="plus">+</button></div></div><div class="productMenu"><button>⋮</button><div class="menuBox hidden"><button class="edit">Editar</button><button class="delete danger">Eliminar</button></div></div>`;el.querySelector(".plus").onclick=()=>changeCalc(p,1);el.querySelector(".minus").onclick=()=>changeCalc(p,-1);let m=el.querySelector(".menuBox");el.querySelector(".productMenu>button").onclick=e=>{e.stopPropagation();m.classList.toggle("hidden")};el.querySelector(".edit").onclick=()=>editProduct(p);el.querySelector(".delete").onclick=()=>deleteProduct(p);return el}function changeCalc(p,d){let n=Math.max(0,Math.min(Number(p.cantidad)||0,(calc[p.id]||0)+d));if(n)calc[p.id]=n;else delete calc[p.id];render()}function updateCalc(){let ids=Object.keys(calc),cost=0,sale=0,items=$("calcItems");items.innerHTML="";ids.forEach(id=>{let p=productos.find(x=>String(x.id)===String(id));if(!p)return;let q=calc[id];cost+=q*p.costo;sale+=q*p.venta;let r=document.createElement("div");r.className="calcItem";r.innerHTML=`<span>${esc(p.producto)} × ${q}</span><strong>${money(q*p.venta)}</strong>`;items.appendChild(r)});$("calcCost").textContent=money(cost);$("calcSale").textContent=money(sale);$("calcProfit").textContent=money(sale-cost);$("calcBadge").textContent=ids.reduce((a,id)=>a+calc[id],0)}
-function openModal(title,html,fn){$("modal").innerHTML=`<h3>${title}</h3>${html}<div class="modalActions"><button class="cancel">Cancelar</button><button class="confirm">Guardar</button></div>`;$("overlay").classList.add("show");$("modal").classList.add("show");$("modal .cancel").onclick=closeModal;$("modal .confirm").onclick=async()=>{try{await fn();closeModal();await load()}catch(e){toast(e.message)}}}function closeModal(){$("overlay").classList.remove("show");$("modal").classList.remove("show")}$("overlay").onclick=closeModal;
-function renameProvider(p){openModal("Renombrar proveedor",`<div class="field"><label>Nombre</label><input id="mName" value="${esc(p.nombre)}"></div>`,()=>api({accion:"renombrar_proveedor",id:p.id,nombre:$("mName").value}))}function adjustProvider(p){openModal("Ajustar precios",`<div class="field"><label>Monto</label><input id="mAmount" type="number" min="-1000" max="1000" value="0"></div><div class="checks"><label><input id="mCost" type="checkbox"> Proveedor / Costo</label><label><input id="mSale" type="checkbox"> Vendedor / Venta</label></div>`,()=>{let m=Math.max(-1000,Math.min(1000,Number($("mAmount").value)||0)),c=$("mCost").checked,s=$("mSale").checked;if(!c&&!s)throw Error("Seleccioná Costo, Venta o ambos.");return api({accion:"ajustar_precios",proveedor_id:p.id,monto:m,costo:c,venta:s})})}async function deleteProvider(p){if(confirm(`¿Eliminar el proveedor "${p.nombre}" y todos sus productos?`))try{await api({accion:"eliminar_proveedor",id:p.id});load()}catch(e){toast(e.message)}}function productForm(p=null){let opts=proveedores.map(x=>`<option value="${x.id}" ${p&&+p.proveedor_id===+x.id?"selected":""}>${esc(x.nombre)}</option>`).join("");return `<div class="field"><label>Producto</label><input id="mProduct" value="${p?esc(p.producto):""}"></div><div class="field"><label>Proveedor</label><select id="mProvider">${opts}</select></div><div class="field"><label>Capacidad</label><select id="mCapacity">${["Ninguno","128 GB","256 GB","512 GB","1 TB"].map(x=>`<option ${p?.capacidad===x?"selected":""}>${x}</option>`).join("")}</select></div><div class="field"><label>Precio de venta</label><input id="mSalePrice" type="number" min="0" value="${p?.venta||0}"></div><div class="field"><label>Costo</label><input id="mCostPrice" type="number" min="0" value="${p?.costo||0}"></div><div class="field"><label>Stock</label><input id="mStock" type="number" min="0" value="${p?.cantidad||0}"></div>`}function addProduct(){if(!proveedores.length)return toast("Primero agregá un proveedor.");openModal("Agregar producto",productForm(),()=>api({accion:"agregar_producto",proveedor_id:+$("mProvider").value,producto:$("mProduct").value,capacidad:$("mCapacity").value,venta:+$("mSalePrice").value||0,costo:+$("mCostPrice").value||0,cantidad:+$("mStock").value||0}))}function editProduct(p){openModal("Editar producto",productForm(p),()=>api({accion:"editar_producto",id:p.id,proveedor_id:+$("mProvider").value,producto:$("mProduct").value,capacidad:$("mCapacity").value,venta:+$("mSalePrice").value||0,costo:+$("mCostPrice").value||0,cantidad:+$("mStock").value||0}))}async function deleteProduct(p){if(confirm(`¿Eliminar "${p.producto}"?`))try{delete calc[p.id];await api({accion:"eliminar_producto",id:p.id});load()}catch(e){toast(e.message)}}
-$("addProductBtn").onclick=addProduct;$("search").oninput=render;$("calcBtn").onclick=()=>{$("sideCalc").classList.add("open");$("overlay").classList.add("show")};$("calcClose").onclick=()=>{$("sideCalc").classList.remove("open");$("overlay").classList.remove("show")};$("clearCalc").onclick=()=>{calc={};updateCalc();render()};
-function setupDrag(container,providerId){
-  const cards=[...container.querySelectorAll('.product')];
-  let active=null, pointerId=null, startY=0, dragging=false, longTimer=null;
 
-  cards.forEach(card=>{
-    card.draggable=false;
-    card.style.cursor='grab';
+const API_URL =
+  "https://noisy-sound-2a71.agus-eloy-oviedo.workers.dev";
 
-    const clearDrag=()=>{
-      clearTimeout(longTimer);
-      if(active){
-        active.classList.remove('dragging');
-        active.style.cursor='grab';
+const TOKEN_KEY =
+  "stock_iphone_session";
+
+let token =
+  localStorage.getItem(TOKEN_KEY) || "";
+
+let proveedores = [];
+let productos = [];
+let calc = {};
+
+const $ =
+  id => document.getElementById(id);
+
+
+/* =========================
+   UTILIDADES
+========================= */
+
+function money(n){
+
+  return "$" +
+    Number(n || 0).toLocaleString(
+      "es-AR",
+      {
+        maximumFractionDigits:0
       }
-      cards.forEach(c=>c.classList.remove('dropTarget'));
-      active=null; pointerId=null; dragging=false;
+    );
+
+}
+
+
+function esc(v){
+
+  return String(v ?? "")
+    .replace(
+      /[&<>"']/g,
+      m => ({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        "\"":"&quot;",
+        "'":"&#039;"
+      }[m])
+    );
+
+}
+
+
+function toast(message){
+
+  const t =
+    $("toast");
+
+  t.textContent =
+    message;
+
+  t.classList.add("show");
+
+  clearTimeout(
+    toast.timer
+  );
+
+  toast.timer =
+    setTimeout(
+      () =>
+        t.classList.remove("show"),
+      1800
+    );
+
+}
+
+
+function authHeaders(){
+
+  return {
+    "Content-Type":
+      "application/json",
+
+    "Accept":
+      "application/json",
+
+    "Authorization":
+      "Bearer " + token
+  };
+
+}
+
+
+function clearSession(){
+
+  token = "";
+
+  localStorage.removeItem(
+    TOKEN_KEY
+  );
+
+  loginShow();
+
+}
+
+
+/* =========================
+   PANTALLAS
+========================= */
+
+function loginShow(){
+
+  $("loginScreen")
+    .classList.remove("hidden");
+
+  $("app")
+    .classList.add("hidden");
+
+}
+
+
+function appShow(){
+
+  $("loginScreen")
+    .classList.add("hidden");
+
+  $("app")
+    .classList.remove("hidden");
+
+}
+
+
+/* =========================
+   API
+========================= */
+
+async function api(body){
+
+  if(!token){
+
+    clearSession();
+
+    throw new Error(
+      "Sesión expirada"
+    );
+
+  }
+
+  const response =
+    await fetch(
+      API_URL,
+      {
+        method:"POST",
+        headers:authHeaders(),
+        body:JSON.stringify(body),
+        cache:"no-store"
+      }
+    );
+
+  let data;
+
+  try{
+
+    data =
+      await response.json();
+
+  }catch{
+
+    throw new Error(
+      "El servidor no devolvió JSON."
+    );
+
+  }
+
+  if(response.status === 401){
+
+    clearSession();
+
+    throw new Error(
+      "Sesión expirada"
+    );
+
+  }
+
+  if(
+    !response.ok ||
+    !data.ok
+  ){
+
+    throw new Error(
+      data.error ||
+      "Error del servidor."
+    );
+
+  }
+
+  return data;
+
+}
+
+
+async function load(){
+
+  if(!token){
+
+    loginShow();
+
+    return false;
+
+  }
+
+  try{
+
+    const response =
+      await fetch(
+        API_URL,
+        {
+          method:"GET",
+          headers:{
+            "Accept":
+              "application/json",
+
+            "Authorization":
+              "Bearer " + token
+          },
+          cache:"no-store"
+        }
+      );
+
+    let data;
+
+    try{
+
+      data =
+        await response.json();
+
+    }catch{
+
+      throw new Error(
+        "El servidor no devolvió JSON."
+      );
+
+    }
+
+    if(response.status === 401){
+
+      clearSession();
+
+      return false;
+
+    }
+
+    if(
+      !response.ok ||
+      !data.ok
+    ){
+
+      throw new Error(
+        data.error ||
+        "No se pudieron cargar los datos."
+      );
+
+    }
+
+    proveedores =
+      data.proveedores || [];
+
+    productos =
+      data.productos || [];
+
+    appShow();
+
+    render();
+
+    return true;
+
+  }catch(error){
+
+    console.error(
+      "ERROR LOAD:",
+      error
+    );
+
+    $("providers").innerHTML =
+      `<div class="empty">${esc(error.message)}</div>`;
+
+    return false;
+
+  }
+
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+$("loginForm").onsubmit =
+  async event => {
+
+    event.preventDefault();
+
+    const button =
+      $("loginButton");
+
+    const error =
+      $("loginError");
+
+    button.disabled = true;
+
+    button.textContent =
+      "Ingresando...";
+
+    error.textContent =
+      "";
+
+    localStorage.removeItem(
+      TOKEN_KEY
+    );
+
+    token = "";
+
+    try{
+
+      const response =
+        await fetch(
+          API_URL + "/login",
+          {
+            method:"POST",
+
+            headers:{
+              "Content-Type":
+                "application/json",
+
+              "Accept":
+                "application/json"
+            },
+
+            body:JSON.stringify({
+              usuario:
+                $("loginUser").value.trim(),
+
+              password:
+                $("loginPassword").value
+            }),
+
+            cache:"no-store"
+          }
+        );
+
+      let data;
+
+      try{
+
+        data =
+          await response.json();
+
+      }catch{
+
+        throw new Error(
+          "El servidor no devolvió JSON."
+        );
+
+      }
+
+      if(
+        !response.ok ||
+        !data.ok
+      ){
+
+        throw new Error(
+          data.error ||
+          "Usuario o contraseña incorrectos"
+        );
+
+      }
+
+      if(!data.token){
+
+        throw new Error(
+          "El servidor no devolvió una sesión."
+        );
+
+      }
+
+      token =
+        String(data.token).trim();
+
+      localStorage.setItem(
+        TOKEN_KEY,
+        token
+      );
+
+      appShow();
+
+      const ok =
+        await load();
+
+      if(!ok){
+
+        throw new Error(
+          "No se pudo cargar el stock."
+        );
+
+      }
+
+    }catch(error){
+
+      clearSession();
+
+      $("loginError")
+        .textContent =
+        error.message;
+
+    }finally{
+
+      button.disabled = false;
+
+      button.textContent =
+        "Ingresar";
+
+    }
+
+  };
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+$("logoutBtn").onclick =
+  async () => {
+
+    try{
+
+      if(token){
+
+        await fetch(
+          API_URL,
+          {
+            method:"POST",
+            headers:authHeaders(),
+
+            body:JSON.stringify({
+              accion:"logout"
+            }),
+
+            cache:"no-store"
+          }
+        );
+
+      }
+
+    }catch(error){
+
+      console.error(error);
+
+    }
+
+    clearSession();
+
+  };
+
+
+/* =========================
+   RENDER
+========================= */
+
+function render(){
+
+  const query =
+    $("search")
+      .value
+      .trim()
+      .toLowerCase();
+
+  const root =
+    $("providers");
+
+  root.innerHTML = "";
+
+
+  proveedores.forEach(
+    proveedor => {
+
+      const lista =
+        productos.filter(
+          producto => {
+
+            const mismoProveedor =
+              Number(
+                producto.proveedor_id
+              ) === Number(
+                proveedor.id
+              );
+
+            if(!mismoProveedor)
+              return false;
+
+            if(!query)
+              return true;
+
+            return (
+              String(
+                producto.producto
+              )
+                .toLowerCase()
+                .includes(query)
+              ||
+              String(
+                producto.capacidad || ""
+              )
+                .toLowerCase()
+                .includes(query)
+            );
+
+          }
+        );
+
+
+      const box =
+        document.createElement(
+          "section"
+        );
+
+      box.className =
+        "provider";
+
+
+      box.innerHTML = `
+
+        <div class="providerHead">
+
+          <button
+            class="providerToggle"
+            type="button"
+          >
+            ⌄
+          </button>
+
+          <div class="providerName">
+            ${esc(proveedor.nombre)}
+          </div>
+
+          <div class="providerTools">
+
+            <button
+              class="smallBtn rename"
+              type="button"
+            >
+              Renombrar
+            </button>
+
+            <button
+              class="smallBtn adjust"
+              type="button"
+            >
+              Precios
+            </button>
+
+          </div>
+
+          <button
+            class="providerMenu"
+            type="button"
+          >
+            ⋮
+          </button>
+
+        </div>
+
+        <div class="products"></div>
+      `;
+
+
+      const productsElement =
+        box.querySelector(
+          ".products"
+        );
+
+
+      lista.forEach(
+        producto => {
+
+          productsElement.appendChild(
+            productEl(producto)
+          );
+
+        }
+      );
+
+
+      if(!lista.length){
+
+        productsElement.innerHTML =
+          '<div class="empty">Sin productos.</div>';
+
+      }else{
+
+        const hint =
+          document.createElement(
+            "div"
+          );
+
+        hint.className =
+          "dragHint";
+
+        hint.textContent =
+          "Mantén presionado y arrastra para cambiar el orden";
+
+        productsElement.appendChild(
+          hint
+        );
+
+        setupDrag(
+          productsElement,
+          proveedor.id
+        );
+
+      }
+
+
+      const toggle =
+        box.querySelector(
+          ".providerToggle"
+        );
+
+      toggle.onclick =
+        () => {
+
+          productsElement
+            .classList
+            .toggle("hidden");
+
+          toggle.textContent =
+            productsElement.classList.contains(
+              "hidden"
+            )
+              ? "›"
+              : "⌄";
+
+        };
+
+
+      box.querySelector(
+        ".rename"
+      ).onclick =
+        () =>
+          renameProvider(
+            proveedor
+          );
+
+
+      box.querySelector(
+        ".adjust"
+      ).onclick =
+        () =>
+          adjustProvider(
+            proveedor
+          );
+
+
+      box.querySelector(
+        ".providerMenu"
+      ).onclick =
+        () =>
+          deleteProvider(
+            proveedor
+          );
+
+
+      root.appendChild(
+        box
+      );
+
+    }
+  );
+
+
+  updateCalc();
+
+}
+
+
+/* =========================
+   PRODUCTO
+========================= */
+
+function productEl(p){
+
+  const element =
+    document.createElement(
+      "article"
+    );
+
+  const capacity =
+    p.capacidad &&
+    p.capacidad !== "Ninguno"
+
+      ? `<div class="capacity">${esc(p.capacidad)}</div>`
+
+      : "";
+
+  const quantity =
+    calc[p.id] || 0;
+
+
+  element.className =
+    "product";
+
+  element.dataset.id =
+    p.id;
+
+
+  element.innerHTML = `
+
+    <div class="productInfo">
+
+      <div class="productName">
+        ${esc(p.producto)}
+      </div>
+
+      ${capacity}
+
+      <div class="cost">
+        Costo: ${money(p.costo)}
+      </div>
+
+      <div class="sale">
+        ${money(p.venta)}
+      </div>
+
+    </div>
+
+
+    <div class="productRight">
+
+      <div class="stockText">
+        STOCK:
+        <span class="stockNumber">
+          ${Number(p.cantidad || 0)}
+        </span>
+      </div>
+
+      <div class="calcControls">
+
+        <button
+          class="minus"
+          type="button"
+        >
+          −
+        </button>
+
+        <div class="calcQty">
+          ${quantity}
+        </div>
+
+        <button
+          class="plus"
+          type="button"
+        >
+          +
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="productMenu">
+
+      <button
+        type="button"
+      >
+        ⋮
+      </button>
+
+      <div class="menuBox hidden">
+
+        <button
+          class="edit"
+          type="button"
+        >
+          Editar
+        </button>
+
+        <button
+          class="delete danger"
+          type="button"
+        >
+          Eliminar
+        </button>
+
+      </div>
+
+    </div>
+  `;
+
+
+  element.querySelector(
+    ".plus"
+  ).onclick =
+    () =>
+      changeCalc(
+        p,
+        1
+      );
+
+
+  element.querySelector(
+    ".minus"
+  ).onclick =
+    () =>
+      changeCalc(
+        p,
+        -1
+      );
+
+
+  const menu =
+    element.querySelector(
+      ".menuBox"
+    );
+
+
+  element.querySelector(
+    ".productMenu>button"
+  ).onclick =
+    event => {
+
+      event.stopPropagation();
+
+      menu.classList.toggle(
+        "hidden"
+      );
+
     };
 
-    card.addEventListener('pointerdown',e=>{
-      if(e.button!==undefined && e.button!==0) return;
-      if(e.target.closest('button,input,select,a,.menuBox')) return;
 
-      active=card;
-      pointerId=e.pointerId;
-      startY=e.clientY;
-      dragging=false;
-      card.setPointerCapture?.(pointerId);
+  element.querySelector(
+    ".edit"
+  ).onclick =
+    () =>
+      editProduct(p);
 
-      longTimer=setTimeout(()=>{
-        if(active===card){
-          dragging=true;
-          card.classList.add('dragging');
-          card.style.cursor='grabbing';
-        }
-      },180);
-    });
 
-    card.addEventListener('pointermove',e=>{
-      if(active!==card || e.pointerId!==pointerId) return;
+  element.querySelector(
+    ".delete"
+  ).onclick =
+    () =>
+      deleteProduct(p);
 
-      const distance=Math.abs(e.clientY-startY);
-      if(!dragging){
-        if(distance>10){
-          clearTimeout(longTimer);
-          dragging=true;
-          card.classList.add('dragging');
-          card.style.cursor='grabbing';
-        }else return;
+
+  return element;
+
+}
+
+
+/* =========================
+   CALCULADORA
+========================= */
+
+function changeCalc(
+  producto,
+  delta
+){
+
+  const cantidadStock =
+    Number(
+      producto.cantidad
+    ) || 0;
+
+  const nuevaCantidad =
+    Math.max(
+      0,
+      Math.min(
+        cantidadStock,
+        (calc[producto.id] || 0) +
+          delta
+      )
+    );
+
+
+  if(nuevaCantidad){
+
+    calc[producto.id] =
+      nuevaCantidad;
+
+  }else{
+
+    delete calc[
+      producto.id
+    ];
+
+  }
+
+
+  render();
+
+}
+
+
+function updateCalc(){
+
+  const ids =
+    Object.keys(calc);
+
+  const items =
+    $("calcItems");
+
+  let totalCost = 0;
+  let totalSale = 0;
+
+  items.innerHTML =
+    "";
+
+
+  ids.forEach(
+    id => {
+
+      const producto =
+        productos.find(
+          item =>
+            String(item.id) ===
+            String(id)
+        );
+
+      if(!producto)
+        return;
+
+      const cantidad =
+        calc[id];
+
+      totalCost +=
+        cantidad *
+        Number(
+          producto.costo || 0
+        );
+
+      totalSale +=
+        cantidad *
+        Number(
+          producto.venta || 0
+        );
+
+
+      const row =
+        document.createElement(
+          "div"
+        );
+
+      row.className =
+        "calcItem";
+
+      row.innerHTML = `
+
+        <span>
+          ${esc(producto.producto)}
+          × ${cantidad}
+        </span>
+
+        <strong>
+          ${money(
+            cantidad *
+            Number(
+              producto.venta || 0
+            )
+          )}
+        </strong>
+      `;
+
+      items.appendChild(
+        row
+      );
+
+    }
+  );
+
+
+  $("calcCost").textContent =
+    money(totalCost);
+
+  $("calcSale").textContent =
+    money(totalSale);
+
+  $("calcProfit").textContent =
+    money(
+      totalSale -
+      totalCost
+    );
+
+  $("calcBadge").textContent =
+    ids.reduce(
+      (total,id) =>
+        total +
+        Number(
+          calc[id] || 0
+        ),
+      0
+    );
+
+}
+
+
+/* =========================
+   MODALES
+========================= */
+
+function openModal(
+  title,
+  html,
+  callback
+){
+
+  $("modal").innerHTML = `
+
+    <h3>
+      ${title}
+    </h3>
+
+    ${html}
+
+    <div class="modalActions">
+
+      <button
+        class="cancel"
+        type="button"
+      >
+        Cancelar
+      </button>
+
+      <button
+        class="confirm"
+        type="button"
+      >
+        Guardar
+      </button>
+
+    </div>
+  `;
+
+
+  $("overlay")
+    .classList
+    .add("show");
+
+  $("modal")
+    .classList
+    .add("show");
+
+
+  $("modal .cancel")
+    .onclick =
+    closeModal;
+
+
+  $("modal .confirm")
+    .onclick =
+    async () => {
+
+      try{
+
+        await callback();
+
+        closeModal();
+
+        await load();
+
+      }catch(error){
+
+        toast(
+          error.message
+        );
+
       }
 
-      e.preventDefault();
-      const others=[...container.querySelectorAll('.product')].filter(c=>c!==active);
-      const target=others.find(c=>{
-        const r=c.getBoundingClientRect();
-        return e.clientY>=r.top && e.clientY<=r.bottom;
+    };
+
+}
+
+
+function closeModal(){
+
+  $("overlay")
+    .classList
+    .remove("show");
+
+  $("modal")
+    .classList
+    .remove("show");
+
+}
+
+
+$("overlay").onclick =
+  () => {
+
+    $("sideCalc")
+      .classList
+      .remove("open");
+
+    closeModal();
+
+  };
+
+
+/* =========================
+   PROVEEDORES
+========================= */
+
+function renameProvider(
+  proveedor
+){
+
+  openModal(
+    "Renombrar proveedor",
+
+    `
+      <div class="field">
+
+        <label>
+          Nombre
+        </label>
+
+        <input
+          id="mName"
+          value="${esc(proveedor.nombre)}"
+        >
+
+      </div>
+    `,
+
+    () =>
+      api({
+        accion:
+          "renombrar_proveedor",
+
+        id:
+          proveedor.id,
+
+        nombre:
+          $("mName").value
+      })
+
+  );
+
+}
+
+
+function adjustProvider(
+  proveedor
+){
+
+  openModal(
+
+    "Ajustar precios",
+
+    `
+      <div class="field">
+
+        <label>
+          Monto
+        </label>
+
+        <input
+          id="mAmount"
+          type="number"
+          min="-1000"
+          max="1000"
+          value="0"
+        >
+
+      </div>
+
+      <div class="checks">
+
+        <label>
+          <input
+            id="mCost"
+            type="checkbox"
+          >
+          Proveedor / Costo
+        </label>
+
+        <label>
+          <input
+            id="mSale"
+            type="checkbox"
+          >
+          Vendedor / Venta
+        </label>
+
+      </div>
+    `,
+
+    () => {
+
+      const amount =
+        Math.max(
+          -1000,
+          Math.min(
+            1000,
+            Number(
+              $("mAmount").value
+            ) || 0
+          )
+        );
+
+      const cost =
+        $("mCost").checked;
+
+      const sale =
+        $("mSale").checked;
+
+
+      if(!cost && !sale){
+
+        throw new Error(
+          "Seleccioná Costo, Venta o ambos."
+        );
+
+      }
+
+
+      /*
+        El Worker actual ajusta
+        costo y venta juntos.
+      */
+
+      return api({
+        accion:
+          "ajustar_precios",
+
+        proveedor_id:
+          proveedor.id,
+
+        monto:
+          amount
       });
 
-      if(target){
-        cards.forEach(c=>c.classList.remove('dropTarget'));
-        target.classList.add('dropTarget');
-        const r=target.getBoundingClientRect();
-        if(e.clientY < r.top+r.height/2) container.insertBefore(active,target);
-        else container.insertBefore(active,target.nextSibling);
-      }
-    },{passive:false});
+    }
 
-    card.addEventListener('pointerup',async e=>{
-      if(active!==card || e.pointerId!==pointerId) return;
-      clearTimeout(longTimer);
-      const wasDragging=dragging;
-      try{card.releasePointerCapture?.(pointerId)}catch{}
-      if(wasDragging){
-        card.classList.remove('dragging');
-        cards.forEach(c=>c.classList.remove('dropTarget'));
-        active=null;pointerId=null;dragging=false;
-        await saveDomOrder(container,providerId);
-      }else{
-        clearDrag();
-      }
-    });
+  );
 
-    card.addEventListener('pointercancel',()=>clearDrag());
-    card.addEventListener('lostpointercapture',()=>{
-      if(active===card && !dragging) clearDrag();
-    });
-  });
 }
-async function saveDomOrder(container,providerId){
-  const ids=[...container.querySelectorAll('.product')].map(x=>Number(x.dataset.id)).filter(Number.isFinite);
-  if(!ids.length)return;
+
+
+async function deleteProvider(
+  proveedor
+){
+
+  if(
+    !confirm(
+      `¿Eliminar el proveedor "${proveedor.nombre}" y todos sus productos?`
+    )
+  ){
+
+    return;
+
+  }
+
+
   try{
-    await api({accion:'reordenar_productos',proveedor_id:Number(providerId),ids});
-    showToast('Orden guardado');
-  }catch(e){showToast(e.message)}
+
+    await api({
+      accion:
+        "eliminar_proveedor",
+
+      id:
+        proveedor.id
+    });
+
+    await load();
+
+  }catch(error){
+
+    toast(
+      error.message
+    );
+
+  }
+
 }
 
-if(token){appShow();load()}else loginShow();
-</script></body></html>''' > /mnt/data/stock_iphone_actualizado.html
-ls -lh /mnt/data/stock_iphone_actualizado.html
+
+/* =========================
+   FORMULARIO PRODUCTO
+========================= */
+
+function productForm(
+  producto = null
+){
+
+  const options =
+    proveedores
+      .map(
+        proveedor => `
+
+          <option
+            value="${proveedor.id}"
+            ${
+              producto &&
+              Number(
+                producto.proveedor_id
+              ) ===
+              Number(
+                proveedor.id
+              )
+                ? "selected"
+                : ""
+            }
+          >
+            ${esc(proveedor.nombre)}
+          </option>
+        `
+      )
+      .join("");
+
+
+  const capacities =
+    [
+      "Ninguno",
+      "128 GB",
+      "256 GB",
+      "512 GB",
+      "1 TB"
+    ]
+      .map(
+        capacity => `
+
+          <option
+            ${
+              producto &&
+              producto.capacidad ===
+              capacity
+                ? "selected"
+                : ""
+            }
+          >
+            ${capacity}
+          </option>
+        `
+      )
+      .join("");
+
+
+  return `
+
+    <div class="field">
+
+      <label>
+        Producto
+      </label>
+
+      <input
+        id="mProduct"
+        value="${
+          producto
+            ? esc(producto.producto)
+            : ""
+        }"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Proveedor
+      </label>
+
+      <select
+        id="mProvider"
+      >
+        ${options}
+      </select>
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Capacidad
+      </label>
+
+      <select
+        id="mCapacity"
+      >
+        ${capacities}
+      </select>
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Precio de venta
+      </label>
+
+      <input
+        id="mSalePrice"
+        type="number"
+        min="0"
+        value="${
+          producto
+            ? Number(
+                producto.venta || 0
+              )
+            : 0
+        }"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Costo
+      </label>
+
+      <input
+        id="mCostPrice"
+        type="number"
+        min="0"
+        value="${
+          producto
+            ? Number(
+                producto.costo || 0
+              )
+            : 0
+        }"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Stock
+      </label>
+
+      <input
+        id="mStock"
+        type="number"
+        min="0"
+        value="${
+          producto
+            ? Number(
+                producto.cantidad || 0
+              )
+            : 0
+        }"
+      >
+
+    </div>
+  `;
+
+}
+
+
+/* =========================
+   AGREGAR PRODUCTO
+========================= */
+
+function addProduct(){
+
+  if(!proveedores.length){
+
+    return toast(
+      "Primero agregá un proveedor."
+    );
+
+  }
+
+
+  openModal(
+    "Agregar producto",
+
+    productForm(),
+
+    () =>
+      api({
+        accion:
+          "agregar_producto",
+
+        proveedor_id:
+          Number(
+            $("mProvider").value
+          ),
+
+        producto:
+          $("mProduct").value,
+
+        capacidad:
+          $("mCapacity").value,
+
+        venta:
+          Number(
+            $("mSalePrice").value
+          ) || 0,
+
+        costo:
+          Number(
+            $("mCostPrice").value
+          ) || 0,
+
+        cantidad:
+          Number(
+            $("mStock").value
+          ) || 0
+      })
+  );
+
+}
+
+
+/* =========================
+   EDITAR PRODUCTO
+========================= */
+
+function editProduct(
+  producto
+){
+
+  openModal(
+
+    "Editar producto",
+
+    productForm(
+      producto
+    ),
+
+    () =>
+      api({
+        accion:
+          "editar_producto",
+
+        id:
+          producto.id,
+
+        producto:
+          $("mProduct").value,
+
+        capacidad:
+          $("mCapacity").value,
+
+        venta:
+          Number(
+            $("mSalePrice").value
+          ) || 0,
+
+        costo:
+          Number(
+            $("mCostPrice").value
+          ) || 0,
+
+        cantidad:
+          Number(
+            $("mStock").value
+          ) || 0
+      })
+
+  );
+
+}
+
+
+/* =========================
+   ELIMINAR PRODUCTO
+========================= */
+
+async function deleteProduct(
+  producto
+){
+
+  if(
+    !confirm(
+      `¿Eliminar "${producto.producto}"?`
+    )
+  ){
+
+    return;
+
+  }
+
+
+  try{
+
+    delete calc[
+      producto.id
+    ];
+
+    await api({
+      accion:
+        "eliminar_producto",
+
+      id:
+        producto.id
+    });
+
+    await load();
+
+  }catch(error){
+
+    toast(
+      error.message
+    );
+
+  }
+
+}
+
+
+/* =========================
+   BOTONES
+========================= */
+
+$("addProductBtn").onclick =
+  addProduct;
+
+
+$("search").oninput =
+  render;
+
+
+$("calcBtn").onclick =
+  () => {
+
+    $("sideCalc")
+      .classList
+      .add("open");
+
+    $("overlay")
+      .classList
+      .add("show");
+
+  };
+
+
+$("calcClose").onclick =
+  () => {
+
+    $("sideCalc")
+      .classList
+      .remove("open");
+
+    $("overlay")
+      .classList
+      .remove("show");
+
+  };
+
+
+$("clearCalc").onclick =
+  () => {
+
+    calc = {};
+
+    updateCalc();
+
+    render();
+
+  };
+
+
+/* =========================
+   DRAG & DROP
+========================= */
+
+function setupDrag(
+  container,
+  providerId
+){
+
+  const cards =
+    [
+      ...container.querySelectorAll(
+        ".product"
+      )
+    ];
+
+  let active = null;
+  let pointerId = null;
+  let startY = 0;
+  let dragging = false;
+  let longTimer = null;
+
+
+  cards.forEach(
+    card => {
+
+      card.draggable = false;
+
+      card.style.cursor =
+        "grab";
+
+
+      const clearDrag =
+        () => {
+
+          clearTimeout(
+            longTimer
+          );
+
+          if(active){
+
+            active.classList
+              .remove(
+                "dragging"
+              );
+
+            active.style.cursor =
+              "grab";
+
+          }
+
+          cards.forEach(
+            current =>
+              current.classList
+                .remove(
+                  "dropTarget"
+                )
+          );
+
+          active = null;
+
+          pointerId = null;
+
+          dragging = false;
+
+        };
+
+
+      card.addEventListener(
+        "pointerdown",
+        event => {
+
+          if(
+            event.button !== undefined &&
+            event.button !== 0
+          ){
+
+            return;
+
+          }
+
+
+          if(
+            event.target.closest(
+              "button,input,select,a,.menuBox"
+            )
+          ){
+
+            return;
+
+          }
+
+
+          active =
+            card;
+
+          pointerId =
+            event.pointerId;
+
+          startY =
+            event.clientY;
+
+          dragging =
+            false;
+
+
+          card.setPointerCapture?.(
+            pointerId
+          );
+
+
+          longTimer =
+            setTimeout(
+              () => {
+
+                if(
+                  active === card
+                ){
+
+                  dragging =
+                    true;
+
+                  card.classList
+                    .add(
+                      "dragging"
+                    );
+
+                  card.style.cursor =
+                    "grabbing";
+
+                }
+
+              },
+              180
+            );
+
+        }
+      );
+
+
+      card.addEventListener(
+        "pointermove",
+        event => {
+
+          if(
+            active !== card ||
+            event.pointerId !==
+              pointerId
+          ){
+
+            return;
+
+          }
+
+
+          const distance =
+            Math.abs(
+              event.clientY -
+              startY
+            );
+
+
+          if(!dragging){
+
+            if(
+              distance > 10
+            ){
+
+              clearTimeout(
+                longTimer
+              );
+
+              dragging =
+                true;
+
+              card.classList
+                .add(
+                  "dragging"
+                );
+
+              card.style.cursor =
+                "grabbing";
+
+            }else{
+
+              return;
+
+            }
+
+          }
+
+
+          event.preventDefault();
+
+
+          const others =
+            [
+              ...container.querySelectorAll(
+                ".product"
+              )
+            ]
+              .filter(
+                current =>
+                  current !== active
+              );
+
+
+          const target =
+            others.find(
+              current => {
+
+                const rect =
+                  current.getBoundingClientRect();
+
+                return (
+                  event.clientY >=
+                    rect.top &&
+                  event.clientY <=
+                    rect.bottom
+                );
+
+              }
+            );
+
+
+          if(target){
+
+            cards.forEach(
+              current =>
+                current.classList
+                  .remove(
+                    "dropTarget"
+                  )
+            );
+
+
+            target.classList
+              .add(
+                "dropTarget"
+              );
+
+
+            const rect =
+              target.getBoundingClientRect();
+
+
+            if(
+              event.clientY <
+              rect.top +
+              rect.height / 2
+            ){
+
+              container.insertBefore(
+                active,
+                target
+              );
+
+            }else{
+
+              container.insertBefore(
+                active,
+                target.nextSibling
+              );
+
+            }
+
+          }
+
+        },
+        {
+          passive:false
+        }
+      );
+
+
+      card.addEventListener(
+        "pointerup",
+        async event => {
+
+          if(
+            active !== card ||
+            event.pointerId !==
+              pointerId
+          ){
+
+            return;
+
+          }
+
+
+          clearTimeout(
+            longTimer
+          );
+
+
+          const wasDragging =
+            dragging;
+
+
+          try{
+
+            card.releasePointerCapture?.(
+              pointerId
+            );
+
+          }catch{}
+
+
+          if(wasDragging){
+
+            card.classList
+              .remove(
+                "dragging"
+              );
+
+
+            cards.forEach(
+              current =>
+                current.classList
+                  .remove(
+                    "dropTarget"
+                  )
+            );
+
+
+            active = null;
+            pointerId = null;
+            dragging = false;
+
+
+            await saveDomOrder(
+              container,
+              providerId
+            );
+
+          }else{
+
+            clearDrag();
+
+          }
+
+        }
+      );
+
+
+      card.addEventListener(
+        "pointercancel",
+        () =>
+          clearDrag()
+      );
+
+
+      card.addEventListener(
+        "lostpointercapture",
+        () => {
+
+          if(
+            active === card &&
+            !dragging
+          ){
+
+            clearDrag();
+
+          }
+
+        }
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================
+   GUARDAR ORDEN
+========================= */
+
+async function saveDomOrder(
+  container,
+  providerId
+){
+
+  const ids =
+    [
+      ...container.querySelectorAll(
+        ".product"
+      )
+    ]
+      .map(
+        element =>
+          Number(
+            element.dataset.id
+          )
+      )
+      .filter(
+        Number.isFinite
+      );
+
+
+  if(!ids.length)
+    return;
+
+
+  try{
+
+    await api({
+      accion:
+        "reordenar_productos",
+
+      ids:ids
+    });
+
+    toast(
+      "Orden guardado"
+    );
+
+  }catch(error){
+
+    toast(
+      error.message
+    );
+
+  }
+
+}
+
+
+/* =========================
+   INICIO
+========================= */
+
+(async function init(){
+
+  token =
+    (
+      localStorage.getItem(
+        TOKEN_KEY
+      ) || ""
+    ).trim();
+
+
+  if(!token){
+
+    loginShow();
+
+    return;
+
+  }
+
+
+  const ok =
+    await load();
+
+
+  if(!ok){
+
+    clearSession();
+
+  }
+
+})();
+
+</script>
+
+</body>
+</html>
