@@ -4,47 +4,52 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Stock iPhone</title>
+
 <style>
 * {
     box-sizing: border-box;
 }
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #f4f5f7;
-    color: #111;
+    background: #f5f6f8;
+    color: #111827;
 }
+
 header {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    background: #111;
+    background: #111827;
     color: white;
-    padding: 14px 16px;
+    padding: 18px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 20;
 }
+
 header h1 {
     margin: 0;
-    font-size: 20px;
+    font-size: 22px;
 }
-.calc-btn {
+
+.calculadora-btn {
     position: relative;
-    border: 0;
+    border: none;
     background: white;
-    color: #111;
     border-radius: 12px;
-    font-size: 24px;
-    width: 48px;
-    height: 44px;
+    font-size: 23px;
+    width: 46px;
+    height: 46px;
     cursor: pointer;
 }
+
 .badge {
     position: absolute;
-    right: -5px;
     top: -6px;
-    background: #e53935;
+    right: -6px;
+    background: #ef4444;
     color: white;
     border-radius: 50%;
     min-width: 21px;
@@ -54,851 +59,1699 @@ header h1 {
     align-items: center;
     justify-content: center;
 }
-main {
-    max-width: 1100px;
+
+.container {
+    max-width: 1200px;
     margin: auto;
-    padding: 16px;
+    padding: 20px;
 }
-.status {
-    background: white;
-    border-radius: 12px;
-    padding: 12px;
-    margin-bottom: 14px;
-    box-shadow: 0 2px 8px #0001;
-}
-.form {
+
+.card {
     background: white;
     border-radius: 14px;
-    padding: 16px;
-    margin-bottom: 16px;
-    box-shadow: 0 2px 8px #0001;
+    padding: 18px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.06);
 }
-.form h2 {
+
+h2 {
     margin-top: 0;
-    font-size: 18px;
 }
-.grid {
+
+.form-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 10px;
 }
+
 input,
+select,
 button {
     font: inherit;
 }
-input {
+
+input,
+select {
     width: 100%;
     padding: 11px;
-    border: 1px solid #ccc;
+    border: 1px solid #d1d5db;
     border-radius: 9px;
+    background: white;
 }
-.btn {
-    border: 0;
-    border-radius: 9px;
-    padding: 11px 14px;
+
+button {
     cursor: pointer;
 }
-.primary {
-    background: #111;
+
+.btn {
+    border: none;
+    border-radius: 9px;
+    padding: 11px 15px;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background: #111827;
     color: white;
 }
-.secondary {
-    background: #e9eaed;
+
+.btn-secondary {
+    background: #e5e7eb;
+    color: #111827;
 }
-.danger {
-    background: #e53935;
-    color: white;
+
+.btn-danger {
+    background: #fee2e2;
+    color: #991b1b;
 }
-.table-wrap {
+
+.proveedor {
     background: white;
     border-radius: 14px;
-    overflow: auto;
-    box-shadow: 0 2px 8px #0001;
+    margin-bottom: 14px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
 }
+
+.proveedor-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 17px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.proveedor-header:hover {
+    background: #f9fafb;
+}
+
+.proveedor-nombre {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.proveedor-info {
+    color: #6b7280;
+    font-size: 13px;
+    margin-left: 8px;
+}
+
+.proveedor-controles {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.menu-btn {
+    border: none;
+    background: #f3f4f6;
+    border-radius: 8px;
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+}
+
+.flecha {
+    font-size: 18px;
+    color: #6b7280;
+}
+
+.proveedor-body {
+    display: none;
+    padding: 0 15px 15px;
+}
+
+.proveedor.abierto .proveedor-body {
+    display: block;
+}
+
+.tabla-wrap {
+    overflow-x: auto;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 760px;
+    min-width: 700px;
 }
+
 th,
 td {
-    padding: 12px 10px;
-    border-bottom: 1px solid #eee;
+    padding: 11px 9px;
+    border-bottom: 1px solid #e5e7eb;
     text-align: left;
 }
+
 th {
-    background: #f8f8f8;
     font-size: 13px;
+    color: #6b7280;
 }
-.num {
-    text-align: right;
+
+.precio {
+    font-weight: bold;
 }
-.actions {
+
+.stock-bajo {
+    color: #dc2626;
+    font-weight: bold;
+}
+
+.acciones {
     display: flex;
-    gap: 7px;
+    gap: 6px;
 }
-.actions button {
-    border: 0;
-    border-radius: 7px;
+
+.acciones button {
+    border: none;
     padding: 7px 9px;
-    cursor: pointer;
+    border-radius: 7px;
 }
-.plus {
-    background: #111;
-    color: white;
-    font-size: 20px;
-    width: 38px;
-    height: 36px;
+
+.btn-add {
+    background: #dcfce7;
+    color: #166534;
+    font-weight: bold;
 }
-.edit {
-    background: #e9eaed;
+
+.btn-edit {
+    background: #e0e7ff;
+    color: #3730a3;
 }
-.del {
-    background: #e53935;
-    color: white;
+
+.btn-delete {
+    background: #fee2e2;
+    color: #991b1b;
 }
-.empty {
-    text-align: center;
-    padding: 30px;
-    color: #777;
+
+.nuevo-proveedor {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
 }
-.drawer-bg {
+
+.nuevo-proveedor input {
+    max-width: 350px;
+}
+
+/* MODAL */
+.modal-fondo {
     display: none;
     position: fixed;
     inset: 0;
-    background: #0007;
-    z-index: 20;
-}
-.drawer {
-    position: absolute;
-    right: 0;
-    top: 0;
-    height: 100%;
-    width: min(440px, 100%);
-    background: white;
-    padding: 18px;
-    overflow-y: auto;
-}
-.drawer-head {
-    display: flex;
-    justify-content: space-between;
+    background: rgba(0,0,0,.5);
+    z-index: 100;
     align-items: center;
-    margin-bottom: 14px;
+    justify-content: center;
+    padding: 20px;
 }
-.drawer-head h2 {
+
+.modal-fondo.visible {
+    display: flex;
+}
+
+.modal {
+    background: white;
+    width: 100%;
+    max-width: 430px;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.modal h3 {
+    margin-top: 0;
+}
+
+.modal input {
+    margin-bottom: 10px;
+}
+
+.modal-acciones {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    margin-top: 15px;
+}
+
+/* CALCULADORA */
+.calculadora-panel {
+    position: fixed;
+    top: 0;
+    right: -430px;
+    width: 430px;
+    max-width: 100%;
+    height: 100%;
+    background: white;
+    z-index: 200;
+    box-shadow: -5px 0 20px rgba(0,0,0,.2);
+    transition: right .25s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.calculadora-panel.abierta {
+    right: 0;
+}
+
+.calculadora-header {
+    padding: 18px;
+    background: #111827;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.calculadora-header h2 {
     margin: 0;
 }
-.close {
-    border: 0;
-    background: #eee;
-    border-radius: 9px;
-    padding: 9px 12px;
-    cursor: pointer;
+
+.cerrar {
+    background: transparent;
+    color: white;
+    border: none;
+    font-size: 25px;
 }
-.selected {
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 10px;
-    margin-bottom: 9px;
+
+.calculadora-productos {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
 }
-.selected-top {
+
+.calc-item {
+    border-bottom: 1px solid #e5e7eb;
+    padding: 12px 0;
+}
+
+.calc-item-top {
     display: flex;
     justify-content: space-between;
     gap: 10px;
 }
-.selected small {
-    color: #666;
+
+.calc-item-nombre {
+    font-weight: bold;
 }
-.summary {
+
+.calc-item-proveedor {
+    color: #6b7280;
+    font-size: 12px;
+}
+
+.calc-cantidad {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.calc-cantidad button {
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+    background: #e5e7eb;
+    font-weight: bold;
+}
+
+.calc-resumen {
     border-top: 1px solid #ddd;
-    margin-top: 15px;
-    padding-top: 15px;
+    padding: 18px;
+    background: #f9fafb;
 }
-.summary-row {
+
+.resumen-linea {
     display: flex;
     justify-content: space-between;
-    padding: 6px 0;
+    margin-bottom: 10px;
 }
-.gain {
+
+.ganancia {
+    color: #16a34a;
+    font-size: 20px;
     font-weight: bold;
-    font-size: 19px;
 }
-.clear {
-    width: 100%;
+
+.total-costo {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.total-venta {
     margin-top: 12px;
+    padding: 16px;
+    background: #111827;
+    color: white;
+    border-radius: 12px;
+    text-align: center;
 }
-.muted {
-    color: #666;
-    font-size: 13px;
+
+.total-venta small {
+    display: block;
+    opacity: .75;
+    margin-bottom: 4px;
 }
-@media (max-width: 700px) {
-    .grid {
+
+.total-venta strong {
+    font-size: 29px;
+}
+
+.vaciar {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.vacio {
+    text-align: center;
+    color: #6b7280;
+    padding: 25px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 800px) {
+    .form-grid {
         grid-template-columns: 1fr 1fr;
     }
-    .wide {
-        grid-column: 1 / -1;
+
+    .form-grid button {
+        grid-column: span 2;
     }
-    main {
-        padding: 10px;
-    }
-    .form {
+}
+
+@media (max-width: 550px) {
+    .container {
         padding: 12px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-grid button {
+        grid-column: auto;
+    }
+
+    .nuevo-proveedor {
+        flex-direction: column;
+    }
+
+    .nuevo-proveedor input {
+        max-width: none;
+    }
+
+    .calculadora-panel {
+        width: 100%;
     }
 }
 </style>
 </head>
+
 <body>
+
 <header>
     <h1>📱 Stock iPhone</h1>
-    <button class="calc-btn" onclick="abrirCalculadora()">
+
+    <button class="calculadora-btn" onclick="abrirCalculadora()">
         🧮
         <span id="badge" class="badge">0</span>
     </button>
 </header>
-<main>
-    <div id="estado" class="status">
-        Cargando productos...
+
+<div class="container">
+
+    <!-- AGREGAR PROVEEDOR -->
+    <div class="card">
+        <h2>📁 Proveedores</h2>
+
+        <div class="nuevo-proveedor">
+            <input
+                id="nuevoProveedor"
+                type="text"
+                placeholder="Nombre del proveedor"
+            >
+
+            <button class="btn btn-primary" onclick="crearProveedor()">
+                + Crear proveedor
+            </button>
+        </div>
     </div>
-    <section class="form">
-        <h2>Agregar producto</h2>
-        <div class="grid">
+
+    <!-- AGREGAR PRODUCTO -->
+    <div class="card">
+        <h2>➕ Agregar producto</h2>
+
+        <div class="form-grid">
+
             <input
                 id="producto"
-                class="wide"
-                placeholder="Producto (ej. iPhone 15 Pro 256GB)"
+                type="text"
+                placeholder="Producto"
             >
-            <input
-                id="proveedor"
-                placeholder="Proveedor"
-            >
+
+            <select id="proveedor">
+                <option value="">Seleccionar proveedor</option>
+            </select>
+
             <input
                 id="venta"
                 type="number"
-                step="0.01"
+                min="0"
                 placeholder="Precio venta"
             >
+
             <input
                 id="costo"
                 type="number"
-                step="0.01"
-                placeholder="Costo"
+                min="0"
+                placeholder="Precio costo"
             >
+
             <input
                 id="cantidad"
                 type="number"
                 min="0"
-                step="1"
                 placeholder="Cantidad"
             >
+
             <button
-                class="btn primary wide"
-                onclick="agregarProducto()"
+                class="btn btn-primary"
+                onclick="guardarProducto()"
             >
                 Agregar producto
             </button>
+
         </div>
-    </section>
-    <div class="table-wrap">
-        <table>
-            <thead>
-                <tr>
-                    <th>Producto</th>
-                    <th>Proveedor</th>
-                    <th>Venta</th>
-                    <th>Costo</th>
-                    <th>Stock</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody id="tabla"></tbody>
-        </table>
     </div>
-</main>
-<!-- CALCULADORA -->
-<div
-    id="drawerBg"
-    class="drawer-bg"
-    onclick="cerrarSiFondo(event)"
->
-    <aside class="drawer">
-        <div class="drawer-head">
-            <h2>🧮 Calculadora</h2>
+
+    <!-- STOCK -->
+    <div id="listaProveedores"></div>
+
+</div>
+
+
+<!-- MODAL PROVEEDOR -->
+<div id="modalProveedor" class="modal-fondo">
+
+    <div class="modal">
+
+        <h3>📁 Opciones del proveedor</h3>
+
+        <label>Nombre del proveedor</label>
+
+        <input
+            id="nombreProveedorEditar"
+            type="text"
+            placeholder="Nombre"
+        >
+
+        <label>Ajustar precios</label>
+
+        <input
+            id="ajustePrecio"
+            type="number"
+            min="-1000"
+            max="1000"
+            placeholder="Ejemplo: 20 o -20"
+        >
+
+        <small>
+            Máximo ±$1000 por operación.
+            El valor se suma al precio actual.
+        </small>
+
+        <div class="modal-acciones">
+
             <button
-                class="close"
-                onclick="cerrarCalculadora()"
+                class="btn btn-secondary"
+                onclick="cerrarModalProveedor()"
             >
-                Cerrar
+                Cancelar
             </button>
+
+            <button
+                class="btn btn-danger"
+                onclick="eliminarProveedor()"
+            >
+                Eliminar
+            </button>
+
+            <button
+                class="btn btn-primary"
+                onclick="guardarCambiosProveedor()"
+            >
+                Guardar
+            </button>
+
         </div>
-        <div id="seleccionados"></div>
-        <div class="summary">
-            <div class="summary-row">
-                <span>Productos:</span>
-                <strong id="totalItems">0</strong>
-            </div>
-            <div class="summary-row">
-                <span>Total venta:</span>
-                <strong id="totalVenta">$0</strong>
-            </div>
-            <div class="summary-row">
-                <span>Total costo:</span>
-                <strong id="totalCosto">$0</strong>
-            </div>
-            <div class="summary-row gain">
-                <span>Ganancia:</span>
-                <span id="totalGanancia">$0</span>
-            </div>
+
+    </div>
+</div>
+
+
+<!-- MODAL EDITAR PRODUCTO -->
+<div id="modalProducto" class="modal-fondo">
+
+    <div class="modal">
+
+        <h3>✏️ Editar producto</h3>
+
+        <input
+            id="editarProducto"
+            type="text"
+            placeholder="Producto"
+        >
+
+        <select id="editarProveedor"></select>
+
+        <input
+            id="editarVenta"
+            type="number"
+            min="0"
+            placeholder="Precio venta"
+        >
+
+        <input
+            id="editarCosto"
+            type="number"
+            min="0"
+            placeholder="Precio costo"
+        >
+
+        <input
+            id="editarCantidad"
+            type="number"
+            min="0"
+            placeholder="Cantidad"
+        >
+
+        <div class="modal-acciones">
+
+            <button
+                class="btn btn-secondary"
+                onclick="cerrarModalProducto()"
+            >
+                Cancelar
+            </button>
+
+            <button
+                class="btn btn-primary"
+                onclick="guardarCambiosProducto()"
+            >
+                Guardar
+            </button>
+
         </div>
+
+    </div>
+</div>
+
+
+<!-- CALCULADORA -->
+<div id="calculadora" class="calculadora-panel">
+
+    <div class="calculadora-header">
+
+        <h2>🧮 Calculadora</h2>
+
         <button
-            class="btn danger clear"
+            class="cerrar"
+            onclick="cerrarCalculadora()"
+        >
+            ×
+        </button>
+
+    </div>
+
+    <div
+        id="calculadoraProductos"
+        class="calculadora-productos"
+    >
+        <div class="vacio">
+            No hay productos seleccionados.
+        </div>
+    </div>
+
+    <div class="calc-resumen">
+
+        <!-- GANANCIA PRIMERO -->
+        <div class="resumen-linea ganancia">
+            <span>Ganancia</span>
+            <span id="totalGanancia">$0</span>
+        </div>
+
+        <!-- COSTO -->
+        <div class="resumen-linea total-costo">
+            <span>Total costo</span>
+            <span id="totalCosto">$0</span>
+        </div>
+
+        <!-- VENTA GRANDE -->
+        <div class="total-venta">
+            <small>TOTAL DE VENTA</small>
+            <strong id="totalVenta">$0</strong>
+        </div>
+
+        <button
+            class="btn btn-danger vaciar"
             onclick="vaciarCalculadora()"
         >
             Vaciar calculadora
         </button>
-    </aside>
+
+    </div>
+
 </div>
+
+
 <script>
-/* =========================================
-   GOOGLE SHEETS
-========================================= */
+
 const API_URL =
-"https://script.google.com/macros/s/AKfycbxIlyfSpJMoqPN5QTjutwKzI0jIOhFxQl1fuhQlUskmzxGZaOkFoWk8Jxm5zFrYPEI/exec";
-/* =========================================
-   VARIABLES
-========================================= */
+    "https://noisy-sound-2a71.agus-eloy-oviedo.workers.dev";
+
+let proveedores = [];
 let productos = [];
-let seleccionados = [];
-/* =========================================
-   FUNCIONES GENERALES
-========================================= */
-function $(id) {
-    return document.getElementById(id);
-}
-function dinero(valor) {
-    return "$" + Number(valor || 0).toLocaleString(
-        "es-AR",
-        {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 2
+
+let calculadora = {};
+
+let proveedorActual = null;
+let productoActual = null;
+
+
+// ==============================
+// CARGAR DATOS
+// ==============================
+
+async function cargarDatos() {
+
+    try {
+
+        const respuesta = await fetch(API_URL);
+
+        const datos = await respuesta.json();
+
+        if (!datos.ok) {
+            throw new Error("Error al cargar datos");
         }
-    );
+
+        proveedores = datos.proveedores || [];
+        productos = datos.productos || [];
+
+        renderizar();
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "No se pudieron cargar los datos. Revisá la conexión."
+        );
+    }
 }
-function escapar(texto) {
-    return String(texto || "")
+
+
+// ==============================
+// RENDER
+// ==============================
+
+function renderizar() {
+
+    actualizarSelectProveedores();
+
+    const contenedor =
+        document.getElementById("listaProveedores");
+
+    contenedor.innerHTML = "";
+
+    if (proveedores.length === 0) {
+
+        contenedor.innerHTML = `
+            <div class="card vacio">
+                Todavía no hay proveedores.
+                <br>
+                Creá uno arriba para comenzar.
+            </div>
+        `;
+
+        return;
+    }
+
+    proveedores.forEach(proveedor => {
+
+        const lista =
+            productos.filter(
+                producto =>
+                    Number(producto.proveedor_id) ===
+                    Number(proveedor.id)
+            );
+
+        const div =
+            document.createElement("div");
+
+        div.className = "proveedor";
+
+        div.innerHTML = `
+
+            <div
+                class="proveedor-header"
+                onclick="alternarProveedor(${proveedor.id})"
+            >
+
+                <div>
+
+                    <span class="flecha">
+                        ▸
+                    </span>
+
+                    <span class="proveedor-nombre">
+                        📁 ${escapeHTML(proveedor.nombre)}
+                    </span>
+
+                    <span class="proveedor-info">
+                        ${lista.length} producto(s)
+                    </span>
+
+                </div>
+
+                <div class="proveedor-controles">
+
+                    <button
+                        class="menu-btn"
+                        onclick="abrirMenuProveedor(event, ${proveedor.id})"
+                    >
+                        ⋮
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="proveedor-body">
+
+                ${
+                    lista.length === 0
+                    ?
+                    `<div class="vacio">
+                        No hay productos en este proveedor.
+                    </div>`
+                    :
+                    `
+                    <div class="tabla-wrap">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Venta</th>
+                                    <th>Costo</th>
+                                    <th>Stock</th>
+                                    <th>Acciones</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                ${lista.map(producto => `
+
+                                    <tr>
+
+                                        <td>
+                                            ${escapeHTML(producto.producto)}
+                                        </td>
+
+                                        <td class="precio">
+                                            $${formatear(producto.venta)}
+                                        </td>
+
+                                        <td>
+                                            $${formatear(producto.costo)}
+                                        </td>
+
+                                        <td class="${
+                                            Number(producto.cantidad) <= 2
+                                            ? "stock-bajo"
+                                            : ""
+                                        }">
+                                            ${producto.cantidad}
+                                        </td>
+
+                                        <td>
+
+                                            <div class="acciones">
+
+                                                <button
+                                                    class="btn-add"
+                                                    onclick="agregarCalculadora(${producto.id})"
+                                                >
+                                                    +
+                                                </button>
+
+                                                <button
+                                                    class="btn-edit"
+                                                    onclick="abrirEditarProducto(${producto.id})"
+                                                >
+                                                    ✏️
+                                                </button>
+
+                                                <button
+                                                    class="btn-delete"
+                                                    onclick="eliminarProducto(${producto.id})"
+                                                >
+                                                    🗑️
+                                                </button>
+
+                                            </div>
+
+                                        </td>
+
+                                    </tr>
+
+                                `).join("")}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                    `
+                }
+
+            </div>
+        `;
+
+        contenedor.appendChild(div);
+
+    });
+
+}
+
+
+// ==============================
+// PROVEEDORES
+// ==============================
+
+function actualizarSelectProveedores() {
+
+    const select =
+        document.getElementById("proveedor");
+
+    const editar =
+        document.getElementById("editarProveedor");
+
+    select.innerHTML =
+        `<option value="">
+            Seleccionar proveedor
+        </option>`;
+
+    editar.innerHTML = "";
+
+    proveedores.forEach(proveedor => {
+
+        const option =
+            document.createElement("option");
+
+        option.value = proveedor.id;
+        option.textContent = proveedor.nombre;
+
+        select.appendChild(option);
+
+        const optionEditar =
+            option.cloneNode(true);
+
+        editar.appendChild(optionEditar);
+
+    });
+}
+
+
+async function crearProveedor() {
+
+    const input =
+        document.getElementById("nuevoProveedor");
+
+    const nombre =
+        input.value.trim();
+
+    if (!nombre) {
+
+        alert("Escribí un nombre para el proveedor.");
+
+        return;
+    }
+
+    const respuesta =
+        await enviar({
+
+            accion: "crear_proveedor",
+
+            nombre
+
+        });
+
+    if (!respuesta.ok) {
+
+        alert(respuesta.mensaje || "No se pudo crear.");
+
+        return;
+    }
+
+    input.value = "";
+
+    await cargarDatos();
+}
+
+
+function alternarProveedor(id) {
+
+    const elementos =
+        document.querySelectorAll(".proveedor");
+
+    elementos.forEach(elemento => {
+
+        const boton =
+            elemento.querySelector(".menu-btn");
+
+        const coincide =
+            boton &&
+            boton.getAttribute("onclick") &&
+            boton.getAttribute("onclick")
+                .includes(String(id));
+
+        if (coincide) {
+
+            elemento.classList.toggle("abierto");
+
+            const flecha =
+                elemento.querySelector(".flecha");
+
+            flecha.textContent =
+                elemento.classList.contains("abierto")
+                ? "▾"
+                : "▸";
+        }
+
+    });
+
+}
+
+
+function abrirMenuProveedor(event, id) {
+
+    event.stopPropagation();
+
+    proveedorActual = id;
+
+    const proveedor =
+        proveedores.find(
+            p => Number(p.id) === Number(id)
+        );
+
+    if (!proveedor) return;
+
+    document.getElementById(
+        "nombreProveedorEditar"
+    ).value = proveedor.nombre;
+
+    document.getElementById(
+        "ajustePrecio"
+    ).value = "";
+
+    document.getElementById(
+        "modalProveedor"
+    ).classList.add("visible");
+}
+
+
+function cerrarModalProveedor() {
+
+    document.getElementById(
+        "modalProveedor"
+    ).classList.remove("visible");
+
+    proveedorActual = null;
+}
+
+
+async function guardarCambiosProveedor() {
+
+    if (!proveedorActual) return;
+
+    const nombre =
+        document.getElementById(
+            "nombreProveedorEditar"
+        ).value.trim();
+
+    const ajusteTexto =
+        document.getElementById(
+            "ajustePrecio"
+        ).value.trim();
+
+    if (!nombre) {
+
+        alert("El nombre no puede estar vacío.");
+
+        return;
+    }
+
+    if (ajusteTexto !== "") {
+
+        const ajuste =
+            Number(ajusteTexto);
+
+        if (
+            !Number.isFinite(ajuste) ||
+            Math.abs(ajuste) > 1000
+        ) {
+
+            alert(
+                "El ajuste debe estar entre -1000 y 1000."
+            );
+
+            return;
+        }
+
+        const respuestaAjuste =
+            await enviar({
+
+                accion: "ajustar_precios",
+
+                proveedor_id: proveedorActual,
+
+                monto: ajuste
+
+            });
+
+        if (!respuestaAjuste.ok) {
+
+            alert(
+                respuestaAjuste.mensaje ||
+                "No se pudieron ajustar los precios."
+            );
+
+            return;
+        }
+    }
+
+    const respuesta =
+        await enviar({
+
+            accion: "renombrar_proveedor",
+
+            id: proveedorActual,
+
+            nombre
+
+        });
+
+    if (!respuesta.ok) {
+
+        alert(
+            respuesta.mensaje ||
+            "No se pudo cambiar el proveedor."
+        );
+
+        return;
+    }
+
+    cerrarModalProveedor();
+
+    await cargarDatos();
+}
+
+
+async function eliminarProveedor() {
+
+    if (!proveedorActual) return;
+
+    const proveedor =
+        proveedores.find(
+            p => Number(p.id) === Number(proveedorActual)
+        );
+
+    if (!proveedor) return;
+
+    const confirmar =
+        confirm(
+            ¿Eliminar "${proveedor.nombre}" y todos sus productos?
+        );
+
+    if (!confirmar) return;
+
+    const respuesta =
+        await enviar({
+
+            accion: "eliminar_proveedor",
+
+            id: proveedorActual
+
+        });
+
+    if (!respuesta.ok) {
+
+        alert(
+            respuesta.mensaje ||
+            "No se pudo eliminar."
+        );
+
+        return;
+    }
+
+    cerrarModalProveedor();
+
+    await cargarDatos();
+}
+
+
+// ==============================
+// PRODUCTOS
+// ==============================
+
+async function guardarProducto() {
+
+    const producto =
+        document.getElementById("producto")
+            .value.trim();
+
+    const proveedor_id =
+        document.getElementById("proveedor")
+            .value;
+
+    const venta =
+        Number(
+            document.getElementById("venta").value
+        );
+
+    const costo =
+        Number(
+            document.getElementById("costo").value
+        );
+
+    const cantidad =
+        Number(
+            document.getElementById("cantidad").value
+        );
+
+    if (!producto) {
+
+        alert("Escribí el nombre del producto.");
+
+        return;
+    }
+
+    if (!proveedor_id) {
+
+        alert("Seleccioná un proveedor.");
+
+        return;
+    }
+
+    if (!Number.isFinite(venta) || venta < 0) {
+
+        alert("Ingresá un precio de venta válido.");
+
+        return;
+    }
+
+    if (!Number.isFinite(costo) || costo < 0) {
+
+        alert("Ingresá un precio de costo válido.");
+
+        return;
+    }
+
+    if (!Number.isFinite(cantidad) || cantidad < 0) {
+
+        alert("Ingresá una cantidad válida.");
+
+        return;
+    }
+
+    const respuesta =
+        await enviar({
+
+            accion: "agregar_producto",
+
+            proveedor_id,
+
+            producto,
+
+            venta,
+
+            costo,
+
+            cantidad
+
+        });
+
+    if (!respuesta.ok) {
+
+        alert(
+            respuesta.mensaje ||
+            "No se pudo agregar."
+        );
+
+        return;
+    }
+
+    document.getElementById("producto").value = "";
+    document.getElementById("venta").value = "";
+    document.getElementById("costo").value = "";
+    document.getElementById("cantidad").value = "";
+
+    await cargarDatos();
+}
+
+
+function abrirEditarProducto(id) {
+
+    const producto =
+        productos.find(
+            p => Number(p.id) === Number(id)
+        );
+
+    if (!producto) return;
+
+    productoActual = id;
+
+    document.getElementById(
+        "editarProducto"
+    ).value = producto.producto;
+
+    document.getElementById(
+        "editarProveedor"
+    ).value = producto.proveedor_id;
+
+    document.getElementById(
+        "editarVenta"
+    ).value = producto.venta;
+
+    document.getElementById(
+        "editarCosto"
+    ).value = producto.costo;
+
+    document.getElementById(
+        "editarCantidad"
+    ).value = producto.cantidad;
+
+    document.getElementById(
+        "modalProducto"
+    ).classList.add("visible");
+}
+
+
+function cerrarModalProducto() {
+
+    document.getElementById(
+        "modalProducto"
+    ).classList.remove("visible");
+
+    productoActual = null;
+}
+
+
+async function guardarCambiosProducto() {
+
+    if (!productoActual) return;
+
+    const producto =
+        document.getElementById(
+            "editarProducto"
+        ).value.trim();
+
+    const proveedor_id =
+        document.getElementById(
+            "editarProveedor"
+        ).value;
+
+    const venta =
+        Number(
+            document.getElementById(
+                "editarVenta"
+            ).value
+        );
+
+    const costo =
+        Number(
+            document.getElementById(
+                "editarCosto"
+            ).value
+        );
+
+    const cantidad =
+        Number(
+            document.getElementById(
+                "editarCantidad"
+            ).value
+        );
+
+    if (!producto || !proveedor_id) {
+
+        alert("Completá todos los campos.");
+
+        return;
+    }
+
+    const respuesta =
+        await enviar({
+
+            accion: "editar_producto",
+
+            id: productoActual,
+
+            proveedor_id,
+
+            producto,
+
+            venta,
+
+            costo,
+
+            cantidad
+
+        });
+
+    if (!respuesta.ok) {
+
+        alert(
+            respuesta.mensaje ||
+            "No se pudo actualizar."
+        );
+
+        return;
+    }
+
+    cerrarModalProducto();
+
+    await cargarDatos();
+}
+
+
+async function eliminarProducto(id) {
+
+    const producto =
+        productos.find(
+            p => Number(p.id) === Number(id)
+        );
+
+    if (!producto) return;
+
+    const confirmar =
+        confirm(
+            ¿Eliminar "${producto.producto}"?
+        );
+
+    if (!confirmar) return;
+
+    const respuesta =
+        await enviar({
+
+            accion: "eliminar_producto",
+
+            id
+
+        });
+
+    if (!respuesta.ok) {
+
+        alert(
+            respuesta.mensaje ||
+            "No se pudo eliminar."
+        );
+
+        return;
+    }
+
+    delete calculadora[id];
+
+    await cargarDatos();
+
+    renderizarCalculadora();
+}
+
+
+// ==============================
+// CALCULADORA
+// ==============================
+
+function agregarCalculadora(id) {
+
+    const producto =
+        productos.find(
+            p => Number(p.id) === Number(id)
+        );
+
+    if (!producto) return;
+
+    if (!calculadora[id]) {
+
+        calculadora[id] = {
+            productoId: id,
+            cantidad: 1
+        };
+
+    } else {
+
+        calculadora[id].cantidad++;
+
+    }
+
+    renderizarCalculadora();
+}
+
+
+function cambiarCantidadCalculadora(id, cambio) {
+
+    if (!calculadora[id]) return;
+
+    calculadora[id].cantidad += cambio;
+
+    if (calculadora[id].cantidad <= 0) {
+
+        delete calculadora[id];
+
+    }
+
+    renderizarCalculadora();
+}
+
+
+function renderizarCalculadora() {
+
+    const contenedor =
+        document.getElementById(
+            "calculadoraProductos"
+        );
+
+    const ids =
+        Object.keys(calculadora);
+
+    let totalVenta = 0;
+    let totalCosto = 0;
+
+    if (ids.length === 0) {
+
+        contenedor.innerHTML = `
+            <div class="vacio">
+                No hay productos seleccionados.
+            </div>
+        `;
+
+    } else {
+
+        contenedor.innerHTML = "";
+
+        ids.forEach(id => {
+
+            const producto =
+                productos.find(
+                    p => String(p.id) === String(id)
+                );
+
+            if (!producto) return;
+
+            const cantidad =
+                calculadora[id].cantidad;
+
+            totalVenta +=
+                Number(producto.venta) *
+                cantidad;
+
+            totalCosto +=
+                Number(producto.costo) *
+                cantidad;
+
+            const item =
+                document.createElement("div");
+
+            item.className = "calc-item";
+
+            item.innerHTML = `
+
+                <div class="calc-item-top">
+
+                    <div>
+
+                        <div class="calc-item-nombre">
+                            ${escapeHTML(producto.producto)}
+                        </div>
+
+                        <div class="calc-item-proveedor">
+                            ${escapeHTML(producto.proveedor)}
+                        </div>
+
+                    </div>
+
+                    <strong>
+                        $${formatear(
+                            Number(producto.venta) *
+                            cantidad
+                        )}
+                    </strong>
+
+                </div>
+
+                <div class="calc-cantidad">
+
+                    <button
+                        onclick="cambiarCantidadCalculadora(${id}, -1)"
+                    >
+                        −
+                    </button>
+
+                    <strong>
+                        ${cantidad}
+                    </strong>
+
+                    <button
+                        onclick="cambiarCantidadCalculadora(${id}, 1)"
+                    >
+                        +
+                    </button>
+
+                    <span>
+                        x $${formatear(producto.venta)}
+                    </span>
+
+                </div>
+            `;
+
+            contenedor.appendChild(item);
+
+        });
+    }
+
+    const ganancia =
+        totalVenta - totalCosto;
+
+    document.getElementById(
+        "totalGanancia"
+    ).textContent =
+        "$" + formatear(ganancia);
+
+    document.getElementById(
+        "totalCosto"
+    ).textContent =
+        "$" + formatear(totalCosto);
+
+    document.getElementById(
+        "totalVenta"
+    ).textContent =
+        "$" + formatear(totalVenta);
+
+    document.getElementById(
+        "badge"
+    ).textContent =
+        ids.reduce(
+            (total, id) =>
+                total + calculadora[id].cantidad,
+            0
+        );
+}
+
+
+function abrirCalculadora() {
+
+    document.getElementById(
+        "calculadora"
+    ).classList.add("abierta");
+
+    renderizarCalculadora();
+}
+
+
+function cerrarCalculadora() {
+
+    document.getElementById(
+        "calculadora"
+    ).classList.remove("abierta");
+}
+
+
+function vaciarCalculadora() {
+
+    calculadora = {};
+
+    renderizarCalculadora();
+}
+
+
+// ==============================
+// ENVIAR AL WORKER
+// ==============================
+
+async function enviar(datos) {
+
+    const respuesta =
+        await fetch(API_URL, {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify(datos)
+
+        });
+
+    return await respuesta.json();
+}
+
+
+// ==============================
+// UTILIDADES
+// ==============================
+
+function formatear(numero) {
+
+    return Number(numero || 0)
+        .toLocaleString("es-AR", {
+            maximumFractionDigits: 2
+        });
+}
+
+
+function escapeHTML(texto) {
+
+    return String(texto ?? "")
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
 }
-/* =========================================
-   CARGAR PRODUCTOS
-========================================= */
-async function cargarProductos() {
-    $("estado").textContent =
-        "Cargando productos...";
-    try {
-        const respuesta =
-            await fetch(
-                API_URL + "?t=" + Date.now()
-            );
-        if (!respuesta.ok) {
-            throw new Error(
-                "HTTP " + respuesta.status
-            );
-        }
-        const datos =
-            await respuesta.json();
-        productos =
-            Array.isArray(datos)
-                ? datos
-                : [];
-        renderizar();
-        $("estado").textContent =
-            "✓ Conectado a Google Sheets";
-    } catch (error) {
-        console.error(error);
-        $("estado").textContent =
-            "❌ No se pudieron cargar los productos.";
-    }
-}
-/* =========================================
-   MOSTRAR TABLA
-========================================= */
-function renderizar() {
-    const tabla = $("tabla");
-    if (productos.length === 0) {
-        tabla.innerHTML =
-            '<tr>' +
-            '<td colspan="6" class="empty">' +
-            'No hay productos cargados.' +
-            '</td>' +
-            '</tr>';
-        return;
-    }
-    tabla.innerHTML =
-        productos.map(function(p) {
-            return `
-                <tr>
-                    <td>
-                        <strong>
-                            ${escapar(p.producto)}
-                        </strong>
-                    </td>
-                    <td>
-                        ${escapar(p.proveedor)}
-                    </td>
-                    <td class="num">
-                        ${dinero(p.venta)}
-                    </td>
-                    <td class="num">
-                        ${dinero(p.costo)}
-                    </td>
-                    <td class="num">
-                        ${Number(p.cantidad || 0)}
-                    </td>
-                    <td>
-                        <div class="actions">
-                            <button
-                                class="plus"
-                                onclick="agregarCalculadora('${String(p.id)}')"
-                            >
-                                +
-                            </button>
-                            <button
-                                class="edit"
-                                onclick="editarProducto('${String(p.id)}')"
-                            >
-                                Editar
-                            </button>
-                            <button
-                                class="del"
-                                onclick="eliminarProducto('${String(p.id)}')"
-                            >
-                                Eliminar
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            `;
-        }).join("");
-}
-/* =========================================
-   ENVIAR A GOOGLE SHEETS
-========================================= */
-async function enviar(datos) {
-    const respuesta =
-        await fetch(
-            API_URL,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type":
-                        "text/plain;charset=utf-8"
-                },
-                body: JSON.stringify(datos)
-            }
-        );
-    if (!respuesta.ok) {
-        throw new Error(
-            "HTTP " + respuesta.status
-        );
-    }
-    return await respuesta.json();
-}
-/* =========================================
-   AGREGAR PRODUCTO
-========================================= */
-async function agregarProducto() {
-    const producto =
-        $("producto").value.trim();
-    const proveedor =
-        $("proveedor").value.trim();
-    const venta =
-        Number($("venta").value);
-    const costo =
-        Number($("costo").value);
-    const cantidad =
-        Number($("cantidad").value);
-    if (!producto) {
-        alert(
-            "Escribí el nombre del producto."
-        );
-        return;
-    }
-    if (
-        !Number.isFinite(venta) ||
-        !Number.isFinite(costo) ||
-        !Number.isFinite(cantidad)
-    ) {
-        alert(
-            "Completá correctamente venta, costo y cantidad."
-        );
-        return;
-    }
-    try {
-        $("estado").textContent =
-            "Guardando producto...";
-        const resultado =
-            await enviar({
-                accion: "agregar",
-                producto: producto,
-                proveedor: proveedor,
-                venta: venta,
-                costo: costo,
-                cantidad: cantidad
-            });
-        if (!resultado.ok) {
-            throw new Error(
-                resultado.mensaje ||
-                "No se pudo guardar"
-            );
-        }
-        $("producto").value = "";
-        $("proveedor").value = "";
-        $("venta").value = "";
-        $("costo").value = "";
-        $("cantidad").value = "";
-        await cargarProductos();
-    } catch (error) {
-        console.error(error);
-        alert(
-            "No se pudo guardar el producto.\n\n" +
-            error.message
-        );
-        $("estado").textContent =
-            "❌ Error al guardar.";
-    }
-}
-/* =========================================
-   EDITAR
-========================================= */
-async function editarProducto(id) {
-    const productoEncontrado =
-        productos.find(function(p) {
-            return String(p.id) === String(id);
-        });
-    if (!productoEncontrado) {
-        return;
-    }
-    const producto =
-        prompt(
-            "Producto:",
-            productoEncontrado.producto
-        );
-    if (producto === null) {
-        return;
-    }
-    const proveedor =
-        prompt(
-            "Proveedor:",
-            productoEncontrado.proveedor
-        );
-    if (proveedor === null) {
-        return;
-    }
-    const ventaTexto =
-        prompt(
-            "Precio de venta:",
-            productoEncontrado.venta
-        );
-    if (ventaTexto === null) {
-        return;
-    }
-    const costoTexto =
-        prompt(
-            "Costo:",
-            productoEncontrado.costo
-        );
-    if (costoTexto === null) {
-        return;
-    }
-    const cantidadTexto =
-        prompt(
-            "Cantidad:",
-            productoEncontrado.cantidad
-        );
-    if (cantidadTexto === null) {
-        return;
-    }
-    const venta =
-        Number(ventaTexto);
-    const costo =
-        Number(costoTexto);
-    const cantidad =
-        Number(cantidadTexto);
-    if (
-        !producto.trim() ||
-        !Number.isFinite(venta) ||
-        !Number.isFinite(costo) ||
-        !Number.isFinite(cantidad)
-    ) {
-        alert("Datos inválidos.");
-        return;
-    }
-    try {
-        $("estado").textContent =
-            "Actualizando...";
-        const resultado =
-            await enviar({
-                accion: "actualizar",
-                id: id,
-                producto:
-                    producto.trim(),
-                proveedor:
-                    proveedor.trim(),
-                venta: venta,
-                costo: costo,
-                cantidad: cantidad
-            });
-        if (!resultado.ok) {
-            throw new Error(
-                resultado.mensaje ||
-                "No se pudo actualizar"
-            );
-        }
-        await cargarProductos();
-    } catch (error) {
-        console.error(error);
-        alert(
-            "No se pudo actualizar.\n\n" +
-            error.message
-        );
-    }
-}
-/* =========================================
-   ELIMINAR
-========================================= */
-async function eliminarProducto(id) {
-    const productoEncontrado =
-        productos.find(function(p) {
-            return String(p.id) === String(id);
-        });
-    if (!productoEncontrado) {
-        return;
-    }
-    if (
-        !confirm(
-            "¿Eliminar " +
-            productoEncontrado.producto +
-            "?"
-        )
-    ) {
-        return;
-    }
-    try {
-        $("estado").textContent =
-            "Eliminando...";
-        const resultado =
-            await enviar({
-                accion: "eliminar",
-                id: id
-            });
-        if (!resultado.ok) {
-            throw new Error(
-                resultado.mensaje ||
-                "No se pudo eliminar"
-            );
-        }
-        seleccionados =
-            seleccionados.filter(function(p) {
-                return String(p.id) !== String(id);
-            });
-        actualizarCalculadora();
-        await cargarProductos();
-    } catch (error) {
-        console.error(error);
-        alert(
-            "No se pudo eliminar.\n\n" +
-            error.message
-        );
-    }
-}
-/* =========================================
-   CALCULADORA
-========================================= */
-function agregarCalculadora(id) {
-    const producto =
-        productos.find(function(p) {
-            return String(p.id) === String(id);
-        });
-    if (!producto) {
-        return;
-    }
-    const existente =
-        seleccionados.find(function(p) {
-            return String(p.id) === String(id);
-        });
-    if (existente) {
-        existente.unidades++;
-    } else {
-        seleccionados.push({
-            ...producto,
-            unidades: 1
-        });
-    }
-    actualizarCalculadora();
-}
-function quitarCalculadora(id) {
-    seleccionados =
-        seleccionados.filter(function(p) {
-            return String(p.id) !== String(id);
-        });
-    actualizarCalculadora();
-}
-function cambiarUnidades(id, cambio) {
-    const producto =
-        seleccionados.find(function(p) {
-            return String(p.id) === String(id);
-        });
-    if (!producto) {
-        return;
-    }
-    producto.unidades += cambio;
-    if (producto.unidades <= 0) {
-        quitarCalculadora(id);
-        return;
-    }
-    actualizarCalculadora();
-}
-/* =========================================
-   ACTUALIZAR CALCULADORA
-========================================= */
-function actualizarCalculadora() {
-    const cantidadTotal =
-        seleccionados.reduce(
-            function(total, producto) {
-                return total +
-                    producto.unidades;
-            },
-            0
-        );
-    $("badge").textContent =
-        cantidadTotal;
-    if (seleccionados.length === 0) {
-        $("seleccionados").innerHTML =
-            '<p class="muted">' +
-            'No seleccionaste productos. ' +
-            'Tocá + en un producto para agregarlo.' +
-            '</p>';
-    } else {
-        $("seleccionados").innerHTML =
-            seleccionados.map(function(p) {
-                return `
-                    <div class="selected">
-                        <div class="selected-top">
-                            <strong>
-                                ${escapar(p.producto)}
-                            </strong>
-                            <button
-                                class="del"
-                                onclick="quitarCalculadora('${String(p.id)}')"
-                            >
-                                ×
-                            </button>
-                        </div>
-                        <small>
-                            Venta:
-                            ${dinero(p.venta)}
-                            ·
-                            Costo:
-                            ${dinero(p.costo)}
-                        </small>
-                        <div
-                            style="
-                            display:flex;
-                            align-items:center;
-                            gap:8px;
-                            margin-top:8px;
-                            "
-                        >
-                            <button
-                                class="btn secondary"
-                                onclick="cambiarUnidades('${String(p.id)}', -1)"
-                            >
-                                −
-                            </button>
-                            <strong>
-                                ${p.unidades}
-                            </strong>
-                            <button
-                                class="btn secondary"
-                                onclick="cambiarUnidades('${String(p.id)}', 1)"
-                            >
-                                +
-                            </button>
-                            <span
-                                style="
-                                margin-left:auto;
-                                "
-                            >
-                                ${dinero(
-                                    Number(p.venta || 0) *
-                                    p.unidades
-                                )}
-                            </span>
-                        </div>
-                    </div>
-                `;
-            }).join("");
-    }
-    const totalVenta =
-        seleccionados.reduce(
-            function(total, producto) {
-                return total +
-                    Number(producto.venta || 0) *
-                    producto.unidades;
-            },
-            0
-        );
-    const totalCosto =
-        seleccionados.reduce(
-            function(total, producto) {
-                return total +
-                    Number(producto.costo || 0) *
-                    producto.unidades;
-            },
-            0
-        );
-    const ganancia =
-        totalVenta -
-        totalCosto;
-    $("totalItems").textContent =
-        cantidadTotal;
-    $("totalVenta").textContent =
-        dinero(totalVenta);
-    $("totalCosto").textContent =
-        dinero(totalCosto);
-    $("totalGanancia").textContent =
-        dinero(ganancia);
-}
-/* =========================================
-   ABRIR / CERRAR CALCULADORA
-========================================= */
-function abrirCalculadora() {
-    $("drawerBg").style.display =
-        "block";
-    actualizarCalculadora();
-}
-function cerrarCalculadora() {
-    $("drawerBg").style.display =
-        "none";
-}
-function cerrarSiFondo(event) {
-    if (
-        event.target === $("drawerBg")
-    ) {
-        cerrarCalculadora();
-    }
-}
-function vaciarCalculadora() {
-    seleccionados = [];
-    actualizarCalculadora();
-}
-/* =========================================
-   INICIAR
-========================================= */
-cargarProductos();
+
+
+// ==============================
+// INICIO
+// ==============================
+
+cargarDatos();
+
 </script>
+
 </body>
 </html>
