@@ -651,25 +651,30 @@ button{
     0 10px 35px rgba(124,58,237,.20);
 }
 
-/* Controles de orden manual: reemplazan el arrastre para evitar conflictos en móvil */
+/* Controles de orden manual: solo aparecen al activar "Movimiento" */
 .moveControls{
+  position:absolute;
+  right:8px;
+  top:50%;
+  transform:translateY(-50%);
   display:flex;
   flex-direction:column;
-  gap:4px;
-  margin-top:8px;
+  gap:3px;
+  z-index:4;
 }
 .moveControls button{
-  width:30px;
-  height:27px;
+  width:24px;
+  height:22px;
   padding:0;
   border:1px solid #34343e;
-  border-radius:7px;
+  border-radius:6px;
   background:#17171f;
   color:#d8d8df;
-  font-size:15px;
+  font-size:13px;
   font-weight:900;
   line-height:1;
   cursor:pointer;
+  box-shadow:0 2px 8px rgba(0,0,0,.25);
 }
 .moveControls button:hover{
   border-color:var(--gold);
@@ -691,17 +696,28 @@ button{
   min-width:0;
 }
 
+.productNameRow{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  min-width:0;
+}
+
 .productName{
   font-size:16px;
   font-weight:800;
   line-height:1.2;
+  min-width:0;
 }
 
 .capacity{
   color:var(--gold2);
   font-size:16px;
   font-weight:700;
-  margin-top:4px;
+  margin:0;
+  flex:0 0 auto;
+  white-space:nowrap;
 }
 
 .cost{
@@ -1948,6 +1964,7 @@ function guardarPedidos(){
 // =========================================================
 
 let collapsedProviders = {};
+let movementModeProviders = {};
 
 let providersInitialized = false;
 
@@ -2337,6 +2354,10 @@ function renderProviders(){
         ] !== false;
 
 
+      const movementMode =
+        movementModeProviders[provider.id] === true;
+
+
       providerDiv.innerHTML = `
 
         <div class="providerHeader">
@@ -2443,7 +2464,7 @@ function renderProviders(){
 // CREAR PRODUCTO
 // =========================================================
 
-function createProductElement(product){
+function createProductElement(product, movementMode = false){
 
   const div =
     document.createElement(
@@ -2482,11 +2503,12 @@ function createProductElement(product){
 
     <div class="productMain">
 
-      <div class="productName">
-        ${escapeHtml(product.producto)}
+      <div class="productNameRow">
+        <div class="productName">
+          ${escapeHtml(product.producto)}
+        </div>
+        ${capacity}
       </div>
-
-      ${capacity}
 
       <div class="cost">
         Costo: ${money(product.costo)}
@@ -2552,10 +2574,12 @@ function createProductElement(product){
     </div>
 
 
-    <div class="moveControls" aria-label="Mover producto">
-      <button type="button" data-move-product="${product.id}" data-direction="up" title="Mover arriba">↑</button>
-      <button type="button" data-move-product="${product.id}" data-direction="down" title="Mover abajo">↓</button>
-    </div>
+    ${movementMode ? `
+      <div class="moveControls" aria-label="Mover producto">
+        <button type="button" data-move-product="${product.id}" data-direction="up" title="Mover arriba">↑</button>
+        <button type="button" data-move-product="${product.id}" data-direction="down" title="Mover abajo">↓</button>
+      </div>
+    ` : ""}
 
 
     <div
@@ -2569,9 +2593,6 @@ function createProductElement(product){
       >
         Editar
       </button>
-
-      <button type="button" data-move-product="${product.id}" data-direction="up">↑ Mover arriba</button>
-      <button type="button" data-move-product="${product.id}" data-direction="down">↓ Mover abajo</button>
 
       <button
         type="button"
@@ -3433,6 +3454,16 @@ function abrirMenuProveedor(
 
     <button
       class="secondaryButton"
+      style="width:100%;margin-bottom:8px"
+      type="button"
+      id="movementProviderButton"
+    >
+      ↕ Movimiento
+    </button>
+
+
+    <button
+      class="secondaryButton"
       style="width:100%;color:#ff7777"
       type="button"
       id="deleteProviderButton"
@@ -3484,6 +3515,19 @@ function abrirMenuProveedor(
         abrirAjustarPrecios(
           proveedorId
         );
+
+
+  document
+    .getElementById(
+      "movementProviderButton"
+    )
+    .onclick =
+      () => {
+        movementModeProviders[proveedorId] =
+          movementModeProviders[proveedorId] !== true;
+        closeModal();
+        renderProviders();
+      };
 
 
   document
