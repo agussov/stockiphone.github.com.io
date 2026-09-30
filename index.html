@@ -726,6 +726,13 @@ button{
   margin-top:3px;
 }
 
+.profitInline{
+  color:#9bea9b;
+  font-size:13px;
+  font-weight:700;
+  margin-left:6px;
+}
+
 .productBottom{
   margin-top:11px;
 
@@ -2513,6 +2520,7 @@ function createProductElement(product, movementMode = false){
 
       <div class="cost">
         Costo: ${money(product.costo)}
+        <span class="profitInline">= ${money(Number(product.venta || 0) - Number(product.costo || 0))}</span>
       </div>
 
       <div class="productBottom">
