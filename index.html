@@ -620,9 +620,9 @@ button{
 
   border:1px solid #202028;
 
-  touch-action:none;
+  touch-action:pan-y;
   user-select:none;
-  cursor:grab;
+  cursor:default;
 
   transition:
     transform .18s ease,
@@ -649,6 +649,35 @@ button{
 
   box-shadow:
     0 10px 35px rgba(124,58,237,.20);
+}
+
+/* Controles de orden manual: reemplazan el arrastre para evitar conflictos en móvil */
+.moveControls{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  margin-top:8px;
+}
+.moveControls button{
+  width:30px;
+  height:27px;
+  padding:0;
+  border:1px solid #34343e;
+  border-radius:7px;
+  background:#17171f;
+  color:#d8d8df;
+  font-size:15px;
+  font-weight:900;
+  line-height:1;
+  cursor:pointer;
+}
+.moveControls button:hover{
+  border-color:var(--gold);
+  color:var(--gold);
+}
+.moveControls button:disabled{
+  opacity:.28;
+  cursor:default;
 }
 
 .product.dragOver{
@@ -2424,7 +2453,7 @@ function createProductElement(product){
   div.className =
     "product";
 
-  div.draggable = true;
+  div.draggable = false;
 
   div.dataset.productId =
     product.id;
@@ -2523,6 +2552,12 @@ function createProductElement(product){
     </div>
 
 
+    <div class="moveControls" aria-label="Mover producto">
+      <button type="button" data-move-product="${product.id}" data-direction="up" title="Mover arriba">↑</button>
+      <button type="button" data-move-product="${product.id}" data-direction="down" title="Mover abajo">↓</button>
+    </div>
+
+
     <div
       class="productMenu hidden"
       id="product-menu-${product.id}"
@@ -2534,6 +2569,9 @@ function createProductElement(product){
       >
         Editar
       </button>
+
+      <button type="button" data-move-product="${product.id}" data-direction="up">↑ Mover arriba</button>
+      <button type="button" data-move-product="${product.id}" data-direction="down">↓ Mover abajo</button>
 
       <button
         type="button"
@@ -2556,376 +2594,43 @@ function createProductElement(product){
 // ARRASTRAR PRODUCTOS
 // =========================================================
 
-function activarArrastre(
-  container,
-  proveedorId
-){
-
-  let dragged = null;
-
-  let pointerId = null;
-
-  let startY = 0;
-
-  let isDragging = false;
-
-
-  container
-    .querySelectorAll(".product")
-    .forEach(
-      product => {
-
-
-        // Usamos arrastre personalizado para evitar que el navegador trate la tarjeta como un enlace/imagen.
-        product.draggable = false;
-
-
-        // -------------------------------
-        // PC / MOUSE
-        // -------------------------------
-
-        product.addEventListener(
-          "dragstart",
-          e => {
-
-            dragged = product;
-
-            product.classList.add(
-              "dragging"
-            );
-
-            e.dataTransfer.effectAllowed =
-              "move";
-
-            e.dataTransfer.setData(
-              "text/plain",
-              product.dataset.productId
-            );
-
-          }
-        );
-
-
-        product.addEventListener(
-          "dragend",
-          async () => {
-
-            if(!dragged) return;
-
-            product.classList.remove(
-              "dragging"
-            );
-
-            container
-              .querySelectorAll(
-                ".product"
-              )
-              .forEach(
-                p =>
-                  p.classList.remove(
-                    "dragOver"
-                  )
-              );
-
-
-            const ids =
-              Array.from(
-                container.querySelectorAll(
-                  ".product"
-                )
-              ).map(
-                p =>
-                  Number(
-                    p.dataset.productId
-                  )
-              );
-
-
-            dragged = null;
-
-            await guardarOrden(
-              proveedorId,
-              ids
-            );
-
-          }
-        );
-
-
-        product.addEventListener(
-          "dragover",
-          e => {
-
-            e.preventDefault();
-
-            if(
-              !dragged ||
-              dragged === product
-            ) return;
-
-
-            const rect =
-              product.getBoundingClientRect();
-
-            const middle =
-              rect.top +
-              rect.height / 2;
-
-
-            container
-              .querySelectorAll(
-                ".product"
-              )
-              .forEach(
-                p =>
-                  p.classList.remove(
-                    "dragOver"
-                  )
-              );
-
-
-            product.classList.add(
-              "dragOver"
-            );
-
-
-            if(
-              e.clientY < middle
-            ){
-
-              container.insertBefore(
-                dragged,
-                product
-              );
-
-            }else{
-
-              container.insertBefore(
-                dragged,
-                product.nextSibling
-              );
-
-            }
-
-
-            e.dataTransfer.dropEffect =
-              "move";
-
-          }
-        );
-
-
-        // -------------------------------
-        // TOUCH / IPHONE
-        // -------------------------------
-
-        product.addEventListener(
-          "pointerdown",
-          e => {
-
-            if(
-              e.pointerType !== "touch" && e.pointerType !== "mouse"
-            ) return;
-
-            pointerId =
-              e.pointerId;
-
-            startY =
-              e.clientY;
-
-            isDragging = false;
-
-            product.setPointerCapture(
-              pointerId
-            );
-
-          }
-        );
-
-
-        product.addEventListener(
-          "pointermove",
-          e => {
-
-            if(
-              e.pointerType !== "touch" && e.pointerType !== "mouse" ||
-              e.pointerId !== pointerId
-            ) return;
-
-
-            const distance =
-              Math.abs(
-                e.clientY - startY
-              );
-
-
-            if(
-              distance < 8 &&
-              !isDragging
-            ) return;
-
-
-            if(!isDragging){
-
-              isDragging = true;
-              product.dataset.wasDragged = "1";
-              e.preventDefault();
-
-              dragged = product;
-
-              product.classList.add(
-                "dragging"
-              );
-
-            }
-
-
-            const target =
-              document.elementFromPoint(
-                e.clientX,
-                e.clientY
-              );
-
-
-            const targetProduct =
-              target?.closest(
-                ".product"
-              );
-
-
-            if(
-              !targetProduct ||
-              targetProduct === product ||
-              !container.contains(
-                targetProduct
-              )
-            ) return;
-
-
-            const rect =
-              targetProduct
-                .getBoundingClientRect();
-
-            const middle =
-              rect.top +
-              rect.height / 2;
-
-
-            container
-              .querySelectorAll(
-                ".product"
-              )
-              .forEach(
-                p =>
-                  p.classList.remove(
-                    "dragOver"
-                  )
-              );
-
-
-            targetProduct.classList.add(
-              "dragOver"
-            );
-
-
-            if(
-              e.clientY < middle
-            ){
-
-              container.insertBefore(
-                product,
-                targetProduct
-              );
-
-            }else{
-
-              container.insertBefore(
-                product,
-                targetProduct.nextSibling
-              );
-
-            }
-
-
-            e.preventDefault();
-
-          }
-        );
-
-
-        product.addEventListener(
-          "pointerup",
-          async e => {
-
-            if(
-              e.pointerType !== "touch" && e.pointerType !== "mouse" ||
-              e.pointerId !== pointerId
-            ) return;
-
-
-            if(isDragging){
-
-              product.classList.remove(
-                "dragging"
-              );
-
-              container
-                .querySelectorAll(
-                  ".product"
-                )
-                .forEach(
-                  p =>
-                    p.classList.remove(
-                      "dragOver"
-                    )
-                );
-
-
-              const ids =
-                Array.from(
-                  container.querySelectorAll(
-                    ".product"
-                  )
-                ).map(
-                  p =>
-                    Number(
-                      p.dataset.productId
-                    )
-                );
-
-
-              dragged = null;
-
-              isDragging = false;
-
-
-              await guardarOrden(
-                proveedorId,
-                ids
-              );
-
-            }
-
-
-            pointerId = null;
-
-          }
-        );
-
-        product.addEventListener(
-          "click",
-          e => {
-            if(product.dataset.wasDragged === "1"){
-              product.dataset.wasDragged = "0";
-              e.preventDefault();
-              e.stopPropagation();
-            }
-          },
-          true
-        );
-
-      }
-    );
+function activarArrastre(container, proveedorId){
+  // El arrastre manual queda desactivado a propósito, especialmente en móvil.
+  // El orden se modifica con las flechas ↑ ↓ o desde el menú ⋮ de cada producto.
+  container.querySelectorAll(".product").forEach(product => {
+    product.draggable = false;
+  });
+}
+
+
+async function moverProducto(productId, direction){
+
+  const product = productos.find(p => Number(p.id) === Number(productId));
+  if(!product) return;
+
+  const providerId = Number(product.proveedor_id);
+  const list = productos
+    .filter(p => Number(p.proveedor_id) === providerId)
+    .sort((a,b) => Number(a.orden) - Number(b.orden) || Number(b.id) - Number(a.id));
+
+  const index = list.findIndex(p => Number(p.id) === Number(productId));
+  if(index < 0) return;
+
+  const targetIndex = direction === "up" ? index - 1 : index + 1;
+  if(targetIndex < 0 || targetIndex >= list.length) return;
+
+  const other = list[targetIndex];
+  const tmp = Number(product.orden);
+  product.orden = Number(other.orden);
+  other.orden = tmp;
+
+  // Reasignamos un orden limpio para evitar empates.
+  list.sort((a,b) => Number(a.orden) - Number(b.orden) || Number(b.id) - Number(a.id));
+  const ids = list.map(p => Number(p.id));
+  list.forEach((p,i) => p.orden = i + 1);
+
+  renderProviders();
+  await guardarOrden(providerId, ids);
 }
 
 
@@ -3246,6 +2951,23 @@ document.addEventListener(
         "hidden"
       );
 
+      return;
+    }
+
+
+    // -----------------------------------------
+    // MOVER PRODUCTO CON FLECHAS
+    // -----------------------------------------
+
+    const moveProduct = e.target.closest("[data-move-product]");
+
+    if(moveProduct){
+      e.preventDefault();
+      e.stopPropagation();
+      await moverProducto(
+        Number(moveProduct.dataset.moveProduct),
+        moveProduct.dataset.direction
+      );
       return;
     }
 
