@@ -1,529 +1,4 @@
-const CORS = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type",
-  "Content-Type": "application/json; charset=UTF-8",
-  "Cache-Control": "no-store"
-};
-
-function respuesta(data, status = 200) {
-  return new Response(JSON.stringify(data), {
-    status,
-    headers: CORS
-  });
-}
-
-export default {
-  async fetch(request, env) {
-
-    const url = new URL(request.url);
-    const path = url.pathname.replace(/\/+$/, "") || "/";
-
-    /* CORS */
-
-    if (request.method === "OPTIONS") {
-      return new Response(null, {
-        status: 204,
-        headers: CORS
-      });
-    }
-
-    /* ==================================================
-       PRUEBA DEL WORKER
-       ================================================== */
-
-    if (path === "/") {
-      return respuesta({
-        ok: true,
-        mensaje: "Worker Stock iPhone funcionando",
-        version: "NUEVO-DESDE-CERO-2026-09-30"
-      });
-    }
-
-    /* ==================================================
-       LOGIN
-       ================================================== */
-
-    if (path === "/login" && request.method === "POST") {
-
-      try {
-
-        const datos = await request.json();
-
-        const usuario = String(
-          datos.usuario ?? ""
-        ).trim();
-
-        const password = String(
-          datos.password ?? ""
-        );
-
-        const usuarioCorrecto =
-          String(env.LOGIN_USER ?? "");
-
-        const passwordCorrecta =
-          String(env.LOGIN_PASSWORD ?? "");
-
-        if (
-          usuario !== usuarioCorrecto ||
-          password !== passwordCorrecta
-        ) {
-
-          return respuesta({
-            ok: false,
-            error: "Usuario o contraseña incorrectos"
-          }, 401);
-
-        }
-
-        return respuesta({
-          ok: true,
-          mensaje: "Login correcto"
-        });
-
-      } catch (error) {
-
-        return respuesta({
-          ok: false,
-          error: "Error procesando el login"
-        }, 400);
-
-      }
-    }
-
-    /* ==================================================
-       CARGAR STOCK
-       ================================================== */
-
-    if (path === "/stock" && request.method === "GET") {
-
-      try {
-
-        const proveedores =
-          await env.DB.prepare(`
-            SELECT
-              id,
-              nombre
-            FROM proveedores
-            ORDER BY nombre COLLATE NOCASE
-          `).all();
-
-        const productos =
-          await env.DB.prepare(`
-            SELECT
-              id,
-              proveedor_id,
-              producto,
-              venta,
-              costo,
-              cantidad,
-              creado_en,
-              orden,
-              capacidad
-            FROM productos
-            ORDER BY
-              proveedor_id,
-              COALESCE(orden, 999999),
-              id
-          `).all();
-
-        return respuesta({
-          ok: true,
-          proveedores: proveedores.results || [],
-          productos: productos.results || []
-        });
-
-      } catch (error) {
-
-        return respuesta({
-          ok: false,
-          error: error.message
-        }, 500);
-
-      }
-    }
-
-    /* ==================================================
-       TODAS LAS ACCIONES
-       ================================================== */
-
-    if (request.method === "POST") {
-
-      let datos;
-
-      try {
-        datos = await request.json();
-      } catch {
-
-        return respuesta({
-          ok: false,
-          error: "JSON inválido"
-        }, 400);
-
-      }
-
-      const accion =
-        String(datos.accion ?? "").trim();
-
-      /* ---------- CREAR PROVEEDOR ---------- */
-
-      if (accion === "crear_proveedor") {
-
-        const nombre =
-          String(datos.nombre ?? "").trim();
-
-        if (!nombre) {
-
-          return respuesta({
-            ok: false,
-            error: "Ingresá un nombre"
-          }, 400);
-
-        }
-
-        try {
-
-          const resultado =
-            await env.DB.prepare(`
-              INSERT INTO proveedores (nombre)
-              VALUES (?)
-            `)
-            .bind(nombre)
-            .run();
-
-          return respuesta({
-            ok: true,
-            id: resultado.meta.last_row_id
-          });
-
-        } catch (error) {
-
-          return respuesta({
-            ok: false,
-            error: "El proveedor ya existe o no pudo crearse"
-          }, 400);
-
-        }
-      }
-
-      /* ---------- RENOMBRAR PROVEEDOR ---------- */
-
-      if (accion === "renombrar_proveedor") {
-
-        const id = Number(datos.id);
-        const nombre =
-          String(datos.nombre ?? "").trim();
-
-        if (!id || !nombre) {
-
-          return respuesta({
-            ok: false,
-            error: "Datos inválidos"
-          }, 400);
-
-        }
-
-        await env.DB.prepare(`
-          UPDATE proveedores
-          SET nombre = ?
-          WHERE id = ?
-        `)
-        .bind(nombre, id)
-        .run();
-
-        return respuesta({
-          ok: true
-        });
-      }
-
-      /* ---------- ELIMINAR PROVEEDOR ---------- */
-
-      if (accion === "eliminar_proveedor") {
-
-        const id = Number(datos.id);
-
-        if (!id) {
-
-          return respuesta({
-            ok: false,
-            error: "Proveedor inválido"
-          }, 400);
-
-        }
-
-        await env.DB.prepare(`
-          DELETE FROM productos
-          WHERE proveedor_id = ?
-        `)
-        .bind(id)
-        .run();
-
-        await env.DB.prepare(`
-          DELETE FROM proveedores
-          WHERE id = ?
-        `)
-        .bind(id)
-        .run();
-
-        return respuesta({
-          ok: true
-        });
-      }
-
-      /* ---------- AGREGAR PRODUCTO ---------- */
-
-      if (accion === "agregar_producto") {
-
-        const proveedor_id =
-          Number(datos.proveedor_id);
-
-        const producto =
-          String(datos.producto ?? "").trim();
-
-        const capacidad =
-          String(
-            datos.capacidad ?? "Ninguno"
-          ).trim() || "Ninguno";
-
-        const venta =
-          Number(datos.venta) || 0;
-
-        const costo =
-          Number(datos.costo) || 0;
-
-        const cantidad =
-          Math.max(
-            0,
-            Number(datos.cantidad) || 0
-          );
-
-        if (!proveedor_id || !producto) {
-
-          return respuesta({
-            ok: false,
-            error: "Proveedor y producto son obligatorios"
-          }, 400);
-
-        }
-
-        const ultimo =
-          await env.DB.prepare(`
-            SELECT
-              COALESCE(MAX(orden), -1) + 1 AS orden
-            FROM productos
-            WHERE proveedor_id = ?
-          `)
-          .bind(proveedor_id)
-          .first();
-
-        const orden =
-          Number(ultimo?.orden ?? 0);
-
-        const resultado =
-          await env.DB.prepare(`
-            INSERT INTO productos (
-              proveedor_id,
-              producto,
-              venta,
-              costo,
-              cantidad,
-              creado_en,
-              orden,
-              capacidad
-            )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-          `)
-          .bind(
-            proveedor_id,
-            producto,
-            venta,
-            costo,
-            cantidad,
-            new Date().toISOString(),
-            orden,
-            capacidad
-          )
-          .run();
-
-        return respuesta({
-          ok: true,
-          id: resultado.meta.last_row_id
-        });
-      }
-
-      /* ---------- EDITAR PRODUCTO ---------- */
-
-      if (accion === "editar_producto") {
-
-        const id =
-          Number(datos.id);
-
-        const proveedor_id =
-          Number(datos.proveedor_id);
-
-        const producto =
-          String(datos.producto ?? "").trim();
-
-        const capacidad =
-          String(
-            datos.capacidad ?? "Ninguno"
-          ).trim() || "Ninguno";
-
-        const venta =
-          Number(datos.venta) || 0;
-
-        const costo =
-          Number(datos.costo) || 0;
-
-        const cantidad =
-          Math.max(
-            0,
-            Number(datos.cantidad) || 0
-          );
-
-        if (
-          !id ||
-          !proveedor_id ||
-          !producto
-        ) {
-
-          return respuesta({
-            ok: false,
-            error: "Datos inválidos"
-          }, 400);
-
-        }
-
-        await env.DB.prepare(`
-          UPDATE productos
-          SET
-            proveedor_id = ?,
-            producto = ?,
-            venta = ?,
-            costo = ?,
-            cantidad = ?,
-            capacidad = ?
-          WHERE id = ?
-        `)
-        .bind(
-          proveedor_id,
-          producto,
-          venta,
-          costo,
-          cantidad,
-          capacidad,
-          id
-        )
-        .run();
-
-        return respuesta({
-          ok: true
-        });
-      }
-
-      /* ---------- ELIMINAR PRODUCTO ---------- */
-
-      if (accion === "eliminar_producto") {
-
-        const id =
-          Number(datos.id);
-
-        if (!id) {
-
-          return respuesta({
-            ok: false,
-            error: "Producto inválido"
-          }, 400);
-
-        }
-
-        await env.DB.prepare(`
-          DELETE FROM productos
-          WHERE id = ?
-        `)
-        .bind(id)
-        .run();
-
-        return respuesta({
-          ok: true
-        });
-      }
-
-      /* ---------- CAMBIAR STOCK ---------- */
-
-      if (accion === "cambiar_stock") {
-
-        const id =
-          Number(datos.id);
-
-        const cantidad =
-          Math.max(
-            0,
-            Number(datos.cantidad) || 0
-          );
-
-        if (!id) {
-
-          return respuesta({
-            ok: false,
-            error: "Producto inválido"
-          }, 400);
-
-        }
-
-        await env.DB.prepare(`
-          UPDATE productos
-          SET cantidad = ?
-          WHERE id = ?
-        `)
-        .bind(cantidad, id)
-        .run();
-
-        return respuesta({
-          ok: true
-        });
-      }
-
-      /* ---------- AJUSTAR PRECIOS ---------- */
-
-      if (accion === "ajustar_precios") {
-
-        const proveedor_id =
-          Number(datos.proveedor_id);
-
-        const monto =
-          Number(datos.monto) || 0;
-
-        const modificarCosto =
-          Boolean(datos.costo);
-
-        const modificarVenta =
-          Boolean(datos.venta);
-
-        if (!proveedor_id) {
-
-          return respuesta({
-            ok: false,
-            error: "Proveedor inválido"
-          }, 400);
-
-        }
-
-        if (
-          !modificarCosto &&
-          !modificarVenta
-        ) {
-
-          return respuesta({
-            ok: false,
-            error: "Seleccioná qué precio modificar"
-          }, 400);
-
-        }
-
-        if (modificarCosto) {
-
-          <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -565,11 +40,14 @@ export default {
 
 html{
   scroll-behavior:smooth;
+  min-height:100%;
+  background:#060609;
 }
 
 body{
   margin:0;
   min-height:100vh;
+  width:100%;
 
   background:
     radial-gradient(
@@ -597,6 +75,15 @@ body{
   background-attachment:fixed;
   color:var(--white);
   font-family:Arial,Helvetica,sans-serif;
+  overflow-x:hidden;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  background:#060609;
 }
 
 button,
@@ -848,6 +335,19 @@ button{
   box-shadow:0 3px 10px rgba(239,68,68,.35);
 }
 
+
+
+/* GESTION */
+.managementDrawer{position:fixed;top:0;right:0;height:100vh;width:440px;max-width:calc(100vw - 18px);z-index:230;padding:18px;overflow-y:auto;background:linear-gradient(145deg,#111117,#09090d);border-left:1px solid #2a2a35;box-shadow:-20px 0 60px rgba(0,0,0,.55);transform:translateX(105%);transition:transform .25s ease;}
+.managementDrawer.open{transform:translateX(0);}
+.managementHeader{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid #292933;}
+.managementTitle{font-size:20px;font-weight:900;}
+.managementSection{margin-bottom:22px;}
+.managementSection .sectionTitle{margin-top:0;}
+.managementDrawer .card{width:100%;max-width:none;}
+.managementBackdrop{position:fixed;inset:0;z-index:220;background:rgba(0,0,0,.38);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:.2s ease;}
+.managementBackdrop.open{opacity:1;pointer-events:auto;}
+@media(max-width:560px){.managementDrawer{width:100%;max-width:100%;padding:15px;}}
 
 /* =========================================================
    CONTENT
@@ -1967,6 +1467,8 @@ button{
         </button>
 
 
+        <button class="iconButton" id="managementButton" type="button" aria-label="Gestión" title="Gestionar proveedores y productos">⚙️</button>
+
         <button
           id="logoutButton"
           class="logoutButton"
@@ -1985,7 +1487,28 @@ button{
   <main class="container">
 
     <!-- =====================================================
-         PROVEEDORES
+         STOCK
+    ====================================================== -->
+
+    <div class="sectionTitle">
+      Stock
+    </div>
+
+    <div id="providersContainer"></div>
+
+  </main>
+
+</section>
+
+
+<div id="managementBackdrop" class="managementBackdrop"></div>
+<aside id="managementDrawer" class="managementDrawer">
+  <div class="managementHeader">
+    <div class="managementTitle">⚙️ Gestión</div>
+    <button id="closeManagement" class="smallButton" type="button" aria-label="Cerrar gestión">×</button>
+  </div>
+  <div class="managementSection">
+    <!-- PROVEEDORES
     ====================================================== -->
 
     <div class="sectionTitle">
@@ -2027,8 +1550,7 @@ button{
     </div>
 
 
-    <!-- =====================================================
-         PRODUCTO
+    <!-- PRODUCTO
     ====================================================== -->
 
     <div class="sectionTitle">
@@ -2173,20 +1695,8 @@ button{
     </div>
 
 
-    <!-- =====================================================
-         STOCK
-    ====================================================== -->
-
-    <div class="sectionTitle">
-      Stock
-    </div>
-
-    <div id="providersContainer"></div>
-
-  </main>
-
-</section>
-
+  </div>
+</aside>
 
 <!-- =========================================================
      CALCULADORA
@@ -5335,6 +4845,26 @@ document
 
 
 // =========================================================
+// GESTIÓN
+// =========================================================
+function cerrarPaneles(){
+  document.getElementById("calculator").classList.remove("open");
+  document.getElementById("orderDrawer").classList.remove("open");
+}
+function abrirGestion(){
+  cerrarPaneles();
+  document.getElementById("managementDrawer").classList.add("open");
+  document.getElementById("managementBackdrop").classList.add("open");
+}
+function cerrarGestion(){
+  document.getElementById("managementDrawer").classList.remove("open");
+  document.getElementById("managementBackdrop").classList.remove("open");
+}
+document.getElementById("managementButton").addEventListener("click", abrirGestion);
+document.getElementById("closeManagement").addEventListener("click", cerrarGestion);
+document.getElementById("managementBackdrop").addEventListener("click", cerrarGestion);
+
+// =========================================================
 // ABRIR CALCULADORA
 // =========================================================
 
@@ -5345,6 +4875,8 @@ document
   .addEventListener(
     "click",
     () => {
+
+      cerrarGestion();
 
       document
         .getElementById(
@@ -5398,6 +4930,8 @@ document
   .addEventListener(
     "click",
     () => {
+
+      cerrarGestion();
 
       document
         .getElementById(
