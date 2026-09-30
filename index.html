@@ -17,11 +17,12 @@
   --gold2:#f1c84d;
   --violet:#8b5cf6;
   --violet2:#6d3de8;
+  --danger:#ff5f6d;
+  --green:#35d07f;
 }
 
 *{
   box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
 }
 
 html,body{
@@ -37,7 +38,9 @@ body{
   overflow-x:hidden;
 }
 
-button,input,select{
+button,
+input,
+select{
   font:inherit;
 }
 
@@ -49,7 +52,9 @@ button{
   display:none!important;
 }
 
-/* LOGIN */
+/* =========================
+   LOGIN
+   ========================= */
 
 #loginScreen{
   min-height:100vh;
@@ -57,44 +62,59 @@ button{
   align-items:center;
   justify-content:center;
   padding:20px;
+
   background:
-    radial-gradient(circle at 50% 15%,rgba(139,92,246,.18),transparent 35%),
-    radial-gradient(circle at 50% 90%,rgba(231,185,63,.08),transparent 35%),
+    radial-gradient(
+      circle at 50% 10%,
+      rgba(139,92,246,.20),
+      transparent 38%
+    ),
+    radial-gradient(
+      circle at 50% 100%,
+      rgba(231,185,63,.08),
+      transparent 35%
+    ),
     var(--bg);
 }
 
 .loginBox{
   width:100%;
-  max-width:420px;
+  max-width:410px;
   padding:32px 26px;
   border:1px solid var(--border);
   border-radius:22px;
-  background:rgba(17,17,24,.94);
-  box-shadow:0 20px 70px rgba(0,0,0,.45);
+  background:rgba(17,17,24,.96);
+  box-shadow:
+    0 25px 80px rgba(0,0,0,.55);
 }
 
 .loginLogo{
   text-align:center;
+  color:var(--gold);
   font-size:28px;
   font-weight:900;
-  margin-bottom:6px;
-  color:var(--gold);
+  letter-spacing:.5px;
 }
 
 .loginSub{
   text-align:center;
   color:var(--muted);
+  margin-top:7px;
   margin-bottom:28px;
 }
 
 .loginBox input{
+  display:block;
   width:100%;
   padding:14px 15px;
   margin-bottom:12px;
-  border-radius:12px;
+
   border:1px solid var(--border);
+  border-radius:12px;
+
   background:#0d0d13;
   color:var(--text);
+
   outline:none;
 }
 
@@ -105,9 +125,17 @@ button{
 .loginBtn{
   width:100%;
   padding:14px;
+
   border:0;
   border-radius:12px;
-  background:linear-gradient(135deg,var(--gold),#b98618);
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--gold),
+      #b88719
+    );
+
   color:#111;
   font-weight:900;
 }
@@ -115,30 +143,31 @@ button{
 .loginError{
   min-height:20px;
   margin-top:12px;
-  text-align:center;
   color:#ff6868;
+  text-align:center;
   font-size:14px;
 }
 
-/* APP */
-
-#app{
-  min-height:100vh;
-}
+/* =========================
+   HEADER
+   ========================= */
 
 header{
   position:sticky;
   top:0;
-  z-index:20;
-  background:rgba(9,9,13,.94);
-  backdrop-filter:blur(15px);
+  z-index:50;
+
   border-bottom:1px solid var(--border);
+
+  background:rgba(9,9,13,.92);
+  backdrop-filter:blur(18px);
 }
 
 .headerInner{
-  max-width:1400px;
+  max-width:1450px;
   margin:auto;
   padding:14px 18px;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -146,8 +175,8 @@ header{
 }
 
 .logo{
-  font-weight:900;
   font-size:20px;
+  font-weight:900;
   color:var(--gold);
 }
 
@@ -163,107 +192,143 @@ header{
 
 .userName{
   color:var(--muted);
-  font-size:14px;
+  font-size:13px;
 }
 
 .logoutBtn{
+  padding:8px 12px;
+
   border:1px solid var(--border);
+  border-radius:9px;
+
   background:var(--panel2);
-  color:var(--text);
-  border-radius:10px;
-  padding:9px 12px;
+  color:white;
 }
+
+/* =========================
+   MAIN
+   ========================= */
 
 main{
-  max-width:1400px;
+  width:100%;
+  max-width:1450px;
   margin:auto;
-  padding:20px 18px 100px;
+  padding:22px 18px 100px;
 }
 
-.topTitle{
-  margin-bottom:18px;
-}
-
-.topTitle h1{
-  margin:0;
-  font-size:28px;
-}
-
-.topTitle p{
-  margin:5px 0 0;
-  color:var(--muted);
-}
-
-/* SEARCH */
-
-.searchRow{
-  display:flex;
-  gap:10px;
+.titleArea{
   margin-bottom:20px;
 }
 
-.searchWrap{
-  position:relative;
+.titleArea h1{
+  margin:0;
+  font-size:29px;
+}
+
+.titleArea p{
+  margin:6px 0 0;
+  color:var(--muted);
+}
+
+/* =========================
+   TOP CONTROLS
+   ========================= */
+
+.topControls{
+  display:flex;
+  gap:10px;
+  margin-bottom:22px;
+}
+
+.searchBox{
   flex:1;
 }
 
-.searchWrap input{
+.searchBox input{
   width:100%;
-  padding:14px 16px;
+  height:46px;
+  padding:0 15px;
+
   border:1px solid var(--border);
-  border-radius:13px;
+  border-radius:12px;
+
   background:var(--panel);
-  color:var(--text);
+  color:white;
+
   outline:none;
 }
 
-.searchWrap input:focus{
+.searchBox input:focus{
   border-color:var(--violet);
 }
 
-.addBtn{
+.actionBtn{
+  height:46px;
+  padding:0 17px;
+
   border:0;
-  border-radius:13px;
-  padding:0 18px;
-  background:linear-gradient(135deg,var(--violet),var(--violet2));
+  border-radius:12px;
+
   color:white;
   font-weight:800;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--violet),
+      var(--violet2)
+    );
 }
 
-/* PROVIDERS */
+.providerBtn{
+  background:
+    linear-gradient(
+      135deg,
+      var(--gold),
+      #ad7a15
+    );
+
+  color:#111;
+}
+
+/* =========================
+   PROVIDER
+   ========================= */
 
 .provider{
   margin-bottom:22px;
+
   border:1px solid var(--border);
   border-radius:18px;
+
   overflow:hidden;
+
   background:var(--panel);
 }
 
 .providerHeader{
   padding:14px 16px;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:12px;
-  background:linear-gradient(90deg,rgba(139,92,246,.10),rgba(231,185,63,.04));
-  border-bottom:1px solid var(--border);
-}
 
-.providerTitle{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  min-width:0;
+  gap:12px;
+
+  border-bottom:1px solid var(--border);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(139,92,246,.10),
+      rgba(231,185,63,.04)
+    );
 }
 
 .providerName{
+  color:var(--gold);
   font-size:18px;
   font-weight:900;
-  color:var(--gold);
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
 }
 
 .providerActions{
@@ -273,11 +338,14 @@ main{
 }
 
 .smallBtn{
-  border:1px solid var(--border);
-  background:var(--panel2);
-  color:var(--text);
-  border-radius:9px;
   padding:7px 10px;
+
+  border:1px solid var(--border);
+  border-radius:9px;
+
+  background:var(--panel2);
+  color:white;
+
   font-size:12px;
 }
 
@@ -286,78 +354,99 @@ main{
 }
 
 .danger{
-  color:#ff7272;
+  color:#ff7373;
 }
 
-/* PRODUCTS */
+/* =========================
+   PRODUCTS
+   ========================= */
 
 .products{
-  padding:12px;
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  grid-template-columns:
+    repeat(
+      auto-fill,
+      minmax(260px,1fr)
+    );
+
   gap:12px;
+  padding:12px;
 }
 
 .productCard{
   position:relative;
+
   padding:15px;
+
   border:1px solid var(--border);
   border-radius:15px;
+
   background:var(--panel2);
+
   transition:.15s;
 }
 
-.productCard.dragging{
-  opacity:.45;
-}
-
 .productCard:hover{
-  border-color:#3c3c4c;
+  border-color:#444450;
 }
 
-.dragHandle{
+.productCard.dragging{
+  opacity:.4;
+}
+
+.drag{
   position:absolute;
   top:10px;
   right:10px;
+
   color:#666;
+
   cursor:grab;
   user-select:none;
 }
 
 .productName{
-  font-weight:900;
-  font-size:17px;
   padding-right:30px;
+
+  font-size:17px;
+  font-weight:900;
 }
 
 .capacity{
   display:inline-block;
-  margin-top:5px;
+
+  margin-top:6px;
   padding:4px 8px;
+
   border-radius:7px;
+
   background:#25252e;
   color:var(--gold);
+
   font-size:12px;
   font-weight:700;
 }
 
-.priceGrid{
-  margin-top:13px;
+.prices{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:8px;
+
+  margin-top:13px;
 }
 
 .priceBox{
   padding:9px;
+
+  border:1px solid #24242d;
   border-radius:10px;
+
   background:#101016;
-  border:1px solid #22222b;
 }
 
 .priceLabel{
-  font-size:11px;
   color:var(--muted);
+  font-size:11px;
 }
 
 .priceValue{
@@ -367,11 +456,13 @@ main{
 }
 
 .stockRow{
+  margin-top:13px;
+  padding-top:12px;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
-  margin-top:13px;
-  padding-top:12px;
+
   border-top:1px solid #25252d;
 }
 
@@ -387,12 +478,15 @@ main{
 }
 
 .stockBtn{
-  width:30px;
-  height:30px;
+  width:31px;
+  height:31px;
+
   border:1px solid var(--border);
   border-radius:8px;
+
   background:#101016;
   color:white;
+
   font-size:18px;
 }
 
@@ -405,98 +499,148 @@ main{
 .cardActions{
   display:flex;
   gap:7px;
+
   margin-top:12px;
 }
 
 .cardActions button{
   flex:1;
-  border:1px solid var(--border);
-  background:#101016;
-  color:var(--text);
-  border-radius:9px;
+
   padding:8px;
+
+  border:1px solid var(--border);
+  border-radius:9px;
+
+  background:#101016;
+  color:white;
+
   font-size:12px;
 }
 
-/* CALCULATOR */
+/* =========================
+   EMPTY
+   ========================= */
 
-.calcFloat{
+.empty{
+  padding:35px 15px;
+
+  color:var(--muted);
+  text-align:center;
+}
+
+/* =========================
+   CALCULATOR
+   ========================= */
+
+.calcButton{
   position:fixed;
   right:18px;
   bottom:18px;
-  z-index:50;
+  z-index:70;
+
   width:58px;
   height:58px;
-  border-radius:50%;
+
   border:1px solid rgba(255,255,255,.15);
-  background:linear-gradient(135deg,var(--gold),#a9740d);
+  border-radius:50%;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--gold),
+      #a9740d
+    );
+
   color:#111;
   font-size:24px;
   font-weight:900;
-  box-shadow:0 10px 35px rgba(0,0,0,.45);
+
+  box-shadow:
+    0 10px 35px rgba(0,0,0,.5);
 }
 
-.calcPanel{
+.calculator{
   position:fixed;
   right:18px;
   bottom:88px;
-  z-index:49;
+  z-index:69;
+
   width:320px;
   max-width:calc(100vw - 36px);
-  padding:15px;
+
+  padding:16px;
+
   border:1px solid var(--border);
   border-radius:17px;
+
   background:#111118;
-  box-shadow:0 20px 60px rgba(0,0,0,.55);
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.6);
 }
 
-.calcPanel h3{
+.calculator h3{
   margin:0 0 12px;
 }
 
-.calcPanel input{
+.calculator input{
   width:100%;
-  padding:12px;
+  padding:11px;
   margin-bottom:8px;
+
   border:1px solid var(--border);
   border-radius:10px;
+
   background:#0c0c11;
   color:white;
+
   outline:none;
 }
 
 .calcResult{
-  margin-top:10px;
-  padding:12px;
+  padding:13px;
+
   border-radius:10px;
+
   background:#0c0c11;
+
   color:var(--gold);
-  font-size:20px;
-  font-weight:900;
+
   text-align:center;
+  font-size:21px;
+  font-weight:900;
 }
 
-/* MODAL */
+/* =========================
+   MODAL
+   ========================= */
 
-.modalBg{
+.modalOverlay{
   position:fixed;
   inset:0;
   z-index:100;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   padding:18px;
-  background:rgba(0,0,0,.72);
+
+  background:rgba(0,0,0,.75);
 }
 
 .modal{
   width:100%;
   max-width:480px;
   max-height:90vh;
+
   overflow:auto;
+
   padding:22px;
+
   border:1px solid var(--border);
   border-radius:18px;
+
   background:var(--panel);
 }
 
@@ -506,7 +650,9 @@ main{
 
 .modal label{
   display:block;
+
   margin:12px 0 6px;
+
   color:var(--muted);
   font-size:13px;
 }
@@ -515,65 +661,91 @@ main{
 .modal select{
   width:100%;
   padding:12px;
+
   border:1px solid var(--border);
   border-radius:10px;
+
   background:#0c0c11;
   color:white;
+
   outline:none;
 }
 
 .modalActions{
   display:flex;
   gap:9px;
+
   margin-top:18px;
 }
 
 .modalActions button{
   flex:1;
+
   padding:12px;
-  border-radius:10px;
+
   border:1px solid var(--border);
+  border-radius:10px;
+
   background:var(--panel2);
   color:white;
 }
 
 .modalActions .primary{
   border:0;
-  background:linear-gradient(135deg,var(--violet),var(--violet2));
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--violet),
+      var(--violet2)
+    );
 }
 
-/* TOAST */
+/* =========================
+   TOAST
+   ========================= */
 
 #toast{
   position:fixed;
   left:50%;
   bottom:25px;
-  transform:translateX(-50%) translateY(20px);
   z-index:200;
+
+  transform:
+    translateX(-50%)
+    translateY(20px);
+
   opacity:0;
+
   pointer-events:none;
+
   padding:12px 17px;
+
   border:1px solid var(--border);
   border-radius:12px;
+
   background:#181820;
   color:white;
+
   transition:.2s;
 }
 
 #toast.show{
   opacity:1;
-  transform:translateX(-50%) translateY(0);
+
+  transform:
+    translateX(-50%)
+    translateY(0);
 }
 
-.empty{
-  padding:35px 15px;
-  text-align:center;
-  color:var(--muted);
-}
+/* =========================
+   MOBILE
+   ========================= */
 
-@media(max-width:650px){
+@media(max-width:700px){
+
   .headerInner{
-    padding:12px 13px;
+    padding:12px;
   }
 
   .userName{
@@ -581,20 +753,15 @@ main{
   }
 
   main{
-    padding:15px 12px 100px;
+    padding:16px 12px 100px;
   }
 
-  .searchRow{
+  .topControls{
     flex-direction:column;
   }
 
-  .addBtn{
-    min-height:45px;
-  }
-
-  .products{
-    grid-template-columns:1fr;
-    padding:10px;
+  .actionBtn{
+    width:100%;
   }
 
   .providerHeader{
@@ -610,13 +777,17 @@ main{
     flex:1;
   }
 
-  .calcPanel{
+  .products{
+    grid-template-columns:1fr;
+  }
+
+  .calculator{
     right:12px;
-    bottom:85px;
+    bottom:84px;
     max-width:calc(100vw - 24px);
   }
 
-  .calcFloat{
+  .calcButton{
     right:12px;
     bottom:12px;
   }
@@ -626,14 +797,24 @@ main{
 
 <body>
 
-<!-- LOGIN -->
+<!-- =========================
+     LOGIN
+     ========================= -->
 
 <section id="loginScreen">
+
   <div class="loginBox">
-    <div class="loginLogo">STOCK iPHONE</div>
-    <div class="loginSub">Panel de administración</div>
+
+    <div class="loginLogo">
+      STOCK iPHONE
+    </div>
+
+    <div class="loginSub">
+      Panel de administración
+    </div>
 
     <form id="loginForm">
+
       <input
         id="loginUser"
         type="text"
@@ -650,20 +831,32 @@ main{
         required
       >
 
-      <button class="loginBtn" type="submit">
+      <button
+        class="loginBtn"
+        type="submit">
         INGRESAR
       </button>
 
-      <div id="loginError" class="loginError"></div>
+      <div
+        id="loginError"
+        class="loginError">
+      </div>
+
     </form>
+
   </div>
+
 </section>
 
-<!-- APP -->
+
+<!-- =========================
+     APP
+     ========================= -->
 
 <section id="app" class="hidden">
 
 <header>
+
   <div class="headerInner">
 
     <div class="logo">
@@ -671,37 +864,70 @@ main{
     </div>
 
     <div class="headerRight">
-      <span class="userName">Administrador</span>
-      <button id="logoutBtn" class="logoutBtn">
+
+      <span class="userName">
+        Administrador
+      </span>
+
+      <button
+        id="logoutBtn"
+        class="logoutBtn">
         Salir
       </button>
+
     </div>
 
   </div>
+
 </header>
+
 
 <main>
 
-  <div class="topTitle">
-    <h1>Stock</h1>
-    <p>Administrá productos, proveedores, costos y precios.</p>
+  <div class="titleArea">
+
+    <h1>
+      Stock
+    </h1>
+
+    <p>
+      Administrá proveedores, productos,
+      precios y cantidades.
+    </p>
+
   </div>
 
-  <div class="searchRow">
 
-    <div class="searchWrap">
+  <!-- CONTROLES -->
+
+  <div class="topControls">
+
+    <div class="searchBox">
+
       <input
         id="searchInput"
         type="search"
         placeholder="Buscar iPhone..."
       >
+
     </div>
 
-    <button id="addProductBtn" class="addBtn">
-      ＋ Agregar producto
+    <button
+      id="addProviderBtn"
+      class="actionBtn providerBtn">
+      ＋ Proveedor
+    </button>
+
+    <button
+      id="addProductBtn"
+      class="actionBtn">
+      ＋ Producto
     </button>
 
   </div>
+
+
+  <!-- PROVEEDORES -->
 
   <div id="providersContainer"></div>
 
@@ -709,98 +935,161 @@ main{
 
 </section>
 
-<!-- CALCULADORA -->
 
-<button id="calcFloat" class="calcFloat">⌗</button>
+<!-- =========================
+     CALCULADORA
+     ========================= -->
 
-<div id="calcPanel" class="calcPanel hidden">
+<button
+  id="calcButton"
+  class="calcButton">
+  ⌗
+</button>
 
-  <h3>Calculadora</h3>
+<div
+  id="calculator"
+  class="calculator hidden">
+
+  <h3>
+    Calculadora
+  </h3>
 
   <input
     id="calcPrecio"
     type="number"
-    placeholder="Precio proveedor"
-  >
+    placeholder="Precio proveedor">
 
   <input
     id="calcMargen"
     type="number"
-    placeholder="Margen / ganancia"
-  >
+    placeholder="Margen %">
 
-  <div id="calcResult" class="calcResult">
+  <div
+    id="calcResult"
+    class="calcResult">
     $0
   </div>
 
 </div>
 
-<!-- MODAL -->
 
-<div id="modalBg" class="modalBg hidden">
+<!-- =========================
+     MODAL PRODUCTO
+     ========================= -->
+
+<div
+  id="productModal"
+  class="modalOverlay hidden">
 
   <div class="modal">
 
-    <h2 id="modalTitle">Agregar producto</h2>
+    <h2 id="productModalTitle">
+      Agregar producto
+    </h2>
 
     <form id="productForm">
 
-      <input id="productId" type="hidden">
-
-      <label>Proveedor</label>
-      <select id="productProveedor" required></select>
-
-      <label>Producto</label>
       <input
-        id="productNombre"
-        type="text"
-        placeholder="Ej: iPhone 15 Pro"
-        required
-      >
+        id="productId"
+        type="hidden">
 
-      <label>Capacidad</label>
-      <select id="productCapacidad">
-        <option value="Ninguno">Ninguno</option>
-        <option value="128 GB">128 GB</option>
-        <option value="256 GB">256 GB</option>
-        <option value="512 GB">512 GB</option>
-        <option value="1 TB">1 TB</option>
+      <label>
+        Proveedor
+      </label>
+
+      <select
+        id="productProvider"
+        required>
       </select>
 
-      <label>Precio proveedor / Costo</label>
+
+      <label>
+        Producto
+      </label>
+
       <input
-        id="productCosto"
+        id="productName"
+        type="text"
+        placeholder="Ej: iPhone 15 Pro"
+        required>
+
+
+      <label>
+        Capacidad
+      </label>
+
+      <select id="productCapacity">
+
+        <option value="Ninguno">
+          Ninguno
+        </option>
+
+        <option value="128 GB">
+          128 GB
+        </option>
+
+        <option value="256 GB">
+          256 GB
+        </option>
+
+        <option value="512 GB">
+          512 GB
+        </option>
+
+        <option value="1 TB">
+          1 TB
+        </option>
+
+      </select>
+
+
+      <label>
+        Precio proveedor / Costo
+      </label>
+
+      <input
+        id="productCost"
         type="number"
         min="0"
         step="0.01"
-        placeholder="0"
-      >
+        placeholder="0">
 
-      <label>Precio de venta</label>
+
+      <label>
+        Precio de venta
+      </label>
+
       <input
-        id="productVenta"
+        id="productSale"
         type="number"
         min="0"
         step="0.01"
-        placeholder="0"
-      >
+        placeholder="0">
 
-      <label>Stock inicial</label>
+
+      <label>
+        Stock
+      </label>
+
       <input
-        id="productCantidad"
+        id="productStock"
         type="number"
         min="0"
         step="1"
-        value="0"
-      >
+        value="0">
+
 
       <div class="modalActions">
 
-        <button type="button" id="modalCancel">
+        <button
+          type="button"
+          id="cancelProduct">
           Cancelar
         </button>
 
-        <button type="submit" class="primary">
+        <button
+          type="submit"
+          class="primary">
           Guardar
         </button>
 
@@ -812,260 +1101,84 @@ main{
 
 </div>
 
+
+<!-- =========================
+     MODAL PROVEEDOR
+     ========================= -->
+
+<div
+  id="providerModal"
+  class="modalOverlay hidden">
+
+  <div class="modal">
+
+    <h2>
+      Agregar proveedor
+    </h2>
+
+    <form id="providerForm">
+
+      <label>
+        Nombre del proveedor
+      </label>
+
+      <input
+        id="providerName"
+        type="text"
+        placeholder="Ej: Proveedor 1"
+        required>
+
+      <div class="modalActions">
+
+        <button
+          type="button"
+          id="cancelProvider">
+          Cancelar
+        </button>
+
+        <button
+          type="submit"
+          class="primary">
+          Agregar
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+
 <div id="toast"></div>
 
+
 <script>
-const API_URL="https://noisy-sound-2a71.agus-eloy-oviedo.workers.dev";
 
-let proveedores=[];
-let productos=[];
-let calc={};
+/* ==================================================
+   CONFIGURACIÓN
+   ================================================== */
 
-const $=id=>document.getElementById(id);
+const API =
+  "https://noisy-sound-2a71.agus-eloy-oviedo.workers.dev";
 
-function money(n){
-  return "$"+Number(n||0).toLocaleString("es-AR",{
-    maximumFractionDigits:0
-  });
-}
 
-function toast(msg){
-  const el=$("toast");
-  el.textContent=msg;
-  el.classList.add("show");
+let proveedores = [];
+let productos = [];
 
-  clearTimeout(window.toastTimer);
 
-  window.toastTimer=setTimeout(()=>{
-    el.classList.remove("show");
-  },2200);
-}
+const $ = id =>
+  document.getElementById(id);
 
-async function api(body){
 
-  const r=await fetch(API_URL,{
-    method:"POST",
-    headers:{
-      "Content-Type":"application/json"
-    },
-    body:JSON.stringify(body)
-  });
-
-  let d={};
-
-  try{
-    d=await r.json();
-  }catch(e){
-    throw Error("Respuesta inválida del servidor");
-  }
-
-  if(!r.ok || d.ok===false){
-    throw Error(d.error || "Error");
-  }
-
-  return d;
-}
-
-async function load(){
-
-  const r=await fetch(API_URL);
-
-  const d=await r.json();
-
-  if(!r.ok || !d.ok){
-    throw Error(d.error || "Error cargando datos");
-  }
-
-  proveedores=d.proveedores || [];
-  productos=d.productos || [];
-
-  render();
-}
-
-function loginShow(){
-  $("loginScreen").classList.remove("hidden");
-  $("app").classList.add("hidden");
-}
-
-function appShow(){
-  $("loginScreen").classList.add("hidden");
-  $("app").classList.remove("hidden");
-}
-
-function logout(){
-
-  loginShow();
-
-  $("loginPassword").value="";
-  $("loginError").textContent="";
-}
-
-$("loginForm").onsubmit=async e=>{
-
-  e.preventDefault();
-
-  const loginError=$("loginError");
-
-  loginError.textContent="";
-
-  try{
-
-    const r=await fetch(API_URL+"/login",{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify({
-        usuario:$("loginUser").value.trim(),
-        password:$("loginPassword").value
-      })
-    });
-
-    const d=await r.json();
-
-    if(!r.ok || !d.ok){
-      throw Error(
-        d.error ||
-        "Usuario o contraseña incorrectos"
-      );
-    }
-
-    appShow();
-
-    await load();
-
-  }catch(err){
-
-    loginError.textContent=err.message;
-
-  }
-
-};
-
-$("logoutBtn").onclick=logout;
-
-function render(){
-
-  const container=$("providersContainer");
-
-  const search=($("searchInput").value||"")
-    .trim()
-    .toLowerCase();
-
-  container.innerHTML="";
-
-  if(!proveedores.length){
-
-    container.innerHTML=`
-      <div class="provider">
-        <div class="empty">
-          No hay proveedores cargados.
-        </div>
-      </div>
-    `;
-
-    return;
-  }
-
-  proveedores.forEach(proveedor=>{
-
-    let list=productos.filter(
-      p=>Number(p.proveedor_id)===Number(proveedor.id)
-    );
-
-    if(search){
-
-      list=list.filter(p=>
-        String(p.producto||"")
-          .toLowerCase()
-          .includes(search)
-        ||
-        String(p.capacidad||"")
-          .toLowerCase()
-          .includes(search)
-      );
-
-    }
-
-    const section=document.createElement("section");
-
-    section.className="provider";
-
-    section.dataset.providerId=proveedor.id;
-
-    section.innerHTML=`
-
-      <div class="providerHeader">
-
-        <div class="providerTitle">
-
-          <div class="providerName">
-            ${escapeHtml(proveedor.nombre)}
-          </div>
-
-        </div>
-
-        <div class="providerActions">
-
-          <button
-            class="smallBtn"
-            data-action="rename-provider"
-            data-id="${proveedor.id}">
-            Renombrar
-          </button>
-
-          <button
-            class="smallBtn"
-            data-action="adjust-provider"
-            data-id="${proveedor.id}">
-            Ajustar precios
-          </button>
-
-          <button
-            class="smallBtn danger"
-            data-action="delete-provider"
-            data-id="${proveedor.id}">
-            Eliminar
-          </button>
-
-        </div>
-
-      </div>
-
-      <div class="products"></div>
-
-    `;
-
-    const productsBox=section.querySelector(".products");
-
-    if(!list.length){
-
-      productsBox.innerHTML=`
-        <div class="empty">
-          No hay productos en este proveedor.
-        </div>
-      `;
-
-    }else{
-
-      list.forEach(producto=>{
-        productsBox.appendChild(
-          createProductCard(producto)
-        );
-      });
-
-    }
-
-    container.appendChild(section);
-
-  });
-
-  setupDrag();
-}
+/* ==================================================
+   UTILIDADES
+   ================================================== */
 
 function escapeHtml(value){
 
-  return String(value??"")
+  return String(value ?? "")
     .replace(/&/g,"&amp;")
     .replace(/</g,"&lt;")
     .replace(/>/g,"&gt;")
@@ -1074,50 +1187,456 @@ function escapeHtml(value){
 
 }
 
-function createProductCard(p){
 
-  const card=document.createElement("div");
+function dinero(value){
 
-  card.className="productCard";
+  return "$" +
+    Number(value || 0)
+      .toLocaleString("es-AR",{
+        maximumFractionDigits:0
+      });
 
-  card.draggable=true;
+}
 
-  card.dataset.id=p.id;
 
-  card.dataset.providerId=p.proveedor_id;
+function mostrarToast(texto){
 
-  card.innerHTML=`
+  const toast =
+    $("toast");
 
-    <div class="dragHandle">
+  toast.textContent =
+    texto;
+
+  toast.classList.add("show");
+
+  clearTimeout(
+    window.toastTimer
+  );
+
+  window.toastTimer =
+    setTimeout(()=>{
+      toast.classList.remove("show");
+    },2200);
+
+}
+
+
+/* ==================================================
+   API
+   ================================================== */
+
+async function apiPost(data){
+
+  const response =
+    await fetch(API,{
+      method:"POST",
+      headers:{
+        "Content-Type":
+          "application/json"
+      },
+      body:JSON.stringify(data)
+    });
+
+  let result;
+
+  try{
+
+    result =
+      await response.json();
+
+  }catch{
+
+    throw new Error(
+      "El servidor devolvió una respuesta inválida"
+    );
+
+  }
+
+  if(
+    !response.ok ||
+    result.ok === false
+  ){
+
+    throw new Error(
+      result.error ||
+      "Error del servidor"
+    );
+
+  }
+
+  return result;
+
+}
+
+
+async function cargarStock(){
+
+  const response =
+    await fetch(API + "/stock");
+
+  const result =
+    await response.json();
+
+  if(
+    !response.ok ||
+    result.ok === false
+  ){
+
+    throw new Error(
+      result.error ||
+      "No se pudo cargar el stock"
+    );
+
+  }
+
+  proveedores =
+    result.proveedores || [];
+
+  productos =
+    result.productos || [];
+
+  render();
+
+}
+
+
+/* ==================================================
+   LOGIN
+   ================================================== */
+
+$("loginForm").addEventListener(
+  "submit",
+  async event => {
+
+    event.preventDefault();
+
+    $("loginError").textContent =
+      "";
+
+    try{
+
+      const response =
+        await fetch(
+          API + "/login",
+          {
+            method:"POST",
+            headers:{
+              "Content-Type":
+                "application/json"
+            },
+            body:JSON.stringify({
+
+              usuario:
+                $("loginUser")
+                  .value
+                  .trim(),
+
+              password:
+                $("loginPassword")
+                  .value
+
+            })
+          }
+        );
+
+      const result =
+        await response.json();
+
+      if(
+        !response.ok ||
+        result.ok === false
+      ){
+
+        throw new Error(
+          result.error ||
+          "Usuario o contraseña incorrectos"
+        );
+
+      }
+
+      $("loginScreen")
+        .classList
+        .add("hidden");
+
+      $("app")
+        .classList
+        .remove("hidden");
+
+      await cargarStock();
+
+    }catch(error){
+
+      $("loginError")
+        .textContent =
+          error.message;
+
+    }
+
+  }
+);
+
+
+/* ==================================================
+   LOGOUT
+   ================================================== */
+
+$("logoutBtn").onclick =
+  () => {
+
+    $("app")
+      .classList
+      .add("hidden");
+
+    $("loginScreen")
+      .classList
+      .remove("hidden");
+
+    $("loginPassword")
+      .value = "";
+
+  };
+
+
+/* ==================================================
+   RENDER
+   ================================================== */
+
+function render(){
+
+  const container =
+    $("providersContainer");
+
+  const busqueda =
+    $("searchInput")
+      .value
+      .trim()
+      .toLowerCase();
+
+  container.innerHTML = "";
+
+
+  if(!proveedores.length){
+
+    container.innerHTML = `
+      <div class="provider">
+        <div class="empty">
+          No hay proveedores.
+        </div>
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  proveedores.forEach(
+    proveedor => {
+
+      let lista =
+        productos.filter(
+          producto =>
+            Number(
+              producto.proveedor_id
+            ) === Number(
+              proveedor.id
+            )
+        );
+
+
+      if(busqueda){
+
+        lista =
+          lista.filter(
+            producto => {
+
+              const nombre =
+                String(
+                  producto.producto ||
+                  ""
+                ).toLowerCase();
+
+              const capacidad =
+                String(
+                  producto.capacidad ||
+                  ""
+                ).toLowerCase();
+
+              return (
+                nombre.includes(busqueda) ||
+                capacidad.includes(busqueda)
+              );
+
+            }
+          );
+
+      }
+
+
+      const section =
+        document.createElement(
+          "section"
+        );
+
+      section.className =
+        "provider";
+
+      section.dataset.provider =
+        proveedor.id;
+
+
+      section.innerHTML = `
+
+        <div class="providerHeader">
+
+          <div class="providerName">
+            ${escapeHtml(
+              proveedor.nombre
+            )}
+          </div>
+
+          <div class="providerActions">
+
+            <button
+              class="smallBtn"
+              data-action="renameProvider"
+              data-id="${proveedor.id}">
+              Renombrar
+            </button>
+
+            <button
+              class="smallBtn"
+              data-action="adjustPrices"
+              data-id="${proveedor.id}">
+              Ajustar precios
+            </button>
+
+            <button
+              class="smallBtn danger"
+              data-action="deleteProvider"
+              data-id="${proveedor.id}">
+              Eliminar
+            </button>
+
+          </div>
+
+        </div>
+
+        <div class="products"></div>
+
+      `;
+
+
+      const productsBox =
+        section.querySelector(
+          ".products"
+        );
+
+
+      if(!lista.length){
+
+        productsBox.innerHTML = `
+          <div class="empty">
+            No hay productos.
+          </div>
+        `;
+
+      }else{
+
+        lista.forEach(
+          producto => {
+
+            productsBox.appendChild(
+              crearProducto(
+                producto
+              )
+            );
+
+          }
+        );
+
+      }
+
+
+      container.appendChild(
+        section
+      );
+
+    }
+  );
+
+
+  activarDrag();
+
+}
+
+
+/* ==================================================
+   TARJETA PRODUCTO
+   ================================================== */
+
+function crearProducto(p){
+
+  const card =
+    document.createElement(
+      "div"
+    );
+
+  card.className =
+    "productCard";
+
+  card.draggable = true;
+
+  card.dataset.id =
+    p.id;
+
+  card.dataset.provider =
+    p.proveedor_id;
+
+
+  card.innerHTML = `
+
+    <div class="drag">
       ⋮⋮
     </div>
 
     <div class="productName">
-      ${escapeHtml(p.producto)}
+      ${escapeHtml(
+        p.producto
+      )}
     </div>
 
     <div class="capacity">
-      ${escapeHtml(p.capacidad || "Ninguno")}
+      ${escapeHtml(
+        p.capacidad ||
+        "Ninguno"
+      )}
     </div>
 
-    <div class="priceGrid">
+    <div class="prices">
 
       <div class="priceBox">
+
         <div class="priceLabel">
           Costo
         </div>
+
         <div class="priceValue">
-          ${money(p.costo)}
+          ${dinero(p.costo)}
         </div>
+
       </div>
 
       <div class="priceBox">
+
         <div class="priceLabel">
           Venta
         </div>
+
         <div class="priceValue">
-          ${money(p.venta)}
+          ${dinero(p.venta)}
         </div>
+
       </div>
 
     </div>
@@ -1132,18 +1651,20 @@ function createProductCard(p){
 
         <button
           class="stockBtn"
-          data-action="stock-minus"
+          data-action="stockMinus"
           data-id="${p.id}">
           −
         </button>
 
         <div class="stockValue">
-          ${Number(p.cantidad||0)}
+          ${Number(
+            p.cantidad || 0
+          )}
         </div>
 
         <button
           class="stockBtn"
-          data-action="stock-plus"
+          data-action="stockPlus"
           data-id="${p.id}">
           +
         </button>
@@ -1155,13 +1676,13 @@ function createProductCard(p){
     <div class="cardActions">
 
       <button
-        data-action="edit-product"
+        data-action="editProduct"
         data-id="${p.id}">
         Editar
       </button>
 
       <button
-        data-action="delete-product"
+        data-action="deleteProduct"
         data-id="${p.id}">
         Eliminar
       </button>
@@ -1170,401 +1691,711 @@ function createProductCard(p){
 
   `;
 
+
   return card;
+
 }
 
-document.addEventListener("click",async e=>{
 
-  const btn=e.target.closest("[data-action]");
+/* ==================================================
+   ACCIONES
+   ================================================== */
 
-  if(!btn)return;
+document.addEventListener(
+  "click",
+  async event => {
 
-  const action=btn.dataset.action;
-  const id=Number(btn.dataset.id);
-
-  try{
-
-    if(action==="stock-plus"){
-
-      const p=productos.find(x=>Number(x.id)===id);
-
-      if(!p)return;
-
-      await api({
-        accion:"editar_producto",
-        id:p.id,
-        proveedor_id:p.proveedor_id,
-        producto:p.producto,
-        capacidad:p.capacidad,
-        venta:p.venta,
-        costo:p.costo,
-        cantidad:Number(p.cantidad||0)+1
-      });
-
-      await load();
-
-      return;
-    }
-
-    if(action==="stock-minus"){
-
-      const p=productos.find(x=>Number(x.id)===id);
-
-      if(!p)return;
-
-      const cantidad=Math.max(
-        0,
-        Number(p.cantidad||0)-1
+    const button =
+      event.target.closest(
+        "[data-action]"
       );
 
-      await api({
-        accion:"editar_producto",
-        id:p.id,
-        proveedor_id:p.proveedor_id,
-        producto:p.producto,
-        capacidad:p.capacidad,
-        venta:p.venta,
-        costo:p.costo,
-        cantidad
-      });
+    if(!button)return;
 
-      await load();
 
-      return;
-    }
+    const action =
+      button.dataset.action;
 
-    if(action==="edit-product"){
-
-      const p=productos.find(
-        x=>Number(x.id)===id
+    const id =
+      Number(
+        button.dataset.id
       );
 
-      if(!p)return;
 
-      openProductModal(p);
+    try{
 
-      return;
-    }
+      /* STOCK + */
 
-    if(action==="delete-product"){
+      if(action === "stockPlus"){
 
-      if(!confirm(
-        "¿Eliminar este producto?"
-      ))return;
+        const p =
+          productos.find(
+            x =>
+              Number(x.id) === id
+          );
 
-      await api({
-        accion:"eliminar_producto",
-        id
-      });
+        if(!p)return;
 
-      toast("Producto eliminado");
+        await apiPost({
 
-      await load();
+          accion:
+            "cambiar_stock",
 
-      return;
-    }
+          id:p.id,
 
-    if(action==="rename-provider"){
+          cantidad:
+            Number(
+              p.cantidad || 0
+            ) + 1
 
-      const p=proveedores.find(
-        x=>Number(x.id)===id
-      );
+        });
 
-      if(!p)return;
+        await cargarStock();
 
-      const nombre=prompt(
-        "Nuevo nombre del proveedor:",
-        p.nombre
-      );
-
-      if(!nombre || !nombre.trim())return;
-
-      await api({
-        accion:"renombrar_proveedor",
-        id,
-        nombre:nombre.trim()
-      });
-
-      toast("Proveedor renombrado");
-
-      await load();
-
-      return;
-    }
-
-    if(action==="adjust-provider"){
-
-      const monto=prompt(
-        "Monto a sumar/restar:",
-        "0"
-      );
-
-      if(monto===null)return;
-
-      const numero=Number(monto);
-
-      if(!Number.isFinite(numero)){
-        toast("Monto inválido");
         return;
+
       }
 
-      const tipo=prompt(
-        "Escribí:\n\n1 = Costo\n2 = Venta\n3 = Ambos"
+
+      /* STOCK - */
+
+      if(action === "stockMinus"){
+
+        const p =
+          productos.find(
+            x =>
+              Number(x.id) === id
+          );
+
+        if(!p)return;
+
+        await apiPost({
+
+          accion:
+            "cambiar_stock",
+
+          id:p.id,
+
+          cantidad:
+            Math.max(
+              0,
+              Number(
+                p.cantidad || 0
+              ) - 1
+            )
+
+        });
+
+        await cargarStock();
+
+        return;
+
+      }
+
+
+      /* EDITAR */
+
+      if(action === "editProduct"){
+
+        const p =
+          productos.find(
+            x =>
+              Number(x.id) === id
+          );
+
+        if(p){
+
+          abrirProducto(p);
+
+        }
+
+        return;
+
+      }
+
+
+      /* ELIMINAR PRODUCTO */
+
+      if(action === "deleteProduct"){
+
+        if(
+          !confirm(
+            "¿Eliminar este producto?"
+          )
+        )return;
+
+        await apiPost({
+
+          accion:
+            "eliminar_producto",
+
+          id
+
+        });
+
+        mostrarToast(
+          "Producto eliminado"
+        );
+
+        await cargarStock();
+
+        return;
+
+      }
+
+
+      /* RENOMBRAR */
+
+      if(action === "renameProvider"){
+
+        const p =
+          proveedores.find(
+            x =>
+              Number(x.id) === id
+          );
+
+        if(!p)return;
+
+        const nombre =
+          prompt(
+            "Nuevo nombre:",
+            p.nombre
+          );
+
+        if(
+          nombre === null ||
+          !nombre.trim()
+        )return;
+
+        await apiPost({
+
+          accion:
+            "renombrar_proveedor",
+
+          id,
+
+          nombre:
+            nombre.trim()
+
+        });
+
+        mostrarToast(
+          "Proveedor actualizado"
+        );
+
+        await cargarStock();
+
+        return;
+
+      }
+
+
+      /* AJUSTAR PRECIOS */
+
+      if(action === "adjustPrices"){
+
+        const montoTexto =
+          prompt(
+            "Monto a sumar/restar:",
+            "0"
+          );
+
+        if(montoTexto === null)return;
+
+        const monto =
+          Number(montoTexto);
+
+        if(
+          !Number.isFinite(monto)
+        ){
+
+          mostrarToast(
+            "Monto inválido"
+          );
+
+          return;
+
+        }
+
+
+        const tipo =
+          prompt(
+            "¿Qué querés modificar?\n\n1 - Costo\n2 - Venta\n3 - Ambos"
+          );
+
+        if(!tipo)return;
+
+        await apiPost({
+
+          accion:
+            "ajustar_precios",
+
+          proveedor_id:
+            id,
+
+          monto,
+
+          costo:
+            tipo === "1" ||
+            tipo === "3",
+
+          venta:
+            tipo === "2" ||
+            tipo === "3"
+
+        });
+
+        mostrarToast(
+          "Precios actualizados"
+        );
+
+        await cargarStock();
+
+        return;
+
+      }
+
+
+      /* ELIMINAR PROVEEDOR */
+
+      if(action === "deleteProvider"){
+
+        const p =
+          proveedores.find(
+            x =>
+              Number(x.id) === id
+          );
+
+        if(!p)return;
+
+        if(
+          !confirm(
+            "¿Eliminar " +
+            p.nombre +
+            " y todos sus productos?"
+          )
+        )return;
+
+        await apiPost({
+
+          accion:
+            "eliminar_proveedor",
+
+          id
+
+        });
+
+        mostrarToast(
+          "Proveedor eliminado"
+        );
+
+        await cargarStock();
+
+        return;
+
+      }
+
+    }catch(error){
+
+      mostrarToast(
+        error.message
       );
 
-      if(!tipo)return;
-
-      await api({
-        accion:"ajustar_precios",
-        proveedor_id:id,
-        monto:numero,
-        costo:tipo==="1" || tipo==="3",
-        venta:tipo==="2" || tipo==="3"
-      });
-
-      toast("Precios actualizados");
-
-      await load();
-
-      return;
     }
 
-    if(action==="delete-provider"){
-
-      const p=proveedores.find(
-        x=>Number(x.id)===id
-      );
-
-      if(!p)return;
-
-      if(!confirm(
-        `¿Eliminar "${p.nombre}" y todos sus productos?`
-      ))return;
-
-      await api({
-        accion:"eliminar_proveedor",
-        id
-      });
-
-      toast("Proveedor eliminado");
-
-      await load();
-
-      return;
-    }
-
-  }catch(err){
-
-    toast(err.message);
-
   }
-
-});
-
-$("addProductBtn").onclick=()=>{
-
-  if(!proveedores.length){
-
-    toast("Primero agregá un proveedor");
-
-    return;
-  }
-
-  openProductModal();
-
-};
-
-function openProductModal(product=null){
-
-  $("modalBg").classList.remove("hidden");
-
-  $("modalTitle").textContent=
-    product
-      ? "Editar producto"
-      : "Agregar producto";
-
-  $("productId").value=
-    product?.id || "";
-
-  $("productNombre").value=
-    product?.producto || "";
-
-  $("productCapacidad").value=
-    product?.capacidad || "Ninguno";
-
-  $("productCosto").value=
-    product?.costo ?? "";
-
-  $("productVenta").value=
-    product?.venta ?? "";
-
-  $("productCantidad").value=
-    product?.cantidad ?? 0;
-
-  const select=$("productProveedor");
-
-  select.innerHTML="";
-
-  proveedores.forEach(p=>{
-
-    const option=document.createElement("option");
-
-    option.value=p.id;
-
-    option.textContent=p.nombre;
-
-    select.appendChild(option);
-
-  });
-
-  if(product){
-
-    select.value=product.proveedor_id;
-
-  }else if(proveedores.length){
-
-    select.value=proveedores[0].id;
-
-  }
-
-}
-
-function closeModal(){
-
-  $("modalBg").classList.add("hidden");
-
-}
-
-$("modalCancel").onclick=closeModal;
-
-$("modalBg").addEventListener("click",e=>{
-
-  if(e.target===$("modalBg")){
-    closeModal();
-  }
-
-});
-
-$("productForm").onsubmit=async e=>{
-
-  e.preventDefault();
-
-  try{
-
-    const id=$("productId").value;
-
-    const body={
-
-      accion:id
-        ? "editar_producto"
-        : "agregar_producto",
-
-      proveedor_id:Number(
-        $("productProveedor").value
-      ),
-
-      producto:$("productNombre").value.trim(),
-
-      capacidad:$("productCapacidad").value,
-
-      costo:Number(
-        $("productCosto").value
-      )||0,
-
-      venta:Number(
-        $("productVenta").value
-      )||0,
-
-      cantidad:Math.max(
-        0,
-        Number($("productCantidad").value)||0
-      )
-
-    };
-
-    if(id){
-      body.id=Number(id);
-    }
-
-    await api(body);
-
-    closeModal();
-
-    toast(
-      id
-        ? "Producto actualizado"
-        : "Producto agregado"
-    );
-
-    await load();
-
-  }catch(err){
-
-    toast(err.message);
-
-  }
-
-};
-
-$("searchInput").addEventListener(
-  "input",
-  render
 );
 
-/* DRAG & DROP */
 
-function setupDrag(){
+/* ==================================================
+   AGREGAR PROVEEDOR
+   ================================================== */
+
+$("addProviderBtn").onclick =
+  () => {
+
+    $("providerName").value =
+      "";
+
+    $("providerModal")
+      .classList
+      .remove("hidden");
+
+    setTimeout(
+      () =>
+        $("providerName").focus(),
+      50
+    );
+
+  };
+
+
+$("cancelProvider").onclick =
+  () => {
+
+    $("providerModal")
+      .classList
+      .add("hidden");
+
+  };
+
+
+$("providerForm").onsubmit =
+  async event => {
+
+    event.preventDefault();
+
+    try{
+
+      const nombre =
+        $("providerName")
+          .value
+          .trim();
+
+      if(!nombre)return;
+
+      await apiPost({
+
+        accion:
+          "crear_proveedor",
+
+        nombre
+
+      });
+
+      $("providerModal")
+        .classList
+        .add("hidden");
+
+      mostrarToast(
+        "Proveedor agregado"
+      );
+
+      await cargarStock();
+
+    }catch(error){
+
+      mostrarToast(
+        error.message
+      );
+
+    }
+
+  };
+
+
+/* ==================================================
+   PRODUCTO
+   ================================================== */
+
+$("addProductBtn").onclick =
+  () => {
+
+    if(!proveedores.length){
+
+      mostrarToast(
+        "Primero agregá un proveedor"
+      );
+
+      return;
+
+    }
+
+    abrirProducto();
+
+  };
+
+
+function llenarProveedores(){
+
+  const select =
+    $("productProvider");
+
+  select.innerHTML = "";
+
+  proveedores.forEach(
+    proveedor => {
+
+      const option =
+        document.createElement(
+          "option"
+        );
+
+      option.value =
+        proveedor.id;
+
+      option.textContent =
+        proveedor.nombre;
+
+      select.appendChild(
+        option
+      );
+
+    }
+  );
+
+}
+
+
+function abrirProducto(producto=null){
+
+  llenarProveedores();
+
+  $("productModal")
+    .classList
+    .remove("hidden");
+
+
+  $("productModalTitle")
+    .textContent =
+      producto
+        ? "Editar producto"
+        : "Agregar producto";
+
+
+  $("productId").value =
+    producto?.id || "";
+
+
+  $("productName").value =
+    producto?.producto || "";
+
+
+  $("productCapacity").value =
+    producto?.capacidad ||
+    "Ninguno";
+
+
+  $("productCost").value =
+    producto?.costo ??
+    "";
+
+
+  $("productSale").value =
+    producto?.venta ??
+    "";
+
+
+  $("productStock").value =
+    producto?.cantidad ??
+    0;
+
+
+  if(producto){
+
+    $("productProvider").value =
+      producto.proveedor_id;
+
+  }else{
+
+    if(proveedores.length){
+
+      $("productProvider").value =
+        proveedores[0].id;
+
+    }
+
+  }
+
+}
+
+
+$("cancelProduct").onclick =
+  () => {
+
+    $("productModal")
+      .classList
+      .add("hidden");
+
+  };
+
+
+$("productForm").onsubmit =
+  async event => {
+
+    event.preventDefault();
+
+    try{
+
+      const id =
+        $("productId").value;
+
+
+      const datos = {
+
+        accion:
+          id
+            ? "editar_producto"
+            : "agregar_producto",
+
+        proveedor_id:
+          Number(
+            $("productProvider").value
+          ),
+
+        producto:
+          $("productName")
+            .value
+            .trim(),
+
+        capacidad:
+          $("productCapacity")
+            .value,
+
+        costo:
+          Number(
+            $("productCost").value
+          ) || 0,
+
+        venta:
+          Number(
+            $("productSale").value
+          ) || 0,
+
+        cantidad:
+          Math.max(
+            0,
+            Number(
+              $("productStock").value
+            ) || 0
+          )
+
+      };
+
+
+      if(id){
+
+        datos.id =
+          Number(id);
+
+      }
+
+
+      await apiPost(
+        datos
+      );
+
+
+      $("productModal")
+        .classList
+        .add("hidden");
+
+
+      mostrarToast(
+        id
+          ? "Producto actualizado"
+          : "Producto agregado"
+      );
+
+
+      await cargarStock();
+
+    }catch(error){
+
+      mostrarToast(
+        error.message
+      );
+
+    }
+
+  };
+
+
+/* ==================================================
+   BUSCADOR
+   ================================================== */
+
+$("searchInput")
+  .addEventListener(
+    "input",
+    render
+  );
+
+
+/* ==================================================
+   DRAG & DROP
+   ================================================== */
+
+function activarDrag(){
 
   document
-    .querySelectorAll(".productCard")
-    .forEach(card=>{
+    .querySelectorAll(
+      ".productCard"
+    )
+    .forEach(card => {
 
       card.addEventListener(
         "dragstart",
-        ()=>{
-          card.classList.add("dragging");
+        () => {
+
+          card.classList.add(
+            "dragging"
+          );
+
         }
       );
+
 
       card.addEventListener(
         "dragend",
-        async ()=>{
-          card.classList.remove("dragging");
-          await saveDomOrder(card.dataset.providerId);
+        async () => {
+
+          card.classList.remove(
+            "dragging"
+          );
+
+          await guardarOrden(
+            card.dataset.provider
+          );
+
         }
       );
 
+
       card.addEventListener(
         "dragover",
-        e=>{
+        event => {
 
-          e.preventDefault();
+          event.preventDefault();
 
-          const dragging=
+          const dragging =
             document.querySelector(
               ".productCard.dragging"
             );
 
-          if(!dragging || dragging===card)return;
+          if(
+            !dragging ||
+            dragging === card
+          ){
+            return;
+          }
 
-          const box=card.getBoundingClientRect();
 
-          const before=
-            e.clientY <
-            box.top+box.height/2;
+          const rect =
+            card.getBoundingClientRect();
 
-          const parent=card.parentNode;
+          const antes =
+            event.clientY <
+            rect.top +
+            rect.height / 2;
 
-          if(before){
-            parent.insertBefore(
-              dragging,
-              card
-            );
+
+          if(antes){
+
+            card.parentNode
+              .insertBefore(
+                dragging,
+                card
+              );
+
           }else{
-            parent.insertBefore(
-              dragging,
-              card.nextSibling
-            );
+
+            card.parentNode
+              .insertBefore(
+                dragging,
+                card.nextSibling
+              );
+
           }
 
         }
@@ -1574,74 +2405,160 @@ function setupDrag(){
 
 }
 
-async function saveDomOrder(providerId){
 
-  const section=
+async function guardarOrden(
+  providerId
+){
+
+  const section =
     document.querySelector(
-      `.provider[data-provider-id="${providerId}"]`
+      `.provider[data-provider="${providerId}"]`
     );
 
   if(!section)return;
 
-  const ids=[
-    ...section.querySelectorAll(".productCard")
-  ].map(el=>Number(el.dataset.id));
+
+  const ids =
+    [
+      ...section.querySelectorAll(
+        ".productCard"
+      )
+    ]
+    .map(
+      card =>
+        Number(
+          card.dataset.id
+        )
+    );
+
 
   if(!ids.length)return;
 
+
   try{
 
-    await api({
-      accion:"reordenar_productos",
-      proveedor_id:Number(providerId),
+    await apiPost({
+
+      accion:
+        "ordenar_productos",
+
+      proveedor_id:
+        Number(providerId),
+
       ids
+
     });
 
-  }catch(err){
+  }catch(error){
 
-    toast(err.message);
+    mostrarToast(
+      error.message
+    );
 
   }
 
 }
 
-/* CALCULADORA */
 
-$("calcFloat").onclick=()=>{
+/* ==================================================
+   CALCULADORA
+   ================================================== */
 
-  $("calcPanel").classList.toggle("hidden");
+$("calcButton").onclick =
+  () => {
 
-};
+    $("calculator")
+      .classList
+      .toggle("hidden");
 
-function updateCalc(){
+  };
 
-  const precio=
-    Number($("calcPrecio").value)||0;
 
-  const margen=
-    Number($("calcMargen").value)||0;
+function calcular(){
 
-  const resultado=
-    precio+(precio*margen/100);
+  const precio =
+    Number(
+      $("calcPrecio").value
+    ) || 0;
 
-  $("calcResult").textContent=
-    money(resultado);
+  const margen =
+    Number(
+      $("calcMargen").value
+    ) || 0;
+
+
+  const resultado =
+    precio +
+    (
+      precio *
+      margen /
+      100
+    );
+
+
+  $("calcResult")
+    .textContent =
+      dinero(resultado);
 
 }
 
-$("calcPrecio").addEventListener(
-  "input",
-  updateCalc
-);
 
-$("calcMargen").addEventListener(
-  "input",
-  updateCalc
-);
+$("calcPrecio")
+  .addEventListener(
+    "input",
+    calcular
+  );
 
-/* INICIO */
 
-loginShow();
+$("calcMargen")
+  .addEventListener(
+    "input",
+    calcular
+  );
+
+
+/* ==================================================
+   CERRAR MODALES TOCANDO AFUERA
+   ================================================== */
+
+$("productModal")
+  .addEventListener(
+    "click",
+    event => {
+
+      if(
+        event.target ===
+        $("productModal")
+      ){
+
+        $("productModal")
+          .classList
+          .add("hidden");
+
+      }
+
+    }
+  );
+
+
+$("providerModal")
+  .addEventListener(
+    "click",
+    event => {
+
+      if(
+        event.target ===
+        $("providerModal")
+      ){
+
+        $("providerModal")
+          .classList
+          .add("hidden");
+
+      }
+
+    }
+  );
 
 </script>
 
