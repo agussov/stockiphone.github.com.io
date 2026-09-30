@@ -182,15 +182,24 @@ button{
   color:var(--gold);
 }
 
+/* AGUSTÍN */
+
 .centerBrand{
   grid-column:2;
   justify-self:center;
-  font-size:19px;
+  font-size:24px;
   font-weight:900;
-  letter-spacing:.5px;
+  letter-spacing:1px;
   color:#fff;
+  font-family:
+    "Brush Script MT",
+    "Segoe Print",
+    "Comic Sans MS",
+    cursive;
+  transform:rotate(-2deg);
   text-shadow:
-    0 0 18px rgba(168,85,247,.45);
+    0 0 8px rgba(168,85,247,.55),
+    0 0 18px rgba(124,58,237,.35);
 }
 
 .topActions{
@@ -362,6 +371,7 @@ button{
   align-items:center;
   gap:10px;
   min-width:0;
+  cursor:pointer;
 }
 
 .providerArrow{
@@ -419,8 +429,6 @@ button{
     box-shadow .18s ease,
     border-color .18s ease;
 }
-
-/* IMPORTANTE PARA ARRASTRAR EN PC */
 
 .product[draggable="true"]{
   -webkit-user-drag:element;
@@ -746,7 +754,7 @@ button{
   }
 
   .centerBrand{
-    font-size:17px;
+    font-size:22px;
   }
 
   .logoutButton{
@@ -865,7 +873,7 @@ button{
       </div>
 
       <div class="centerBrand">
-        Agus
+        Agustín
       </div>
 
       <div class="topActions">
@@ -1202,10 +1210,24 @@ let productos = [];
 
 let calculator = {};
 
-let collapsedProviders =
-  JSON.parse(
-    localStorage.getItem("collapsedProviders") || "{}"
-  );
+/*
+  IMPORTANTE:
+
+  No usamos localStorage para el estado de los proveedores.
+
+  Al iniciar:
+  todos arrancan cerrados.
+
+  Durante la sesión:
+  si abrís uno, queda abierto.
+  si lo cerrás, queda cerrado.
+
+  Cuando la página vuelve a renderizar por sumar,
+  restar o modificar algo, mantiene exactamente
+  el estado que tenía.
+*/
+
+let collapsedProviders = {};
 
 
 // =====================================
@@ -1378,6 +1400,12 @@ document
 
         showApp();
 
+        /*
+          Cada vez que iniciamos una sesión
+          los proveedores arrancan cerrados.
+        */
+        collapsedProviders = {};
+
         await cargarDatos();
 
       }catch(error){
@@ -1528,10 +1556,23 @@ function renderProviders(){
     providerDiv.className =
       "provider";
 
+    /*
+      CLAVE:
+
+      Si el proveedor nunca fue tocado,
+      collapsed será TRUE.
+
+      Eso hace que todos arranquen cerrados.
+
+      Una vez abierto:
+      collapsedProviders[id] = false
+
+      Y las siguientes renderizaciones
+      mantienen ese estado.
+    */
+
     const collapsed =
-      !!collapsedProviders[
-        provider.id
-      ];
+      collapsedProviders[provider.id] !== false;
 
     providerDiv.innerHTML = `
 
@@ -2266,15 +2307,23 @@ document.addEventListener(
       const id =
         toggle.dataset.providerToggle;
 
-      collapsedProviders[id] =
-        !collapsedProviders[id];
+      /*
+        PROVEEDOR:
 
-      localStorage.setItem(
-        "collapsedProviders",
-        JSON.stringify(
-          collapsedProviders
-        )
-      );
+        Si nunca se tocó:
+        undefined => cerrado.
+
+        Al tocarlo:
+        pasa a false => abierto.
+
+        Si estaba abierto:
+        false => true => cerrado.
+
+        Así nunca cambia solo.
+      */
+
+      collapsedProviders[id] =
+        collapsedProviders[id] === false;
 
       renderProviders();
 
@@ -2400,6 +2449,16 @@ document.addEventListener(
         Number(
           calculator[id] || 0
         ) + 1;
+
+      /*
+        Importante:
+        renderProviders() vuelve a dibujar
+        los productos, pero NO toca
+        collapsedProviders.
+
+        Por eso el proveedor queda abierto
+        si estaba abierto.
+      */
 
       renderProviders();
 
@@ -3375,6 +3434,13 @@ document
 
       sessionToken = null;
 
+      /*
+        Al volver a entrar,
+        todo empieza cerrado nuevamente.
+      */
+
+      collapsedProviders = {};
+
       showLogin();
     }
   );
@@ -3407,6 +3473,13 @@ document
 // =====================================
 // INICIO
 // =====================================
+
+/*
+  Siempre empezamos con los proveedores
+  cerrados al cargar la página.
+*/
+
+collapsedProviders = {};
 
 if(sessionToken){
 
