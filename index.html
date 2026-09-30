@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 <title>Stock iPhone</title>
-
 <style>
 :root{
   --bg:#09090d;
@@ -18,9 +17,7 @@
   --violet:#8b5cf6;
   --violet2:#6d3de8;
 }
-
 *{box-sizing:border-box}
-
 html,body{
   margin:0;
   min-height:100%;
@@ -28,18 +25,15 @@ html,body{
   color:var(--text);
   font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
 }
-
 button,input,select{font:inherit}
 button{cursor:pointer}
 .hidden{display:none!important}
-
 #loginScreen{
   min-height:100vh;
   display:grid;
   place-items:center;
   padding:24px
 }
-
 .loginBox{
   width:min(420px,100%);
   background:var(--panel);
@@ -47,25 +41,20 @@ button{cursor:pointer}
   border-radius:22px;
   padding:28px
 }
-
 .loginTitle{
   text-align:center;
   font-size:28px;
   font-weight:900;
   margin-bottom:24px
 }
-
 .loginTitle span{color:var(--gold)}
-
 .field{margin-bottom:14px}
-
 .field label{
   display:block;
   color:var(--muted);
   font-size:13px;
   margin-bottom:7px
 }
-
 .field input,
 .field select,
 .modal input,
@@ -78,7 +67,6 @@ button{cursor:pointer}
   padding:12px 13px;
   outline:none
 }
-
 .primary{
   width:100%;
   border:0;
@@ -88,20 +76,17 @@ button{cursor:pointer}
   color:white;
   font-weight:800
 }
-
 .error{
   color:#ff6b6b;
   font-size:13px;
   margin-top:10px;
   text-align:center
 }
-
 .app{
   max-width:1120px;
   margin:auto;
   padding:18px 18px 80px
 }
-
 .topbar{
   position:relative;
   display:flex;
@@ -110,9 +95,7 @@ button{cursor:pointer}
   min-height:82px;
   margin-bottom:18px
 }
-
 .brand{text-align:center}
-
 .brandUser{
   font-family:"Trebuchet MS",cursive;
   font-style:italic;
@@ -123,16 +106,13 @@ button{cursor:pointer}
   text-shadow:2px 2px 0 #000;
   margin-bottom:2px
 }
-
 .brandName{
   font-size:30px;
   font-weight:950;
   letter-spacing:-1px;
   color:#fff
 }
-
 .brandName span{color:var(--gold)}
-
 .logout{
   position:absolute;
   right:0;
@@ -144,13 +124,11 @@ button{cursor:pointer}
   padding:7px 10px;
   font-size:12px
 }
-
 .searchRow{
   display:flex;
   gap:10px;
   margin-bottom:16px
 }
-
 .search{
   flex:1;
   background:var(--panel);
@@ -160,7 +138,6 @@ button{cursor:pointer}
   padding:12px 14px;
   outline:none
 }
-
 .addBtn{
   border:0;
   background:var(--violet);
@@ -170,7 +147,6 @@ button{cursor:pointer}
   font-weight:850;
   font-size:12px
 }
-
 .provider{
   background:var(--panel);
   border:1px solid var(--border);
@@ -178,7 +154,6 @@ button{cursor:pointer}
   margin:12px 0;
   overflow:hidden
 }
-
 .providerHead{
   display:flex;
   align-items:center;
@@ -186,7 +161,6 @@ button{cursor:pointer}
   padding:13px 14px;
   user-select:none
 }
-
 .providerToggle{
   border:0;
   background:transparent;
@@ -195,13 +169,11 @@ button{cursor:pointer}
   width:24px;
   padding:0
 }
-
 .providerName{
   font-size:15px;
   font-weight:850;
   flex:1
 }
-
 .providerMenu{
   border:0;
   background:transparent;
@@ -209,12 +181,10 @@ button{cursor:pointer}
   font-size:20px;
   padding:2px 6px
 }
-
 .providerTools{
   display:flex;
   gap:7px
 }
-
 .smallBtn{
   border:1px solid var(--border);
   background:#15151d;
@@ -223,9 +193,7 @@ button{cursor:pointer}
   padding:6px 8px;
   font-size:11px
 }
-
 .products{padding:0 10px 10px}
-
 .product{
   position:relative;
   display:flex;
@@ -241,25 +209,20 @@ button{cursor:pointer}
   touch-action:none;
   cursor:grab
 }
-
 .product:active{cursor:grabbing}
-
 .product.dragging{
   opacity:.45;
   transform:scale(.985);
   border-color:var(--gold)
 }
-
 .product.dropTarget{
   border-color:var(--violet);
   transform:translateY(2px)
 }
-
 .productInfo{
   min-width:0;
   flex:1
 }
-
 .productName{
   font-size:16px;
   font-weight:850;
@@ -267,43 +230,36 @@ button{cursor:pointer}
   color:#fff;
   word-break:break-word
 }
-
 .capacity{
   font-size:16px;
   font-weight:750;
   color:var(--gold2);
   margin-top:4px
 }
-
 .cost{
   font-size:13px;
   color:#8f8f99;
   margin-top:4px
 }
-
 .sale{
   font-size:18px;
   font-weight:900;
   color:#fff;
   margin-top:4px
 }
-
 .productRight{
   display:flex;
   align-items:center;
   gap:9px;
   flex-shrink:0
 }
-
 .stockText{
   font-size:12px;
   font-weight:800;
   color:#ddd;
   white-space:nowrap
 }
-
 .stockNumber{color:var(--gold2)}
-
 .calcControls{
   display:flex;
   align-items:center;
@@ -312,7 +268,6 @@ button{cursor:pointer}
   overflow:hidden;
   background:#0c0c11
 }
-
 .calcControls button{
   width:30px;
   height:30px;
@@ -321,14 +276,12 @@ button{cursor:pointer}
   color:white;
   font-size:17px
 }
-
 .calcQty{
   min-width:25px;
   text-align:center;
   font-size:13px;
   font-weight:850
 }
-
 .productMenu>button{
   border:0;
   background:transparent;
@@ -336,9 +289,7 @@ button{cursor:pointer}
   font-size:19px;
   padding:3px
 }
-
 .productMenu{position:relative}
-
 .menuBox{
   position:absolute;
   right:0;
@@ -351,7 +302,6 @@ button{cursor:pointer}
   min-width:130px;
   box-shadow:0 15px 40px #0009
 }
-
 .menuBox button{
   display:block;
   width:100%;
@@ -363,23 +313,19 @@ button{cursor:pointer}
   border-radius:7px;
   font-size:12px
 }
-
 .danger{color:#ff7777!important}
-
 .dragHint{
   color:#666;
   font-size:11px;
   padding:7px 5px 2px;
   text-align:center
 }
-
 .empty{
   color:var(--muted);
   padding:25px;
   text-align:center;
   font-size:13px
 }
-
 .calcBtn{
   position:fixed;
   right:18px;
@@ -393,7 +339,6 @@ button{cursor:pointer}
   font-size:22px;
   z-index:100
 }
-
 .badge{
   position:absolute;
   right:-3px;
@@ -409,7 +354,6 @@ button{cursor:pointer}
   place-items:center;
   padding:0 5px
 }
-
 .sideCalc{
   position:fixed;
   right:0;
@@ -424,9 +368,7 @@ button{cursor:pointer}
   display:flex;
   flex-direction:column
 }
-
 .sideCalc.open{transform:translateX(0)}
-
 .calcHead{
   display:flex;
   align-items:center;
@@ -434,25 +376,21 @@ button{cursor:pointer}
   padding:18px;
   border-bottom:1px solid var(--border)
 }
-
 .calcHead h2{
   margin:0;
   font-size:18px
 }
-
 .calcClose,.clearCalc{
   border:0;
   background:transparent;
   color:var(--muted);
   padding:7px
 }
-
 .calcItems{
   flex:1;
   overflow:auto;
   padding:12px 18px
 }
-
 .calcItem{
   display:flex;
   justify-content:space-between;
@@ -461,24 +399,19 @@ button{cursor:pointer}
   border-bottom:1px solid #20202a;
   font-size:13px
 }
-
 .calcTotals{
   padding:15px 18px;
   border-top:1px solid var(--border)
 }
-
 .totalLine,.totalSale{
   display:flex;
   justify-content:space-between
 }
-
 .totalLine{
   margin:7px 0;
   color:var(--muted)
 }
-
 .totalLine strong{color:white}
-
 .totalSale{
   align-items:center;
   margin-top:12px;
@@ -487,12 +420,10 @@ button{cursor:pointer}
   font-size:18px;
   font-weight:950
 }
-
 .totalSale span:last-child{
   color:var(--gold2);
   font-size:24px
 }
-
 .overlay{
   position:fixed;
   inset:0;
@@ -500,9 +431,7 @@ button{cursor:pointer}
   z-index:150;
   display:none
 }
-
 .overlay.show{display:block}
-
 .modal{
   position:fixed;
   left:50%;
@@ -518,20 +447,16 @@ button{cursor:pointer}
   z-index:250;
   display:none
 }
-
 .modal.show{display:block}
-
 .modal h3{
   margin:0 0 17px;
   font-size:18px
 }
-
 .modalActions{
   display:flex;
   gap:8px;
   margin-top:16px
 }
-
 .modalActions button{
   flex:1;
   border:0;
@@ -539,24 +464,20 @@ button{cursor:pointer}
   padding:11px;
   font-weight:800
 }
-
 .cancel{
   background:#24242e;
   color:#ddd
 }
-
 .confirm{
   background:var(--violet);
   color:#fff
 }
-
 .checks{
   display:flex;
   gap:16px;
   flex-wrap:wrap;
   margin-top:8px
 }
-
 .checks label{
   display:flex;
   gap:7px;
@@ -564,7 +485,6 @@ button{cursor:pointer}
   font-size:13px;
   color:#ddd
 }
-
 .toast{
   position:fixed;
   left:50%;
@@ -581,130 +501,66 @@ button{cursor:pointer}
   transition:.2s;
   z-index:500
 }
-
 .toast.show{
   opacity:1;
   transform:translateX(-50%) translateY(0)
 }
-
 @media(max-width:650px){
-  .app{
-    padding:12px 10px 90px
-  }
-
+  .app{padding:12px 10px 90px}
   .topbar{min-height:74px}
-
   .brandUser{font-size:22px}
   .brandName{font-size:27px}
-
-  .logout{
-    font-size:10px;
-    padding:6px 7px
-  }
-
+  .logout{font-size:10px;padding:6px 7px}
   .searchRow{align-items:stretch}
-
   .addBtn{padding:9px 10px}
-
-  .product{
-    min-height:112px;
-    padding:11px 9px
-  }
-
+  .product{min-height:112px;padding:11px 9px}
   .productRight{
     gap:6px;
     flex-direction:column;
     align-items:flex-end
   }
-
   .stockText{font-size:11px}
 }
 </style>
 </head>
-
 <body>
-
 <div id="loginScreen">
   <form class="loginBox" id="loginForm">
-
     <div class="loginTitle">
       <span>Stock</span> iPhone
     </div>
-
     <div class="field">
       <label>Usuario</label>
-      <input
-        id="loginUser"
-        autocomplete="username"
-        required
-      >
+      <input id="loginUser" autocomplete="username" required>
     </div>
-
     <div class="field">
       <label>Contraseña</label>
-      <input
-        id="loginPassword"
-        type="password"
-        autocomplete="current-password"
-        required
-      >
+      <input id="loginPassword" type="password" autocomplete="current-password" required>
     </div>
-
-    <button
-      class="primary"
-      id="loginButton"
-      type="submit"
-    >
+    <button class="primary" id="loginButton" type="submit">
       Ingresar
     </button>
-
-    <div
-      id="loginError"
-      class="error"
-    ></div>
-
+    <div id="loginError" class="error"></div>
   </form>
 </div>
-
-
-<main
-  class="app hidden"
-  id="app"
->
-
+<main class="app hidden" id="app">
   <header class="topbar">
-
     <div class="brand">
-
-      <div class="brandUser">
-        Agustín
-      </div>
-
+      <div class="brandUser">Agustín</div>
       <div class="brandName">
         <span>Stock</span> iPhone
       </div>
-
     </div>
-
-    <button
-      class="logout"
-      id="logoutBtn"
-      type="button"
-    >
+    <button class="logout" id="logoutBtn" type="button">
       Salir
     </button>
-
   </header>
-
-
   <div class="searchRow">
-
     <input
       class="search"
       id="search"
       placeholder="Buscar producto..."
     >
-
     <button
       class="addBtn"
       id="addProductBtn"
@@ -712,250 +568,258 @@ button{cursor:pointer}
     >
       ＋ Agregar producto
     </button>
-
   </div>
-
-
   <section id="providers"></section>
-
 </main>
-
-
-<button
-  class="calcBtn"
-  id="calcBtn"
-  type="button"
->
+<button class="calcBtn" id="calcBtn" type="button">
   🧮
-  <span
-    class="badge"
-    id="calcBadge"
-  >
-    0
-  </span>
+  <span class="badge" id="calcBadge">0</span>
 </button>
-
-
-<div
-  class="overlay"
-  id="overlay"
-></div>
-
-
-<aside
-  class="sideCalc"
-  id="sideCalc"
->
-
+<div class="overlay" id="overlay"></div>
+<aside class="sideCalc" id="sideCalc">
   <div class="calcHead">
-
     <h2>Calculadora</h2>
-
-    <button
-      class="calcClose"
-      id="calcClose"
-      type="button"
-    >
+    <button class="calcClose" id="calcClose" type="button">
       ✕
     </button>
-
   </div>
-
-  <div
-    class="calcItems"
-    id="calcItems"
-  ></div>
-
+  <div class="calcItems" id="calcItems"></div>
   <div class="calcTotals">
-
     <div class="totalLine">
       <span>Ganancia</span>
       <strong id="calcProfit">$0</strong>
     </div>
-
     <div class="totalLine">
       <span>Total costo</span>
       <strong id="calcCost">$0</strong>
     </div>
-
     <div class="totalSale">
       <span>TOTAL DE VENTA</span>
       <span id="calcSale">$0</span>
     </div>
-
-    <button
-      class="clearCalc"
-      id="clearCalc"
-      type="button"
-    >
+    <button class="clearCalc" id="clearCalc" type="button">
       Vaciar calculadora
     </button>
-
   </div>
-
 </aside>
-
-
-<div
-  class="modal"
-  id="modal"
-></div>
-
-
-<div
-  class="toast"
-  id="toast"
-></div>
-
-
+<div class="modal" id="modal"></div>
+<div class="toast" id="toast"></div>
 <script>
-
 const API_URL =
   "https://noisy-sound-2a71.agus-eloy-oviedo.workers.dev";
-
 const TOKEN_KEY =
   "stock_iphone_session";
-
-let token =
-  localStorage.getItem(TOKEN_KEY) || "";
-
+let token = "";
 let proveedores = [];
 let productos = [];
 let calc = {};
-
-const $ =
-  id => document.getElementById(id);
-
-
+const $ = id =>
+  document.getElementById(id);
 /* =========================
    UTILIDADES
 ========================= */
-
 function money(n){
-
   return "$" +
     Number(n || 0).toLocaleString(
       "es-AR",
-      {
-        maximumFractionDigits:0
-      }
+      {maximumFractionDigits:0}
     );
-
 }
-
-
 function esc(v){
-
   return String(v ?? "")
-    .replace(
-      /[&<>"']/g,
-      m => ({
-        "&":"&amp;",
-        "<":"&lt;",
-        ">":"&gt;",
-        "\"":"&quot;",
-        "'":"&#039;"
-      }[m])
-    );
-
+    .replace(/[&<>"']/g,m=>({
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#039;"
+    }[m]));
 }
-
-
 function toast(message){
-
-  const t =
-    $("toast");
-
-  t.textContent =
-    message;
-
+  const t = $("toast");
+  t.textContent = message;
   t.classList.add("show");
-
-  clearTimeout(
-    toast.timer
-  );
-
+  clearTimeout(toast.timer);
   toast.timer =
     setTimeout(
-      () =>
-        t.classList.remove("show"),
+      () => t.classList.remove("show"),
       1800
     );
-
 }
-
-
-function authHeaders(){
-
-  return {
-    "Content-Type":
-      "application/json",
-
-    "Accept":
-      "application/json",
-
-    "Authorization":
-      "Bearer " + token
-  };
-
+/* =========================
+   SESIÓN
+========================= */
+function saveToken(newToken){
+  const clean =
+    String(newToken || "").trim();
+  if(!clean){
+    throw new Error(
+      "El servidor no devolvió un token de sesión."
+    );
+  }
+  token = clean;
+  localStorage.setItem(
+    TOKEN_KEY,
+    clean
+  );
 }
-
-
+function getStoredToken(){
+  return (
+    localStorage.getItem(
+      TOKEN_KEY
+    ) || ""
+  ).trim();
+}
 function clearSession(){
-
   token = "";
-
   localStorage.removeItem(
     TOKEN_KEY
   );
-
-  loginShow();
-
-}
-
-
-/* =========================
-   PANTALLAS
-========================= */
-
-function loginShow(){
-
-  $("loginScreen")
-    .classList.remove("hidden");
-
   $("app")
-    .classList.add("hidden");
-
-}
-
-
-function appShow(){
-
+    .classList
+    .add("hidden");
   $("loginScreen")
-    .classList.add("hidden");
-
-  $("app")
-    .classList.remove("hidden");
-
+    .classList
+    .remove("hidden");
 }
-
-
+function authHeaders(){
+  return {
+    "Content-Type":
+      "application/json",
+    "Accept":
+      "application/json",
+    "Authorization":
+      "Bearer " + token
+  };
+}
 /* =========================
-   API
+   LOGIN
 ========================= */
-
-async function api(body){
-
-  if(!token){
-
-    clearSession();
-
-    throw new Error(
-      "Sesión expirada"
+async function login(
+  usuario,
+  password
+){
+  const response =
+    await fetch(
+      API_URL + "/login",
+      {
+        method:"POST",
+        headers:{
+          "Content-Type":
+            "application/json",
+          "Accept":
+            "application/json"
+        },
+        body:JSON.stringify({
+          usuario,
+          password
+        }),
+        cache:"no-store"
+      }
     );
-
+  let data;
+  try{
+    data =
+      await response.json();
+  }catch{
+    throw new Error(
+      "El servidor no devolvió JSON."
+    );
   }
-
+  if(
+    !response.ok ||
+    !data.ok
+  ){
+    throw new Error(
+      data.error ||
+      "Usuario o contraseña incorrectos."
+    );
+  }
+  if(!data.token){
+    throw new Error(
+      "El servidor aceptó el usuario pero no devolvió una sesión."
+    );
+  }
+  saveToken(
+    data.token
+  );
+  return true;
+}
+/* =========================
+   CARGAR DATOS
+========================= */
+async function load(){
+  if(!token){
+    return false;
+  }
+  try{
+    const response =
+      await fetch(
+        API_URL,
+        {
+          method:"GET",
+          headers:{
+            "Accept":
+              "application/json",
+            "Authorization":
+              "Bearer " + token
+          },
+          cache:"no-store"
+        }
+      );
+    let data;
+    try{
+      data =
+        await response.json();
+    }catch{
+      throw new Error(
+        "El servidor no devolvió JSON."
+      );
+    }
+    if(response.status === 401){
+      clearSession();
+      throw new Error(
+        "Sesión inválida"
+      );
+    }
+    if(
+      !response.ok ||
+      !data.ok
+    ){
+      throw new Error(
+        data.error ||
+        "No se pudieron cargar los datos."
+      );
+    }
+    proveedores =
+      data.proveedores || [];
+    productos =
+      data.productos || [];
+    $("loginScreen")
+      .classList
+      .add("hidden");
+    $("app")
+      .classList
+      .remove("hidden");
+    render();
+    return true;
+  }catch(error){
+    console.error(
+      "ERROR LOAD:",
+      error
+    );
+    return false;
+  }
+}
+/* =========================
+   API POST
+========================= */
+async function api(body){
+  if(!token){
+    throw new Error(
+      "No hay una sesión activa."
+    );
+  }
   const response =
     await fetch(
       API_URL,
@@ -966,648 +830,326 @@ async function api(body){
         cache:"no-store"
       }
     );
-
   let data;
-
   try{
-
     data =
       await response.json();
-
   }catch{
-
     throw new Error(
       "El servidor no devolvió JSON."
     );
-
   }
-
   if(response.status === 401){
-
     clearSession();
-
     throw new Error(
-      "Sesión expirada"
+      "Sesión inválida"
     );
-
   }
-
   if(
     !response.ok ||
     !data.ok
   ){
-
     throw new Error(
       data.error ||
       "Error del servidor."
     );
-
   }
-
   return data;
-
 }
-
-
-async function load(){
-
-  if(!token){
-
-    loginShow();
-
-    return false;
-
-  }
-
-  try{
-
-    const response =
-      await fetch(
-        API_URL,
-        {
-          method:"GET",
-          headers:{
-            "Accept":
-              "application/json",
-
-            "Authorization":
-              "Bearer " + token
-          },
-          cache:"no-store"
-        }
-      );
-
-    let data;
-
-    try{
-
-      data =
-        await response.json();
-
-    }catch{
-
-      throw new Error(
-        "El servidor no devolvió JSON."
-      );
-
-    }
-
-    if(response.status === 401){
-
-      clearSession();
-
-      return false;
-
-    }
-
-    if(
-      !response.ok ||
-      !data.ok
-    ){
-
-      throw new Error(
-        data.error ||
-        "No se pudieron cargar los datos."
-      );
-
-    }
-
-    proveedores =
-      data.proveedores || [];
-
-    productos =
-      data.productos || [];
-
-    appShow();
-
-    render();
-
-    return true;
-
-  }catch(error){
-
-    console.error(
-      "ERROR LOAD:",
-      error
-    );
-
-    $("providers").innerHTML =
-      `<div class="empty">${esc(error.message)}</div>`;
-
-    return false;
-
-  }
-
-}
-
-
 /* =========================
-   LOGIN
+   LOGIN FORM
 ========================= */
-
 $("loginForm").onsubmit =
   async event => {
-
     event.preventDefault();
-
     const button =
       $("loginButton");
-
     const error =
       $("loginError");
-
     button.disabled = true;
-
     button.textContent =
       "Ingresando...";
-
     error.textContent =
       "";
-
-    localStorage.removeItem(
-      TOKEN_KEY
-    );
-
-    token = "";
-
     try{
-
-      const response =
-        await fetch(
-          API_URL + "/login",
-          {
-            method:"POST",
-
-            headers:{
-              "Content-Type":
-                "application/json",
-
-              "Accept":
-                "application/json"
-            },
-
-            body:JSON.stringify({
-              usuario:
-                $("loginUser").value.trim(),
-
-              password:
-                $("loginPassword").value
-            }),
-
-            cache:"no-store"
-          }
-        );
-
-      let data;
-
-      try{
-
-        data =
-          await response.json();
-
-      }catch{
-
-        throw new Error(
-          "El servidor no devolvió JSON."
-        );
-
-      }
-
-      if(
-        !response.ok ||
-        !data.ok
-      ){
-
-        throw new Error(
-          data.error ||
-          "Usuario o contraseña incorrectos"
-        );
-
-      }
-
-      if(!data.token){
-
-        throw new Error(
-          "El servidor no devolvió una sesión."
-        );
-
-      }
-
-      token =
-        String(data.token).trim();
-
-      localStorage.setItem(
-        TOKEN_KEY,
-        token
+      localStorage.removeItem(
+        TOKEN_KEY
       );
-
-      appShow();
-
+      token = "";
+      await login(
+        $("loginUser")
+          .value
+          .trim(),
+        $("loginPassword")
+          .value
+      );
       const ok =
         await load();
-
       if(!ok){
-
         throw new Error(
-          "No se pudo cargar el stock."
+          "El servidor rechazó la nueva sesión."
         );
-
       }
-
     }catch(error){
-
       clearSession();
-
       $("loginError")
         .textContent =
         error.message;
-
     }finally{
-
       button.disabled = false;
-
       button.textContent =
         "Ingresar";
-
     }
-
   };
-
-
 /* =========================
    LOGOUT
 ========================= */
-
 $("logoutBtn").onclick =
   async () => {
-
     try{
-
       if(token){
-
         await fetch(
           API_URL,
           {
             method:"POST",
             headers:authHeaders(),
-
             body:JSON.stringify({
               accion:"logout"
             }),
-
             cache:"no-store"
           }
         );
-
       }
-
     }catch(error){
-
       console.error(error);
-
     }
-
     clearSession();
-
   };
-
-
 /* =========================
    RENDER
 ========================= */
-
 function render(){
-
-  const query =
+  const q =
     $("search")
       .value
       .trim()
       .toLowerCase();
-
   const root =
     $("providers");
-
   root.innerHTML = "";
-
-
   proveedores.forEach(
-    proveedor => {
-
-      const lista =
+    p => {
+      const list =
         productos.filter(
-          producto => {
-
-            const mismoProveedor =
-              Number(
-                producto.proveedor_id
-              ) === Number(
-                proveedor.id
-              );
-
-            if(!mismoProveedor)
-              return false;
-
-            if(!query)
-              return true;
-
-            return (
+          x =>
+            Number(
+              x.proveedor_id
+            ) ===
+            Number(p.id) &&
+            (
+              !q ||
               String(
-                producto.producto
+                x.producto
               )
                 .toLowerCase()
-                .includes(query)
-              ||
+                .includes(q) ||
               String(
-                producto.capacidad || ""
+                x.capacidad || ""
               )
                 .toLowerCase()
-                .includes(query)
-            );
-
-          }
+                .includes(q)
+            )
         );
-
-
       const box =
         document.createElement(
           "section"
         );
-
       box.className =
         "provider";
-
-
       box.innerHTML = `
-
         <div class="providerHead">
-
           <button
             class="providerToggle"
             type="button"
           >
             ⌄
           </button>
-
           <div class="providerName">
-            ${esc(proveedor.nombre)}
+            ${esc(p.nombre)}
           </div>
-
           <div class="providerTools">
-
             <button
               class="smallBtn rename"
               type="button"
             >
               Renombrar
             </button>
-
             <button
               class="smallBtn adjust"
               type="button"
             >
               Precios
             </button>
-
           </div>
-
           <button
             class="providerMenu"
             type="button"
           >
             ⋮
           </button>
-
         </div>
-
         <div class="products"></div>
       `;
-
-
-      const productsElement =
+      const products =
         box.querySelector(
           ".products"
         );
-
-
-      lista.forEach(
-        producto => {
-
-          productsElement.appendChild(
-            productEl(producto)
-          );
-
-        }
+      list.forEach(
+        p =>
+          products.appendChild(
+            productEl(p)
+          )
       );
-
-
-      if(!lista.length){
-
-        productsElement.innerHTML =
+      if(!list.length){
+        products.innerHTML =
           '<div class="empty">Sin productos.</div>';
-
       }else{
-
         const hint =
           document.createElement(
             "div"
           );
-
         hint.className =
           "dragHint";
-
         hint.textContent =
           "Mantén presionado y arrastra para cambiar el orden";
-
-        productsElement.appendChild(
+        products.appendChild(
           hint
         );
-
         setupDrag(
-          productsElement,
-          proveedor.id
+          products,
+          p.id
         );
-
       }
-
-
-      const toggle =
-        box.querySelector(
-          ".providerToggle"
-        );
-
-      toggle.onclick =
+      box.querySelector(
+        ".providerToggle"
+      ).onclick =
         () => {
-
-          productsElement
+          products
             .classList
             .toggle("hidden");
-
-          toggle.textContent =
-            productsElement.classList.contains(
+          box.querySelector(
+            ".providerToggle"
+          ).textContent =
+            products.classList.contains(
               "hidden"
             )
               ? "›"
               : "⌄";
-
         };
-
-
       box.querySelector(
         ".rename"
       ).onclick =
         () =>
-          renameProvider(
-            proveedor
-          );
-
-
+          renameProvider(p);
       box.querySelector(
         ".adjust"
       ).onclick =
         () =>
-          adjustProvider(
-            proveedor
-          );
-
-
+          adjustProvider(p);
       box.querySelector(
         ".providerMenu"
       ).onclick =
         () =>
-          deleteProvider(
-            proveedor
-          );
-
-
+          deleteProvider(p);
       root.appendChild(
         box
       );
-
     }
   );
-
-
   updateCalc();
-
 }
-
-
 /* =========================
    PRODUCTO
 ========================= */
-
 function productEl(p){
-
-  const element =
+  const el =
     document.createElement(
       "article"
     );
-
-  const capacity =
+  const cap =
     p.capacidad &&
     p.capacidad !== "Ninguno"
-
-      ? `<div class="capacity">${esc(p.capacidad)}</div>`
-
+      ? `
+        <div class="capacity">
+          ${esc(p.capacidad)}
+        </div>
+      `
       : "";
-
-  const quantity =
+  const q =
     calc[p.id] || 0;
-
-
-  element.className =
+  el.className =
     "product";
-
-  element.dataset.id =
+  el.dataset.id =
     p.id;
-
-
-  element.innerHTML = `
-
+  el.innerHTML = `
     <div class="productInfo">
-
       <div class="productName">
         ${esc(p.producto)}
       </div>
-
-      ${capacity}
-
+      ${cap}
       <div class="cost">
         Costo: ${money(p.costo)}
       </div>
-
       <div class="sale">
         ${money(p.venta)}
       </div>
-
     </div>
-
-
     <div class="productRight">
-
       <div class="stockText">
         STOCK:
         <span class="stockNumber">
           ${Number(p.cantidad || 0)}
         </span>
       </div>
-
       <div class="calcControls">
-
         <button
           class="minus"
           type="button"
         >
           −
         </button>
-
         <div class="calcQty">
-          ${quantity}
+          ${q}
         </div>
-
         <button
           class="plus"
           type="button"
         >
           +
         </button>
-
       </div>
-
     </div>
-
-
     <div class="productMenu">
-
-      <button
-        type="button"
-      >
+      <button type="button">
         ⋮
       </button>
-
       <div class="menuBox hidden">
-
         <button
           class="edit"
           type="button"
         >
           Editar
         </button>
-
         <button
           class="delete danger"
           type="button"
         >
           Eliminar
         </button>
-
       </div>
-
     </div>
   `;
-
-
-  element.querySelector(
+  el.querySelector(
     ".plus"
   ).onclick =
     () =>
@@ -1615,9 +1157,7 @@ function productEl(p){
         p,
         1
       );
-
-
-  element.querySelector(
+  el.querySelector(
     ".minus"
   ).onclick =
     () =>
@@ -1625,353 +1165,221 @@ function productEl(p){
         p,
         -1
       );
-
-
   const menu =
-    element.querySelector(
+    el.querySelector(
       ".menuBox"
     );
-
-
-  element.querySelector(
+  el.querySelector(
     ".productMenu>button"
   ).onclick =
-    event => {
-
-      event.stopPropagation();
-
+    e => {
+      e.stopPropagation();
       menu.classList.toggle(
         "hidden"
       );
-
     };
-
-
-  element.querySelector(
+  el.querySelector(
     ".edit"
   ).onclick =
     () =>
       editProduct(p);
-
-
-  element.querySelector(
+  el.querySelector(
     ".delete"
   ).onclick =
     () =>
       deleteProduct(p);
-
-
-  return element;
-
+  return el;
 }
-
-
 /* =========================
    CALCULADORA
 ========================= */
-
-function changeCalc(
-  producto,
-  delta
-){
-
-  const cantidadStock =
-    Number(
-      producto.cantidad
-    ) || 0;
-
-  const nuevaCantidad =
+function changeCalc(p,d){
+  const n =
     Math.max(
       0,
       Math.min(
-        cantidadStock,
-        (calc[producto.id] || 0) +
-          delta
+        Number(p.cantidad) || 0,
+        (calc[p.id] || 0) + d
       )
     );
-
-
-  if(nuevaCantidad){
-
-    calc[producto.id] =
-      nuevaCantidad;
-
+  if(n){
+    calc[p.id] =
+      n;
   }else{
-
-    delete calc[
-      producto.id
-    ];
-
+    delete calc[p.id];
   }
-
-
   render();
-
 }
-
-
 function updateCalc(){
-
   const ids =
     Object.keys(calc);
-
   const items =
     $("calcItems");
-
-  let totalCost = 0;
-  let totalSale = 0;
-
+  let cost = 0;
+  let sale = 0;
   items.innerHTML =
     "";
-
-
   ids.forEach(
     id => {
-
-      const producto =
+      const p =
         productos.find(
-          item =>
-            String(item.id) ===
+          x =>
+            String(x.id) ===
             String(id)
         );
-
-      if(!producto)
+      if(!p)
         return;
-
-      const cantidad =
+      const q =
         calc[id];
-
-      totalCost +=
-        cantidad *
+      cost +=
+        q *
         Number(
-          producto.costo || 0
+          p.costo || 0
         );
-
-      totalSale +=
-        cantidad *
+      sale +=
+        q *
         Number(
-          producto.venta || 0
+          p.venta || 0
         );
-
-
       const row =
         document.createElement(
           "div"
         );
-
       row.className =
         "calcItem";
-
       row.innerHTML = `
-
         <span>
-          ${esc(producto.producto)}
-          × ${cantidad}
+          ${esc(p.producto)}
+          × ${q}
         </span>
-
         <strong>
           ${money(
-            cantidad *
+            q *
             Number(
-              producto.venta || 0
+              p.venta || 0
             )
           )}
         </strong>
       `;
-
       items.appendChild(
         row
       );
-
     }
   );
-
-
   $("calcCost").textContent =
-    money(totalCost);
-
+    money(cost);
   $("calcSale").textContent =
-    money(totalSale);
-
+    money(sale);
   $("calcProfit").textContent =
     money(
-      totalSale -
-      totalCost
+      sale - cost
     );
-
   $("calcBadge").textContent =
     ids.reduce(
-      (total,id) =>
-        total +
+      (a,id) =>
+        a +
         Number(
           calc[id] || 0
         ),
       0
     );
-
 }
-
-
 /* =========================
-   MODALES
+   MODAL
 ========================= */
-
 function openModal(
   title,
   html,
-  callback
+  fn
 ){
-
   $("modal").innerHTML = `
-
     <h3>
       ${title}
     </h3>
-
     ${html}
-
     <div class="modalActions">
-
       <button
         class="cancel"
         type="button"
       >
         Cancelar
       </button>
-
       <button
         class="confirm"
         type="button"
       >
         Guardar
       </button>
-
     </div>
   `;
-
-
   $("overlay")
     .classList
     .add("show");
-
   $("modal")
     .classList
     .add("show");
-
-
-  $("modal .cancel")
-    .onclick =
+  $("modal .cancel").onclick =
     closeModal;
-
-
-  $("modal .confirm")
-    .onclick =
+  $("modal .confirm").onclick =
     async () => {
-
       try{
-
-        await callback();
-
+        await fn();
         closeModal();
-
         await load();
-
       }catch(error){
-
         toast(
           error.message
         );
-
       }
-
     };
-
 }
-
-
 function closeModal(){
-
   $("overlay")
     .classList
     .remove("show");
-
   $("modal")
     .classList
     .remove("show");
-
 }
-
-
 $("overlay").onclick =
   () => {
-
     $("sideCalc")
       .classList
       .remove("open");
-
     closeModal();
-
   };
-
-
 /* =========================
    PROVEEDORES
 ========================= */
-
-function renameProvider(
-  proveedor
-){
-
+function renameProvider(p){
   openModal(
     "Renombrar proveedor",
-
     `
       <div class="field">
-
-        <label>
-          Nombre
-        </label>
-
+        <label>Nombre</label>
         <input
           id="mName"
-          value="${esc(proveedor.nombre)}"
+          value="${esc(p.nombre)}"
         >
-
       </div>
     `,
-
     () =>
       api({
         accion:
           "renombrar_proveedor",
-
         id:
-          proveedor.id,
-
+          p.id,
         nombre:
           $("mName").value
       })
-
   );
-
 }
-
-
-function adjustProvider(
-  proveedor
-){
-
+function adjustProvider(p){
   openModal(
-
     "Ajustar precios",
-
     `
       <div class="field">
-
-        <label>
-          Monto
-        </label>
-
+        <label>Monto</label>
         <input
           id="mAmount"
           type="number"
@@ -1979,154 +1387,66 @@ function adjustProvider(
           max="1000"
           value="0"
         >
-
-      </div>
-
-      <div class="checks">
-
-        <label>
-          <input
-            id="mCost"
-            type="checkbox"
-          >
-          Proveedor / Costo
-        </label>
-
-        <label>
-          <input
-            id="mSale"
-            type="checkbox"
-          >
-          Vendedor / Venta
-        </label>
-
       </div>
     `,
-
-    () => {
-
-      const amount =
-        Math.max(
-          -1000,
-          Math.min(
-            1000,
-            Number(
-              $("mAmount").value
-            ) || 0
-          )
-        );
-
-      const cost =
-        $("mCost").checked;
-
-      const sale =
-        $("mSale").checked;
-
-
-      if(!cost && !sale){
-
-        throw new Error(
-          "Seleccioná Costo, Venta o ambos."
-        );
-
-      }
-
-
-      /*
-        El Worker actual ajusta
-        costo y venta juntos.
-      */
-
-      return api({
+    () =>
+      api({
         accion:
           "ajustar_precios",
-
         proveedor_id:
-          proveedor.id,
-
+          p.id,
         monto:
-          amount
-      });
-
-    }
-
+          Number(
+            $("mAmount").value
+          ) || 0
+      })
   );
-
 }
-
-
-async function deleteProvider(
-  proveedor
-){
-
+async function deleteProvider(p){
   if(
     !confirm(
-      `¿Eliminar el proveedor "${proveedor.nombre}" y todos sus productos?`
+      `¿Eliminar el proveedor "${p.nombre}" y todos sus productos?`
     )
   ){
-
     return;
-
   }
-
-
   try{
-
     await api({
       accion:
         "eliminar_proveedor",
-
       id:
-        proveedor.id
+        p.id
     });
-
     await load();
-
   }catch(error){
-
     toast(
       error.message
     );
-
   }
-
 }
-
-
 /* =========================
-   FORMULARIO PRODUCTO
+   PRODUCT FORM
 ========================= */
-
-function productForm(
-  producto = null
-){
-
-  const options =
+function productForm(p=null){
+  const opts =
     proveedores
       .map(
-        proveedor => `
-
+        x => `
           <option
-            value="${proveedor.id}"
+            value="${x.id}"
             ${
-              producto &&
-              Number(
-                producto.proveedor_id
-              ) ===
-              Number(
-                proveedor.id
-              )
+              p &&
+              Number(p.proveedor_id) ===
+              Number(x.id)
                 ? "selected"
                 : ""
             }
           >
-            ${esc(proveedor.nombre)}
+            ${esc(x.nombre)}
           </option>
         `
       )
       .join("");
-
-
   const capacities =
     [
       "Ninguno",
@@ -2136,543 +1456,328 @@ function productForm(
       "1 TB"
     ]
       .map(
-        capacity => `
-
+        x => `
           <option
             ${
-              producto &&
-              producto.capacidad ===
-              capacity
+              p &&
+              p.capacidad === x
                 ? "selected"
                 : ""
             }
           >
-            ${capacity}
+            ${x}
           </option>
         `
       )
       .join("");
-
-
   return `
-
     <div class="field">
-
-      <label>
-        Producto
-      </label>
-
+      <label>Producto</label>
       <input
         id="mProduct"
         value="${
-          producto
-            ? esc(producto.producto)
+          p
+            ? esc(p.producto)
             : ""
         }"
       >
-
     </div>
-
-
     <div class="field">
-
-      <label>
-        Proveedor
-      </label>
-
-      <select
-        id="mProvider"
-      >
-        ${options}
+      <label>Proveedor</label>
+      <select id="mProvider">
+        ${opts}
       </select>
-
     </div>
-
-
     <div class="field">
-
-      <label>
-        Capacidad
-      </label>
-
-      <select
-        id="mCapacity"
-      >
+      <label>Capacidad</label>
+      <select id="mCapacity">
         ${capacities}
       </select>
-
     </div>
-
-
     <div class="field">
-
-      <label>
-        Precio de venta
-      </label>
-
+      <label>Precio de venta</label>
       <input
         id="mSalePrice"
         type="number"
         min="0"
         value="${
-          producto
-            ? Number(
-                producto.venta || 0
-              )
+          p
+            ? Number(p.venta || 0)
             : 0
         }"
       >
-
     </div>
-
-
     <div class="field">
-
-      <label>
-        Costo
-      </label>
-
+      <label>Costo</label>
       <input
         id="mCostPrice"
         type="number"
         min="0"
         value="${
-          producto
-            ? Number(
-                producto.costo || 0
-              )
+          p
+            ? Number(p.costo || 0)
             : 0
         }"
       >
-
     </div>
-
-
     <div class="field">
-
-      <label>
-        Stock
-      </label>
-
+      <label>Stock</label>
       <input
         id="mStock"
         type="number"
         min="0"
         value="${
-          producto
-            ? Number(
-                producto.cantidad || 0
-              )
+          p
+            ? Number(p.cantidad || 0)
             : 0
         }"
       >
-
     </div>
   `;
-
 }
-
-
 /* =========================
    AGREGAR PRODUCTO
 ========================= */
-
 function addProduct(){
-
   if(!proveedores.length){
-
-    return toast(
+    toast(
       "Primero agregá un proveedor."
     );
-
+    return;
   }
-
-
   openModal(
     "Agregar producto",
-
     productForm(),
-
     () =>
       api({
         accion:
           "agregar_producto",
-
         proveedor_id:
           Number(
             $("mProvider").value
           ),
-
         producto:
           $("mProduct").value,
-
         capacidad:
           $("mCapacity").value,
-
         venta:
           Number(
             $("mSalePrice").value
           ) || 0,
-
         costo:
           Number(
             $("mCostPrice").value
           ) || 0,
-
         cantidad:
           Number(
             $("mStock").value
           ) || 0
       })
   );
-
 }
-
-
 /* =========================
    EDITAR PRODUCTO
 ========================= */
-
-function editProduct(
-  producto
-){
-
+function editProduct(p){
   openModal(
-
     "Editar producto",
-
-    productForm(
-      producto
-    ),
-
+    productForm(p),
     () =>
       api({
         accion:
           "editar_producto",
-
         id:
-          producto.id,
-
+          p.id,
         producto:
           $("mProduct").value,
-
         capacidad:
           $("mCapacity").value,
-
         venta:
           Number(
             $("mSalePrice").value
           ) || 0,
-
         costo:
           Number(
             $("mCostPrice").value
           ) || 0,
-
         cantidad:
           Number(
             $("mStock").value
           ) || 0
       })
-
   );
-
 }
-
-
 /* =========================
    ELIMINAR PRODUCTO
 ========================= */
-
-async function deleteProduct(
-  producto
-){
-
+async function deleteProduct(p){
   if(
     !confirm(
-      `¿Eliminar "${producto.producto}"?`
+      `¿Eliminar "${p.producto}"?`
     )
   ){
-
     return;
-
   }
-
-
   try{
-
-    delete calc[
-      producto.id
-    ];
-
+    delete calc[p.id];
     await api({
       accion:
         "eliminar_producto",
-
       id:
-        producto.id
+        p.id
     });
-
     await load();
-
   }catch(error){
-
     toast(
       error.message
     );
-
   }
-
 }
-
-
 /* =========================
    BOTONES
 ========================= */
-
 $("addProductBtn").onclick =
   addProduct;
-
-
 $("search").oninput =
   render;
-
-
 $("calcBtn").onclick =
   () => {
-
     $("sideCalc")
       .classList
       .add("open");
-
     $("overlay")
       .classList
       .add("show");
-
   };
-
-
 $("calcClose").onclick =
   () => {
-
     $("sideCalc")
       .classList
       .remove("open");
-
     $("overlay")
       .classList
       .remove("show");
-
   };
-
-
 $("clearCalc").onclick =
   () => {
-
     calc = {};
-
     updateCalc();
-
     render();
-
   };
-
-
 /* =========================
-   DRAG & DROP
+   DRAG
 ========================= */
-
 function setupDrag(
   container,
   providerId
 ){
-
   const cards =
     [
       ...container.querySelectorAll(
         ".product"
       )
     ];
-
   let active = null;
   let pointerId = null;
   let startY = 0;
   let dragging = false;
   let longTimer = null;
-
-
   cards.forEach(
     card => {
-
       card.draggable = false;
-
-      card.style.cursor =
-        "grab";
-
-
       const clearDrag =
         () => {
-
           clearTimeout(
             longTimer
           );
-
           if(active){
-
             active.classList
               .remove(
                 "dragging"
               );
-
             active.style.cursor =
               "grab";
-
           }
-
           cards.forEach(
-            current =>
-              current.classList
+            c =>
+              c.classList
                 .remove(
                   "dropTarget"
                 )
           );
-
           active = null;
-
           pointerId = null;
-
           dragging = false;
-
         };
-
-
       card.addEventListener(
         "pointerdown",
-        event => {
-
+        e => {
           if(
-            event.button !== undefined &&
-            event.button !== 0
-          ){
-
+            e.button !== undefined &&
+            e.button !== 0
+          )
             return;
-
-          }
-
-
           if(
-            event.target.closest(
+            e.target.closest(
               "button,input,select,a,.menuBox"
             )
-          ){
-
+          )
             return;
-
-          }
-
-
-          active =
-            card;
-
-          pointerId =
-            event.pointerId;
-
-          startY =
-            event.clientY;
-
-          dragging =
-            false;
-
-
+          active = card;
+          pointerId = e.pointerId;
+          startY = e.clientY;
+          dragging = false;
           card.setPointerCapture?.(
             pointerId
           );
-
-
           longTimer =
             setTimeout(
               () => {
-
                 if(
                   active === card
                 ){
-
-                  dragging =
-                    true;
-
+                  dragging = true;
                   card.classList
                     .add(
                       "dragging"
                     );
-
                   card.style.cursor =
                     "grabbing";
-
                 }
-
               },
               180
             );
-
         }
       );
-
-
       card.addEventListener(
         "pointermove",
-        event => {
-
+        e => {
           if(
             active !== card ||
-            event.pointerId !==
-              pointerId
-          ){
-
+            e.pointerId !== pointerId
+          )
             return;
-
-          }
-
-
           const distance =
             Math.abs(
-              event.clientY -
-              startY
+              e.clientY - startY
             );
-
-
           if(!dragging){
-
-            if(
-              distance > 10
-            ){
-
+            if(distance > 10){
               clearTimeout(
                 longTimer
               );
-
-              dragging =
-                true;
-
+              dragging = true;
               card.classList
                 .add(
                   "dragging"
                 );
-
               card.style.cursor =
                 "grabbing";
-
             }else{
-
               return;
-
             }
-
           }
-
-
-          event.preventDefault();
-
-
+          e.preventDefault();
           const others =
             [
               ...container.querySelectorAll(
@@ -2680,187 +1785,105 @@ function setupDrag(
               )
             ]
               .filter(
-                current =>
-                  current !== active
+                c =>
+                  c !== active
               );
-
-
           const target =
             others.find(
-              current => {
-
-                const rect =
-                  current.getBoundingClientRect();
-
+              c => {
+                const r =
+                  c.getBoundingClientRect();
                 return (
-                  event.clientY >=
-                    rect.top &&
-                  event.clientY <=
-                    rect.bottom
+                  e.clientY >= r.top &&
+                  e.clientY <= r.bottom
                 );
-
               }
             );
-
-
           if(target){
-
             cards.forEach(
-              current =>
-                current.classList
+              c =>
+                c.classList
                   .remove(
                     "dropTarget"
                   )
             );
-
-
             target.classList
               .add(
                 "dropTarget"
               );
-
-
-            const rect =
+            const r =
               target.getBoundingClientRect();
-
-
             if(
-              event.clientY <
-              rect.top +
-              rect.height / 2
+              e.clientY <
+              r.top + r.height / 2
             ){
-
               container.insertBefore(
                 active,
                 target
               );
-
             }else{
-
               container.insertBefore(
                 active,
                 target.nextSibling
               );
-
             }
-
           }
-
         },
-        {
-          passive:false
-        }
+        {passive:false}
       );
-
-
       card.addEventListener(
         "pointerup",
-        async event => {
-
+        async e => {
           if(
             active !== card ||
-            event.pointerId !==
-              pointerId
-          ){
-
+            e.pointerId !== pointerId
+          )
             return;
-
-          }
-
-
           clearTimeout(
             longTimer
           );
-
-
           const wasDragging =
             dragging;
-
-
           try{
-
             card.releasePointerCapture?.(
               pointerId
             );
-
           }catch{}
-
-
           if(wasDragging){
-
             card.classList
               .remove(
                 "dragging"
               );
-
-
             cards.forEach(
-              current =>
-                current.classList
+              c =>
+                c.classList
                   .remove(
                     "dropTarget"
                   )
             );
-
-
             active = null;
             pointerId = null;
             dragging = false;
-
-
             await saveDomOrder(
               container,
               providerId
             );
-
           }else{
-
             clearDrag();
-
           }
-
         }
       );
-
-
       card.addEventListener(
         "pointercancel",
-        () =>
-          clearDrag()
+        clearDrag
       );
-
-
-      card.addEventListener(
-        "lostpointercapture",
-        () => {
-
-          if(
-            active === card &&
-            !dragging
-          ){
-
-            clearDrag();
-
-          }
-
-        }
-      );
-
     }
   );
-
 }
-
-
-/* =========================
-   GUARDAR ORDEN
-========================= */
-
 async function saveDomOrder(
   container,
   providerId
 ){
-
   const ids =
     [
       ...container.querySelectorAll(
@@ -2868,80 +1891,52 @@ async function saveDomOrder(
       )
     ]
       .map(
-        element =>
+        x =>
           Number(
-            element.dataset.id
+            x.dataset.id
           )
       )
       .filter(
         Number.isFinite
       );
-
-
   if(!ids.length)
     return;
-
-
   try{
-
     await api({
       accion:
         "reordenar_productos",
-
-      ids:ids
+      ids
     });
-
     toast(
       "Orden guardado"
     );
-
   }catch(error){
-
     toast(
       error.message
     );
-
   }
-
 }
-
-
 /* =========================
    INICIO
 ========================= */
-
 (async function init(){
-
   token =
-    (
-      localStorage.getItem(
-        TOKEN_KEY
-      ) || ""
-    ).trim();
-
-
+    getStoredToken();
   if(!token){
-
-    loginShow();
-
+    $("loginScreen")
+      .classList
+      .remove("hidden");
+    $("app")
+      .classList
+      .add("hidden");
     return;
-
   }
-
-
   const ok =
     await load();
-
-
   if(!ok){
-
     clearSession();
-
   }
-
 })();
-
 </script>
-
 </body>
 </html>
