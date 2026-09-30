@@ -8,26 +8,17 @@
 
 <style>
 :root{
-  --bg:#09070f;
-  --bg2:#110c1d;
-  --panel:#171122;
-  --panel2:#201631;
-  --panel3:#261a39;
-  --border:#3b2a52;
-
-  --gold:#e7b93f;
-  --gold2:#f4d267;
-
-  --violet:#8b5cf6;
-  --violet2:#6d3de8;
-
-  --text:#ffffff;
-  --muted:#aaa3b7;
-
-  --green:#53d769;
-  --red:#ff5c6c;
-
-  --shadow:0 15px 45px rgba(0,0,0,.35);
+  --black:#08080b;
+  --black2:#101014;
+  --purple:#7c3aed;
+  --purple2:#a855f7;
+  --gold:#f5c542;
+  --gold2:#ffd95a;
+  --white:#ffffff;
+  --gray:#a8a8b3;
+  --gray2:#1b1b22;
+  --red:#ef4444;
+  --green:#22c55e;
 }
 
 *{
@@ -36,18 +27,13 @@
 
 body{
   margin:0;
-  min-height:100vh;
-  font-family:Arial,Helvetica,sans-serif;
   background:
-    radial-gradient(circle at top left,rgba(112,57,180,.20),transparent 35%),
-    radial-gradient(circle at bottom right,rgba(80,35,130,.18),transparent 35%),
-    var(--bg);
-  color:var(--text);
+    radial-gradient(circle at top right, rgba(124,58,237,.18), transparent 30%),
+    linear-gradient(180deg,#070709,#0c0c10);
+  color:var(--white);
+  font-family:Arial,Helvetica,sans-serif;
+  min-height:100vh;
 }
-
-/* =========================
-   GENERAL
-========================= */
 
 button,
 input,
@@ -63,11 +49,6 @@ button{
   display:none!important;
 }
 
-.container{
-  width:min(1120px,calc(100% - 28px));
-  margin:auto;
-}
-
 /* =========================
    LOGIN
 ========================= */
@@ -80,161 +61,216 @@ button{
   padding:20px;
 }
 
-.login-card{
-  width:min(420px,100%);
-  background:linear-gradient(145deg,#171020,#241633);
-  border:1px solid var(--border);
-  border-radius:26px;
-  padding:34px;
-  box-shadow:var(--shadow);
-}
-
-.login-logo{
-  text-align:center;
-  margin-bottom:30px;
-}
-
-.login-logo .small{
-  color:#fff;
-  font-size:17px;
-  margin-bottom:3px;
-}
-
-.login-logo .big{
-  color:var(--gold);
-  font-size:34px;
-  font-weight:800;
-  letter-spacing:-1px;
-}
-
-.input-group{
-  margin-bottom:16px;
-}
-
-.input-group label{
-  display:block;
-  color:var(--muted);
-  font-size:13px;
-  margin-bottom:7px;
-}
-
-.input{
+.loginBox{
   width:100%;
-  background:#0d0a13;
-  border:1px solid var(--border);
-  color:#fff;
+  max-width:390px;
+  background:rgba(16,16,20,.96);
+  border:1px solid rgba(168,85,247,.35);
+  border-radius:22px;
+  padding:30px;
+  box-shadow:0 20px 70px rgba(0,0,0,.45);
+}
+
+.loginTitle{
+  font-size:28px;
+  font-weight:900;
+  margin-bottom:8px;
+}
+
+.loginSubtitle{
+  color:var(--gray);
+  margin-bottom:25px;
+}
+
+.loginBox label{
+  display:block;
+  font-size:13px;
+  color:var(--gray);
+  margin:14px 0 7px;
+}
+
+.loginBox input{
+  width:100%;
+  border:1px solid #292933;
+  background:#0a0a0d;
+  color:white;
   border-radius:12px;
-  padding:13px 14px;
+  padding:14px;
   outline:none;
 }
 
-.input:focus{
-  border-color:var(--violet);
-  box-shadow:0 0 0 3px rgba(139,92,246,.12);
+.loginBox input:focus{
+  border-color:var(--purple2);
 }
 
-.login-button{
+.loginButton{
   width:100%;
+  margin-top:22px;
+  padding:14px;
   border:0;
   border-radius:12px;
-  padding:14px;
-  margin-top:8px;
-  background:linear-gradient(135deg,var(--violet),var(--violet2));
-  color:#fff;
-  font-weight:700;
-  font-size:15px;
+  background:var(--purple);
+  color:white;
+  font-weight:800;
 }
 
-.login-error{
-  min-height:20px;
-  color:#ff6978;
+.loginError{
+  color:#ff6b6b;
   font-size:13px;
-  margin-top:13px;
-  text-align:center;
+  margin-top:12px;
 }
 
 /* =========================
-   APP HEADER
+   APP
 ========================= */
 
 #app{
-  padding:25px 0 100px;
+  min-height:100vh;
 }
 
 .topbar{
-  position:relative;
-  text-align:center;
-  margin-bottom:28px;
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(8,8,11,.94);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid #202028;
+}
+
+.topbarInner{
+  max-width:1100px;
+  margin:auto;
+  padding:15px 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
 }
 
 .brand{
-  display:inline-flex;
-  flex-direction:column;
-  align-items:center;
-}
-
-.brand-script{
-  color:#fff;
-  font-size:22px;
-  font-style:italic;
-  font-family:cursive;
-  line-height:1;
-}
-
-.brand-main{
-  color:var(--gold);
-  font-size:32px;
+  font-size:21px;
   font-weight:900;
-  letter-spacing:-1px;
 }
 
-.logout{
+.brand span{
+  color:var(--gold);
+}
+
+.topActions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.iconButton{
+  position:relative;
+  width:43px;
+  height:43px;
+  border:1px solid #2a2a34;
+  border-radius:12px;
+  background:#121218;
+  color:white;
+  font-size:19px;
+}
+
+.logoutButton{
+  border:1px solid #30202a;
+  background:#171116;
+  color:#ff8b8b;
+  border-radius:10px;
+  padding:10px 12px;
+}
+
+.badge{
   position:absolute;
-  right:0;
-  top:8px;
-  background:transparent;
-  color:var(--muted);
-  border:0;
-  padding:7px 10px;
-}
-
-.logout:hover{
-  color:#fff;
+  right:-5px;
+  top:-5px;
+  min-width:19px;
+  height:19px;
+  padding:0 5px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--red);
+  color:white;
+  border-radius:99px;
+  font-size:10px;
+  font-weight:900;
 }
 
 /* =========================
-   TOOLBAR
+   CONTENT
 ========================= */
 
-.toolbar{
-  display:flex;
-  gap:12px;
-  align-items:center;
-  margin-bottom:22px;
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:20px 18px 60px;
 }
 
-.search{
-  flex:1;
-  background:var(--panel);
-  border:1px solid var(--border);
-  color:#fff;
-  padding:13px 15px;
-  border-radius:13px;
+.sectionTitle{
+  font-size:22px;
+  font-weight:900;
+  margin:10px 0 15px;
+}
+
+.card{
+  background:rgba(16,16,20,.94);
+  border:1px solid #24242d;
+  border-radius:17px;
+  padding:16px;
+  margin-bottom:16px;
+}
+
+.formGrid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.formGroup label{
+  display:block;
+  color:var(--gray);
+  font-size:12px;
+  margin-bottom:6px;
+}
+
+.formGroup input,
+.formGroup select{
+  width:100%;
+  background:#09090c;
+  border:1px solid #292933;
+  color:white;
+  border-radius:10px;
+  padding:12px;
   outline:none;
 }
 
-.search:focus{
-  border-color:var(--violet);
+.formGroup input:focus,
+.formGroup select:focus{
+  border-color:var(--purple2);
 }
 
-.primary{
+.full{
+  grid-column:1/-1;
+}
+
+.primaryButton{
   border:0;
-  color:#fff;
-  background:linear-gradient(135deg,var(--violet),var(--violet2));
-  border-radius:13px;
-  padding:13px 17px;
-  font-weight:700;
-  white-space:nowrap;
+  border-radius:11px;
+  padding:12px 15px;
+  background:var(--purple);
+  color:white;
+  font-weight:800;
+}
+
+.primaryButton:hover{
+  background:var(--purple2);
+}
+
+.goldButton{
+  background:var(--gold);
+  color:#111;
 }
 
 /* =========================
@@ -242,281 +278,290 @@ button{
 ========================= */
 
 .provider{
-  background:linear-gradient(145deg,var(--panel),#120d1b);
-  border:1px solid var(--border);
-  border-radius:19px;
-  margin-bottom:17px;
+  border:1px solid #272731;
+  border-radius:16px;
   overflow:hidden;
-  box-shadow:0 8px 25px rgba(0,0,0,.18);
+  margin-bottom:13px;
+  background:#101015;
 }
 
-.provider-header{
+.providerHeader{
   display:flex;
   align-items:center;
-  gap:12px;
-  padding:17px 18px;
+  justify-content:space-between;
+  gap:10px;
+  padding:15px;
+  background:#13131a;
 }
 
-.provider-arrow{
-  width:28px;
-  height:28px;
-  border-radius:9px;
-  border:1px solid var(--border);
-  background:var(--panel2);
-  color:var(--gold);
+.providerLeft{
   display:flex;
   align-items:center;
-  justify-content:center;
-  transition:.2s;
-}
-
-.provider.collapsed .provider-arrow{
-  transform:rotate(-90deg);
-}
-
-.provider-name{
-  flex:1;
-  color:var(--gold);
-  font-size:18px;
-  font-weight:800;
-}
-
-.provider-actions{
-  display:flex;
-  gap:6px;
-}
-
-.small-btn{
-  border:1px solid var(--border);
-  background:var(--panel2);
-  color:#ddd;
-  border-radius:9px;
-  padding:7px 10px;
-  font-size:12px;
-}
-
-.small-btn:hover{
-  border-color:var(--violet);
-  color:#fff;
-}
-
-.provider-content{
-  padding:0 14px 15px;
-}
-
-.provider.collapsed .provider-content{
-  display:none;
-}
-
-/* =========================
-   PRODUCTS
-========================= */
-
-.products{
-  display:flex;
-  flex-direction:column;
-  gap:9px;
-}
-
-.product{
-  position:relative;
-  display:grid;
-  grid-template-columns:minmax(130px,1.5fr) 110px 120px 120px 90px auto;
-  align-items:center;
-  gap:12px;
-  background:linear-gradient(145deg,#1c1428,#171121);
-  border:1px solid #322442;
-  border-radius:14px;
-  padding:13px 14px;
-  transition:.15s;
-}
-
-.product:hover{
-  border-color:#513b70;
-}
-
-.product.dragging{
-  opacity:.45;
-  border-color:var(--gold);
-}
-
-.product.drag-over{
-  border-color:var(--violet);
-  transform:translateY(-2px);
-}
-
-.drag{
-  color:#71687e;
-  font-size:18px;
-  cursor:grab;
-  margin-right:5px;
-}
-
-.product-info{
-  display:flex;
-  align-items:center;
+  gap:10px;
   min-width:0;
 }
 
-.product-title{
-  font-weight:700;
+.providerArrow{
+  color:var(--gold);
+  font-size:15px;
+  width:20px;
+}
+
+.providerName{
+  font-size:18px;
+  font-weight:900;
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
 }
 
+.providerActions{
+  display:flex;
+  gap:6px;
+}
+
+.smallButton{
+  width:36px;
+  height:36px;
+  border-radius:9px;
+  border:1px solid #30303a;
+  background:#191920;
+  color:white;
+}
+
+.products{
+  padding:10px;
+}
+
+/* =========================
+   PRODUCT
+========================= */
+
+.product{
+  position:relative;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:10px;
+  padding:14px;
+  margin-bottom:8px;
+  border-radius:13px;
+  background:#0c0c10;
+  border:1px solid #202028;
+  touch-action:none;
+  user-select:none;
+  cursor:grab;
+  transition:
+    transform .18s ease,
+    opacity .18s ease,
+    box-shadow .18s ease,
+    border-color .18s ease;
+}
+
+.product:last-child{
+  margin-bottom:0;
+}
+
+.product.dragging{
+  opacity:.45;
+  transform:scale(1.025);
+  border-color:var(--purple2);
+  cursor:grabbing;
+}
+
+.product.dragOver{
+  border-color:var(--gold);
+  box-shadow:0 0 0 2px rgba(245,197,66,.25);
+}
+
+.productMain{
+  min-width:0;
+}
+
+.productName{
+  font-size:16px;
+  font-weight:800;
+  line-height:1.2;
+}
+
 .capacity{
-  color:var(--gold);
-  font-size:12px;
-  margin-top:3px;
-}
-
-.label{
-  color:#777080;
-  font-size:10px;
-  text-transform:uppercase;
-  margin-bottom:3px;
-}
-
-.value{
-  color:#fff;
+  color:var(--gold2);
+  font-size:16px;
   font-weight:700;
+  margin-top:4px;
 }
 
 .cost{
-  color:#aaa;
+  color:var(--gray);
+  font-size:13px;
+  margin-top:3px;
+}
+
+.productBottom{
+  margin-top:11px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
 }
 
 .sale{
-  color:#fff;
-  font-size:16px;
+  color:white;
+  font-size:20px;
+  font-weight:900;
 }
 
 .stock{
+  color:var(--gold2);
+  font-size:13px;
+  font-weight:900;
+}
+
+.calcControls{
   display:flex;
   align-items:center;
   gap:6px;
 }
 
-.stock-number{
-  min-width:27px;
+.calcControls button{
+  width:30px;
+  height:30px;
+  border:1px solid #33333d;
+  border-radius:8px;
+  background:#17171d;
+  color:white;
+  font-size:18px;
+}
+
+.calcQty{
+  min-width:20px;
   text-align:center;
   font-weight:800;
 }
 
-.stock-btn{
-  width:27px;
-  height:27px;
-  border:1px solid var(--border);
-  background:#17111f;
-  color:#fff;
+.productMenuButton{
+  width:35px;
+  height:35px;
+  border:1px solid #30303a;
+  border-radius:9px;
+  background:#15151b;
+  color:white;
+  font-size:18px;
+}
+
+.productMenu{
+  position:absolute;
+  right:10px;
+  top:50px;
+  z-index:20;
+  min-width:145px;
+  background:#191920;
+  border:1px solid #353540;
+  border-radius:11px;
+  padding:5px;
+  box-shadow:0 15px 35px rgba(0,0,0,.5);
+}
+
+.productMenu button{
+  display:block;
+  width:100%;
+  border:0;
+  background:transparent;
+  color:white;
+  text-align:left;
+  padding:11px;
   border-radius:8px;
 }
 
-.stock-btn:hover{
-  border-color:var(--violet);
+.productMenu button:hover{
+  background:#25252d;
 }
 
-.product-menu{
-  border:0;
-  background:transparent;
-  color:#aaa;
-  font-size:20px;
-}
-
-.product-menu:hover{
-  color:#fff;
-}
-
-.add-product{
-  width:100%;
-  margin-top:11px;
-  border:1px dashed #514067;
-  background:rgba(139,92,246,.05);
-  color:#b9a6dc;
-  padding:11px;
-  border-radius:11px;
-}
-
-.add-product:hover{
-  border-color:var(--violet);
-  color:#fff;
+.productMenu .danger{
+  color:#ff7777;
 }
 
 /* =========================
-   EMPTY
+   MODALS
 ========================= */
 
-.empty{
-  padding:35px 15px;
-  text-align:center;
-  color:var(--muted);
-}
-
-.main-empty{
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:18px;
-}
-
-/* =========================
-   FLOAT CALCULATOR
-========================= */
-
-.calculator-float{
+.modalBackdrop{
   position:fixed;
-  right:22px;
-  bottom:22px;
-  width:58px;
-  height:58px;
-  border:0;
-  border-radius:50%;
-  background:linear-gradient(135deg,var(--violet),var(--violet2));
-  color:#fff;
-  font-size:23px;
-  box-shadow:0 10px 35px rgba(109,61,232,.4);
-  z-index:50;
-}
-
-.calc-badge{
-  position:absolute;
-  right:-2px;
-  top:-3px;
-  min-width:20px;
-  height:20px;
-  padding:0 5px;
-  border-radius:20px;
-  background:var(--red);
-  color:#fff;
-  font-size:11px;
+  inset:0;
+  z-index:100;
+  background:rgba(0,0,0,.68);
   display:flex;
   align-items:center;
   justify-content:center;
+  padding:18px;
+}
+
+.modal{
+  width:100%;
+  max-width:450px;
+  background:#111116;
+  border:1px solid #32323d;
+  border-radius:18px;
+  padding:20px;
+  max-height:90vh;
+  overflow:auto;
+}
+
+.modalTitle{
+  font-size:20px;
+  font-weight:900;
+  margin-bottom:15px;
+}
+
+.modalActions{
+  display:flex;
+  gap:8px;
+  margin-top:17px;
+}
+
+.modalActions button{
+  flex:1;
+}
+
+.secondaryButton{
+  border:1px solid #34343e;
+  background:#191920;
+  color:white;
+  border-radius:11px;
+  padding:12px;
+}
+
+.checkRow{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:11px;
+  background:#18181f;
+  border-radius:10px;
+  margin-bottom:8px;
+}
+
+.checkRow input{
+  width:18px;
+  height:18px;
 }
 
 /* =========================
-   CALCULATOR DRAWER
+   CALCULATOR
 ========================= */
-
-.overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.55);
-  backdrop-filter:blur(3px);
-  z-index:80;
-}
 
 .calculator{
   position:fixed;
   right:0;
   top:0;
-  height:100vh;
-  width:min(430px,100%);
-  background:linear-gradient(180deg,#171021,#0e0a14);
-  border-left:1px solid var(--border);
-  z-index:90;
+  height:100%;
+  width:390px;
+  max-width:100%;
+  z-index:200;
+  background:#0c0c10;
+  border-left:1px solid #2a2a35;
+  box-shadow:-20px 0 60px rgba(0,0,0,.5);
   transform:translateX(100%);
-  transition:.25s ease;
+  transition:transform .25s ease;
   display:flex;
   flex-direction:column;
 }
@@ -525,247 +570,141 @@ button{
   transform:translateX(0);
 }
 
-.calc-head{
+.calcHeader{
+  padding:18px;
+  border-bottom:1px solid #292933;
   display:flex;
   align-items:center;
-  padding:19px;
-  border-bottom:1px solid var(--border);
+  justify-content:space-between;
 }
 
-.calc-title{
-  flex:1;
-  color:var(--gold);
-  font-size:19px;
-  font-weight:800;
+.calcTitle{
+  font-size:20px;
+  font-weight:900;
 }
 
-.calc-close{
-  background:transparent;
-  border:0;
-  color:#aaa;
-  font-size:24px;
-}
-
-.calc-body{
+.calcItems{
   flex:1;
   overflow:auto;
-  padding:17px;
+  padding:15px;
 }
 
-.calc-item{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:11px;
+.calcItem{
+  padding:12px;
+  border:1px solid #25252e;
+  border-radius:11px;
   margin-bottom:8px;
 }
 
-.calc-item-name{
-  flex:1;
+.calcItemName{
+  font-weight:800;
 }
 
-.calc-item-qty{
-  display:flex;
-  align-items:center;
-  gap:6px;
+.calcItemInfo{
+  color:var(--gray);
+  font-size:13px;
+  margin-top:4px;
 }
 
-.calc-total{
+.calcFooter{
+  border-top:1px solid #292933;
   padding:17px;
-  border-top:1px solid var(--border);
-  background:#120d19;
 }
 
-.total-row{
+.calcLine{
   display:flex;
   justify-content:space-between;
-  margin:8px 0;
+  margin-bottom:9px;
+  color:var(--gray);
 }
 
-.total-row span:first-child{
-  color:var(--muted);
+.calcProfit{
+  color:var(--green);
+  font-weight:900;
 }
 
-.total-sale{
-  color:var(--gold);
+.calcTotalCost{
+  color:white;
+}
+
+.calcTotalSale{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:15px 0;
   font-size:21px;
   font-weight:900;
 }
 
-.total-profit{
-  color:var(--green);
+.calcTotalSale strong{
+  color:var(--gold);
+}
+
+.clearCalc{
+  width:100%;
+  border:1px solid #42252a;
+  background:#211216;
+  color:#ff7777;
+  padding:12px;
+  border-radius:11px;
   font-weight:800;
 }
 
 /* =========================
-   MODAL
+   EMPTY
 ========================= */
 
-.modal-bg{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.62);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:18px;
-  z-index:120;
-}
-
-.modal{
-  width:min(450px,100%);
-  background:linear-gradient(145deg,#191123,#261936);
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:22px;
-  box-shadow:var(--shadow);
-}
-
-.modal h2{
-  margin:0 0 18px;
-  color:var(--gold);
-  font-size:20px;
-}
-
-.modal-buttons{
-  display:flex;
-  gap:9px;
-  margin-top:18px;
-}
-
-.modal-buttons button{
-  flex:1;
-}
-
-.cancel{
-  background:var(--panel2);
-  border:1px solid var(--border);
-  color:#fff;
-  border-radius:10px;
-  padding:11px;
-}
-
-.confirm{
-  background:linear-gradient(135deg,var(--violet),var(--violet2));
-  border:0;
-  color:#fff;
-  border-radius:10px;
-  padding:11px;
-}
-
-.delete{
-  background:#451725;
-  border:1px solid #753042;
-  color:#ff8794;
-  border-radius:10px;
-  padding:11px;
-}
-
-/* =========================
-   TOAST
-========================= */
-
-.toast{
-  position:fixed;
-  left:50%;
-  bottom:25px;
-  transform:translate(-50%,20px);
-  background:#241936;
-  border:1px solid var(--border);
-  color:#fff;
-  padding:12px 17px;
-  border-radius:11px;
-  opacity:0;
-  pointer-events:none;
-  transition:.2s;
-  z-index:200;
-}
-
-.toast.show{
-  opacity:1;
-  transform:translate(-50%,0);
+.empty{
+  color:var(--gray);
+  text-align:center;
+  padding:25px 10px;
 }
 
 /* =========================
    MOBILE
 ========================= */
 
-@media(max-width:800px){
+@media(max-width:650px){
 
-  .toolbar{
-    flex-direction:column;
+  .topbarInner{
+    padding:12px;
   }
 
-  .search,
-  .primary{
-    width:100%;
+  .brand{
+    font-size:18px;
   }
 
-  .provider-actions .small-btn{
-    font-size:11px;
-    padding:6px 7px;
+  .logoutButton{
+    padding:9px;
+    font-size:12px;
+  }
+
+  .container{
+    padding:15px 12px 50px;
+  }
+
+  .formGrid{
+    grid-template-columns:1fr;
+  }
+
+  .full{
+    grid-column:auto;
   }
 
   .product{
-    grid-template-columns:1fr auto;
-    gap:9px;
+    grid-template-columns:minmax(0,1fr) auto;
   }
 
-  .product-info{
-    grid-column:1/-1;
+  .productBottom{
+    gap:8px;
   }
 
-  .product-field{
-    background:#171020;
-    padding:8px;
-    border-radius:9px;
+  .sale{
+    font-size:18px;
   }
 
-  .stock{
-    justify-content:flex-end;
-  }
-
-  .logout{
-    position:static;
-    margin-top:12px;
-  }
-
-  .topbar{
-    margin-bottom:20px;
-  }
-}
-
-@media(max-width:500px){
-
-  .container{
-    width:calc(100% - 18px);
-  }
-
-  #app{
-    padding-top:15px;
-  }
-
-  .brand-main{
-    font-size:28px;
-  }
-
-  .provider-header{
-    padding:13px;
-  }
-
-  .provider-name{
-    font-size:16px;
-  }
-
-  .provider-actions .small-btn{
-    display:none;
-  }
-
-  .login-card{
-    padding:25px 20px;
+  .calculator{
+    width:100%;
   }
 }
 </style>
@@ -774,142 +713,439 @@ button{
 <body>
 
 <!-- =========================
+     LOGIN
+========================= -->
+
+<section id="loginScreen">
+
+  <div class="loginBox">
+
+    <div class="loginTitle">
+      Stock <span style="color:#f5c542;">iPhone</span>
+    </div>
+
+    <div class="loginSubtitle">
+      Iniciá sesión para administrar el stock.
+    </div>
+
+    <form id="loginForm">
+
+      <label for="loginUser">
+        Usuario
+      </label>
+
+      <input
+        id="loginUser"
+        type="text"
+        autocomplete="username"
+        required
+      >
+
+      <label for="loginPassword">
+        Contraseña
+      </label>
+
+      <input
+        id="loginPassword"
+        type="password"
+        autocomplete="current-password"
+        required
+      >
+
+      <button
+        class="loginButton"
+        type="submit"
+      >
+        Iniciar sesión
+      </button>
+
+      <div
+        id="loginError"
+        class="loginError hidden"
+      ></div>
+
+    </form>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
      APP
 ========================= -->
 
-<div id="app">
+<section id="app" class="hidden">
 
-  <div class="container">
+  <header class="topbar">
 
-    <div class="topbar">
+    <div class="topbarInner">
 
       <div class="brand">
-        <div class="brand-script">Agustín</div>
-        <div class="brand-main">Stock iPhone</div>
+        Stock <span>iPhone</span>
       </div>
 
-      <button class="logout" onclick="resetEverything()">
-        Restablecer
-      </button>
+      <div class="topActions">
+
+        <button
+          class="iconButton"
+          id="calculatorButton"
+          type="button"
+          aria-label="Calculadora"
+        >
+          🧮
+          <span
+            id="calculatorBadge"
+            class="badge hidden"
+          >
+            0
+          </span>
+        </button>
+
+        <button
+          id="logoutButton"
+          class="logoutButton"
+          type="button"
+        >
+          Salir
+        </button>
+
+      </div>
 
     </div>
 
-    <div class="toolbar">
+  </header>
 
-      <input
-        id="search"
-        class="search"
-        placeholder="Buscar producto..."
-        oninput="render()"
-      >
 
-      <button class="primary" onclick="openProviderModal()">
-        ＋ Agregar proveedor
-      </button>
+  <main class="container">
+
+    <!-- AGREGAR PROVEEDOR -->
+
+    <div class="sectionTitle">
+      Proveedores
+    </div>
+
+    <div class="card">
+
+      <form id="providerForm">
+
+        <div class="formGrid">
+
+          <div class="formGroup full">
+
+            <label>
+              Nombre del proveedor
+            </label>
+
+            <input
+              id="providerName"
+              type="text"
+              placeholder="Ej: Proveedor USA"
+              required
+            >
+
+          </div>
+
+        </div>
+
+        <button
+          class="primaryButton"
+          type="submit"
+        >
+          + Agregar proveedor
+        </button>
+
+      </form>
 
     </div>
 
-    <div id="providers"></div>
+
+    <!-- AGREGAR PRODUCTO -->
+
+    <div class="sectionTitle">
+      Agregar producto
+    </div>
+
+    <div class="card">
+
+      <form id="productForm">
+
+        <div class="formGrid">
+
+          <div class="formGroup">
+
+            <label>
+              Producto
+            </label>
+
+            <input
+              id="productName"
+              type="text"
+              placeholder="Ej: iPhone 15 Pro"
+              required
+            >
+
+          </div>
+
+
+          <div class="formGroup">
+
+            <label>
+              Proveedor
+            </label>
+
+            <select
+              id="productProvider"
+              required
+            ></select>
+
+          </div>
+
+
+          <div class="formGroup">
+
+            <label>
+              Capacidad
+            </label>
+
+            <select id="productCapacity">
+
+              <option value="Ninguno">
+                Ninguno
+              </option>
+
+              <option value="128 GB">
+                128 GB
+              </option>
+
+              <option value="256 GB">
+                256 GB
+              </option>
+
+              <option value="512 GB">
+                512 GB
+              </option>
+
+              <option value="1 TB">
+                1 TB
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="formGroup">
+
+            <label>
+              Precio de venta
+            </label>
+
+            <input
+              id="productSale"
+              type="number"
+              min="0"
+              step="0.01"
+              placeholder="0"
+              required
+            >
+
+          </div>
+
+
+          <div class="formGroup">
+
+            <label>
+              Costo
+            </label>
+
+            <input
+              id="productCost"
+              type="number"
+              min="0"
+              step="0.01"
+              placeholder="0"
+              required
+            >
+
+          </div>
+
+
+          <div class="formGroup">
+
+            <label>
+              Stock
+            </label>
+
+            <input
+              id="productStock"
+              type="number"
+              min="0"
+              step="1"
+              value="0"
+              required
+            >
+
+          </div>
+
+        </div>
+
+        <br>
+
+        <button
+          class="primaryButton goldButton"
+          type="submit"
+        >
+          + Agregar producto
+        </button>
+
+      </form>
+
+    </div>
+
+
+    <!-- PRODUCTOS -->
+
+    <div class="sectionTitle">
+      Stock
+    </div>
+
+    <div id="providersContainer"></div>
+
+  </main>
+
+</section>
+
+
+<!-- =========================
+     CALCULADORA
+========================= -->
+
+<aside
+  id="calculator"
+  class="calculator"
+>
+
+  <div class="calcHeader">
+
+    <div class="calcTitle">
+      Calculadora
+    </div>
+
+    <button
+      id="closeCalculator"
+      class="smallButton"
+      type="button"
+    >
+      ×
+    </button>
 
   </div>
 
-</div>
+  <div
+    id="calculatorItems"
+    class="calcItems"
+  ></div>
 
-<!-- CALCULATOR FLOAT -->
+  <div class="calcFooter">
 
-<button class="calculator-float" onclick="openCalculator()">
-  🧮
-  <span id="calcBadge" class="calc-badge">0</span>
-</button>
-
-<div id="calcOverlay" class="overlay hidden" onclick="closeCalculator()"></div>
-
-<div id="calculator" class="calculator">
-
-  <div class="calc-head">
-    <div class="calc-title">Calculadora</div>
-    <button class="calc-close" onclick="closeCalculator()">×</button>
-  </div>
-
-  <div id="calcBody" class="calc-body"></div>
-
-  <div class="calc-total">
-
-    <div class="total-row">
-      <span>Costo total</span>
-      <strong id="calcCost">$0</strong>
-    </div>
-
-    <div class="total-row">
-      <span>Venta total</span>
-      <strong id="calcSale" class="total-sale">$0</strong>
-    </div>
-
-    <div class="total-row">
+    <div class="calcLine">
       <span>Ganancia</span>
-      <strong id="calcProfit" class="total-profit">$0</strong>
+      <strong
+        id="calcProfit"
+        class="calcProfit"
+      >
+        $0
+      </strong>
     </div>
+
+    <div class="calcLine">
+      <span>Total costo</span>
+      <strong
+        id="calcCost"
+        class="calcTotalCost"
+      >
+        $0
+      </strong>
+    </div>
+
+    <div class="calcTotalSale">
+      <span>TOTAL DE VENTA</span>
+      <strong id="calcSale">
+        $0
+      </strong>
+    </div>
+
+    <button
+      id="clearCalculator"
+      class="clearCalc"
+      type="button"
+    >
+      Vaciar calculadora
+    </button>
 
   </div>
 
-</div>
+</aside>
 
-<!-- MODAL -->
 
-<div id="modalBg" class="modal-bg hidden">
+<!-- =========================
+     MODAL
+========================= -->
 
-  <div class="modal">
+<div
+  id="modalBackdrop"
+  class="modalBackdrop hidden"
+>
 
-    <h2 id="modalTitle">Agregar</h2>
-
-    <div id="modalContent"></div>
-
-    <div class="modal-buttons">
-
-      <button class="cancel" onclick="closeModal()">
-        Cancelar
-      </button>
-
-      <button id="modalConfirm" class="confirm">
-        Guardar
-      </button>
-
-    </div>
-
-  </div>
+  <div
+    id="modal"
+    class="modal"
+  ></div>
 
 </div>
 
-<div id="toast" class="toast"></div>
 
 <script>
 
-/* =========================================================
-   STORAGE
-========================================================= */
+const API_URL =
+  "https://noisy-sound-2a71.agus-eloy-oviedo.workers.dev";
 
-const STORAGE_KEY = "stock_iphone_data_v3";
+let sessionToken =
+  sessionStorage.getItem("stock_session");
 
-let data = {
-  providers: []
-};
+let proveedores = [];
+let productos = [];
 
 let calculator = {};
 
-let modalAction = null;
+let collapsedProviders =
+  JSON.parse(
+    localStorage.getItem("collapsedProviders") || "{}"
+  );
 
 
-/* =========================================================
-   HELPERS
-========================================================= */
-
-const $ = id => document.getElementById(id);
+// =====================================
+// UTILIDADES
+// =====================================
 
 function money(value){
-  return "$" + Number(value || 0).toLocaleString("es-AR");
+
+  const numero =
+    Number(value) || 0;
+
+  return "$" + numero.toLocaleString(
+    "es-AR",
+    {
+      minimumFractionDigits:0,
+      maximumFractionDigits:2
+    }
+  );
 }
 
+
 function escapeHtml(value){
+
   return String(value ?? "")
     .replaceAll("&","&amp;")
     .replaceAll("<","&lt;")
@@ -918,891 +1154,467 @@ function escapeHtml(value){
     .replaceAll("'","&#039;");
 }
 
-function uid(){
-  return Date.now().toString(36) + Math.random().toString(36).slice(2);
+
+// =====================================
+// API
+// =====================================
+
+async function apiFetch(){
+
+  const response =
+    await fetch(API_URL,{
+      headers:{
+        Authorization:
+          "Bearer " + sessionToken
+      }
+    });
+
+  if(response.status === 401){
+
+    sessionStorage.removeItem(
+      "stock_session"
+    );
+
+    sessionToken = null;
+
+    showLogin();
+
+    throw new Error("Sesión expirada");
+  }
+
+  return response.json();
 }
 
-function toast(message){
 
-  const element = $("toast");
+async function apiPost(data){
 
-  element.textContent = message;
+  const response =
+    await fetch(API_URL,{
+      method:"POST",
 
-  element.classList.add("show");
+      headers:{
+        "Content-Type":
+          "application/json",
 
-  clearTimeout(window.toastTimer);
+        Authorization:
+          "Bearer " + sessionToken
+      },
 
-  window.toastTimer = setTimeout(()=>{
-    element.classList.remove("show");
-  },1800);
+      body:JSON.stringify(data)
+    });
+
+  if(response.status === 401){
+
+    sessionStorage.removeItem(
+      "stock_session"
+    );
+
+    sessionToken = null;
+
+    showLogin();
+
+    throw new Error("Sesión expirada");
+  }
+
+  return response.json();
 }
 
 
-/* =========================================================
-   SAVE / LOAD
-========================================================= */
+// =====================================
+// LOGIN
+// =====================================
 
-function save(){
+document
+  .getElementById("loginForm")
+  .addEventListener(
+    "submit",
+    async function(e){
 
-  localStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify(data)
-  );
-}
+      e.preventDefault();
 
-function load(){
+      const usuario =
+        document
+          .getElementById("loginUser")
+          .value;
 
-  try{
+      const password =
+        document
+          .getElementById("loginPassword")
+          .value;
 
-    const saved = localStorage.getItem(STORAGE_KEY);
+      const error =
+        document.getElementById(
+          "loginError"
+        );
 
-    if(saved){
+      error.classList.add("hidden");
 
-      const parsed = JSON.parse(saved);
+      try{
 
-      if(parsed && Array.isArray(parsed.providers)){
-        data = parsed;
+        const response =
+          await fetch(
+            API_URL + "/login",
+            {
+              method:"POST",
+
+              headers:{
+                "Content-Type":
+                  "application/json"
+              },
+
+              body:JSON.stringify({
+                usuario,
+                password
+              })
+            }
+          );
+
+        const data =
+          await response.json();
+
+        if(!data.ok){
+
+          error.textContent =
+            data.error ||
+            "Usuario o contraseña incorrectos";
+
+          error.classList.remove(
+            "hidden"
+          );
+
+          return;
+        }
+
+        sessionToken =
+          data.token;
+
+        sessionStorage.setItem(
+          "stock_session",
+          sessionToken
+        );
+
+        showApp();
+
+        await cargarDatos();
+
+      }catch(error){
+
+        error.textContent =
+          "No se pudo conectar con el servidor.";
+
+        error.classList.remove(
+          "hidden"
+        );
       }
 
     }
+  );
 
-  }catch(error){
 
-    console.error(error);
+// =====================================
+// MOSTRAR APP
+// =====================================
 
+function showLogin(){
+
+  document
+    .getElementById("loginScreen")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("app")
+    .classList.add("hidden");
+}
+
+
+function showApp(){
+
+  document
+    .getElementById("loginScreen")
+    .classList.add("hidden");
+
+  document
+    .getElementById("app")
+    .classList.remove("hidden");
+}
+
+
+// =====================================
+// CARGAR DATOS
+// =====================================
+
+async function cargarDatos(){
+
+  const data =
+    await apiFetch();
+
+  if(!data.ok){
+
+    throw new Error(
+      data.error || "Error"
+    );
   }
 
+  proveedores =
+    data.proveedores || [];
+
+  productos =
+    data.productos || [];
+
+  renderProviders();
+
+  renderProviderSelect();
+
+  renderCalculator();
 }
 
 
-/* =========================================================
-   PROVIDERS
-========================================================= */
+// =====================================
+// SELECT PROVEEDORES
+// =====================================
 
-function openProviderModal(){
+function renderProviderSelect(){
 
-  $("modalTitle").textContent = "Agregar proveedor";
+  const select =
+    document.getElementById(
+      "productProvider"
+    );
 
-  $("modalContent").innerHTML = `
+  select.innerHTML = "";
 
-    <div class="input-group">
+  if(!proveedores.length){
 
-      <label>Nombre del proveedor</label>
+    const option =
+      document.createElement("option");
 
-      <input
-        id="modalProviderName"
-        class="input"
-        placeholder="Ej: Proveedor 1"
-        autofocus
-      >
+    option.value = "";
 
-    </div>
+    option.textContent =
+      "Primero agregá un proveedor";
 
-  `;
+    select.appendChild(option);
 
-  modalAction = () => {
-
-    const name = $("modalProviderName").value.trim();
-
-    if(!name){
-      toast("Ingresá un nombre");
-      return;
-    }
-
-    data.providers.push({
-      id:uid(),
-      name,
-      collapsed:false,
-      products:[]
-    });
-
-    save();
-    closeModal();
-    render();
-
-    toast("Proveedor agregado");
-
-  };
-
-  openModal();
-
-}
-
-function renameProvider(providerId){
-
-  const provider = findProvider(providerId);
-
-  if(!provider) return;
-
-  $("modalTitle").textContent = "Renombrar proveedor";
-
-  $("modalContent").innerHTML = `
-
-    <div class="input-group">
-
-      <label>Nombre</label>
-
-      <input
-        id="modalProviderName"
-        class="input"
-        value="${escapeHtml(provider.name)}"
-      >
-
-    </div>
-
-  `;
-
-  modalAction = () => {
-
-    const name = $("modalProviderName").value.trim();
-
-    if(!name){
-      toast("El nombre no puede estar vacío");
-      return;
-    }
-
-    provider.name = name;
-
-    save();
-    closeModal();
-    render();
-
-    toast("Proveedor renombrado");
-
-  };
-
-  openModal();
-
-}
-
-function deleteProvider(providerId){
-
-  const provider = findProvider(providerId);
-
-  if(!provider) return;
-
-  if(!confirm(
-    `¿Eliminar "${provider.name}" y todos sus productos?`
-  )){
     return;
   }
 
-  data.providers = data.providers.filter(
-    p => p.id !== providerId
-  );
+  proveedores.forEach(provider => {
 
-  save();
-  render();
+    const option =
+      document.createElement("option");
 
-  toast("Proveedor eliminado");
+    option.value =
+      provider.id;
 
-}
+    option.textContent =
+      provider.nombre;
 
-function toggleProvider(providerId){
+    select.appendChild(option);
 
-  const provider = findProvider(providerId);
-
-  if(!provider) return;
-
-  provider.collapsed = !provider.collapsed;
-
-  save();
-  render();
-
-}
-
-function findProvider(id){
-
-  return data.providers.find(
-    p => p.id === id
-  );
-
+  });
 }
 
 
-/* =========================================================
-   PRODUCTS
-========================================================= */
+// =====================================
+// RENDER PROVEEDORES
+// =====================================
 
-function openProductModal(providerId, productId=null){
+function renderProviders(){
 
-  const provider = findProvider(providerId);
+  const container =
+    document.getElementById(
+      "providersContainer"
+    );
 
-  if(!provider) return;
+  container.innerHTML = "";
 
-  const product = productId
-    ? provider.products.find(p => p.id === productId)
-    : null;
+  if(!proveedores.length){
 
-  $("modalTitle").textContent =
-    product ? "Editar producto" : "Agregar producto";
+    container.innerHTML =
+      `<div class="card empty">
+        Todavía no hay proveedores.
+      </div>`;
 
-  $("modalContent").innerHTML = `
+    return;
+  }
 
-    <div class="input-group">
+  proveedores.forEach(provider => {
 
-      <label>Producto</label>
+    const providerDiv =
+      document.createElement("div");
 
-      <input
-        id="mProduct"
-        class="input"
-        value="${escapeHtml(product?.name || "")}"
-        placeholder="Ej: iPhone 15 Pro"
-      >
+    providerDiv.className =
+      "provider";
 
-    </div>
+    const collapsed =
+      !!collapsedProviders[
+        provider.id
+      ];
 
-    <div class="input-group">
+    providerDiv.innerHTML = `
 
-      <label>Capacidad</label>
+      <div class="providerHeader">
 
-      <select id="mCapacity" class="input">
+        <div
+          class="providerLeft"
+          data-provider-toggle="${provider.id}"
+        >
 
-        <option value="Ninguno">Ninguno</option>
-        <option value="128 GB">128 GB</option>
-        <option value="256 GB">256 GB</option>
-        <option value="512 GB">512 GB</option>
-        <option value="1 TB">1 TB</option>
+          <div class="providerArrow">
+            ${collapsed ? "▶" : "▼"}
+          </div>
 
-      </select>
+          <div class="providerName">
+            ${escapeHtml(provider.nombre)}
+          </div>
 
-    </div>
+        </div>
 
-    <div class="input-group">
+        <div class="providerActions">
 
-      <label>Precio de proveedor</label>
+          <button
+            class="smallButton"
+            type="button"
+            data-action="provider-menu"
+            data-id="${provider.id}"
+          >
+            ⋮
+          </button>
 
-      <input
-        id="mProviderPrice"
-        class="input"
-        type="number"
-        min="0"
-        value="${product?.providerPrice ?? 0}"
-      >
+        </div>
 
-    </div>
+      </div>
 
-    <div class="input-group">
+      <div
+        class="products ${collapsed ? "hidden" : ""}"
+        id="products-${provider.id}"
+      ></div>
+    `;
 
-      <label>Costo</label>
+    container.appendChild(
+      providerDiv
+    );
 
-      <input
-        id="mCost"
-        class="input"
-        type="number"
-        min="0"
-        value="${product?.cost ?? 0}"
-      >
+    const productsContainer =
+      providerDiv.querySelector(
+        `#products-${provider.id}`
+      );
 
-    </div>
+    const providerProducts =
+      productos
+        .filter(
+          p =>
+            Number(p.proveedor_id) ===
+            Number(provider.id)
+        )
+        .sort(
+          (a,b) =>
+            Number(a.orden) -
+              Number(b.orden) ||
+            Number(b.id) -
+              Number(a.id)
+        );
 
-    <div class="input-group">
+    if(!providerProducts.length){
 
-      <label>Precio de venta</label>
-
-      <input
-        id="mSale"
-        class="input"
-        type="number"
-        min="0"
-        value="${product?.sale ?? 0}"
-      >
-
-    </div>
-
-    <div class="input-group">
-
-      <label>Stock</label>
-
-      <input
-        id="mStock"
-        class="input"
-        type="number"
-        min="0"
-        value="${product?.stock ?? 0}"
-      >
-
-    </div>
-
-  `;
-
-  $("mCapacity").value =
-    product?.capacity || "Ninguno";
-
-  modalAction = () => {
-
-    const name = $("mProduct").value.trim();
-
-    if(!name){
-      toast("Ingresá el nombre del producto");
-      return;
-    }
-
-    const productData = {
-
-      id:product?.id || uid(),
-
-      name,
-
-      capacity:$("mCapacity").value,
-
-      providerPrice:Number(
-        $("mProviderPrice").value
-      ) || 0,
-
-      cost:Number(
-        $("mCost").value
-      ) || 0,
-
-      sale:Number(
-        $("mSale").value
-      ) || 0,
-
-      stock:Math.max(
-        0,
-        Number($("mStock").value) || 0
-      )
-
-    };
-
-    if(product){
-
-      Object.assign(product,productData);
+      productsContainer.innerHTML =
+        `<div class="empty">
+          No hay productos.
+        </div>`;
 
     }else{
 
-      provider.products.push(productData);
+      providerProducts.forEach(
+        product => {
 
+          productsContainer.appendChild(
+            createProductElement(
+              product
+            )
+          );
+
+        }
+      );
+
+      activarArrastre(
+        productsContainer,
+        provider.id
+      );
     }
 
-    save();
-    closeModal();
-    render();
+  });
+}
 
-    toast(
-      product
-        ? "Producto actualizado"
-        : "Producto agregado"
+
+// =====================================
+// CREAR PRODUCTO
+// =====================================
+
+function createProductElement(product){
+
+  const div =
+    document.createElement("div");
+
+  div.className =
+    "product";
+
+  div.dataset.productId =
+    product.id;
+
+  const qty =
+    Number(
+      calculator[product.id] || 0
     );
 
-  };
-
-  openModal();
-
-}
-
-function deleteProduct(providerId,productId){
-
-  const provider = findProvider(providerId);
-
-  if(!provider) return;
-
-  const product =
-    provider.products.find(
-      p => p.id === productId
-    );
-
-  if(!product) return;
-
-  if(!confirm(
-    `¿Eliminar "${product.name}"?`
-  )){
-    return;
-  }
-
-  provider.products =
-    provider.products.filter(
-      p => p.id !== productId
-    );
-
-  delete calculator[productId];
-
-  save();
-  render();
-  updateCalculator();
-
-  toast("Producto eliminado");
-
-}
-
-function changeStock(providerId,productId,amount){
-
-  const provider = findProvider(providerId);
-
-  const product =
-    provider?.products.find(
-      p => p.id === productId
-    );
-
-  if(!product) return;
-
-  product.stock = Math.max(
-    0,
-    Number(product.stock || 0) + amount
-  );
-
-  save();
-  render();
-  updateCalculator();
-
-}
-
-
-/* =========================================================
-   CALCULATOR
-========================================================= */
-
-function toggleCalculatorProduct(productId){
-
-  if(calculator[productId]){
-    delete calculator[productId];
-  }else{
-    calculator[productId] = 1;
-  }
-
-  updateCalculator();
-
-}
-
-function changeCalculatorQty(productId,amount){
-
-  if(!calculator[productId]) return;
-
-  calculator[productId] += amount;
-
-  if(calculator[productId] <= 0){
-    delete calculator[productId];
-  }
-
-  updateCalculator();
-
-}
-
-function getAllProducts(){
-
-  const result = [];
-
-  for(const provider of data.providers){
-
-    for(const product of provider.products){
-
-      result.push({
-        ...product,
-        providerName:provider.name
-      });
-
-    }
-
-  }
-
-  return result;
-
-}
-
-function updateCalculator(){
-
-  const products = getAllProducts();
-
-  const selected =
-    products.filter(
-      p => calculator[p.id]
-    );
-
-  $("calcBadge").textContent =
-    selected.length;
-
-  if(selected.length === 0){
-
-    $("calcBody").innerHTML = `
-      <div class="empty">
-        Seleccioná productos desde la lista para agregarlos a la calculadora.
-      </div>
-    `;
-
-  }else{
-
-    $("calcBody").innerHTML =
-      selected.map(product => `
-
-        <div class="calc-item">
-
-          <div class="calc-item-name">
-
-            <strong>
-              ${escapeHtml(product.name)}
-            </strong>
-
-            <div class="capacity">
-              ${escapeHtml(product.capacity)}
-            </div>
-
-          </div>
-
-          <div class="calc-item-qty">
-
-            <button
-              class="stock-btn"
-              onclick="changeCalculatorQty('${product.id}',-1)"
-            >
-              −
-            </button>
-
-            <strong>
-              ${calculator[product.id]}
-            </strong>
-
-            <button
-              class="stock-btn"
-              onclick="changeCalculatorQty('${product.id}',1)"
-            >
-              +
-            </button>
-
-          </div>
-
+  const capacity =
+    product.capacidad &&
+    product.capacidad !== "Ninguno"
+      ? `
+        <div class="capacity">
+          ${escapeHtml(product.capacidad)}
         </div>
+      `
+      : "";
 
-      `).join("");
+  div.innerHTML = `
 
-  }
+    <div class="productMain">
 
-  let cost = 0;
-  let sale = 0;
-
-  for(const product of selected){
-
-    const qty = calculator[product.id];
-
-    cost += Number(product.cost || 0) * qty;
-
-    sale += Number(product.sale || 0) * qty;
-
-  }
-
-  $("calcCost").textContent = money(cost);
-  $("calcSale").textContent = money(sale);
-  $("calcProfit").textContent = money(sale-cost);
-
-}
-
-function openCalculator(){
-
-  $("calcOverlay").classList.remove("hidden");
-
-  $("calculator").classList.add("open");
-
-  updateCalculator();
-
-}
-
-function closeCalculator(){
-
-  $("calculator").classList.remove("open");
-
-  $("calcOverlay").classList.add("hidden");
-
-}
-
-
-/* =========================================================
-   MODAL
-========================================================= */
-
-function openModal(){
-
-  $("modalBg").classList.remove("hidden");
-
-  setTimeout(()=>{
-
-    const input =
-      $("modalContent").querySelector("input");
-
-    if(input) input.focus();
-
-  },50);
-
-}
-
-function closeModal(){
-
-  $("modalBg").classList.add("hidden");
-
-  modalAction = null;
-
-}
-
-$("modalConfirm").onclick = () => {
-
-  if(typeof modalAction === "function"){
-    modalAction();
-  }
-
-};
-
-$("modalBg").addEventListener("click",event=>{
-
-  if(event.target === $("modalBg")){
-    closeModal();
-  }
-
-});
-
-
-/* =========================================================
-   RENDER
-========================================================= */
-
-function render(){
-
-  const container = $("providers");
-
-  const search =
-    $("search").value.trim().toLowerCase();
-
-  if(data.providers.length === 0){
-
-    container.innerHTML = `
-
-      <div class="main-empty empty">
-
-        <div style="font-size:35px;margin-bottom:10px;">
-          📦
-        </div>
-
-        <strong>
-          No hay proveedores todavía
-        </strong>
-
-        <div style="margin-top:7px;">
-          Agregá tu primer proveedor para comenzar.
-        </div>
-
+      <div class="productName">
+        ${escapeHtml(product.producto)}
       </div>
 
-    `;
+      ${capacity}
 
-    return;
-
-  }
-
-  container.innerHTML =
-    data.providers.map(provider=>{
-
-      let products = provider.products || [];
-
-      if(search){
-
-        products = products.filter(product=>
-
-          product.name
-            .toLowerCase()
-            .includes(search)
-
-          ||
-
-          provider.name
-            .toLowerCase()
-            .includes(search)
-
-        );
-
-      }
-
-      return `
-
-        <div
-          class="provider ${provider.collapsed ? "collapsed" : ""}"
-          data-provider="${provider.id}"
-        >
-
-          <div class="provider-header">
-
-            <button
-              class="provider-arrow"
-              onclick="toggleProvider('${provider.id}')"
-            >
-              ▼
-            </button>
-
-            <div class="provider-name">
-              ${escapeHtml(provider.name)}
-            </div>
-
-            <div class="provider-actions">
-
-              <button
-                class="small-btn"
-                onclick="renameProvider('${provider.id}')"
-              >
-                Renombrar
-              </button>
-
-              <button
-                class="small-btn"
-                onclick="deleteProvider('${provider.id}')"
-              >
-                Eliminar
-              </button>
-
-            </div>
-
-          </div>
-
-          <div class="provider-content">
-
-            <div
-              class="products"
-              data-products="${provider.id}"
-            >
-
-              ${
-                products.length
-                ?
-
-                products.map(product=>
-
-                  productHTML(
-                    provider.id,
-                    product
-                  )
-
-                ).join("")
-
-                :
-
-                `
-                <div class="empty">
-                  No hay productos.
-                </div>
-                `
-              }
-
-            </div>
-
-            <button
-              class="add-product"
-              onclick="openProductModal('${provider.id}')"
-            >
-              ＋ Agregar producto
-            </button>
-
-          </div>
-
-        </div>
-
-      `;
-
-    }).join("");
-
-  setupDragAndDrop();
-
-  updateCalculator();
-
-}
-
-
-/* =========================================================
-   PRODUCT HTML
-========================================================= */
-
-function productHTML(providerId,product){
-
-  const selected =
-    !!calculator[product.id];
-
-  return `
-
-    <div
-      class="product ${selected ? "drag-over" : ""}"
-      draggable="true"
-      data-product="${product.id}"
-      data-provider="${providerId}"
-    >
-
-      <div class="product-info">
-
-        <span class="drag">☷</span>
-
-        <div>
-
-          <div class="product-title">
-            ${escapeHtml(product.name)}
-          </div>
-
-          <div class="capacity">
-            ${escapeHtml(product.capacity || "Ninguno")}
-          </div>
-
-        </div>
-
+      <div class="cost">
+        Costo: ${money(product.costo)}
       </div>
 
-      <div class="product-field">
+      <div class="productBottom">
 
-        <div class="label">
-          Proveedor
-        </div>
-
-        <div class="value">
-          ${money(product.providerPrice)}
-        </div>
-
-      </div>
-
-      <div class="product-field">
-
-        <div class="label">
-          Costo
-        </div>
-
-        <div class="value cost">
-          ${money(product.cost)}
-        </div>
-
-      </div>
-
-      <div class="product-field">
-
-        <div class="label">
-          Venta
-        </div>
-
-        <div class="value sale">
-          ${money(product.sale)}
-        </div>
-
-      </div>
-
-      <div class="product-field">
-
-        <div class="label">
-          Stock
+        <div class="sale">
+          ${money(product.venta)}
         </div>
 
         <div class="stock">
+          STOCK: ${product.cantidad}
+        </div>
+
+        <div class="calcControls">
 
           <button
-            class="stock-btn"
-            onclick="changeStock(
-              '${providerId}',
-              '${product.id}',
-              -1
-            )"
+            type="button"
+            data-calc-minus="${product.id}"
           >
             −
           </button>
 
-          <span class="stock-number">
-            ${product.stock}
+          <span class="calcQty">
+            ${qty}
           </span>
 
           <button
-            class="stock-btn"
-            onclick="changeStock(
-              '${providerId}',
-              '${product.id}',
-              1
-            )"
+            type="button"
+            data-calc-plus="${product.id}"
           >
             +
           </button>
@@ -1811,287 +1623,1727 @@ function productHTML(providerId,product){
 
       </div>
 
+    </div>
+
+    <div>
+
       <button
-        class="product-menu"
-        onclick="productOptions(
-          '${providerId}',
-          '${product.id}'
-        )"
+        class="productMenuButton"
+        type="button"
+        data-product-menu="${product.id}"
       >
         ⋮
       </button>
 
     </div>
 
+    <div
+      class="productMenu hidden"
+      id="product-menu-${product.id}"
+    >
+
+      <button
+        type="button"
+        data-edit-product="${product.id}"
+      >
+        Editar
+      </button>
+
+      <button
+        type="button"
+        class="danger"
+        data-delete-product="${product.id}"
+      >
+        Eliminar
+      </button>
+
+    </div>
   `;
 
+  return div;
 }
 
 
-/* =========================================================
-   PRODUCT OPTIONS
-========================================================= */
+// =====================================
+// ARRASTRAR PRODUCTOS
+// =====================================
 
-function productOptions(providerId,productId){
+function activarArrastre(
+  container,
+  proveedorId
+){
 
-  const provider = findProvider(providerId);
+  let dragged = null;
+
+  let pointerId = null;
+
+  let startY = 0;
+
+  let isDragging = false;
+
+  container
+    .querySelectorAll(".product")
+    .forEach(product => {
+
+      // -------------------------------
+      // PC / MOUSE
+      // -------------------------------
+
+      product.addEventListener(
+        "dragstart",
+        e => {
+
+          dragged = product;
+
+          product.classList.add(
+            "dragging"
+          );
+
+          e.dataTransfer.effectAllowed =
+            "move";
+
+          e.dataTransfer.setData(
+            "text/plain",
+            product.dataset.productId
+          );
+        }
+      );
+
+      product.addEventListener(
+        "dragend",
+        async () => {
+
+          if(!dragged) return;
+
+          product.classList.remove(
+            "dragging"
+          );
+
+          container
+            .querySelectorAll(".product")
+            .forEach(p =>
+              p.classList.remove(
+                "dragOver"
+              )
+            );
+
+          const ids =
+            Array.from(
+              container.querySelectorAll(
+                ".product"
+              )
+            ).map(
+              p =>
+                Number(
+                  p.dataset.productId
+                )
+            );
+
+          dragged = null;
+
+          await guardarOrden(
+            proveedorId,
+            ids
+          );
+        }
+      );
+
+      product.addEventListener(
+        "dragover",
+        e => {
+
+          e.preventDefault();
+
+          if(
+            !dragged ||
+            dragged === product
+          ) return;
+
+          const rect =
+            product.getBoundingClientRect();
+
+          const middle =
+            rect.top +
+            rect.height / 2;
+
+          product.classList.add(
+            "dragOver"
+          );
+
+          if(
+            e.clientY < middle
+          ){
+
+            container.insertBefore(
+              dragged,
+              product
+            );
+
+          }else{
+
+            container.insertBefore(
+              dragged,
+              product.nextSibling
+            );
+
+          }
+        }
+      );
+
+      // -------------------------------
+      // TOUCH / IPHONE
+      // -------------------------------
+
+      product.addEventListener(
+        "pointerdown",
+        e => {
+
+          if(
+            e.pointerType !== "touch"
+          ) return;
+
+          pointerId =
+            e.pointerId;
+
+          startY =
+            e.clientY;
+
+          isDragging = false;
+
+          product.setPointerCapture(
+            pointerId
+          );
+        }
+      );
+
+      product.addEventListener(
+        "pointermove",
+        e => {
+
+          if(
+            e.pointerType !== "touch" ||
+            e.pointerId !== pointerId
+          ) return;
+
+          const distance =
+            Math.abs(
+              e.clientY - startY
+            );
+
+          if(
+            distance < 8 &&
+            !isDragging
+          ) return;
+
+          if(!isDragging){
+
+            isDragging = true;
+
+            dragged = product;
+
+            product.classList.add(
+              "dragging"
+            );
+          }
+
+          const target =
+            document.elementFromPoint(
+              e.clientX,
+              e.clientY
+            );
+
+          const targetProduct =
+            target?.closest(
+              ".product"
+            );
+
+          if(
+            !targetProduct ||
+            targetProduct === product ||
+            !container.contains(
+              targetProduct
+            )
+          ) return;
+
+          const rect =
+            targetProduct
+              .getBoundingClientRect();
+
+          const middle =
+            rect.top +
+            rect.height / 2;
+
+          targetProduct.classList.add(
+            "dragOver"
+          );
+
+          if(
+            e.clientY < middle
+          ){
+
+            container.insertBefore(
+              product,
+              targetProduct
+            );
+
+          }else{
+
+            container.insertBefore(
+              product,
+              targetProduct.nextSibling
+            );
+          }
+
+          e.preventDefault();
+        }
+      );
+
+      product.addEventListener(
+        "pointerup",
+        async e => {
+
+          if(
+            e.pointerType !== "touch" ||
+            e.pointerId !== pointerId
+          ) return;
+
+          if(isDragging){
+
+            product.classList.remove(
+              "dragging"
+            );
+
+            container
+              .querySelectorAll(".product")
+              .forEach(p =>
+                p.classList.remove(
+                  "dragOver"
+                )
+              );
+
+            const ids =
+              Array.from(
+                container.querySelectorAll(
+                  ".product"
+                )
+              ).map(
+                p =>
+                  Number(
+                    p.dataset.productId
+                  )
+              );
+
+            dragged = null;
+
+            isDragging = false;
+
+            await guardarOrden(
+              proveedorId,
+              ids
+            );
+          }
+
+          pointerId = null;
+        }
+      );
+
+    });
+}
+
+
+// =====================================
+// SALVAR ORDEN
+// =====================================
+
+async function guardarOrden(
+  proveedorId,
+  ids
+){
+
+  try{
+
+    const data =
+      await apiPost({
+        accion:
+          "reordenar_productos",
+
+        proveedor_id:
+          proveedorId,
+
+        ids
+      });
+
+    if(!data.ok){
+
+      console.error(
+        data.error
+      );
+    }
+
+  }catch(error){
+
+    console.error(
+      "Error guardando orden:",
+      error
+    );
+  }
+}
+
+
+// =====================================
+// AGREGAR PROVEEDOR
+// =====================================
+
+document
+  .getElementById("providerForm")
+  .addEventListener(
+    "submit",
+    async e => {
+
+      e.preventDefault();
+
+      const input =
+        document.getElementById(
+          "providerName"
+        );
+
+      const nombre =
+        input.value.trim();
+
+      if(!nombre) return;
+
+      const data =
+        await apiPost({
+          accion:
+            "crear_proveedor",
+
+          nombre
+        });
+
+      if(!data.ok){
+
+        alert(
+          data.error ||
+          "No se pudo crear"
+        );
+
+        return;
+      }
+
+      input.value = "";
+
+      await cargarDatos();
+    }
+  );
+
+
+// =====================================
+// AGREGAR PRODUCTO
+// =====================================
+
+document
+  .getElementById("productForm")
+  .addEventListener(
+    "submit",
+    async e => {
+
+      e.preventDefault();
+
+      const producto =
+        document.getElementById(
+          "productName"
+        ).value.trim();
+
+      const proveedor_id =
+        Number(
+          document.getElementById(
+            "productProvider"
+          ).value
+        );
+
+      const capacidad =
+        document.getElementById(
+          "productCapacity"
+        ).value;
+
+      const venta =
+        Number(
+          document.getElementById(
+            "productSale"
+          ).value
+        );
+
+      const costo =
+        Number(
+          document.getElementById(
+            "productCost"
+          ).value
+        );
+
+      const cantidad =
+        Number(
+          document.getElementById(
+            "productStock"
+          ).value
+        );
+
+      if(!producto){
+
+        alert(
+          "Escribí el nombre del producto."
+        );
+
+        return;
+      }
+
+      const data =
+        await apiPost({
+
+          accion:
+            "agregar_producto",
+
+          proveedor_id,
+
+          producto,
+
+          capacidad,
+
+          venta,
+
+          costo,
+
+          cantidad
+        });
+
+      if(!data.ok){
+
+        alert(
+          data.error ||
+          "No se pudo agregar."
+        );
+
+        return;
+      }
+
+      document
+        .getElementById(
+          "productForm"
+        )
+        .reset();
+
+      document
+        .getElementById(
+          "productStock"
+        )
+        .value = "0";
+
+      await cargarDatos();
+    }
+  );
+
+
+// =====================================
+// CLICK GENERAL
+// =====================================
+
+document.addEventListener(
+  "click",
+  async e => {
+
+    // -------------------------------
+    // TOGGLE PROVEEDOR
+    // -------------------------------
+
+    const toggle =
+      e.target.closest(
+        "[data-provider-toggle]"
+      );
+
+    if(toggle){
+
+      const id =
+        toggle.dataset.providerToggle;
+
+      collapsedProviders[id] =
+        !collapsedProviders[id];
+
+      localStorage.setItem(
+        "collapsedProviders",
+        JSON.stringify(
+          collapsedProviders
+        )
+      );
+
+      renderProviders();
+
+      return;
+    }
+
+
+    // -------------------------------
+    // MENÚ PROVEEDOR
+    // -------------------------------
+
+    const providerMenu =
+      e.target.closest(
+        "[data-action='provider-menu']"
+      );
+
+    if(providerMenu){
+
+      const id =
+        Number(
+          providerMenu.dataset.id
+        );
+
+      abrirMenuProveedor(id);
+
+      return;
+    }
+
+
+    // -------------------------------
+    // MENÚ PRODUCTO
+    // -------------------------------
+
+    const productMenu =
+      e.target.closest(
+        "[data-product-menu]"
+      );
+
+    if(productMenu){
+
+      const id =
+        productMenu.dataset.productMenu;
+
+      const menu =
+        document.getElementById(
+          "product-menu-" + id
+        );
+
+      menu.classList.toggle(
+        "hidden"
+      );
+
+      return;
+    }
+
+
+    // -------------------------------
+    // EDITAR PRODUCTO
+    // -------------------------------
+
+    const editProduct =
+      e.target.closest(
+        "[data-edit-product]"
+      );
+
+    if(editProduct){
+
+      abrirEditarProducto(
+        Number(
+          editProduct.dataset.editProduct
+        )
+      );
+
+      return;
+    }
+
+
+    // -------------------------------
+    // ELIMINAR PRODUCTO
+    // -------------------------------
+
+    const deleteProduct =
+      e.target.closest(
+        "[data-delete-product]"
+      );
+
+    if(deleteProduct){
+
+      const id =
+        Number(
+          deleteProduct.dataset.deleteProduct
+        );
+
+      if(
+        !confirm(
+          "¿Eliminar este producto?"
+        )
+      ) return;
+
+      const data =
+        await apiPost({
+          accion:
+            "eliminar_producto",
+
+          id
+        });
+
+      if(!data.ok){
+
+        alert(
+          data.error ||
+          "No se pudo eliminar."
+        );
+
+        return;
+      }
+
+      delete calculator[id];
+
+      await cargarDatos();
+
+      return;
+    }
+
+
+    // -------------------------------
+    // CALCULADORA +
+    // -------------------------------
+
+    const plus =
+      e.target.closest(
+        "[data-calc-plus]"
+      );
+
+    if(plus){
+
+      const id =
+        Number(
+          plus.dataset.calcPlus
+        );
+
+      calculator[id] =
+        Number(
+          calculator[id] || 0
+        ) + 1;
+
+      renderProviders();
+
+      renderCalculator();
+
+      return;
+    }
+
+
+    // -------------------------------
+    // CALCULADORA -
+    // -------------------------------
+
+    const minus =
+      e.target.closest(
+        "[data-calc-minus]"
+      );
+
+    if(minus){
+
+      const id =
+        Number(
+          minus.dataset.calcMinus
+        );
+
+      calculator[id] =
+        Math.max(
+          0,
+          Number(
+            calculator[id] || 0
+          ) - 1
+        );
+
+      if(calculator[id] === 0){
+
+        delete calculator[id];
+      }
+
+      renderProviders();
+
+      renderCalculator();
+
+      return;
+    }
+
+  }
+);
+
+
+// =====================================
+// MENÚ PROVEEDOR
+// =====================================
+
+function abrirMenuProveedor(
+  proveedorId
+){
+
+  const provider =
+    proveedores.find(
+      p =>
+        Number(p.id) ===
+        proveedorId
+    );
+
+  if(!provider) return;
+
+  openModal(`
+
+    <div class="modalTitle">
+      ${escapeHtml(provider.nombre)}
+    </div>
+
+    <button
+      class="secondaryButton"
+      style="width:100%;margin-bottom:8px"
+      type="button"
+      id="renameProviderButton"
+    >
+      Renombrar proveedor
+    </button>
+
+    <button
+      class="secondaryButton"
+      style="width:100%;margin-bottom:8px"
+      type="button"
+      id="adjustProviderButton"
+    >
+      Ajustar precios
+    </button>
+
+    <button
+      class="secondaryButton"
+      style="width:100%;color:#ff7777"
+      type="button"
+      id="deleteProviderButton"
+    >
+      Eliminar proveedor
+    </button>
+
+    <div class="modalActions">
+
+      <button
+        class="secondaryButton"
+        type="button"
+        id="closeModalButton"
+      >
+        Cerrar
+      </button>
+
+    </div>
+  `);
+
+  document
+    .getElementById(
+      "closeModalButton"
+    )
+    .onclick =
+      closeModal;
+
+  document
+    .getElementById(
+      "renameProviderButton"
+    )
+    .onclick =
+      () =>
+        abrirRenombrarProveedor(
+          proveedorId
+        );
+
+  document
+    .getElementById(
+      "adjustProviderButton"
+    )
+    .onclick =
+      () =>
+        abrirAjustarPrecios(
+          proveedorId
+        );
+
+  document
+    .getElementById(
+      "deleteProviderButton"
+    )
+    .onclick =
+      async () => {
+
+        if(
+          !confirm(
+            "¿Eliminar este proveedor y todos sus productos?"
+          )
+        ) return;
+
+        const data =
+          await apiPost({
+            accion:
+              "eliminar_proveedor",
+
+            id:
+              proveedorId
+          });
+
+        if(!data.ok){
+
+          alert(
+            data.error ||
+            "No se pudo eliminar."
+          );
+
+          return;
+        }
+
+        closeModal();
+
+        await cargarDatos();
+      };
+}
+
+
+// =====================================
+// RENOMBRAR
+// =====================================
+
+function abrirRenombrarProveedor(
+  proveedorId
+){
+
+  const provider =
+    proveedores.find(
+      p =>
+        Number(p.id) ===
+        proveedorId
+    );
+
+  openModal(`
+
+    <div class="modalTitle">
+      Renombrar proveedor
+    </div>
+
+    <div class="formGroup">
+
+      <label>
+        Nuevo nombre
+      </label>
+
+      <input
+        id="renameInput"
+        value="${escapeHtml(provider.nombre)}"
+      >
+
+    </div>
+
+    <div class="modalActions">
+
+      <button
+        class="secondaryButton"
+        type="button"
+        id="cancelRename"
+      >
+        Cancelar
+      </button>
+
+      <button
+        class="primaryButton"
+        type="button"
+        id="saveRename"
+      >
+        Guardar
+      </button>
+
+    </div>
+  `);
+
+  document
+    .getElementById(
+      "cancelRename"
+    )
+    .onclick =
+      closeModal;
+
+  document
+    .getElementById(
+      "saveRename"
+    )
+    .onclick =
+      async () => {
+
+        const nombre =
+          document
+            .getElementById(
+              "renameInput"
+            )
+            .value
+            .trim();
+
+        if(!nombre) return;
+
+        const data =
+          await apiPost({
+            accion:
+              "renombrar_proveedor",
+
+            id:
+              proveedorId,
+
+            nombre
+          });
+
+        if(!data.ok){
+
+          alert(
+            data.error ||
+            "No se pudo renombrar."
+          );
+
+          return;
+        }
+
+        closeModal();
+
+        await cargarDatos();
+      };
+}
+
+
+// =====================================
+// AJUSTAR PRECIOS
+// =====================================
+
+function abrirAjustarPrecios(
+  proveedorId
+){
+
+  openModal(`
+
+    <div class="modalTitle">
+      Ajustar precios
+    </div>
+
+    <div class="checkRow">
+
+      <input
+        id="adjustCost"
+        type="checkbox"
+      >
+
+      <label for="adjustCost">
+        Proveedor / Costo
+      </label>
+
+    </div>
+
+    <div class="checkRow">
+
+      <input
+        id="adjustSale"
+        type="checkbox"
+      >
+
+      <label for="adjustSale">
+        Vendedor / Venta
+      </label>
+
+    </div>
+
+    <div class="formGroup">
+
+      <label>
+        Monto (-1000 a +1000)
+      </label>
+
+      <input
+        id="adjustAmount"
+        type="number"
+        min="-1000"
+        max="1000"
+        value="0"
+      >
+
+    </div>
+
+    <div class="modalActions">
+
+      <button
+        class="secondaryButton"
+        type="button"
+        id="cancelAdjust"
+      >
+        Cancelar
+      </button>
+
+      <button
+        class="primaryButton"
+        type="button"
+        id="saveAdjust"
+      >
+        Aplicar
+      </button>
+
+    </div>
+  `);
+
+  document
+    .getElementById(
+      "cancelAdjust"
+    )
+    .onclick =
+      closeModal;
+
+  document
+    .getElementById(
+      "saveAdjust"
+    )
+    .onclick =
+      async () => {
+
+        const costo =
+          document
+            .getElementById(
+              "adjustCost"
+            )
+            .checked;
+
+        const venta =
+          document
+            .getElementById(
+              "adjustSale"
+            )
+            .checked;
+
+        const monto =
+          Number(
+            document
+              .getElementById(
+                "adjustAmount"
+              )
+              .value
+          );
+
+        if(!costo && !venta){
+
+          alert(
+            "Seleccioná Costo, Venta o ambos."
+          );
+
+          return;
+        }
+
+        const data =
+          await apiPost({
+
+            accion:
+              "ajustar_precios",
+
+            proveedor_id:
+              proveedorId,
+
+            costo,
+
+            venta,
+
+            monto
+          });
+
+        if(!data.ok){
+
+          alert(
+            data.error ||
+            "No se pudo ajustar."
+          );
+
+          return;
+        }
+
+        closeModal();
+
+        await cargarDatos();
+      };
+}
+
+
+// =====================================
+// EDITAR PRODUCTO
+// =====================================
+
+function abrirEditarProducto(
+  id
+){
 
   const product =
-    provider?.products.find(
-      p => p.id === productId
+    productos.find(
+      p =>
+        Number(p.id) ===
+        Number(id)
     );
 
   if(!product) return;
 
-  const option =
-    prompt(
-      `¿Qué querés hacer con "${product.name}"?\n\n` +
-      `1 - Editar\n` +
-      `2 - Calculadora\n` +
-      `3 - Eliminar`
-    );
+  openModal(`
 
-  if(option === "1"){
+    <div class="modalTitle">
+      Editar producto
+    </div>
 
-    openProductModal(
-      providerId,
-      productId
-    );
+    <div class="formGroup">
 
-  }else if(option === "2"){
+      <label>
+        Producto
+      </label>
 
-    toggleCalculatorProduct(productId);
+      <input
+        id="editProductName"
+        value="${escapeHtml(product.producto)}"
+      >
 
-    openCalculator();
+    </div>
 
-  }else if(option === "3"){
+    <br>
 
-    deleteProduct(
-      providerId,
-      productId
-    );
+    <div class="formGroup">
 
-  }
+      <label>
+        Proveedor
+      </label>
 
-}
+      <select id="editProductProvider">
 
+        ${proveedores
+          .map(
+            p =>
+              `<option
+                value="${p.id}"
+                ${Number(p.id) === Number(product.proveedor_id) ? "selected" : ""}
+              >
+                ${escapeHtml(p.nombre)}
+              </option>`
+          )
+          .join("")}
 
-/* =========================================================
-   DRAG & DROP
-========================================================= */
+      </select>
 
-function setupDragAndDrop(){
+    </div>
+
+    <br>
+
+    <div class="formGroup">
+
+      <label>
+        Capacidad
+      </label>
+
+      <select id="editProductCapacity">
+
+        <option value="Ninguno"
+          ${product.capacidad === "Ninguno" ? "selected" : ""}
+        >
+          Ninguno
+        </option>
+
+        <option value="128 GB"
+          ${product.capacidad === "128 GB" ? "selected" : ""}
+        >
+          128 GB
+        </option>
+
+        <option value="256 GB"
+          ${product.capacidad === "256 GB" ? "selected" : ""}
+        >
+          256 GB
+        </option>
+
+        <option value="512 GB"
+          ${product.capacidad === "512 GB" ? "selected" : ""}
+        >
+          512 GB
+        </option>
+
+        <option value="1 TB"
+          ${product.capacidad === "1 TB" ? "selected" : ""}
+        >
+          1 TB
+        </option>
+
+      </select>
+
+    </div>
+
+    <br>
+
+    <div class="formGrid">
+
+      <div class="formGroup">
+
+        <label>
+          Venta
+        </label>
+
+        <input
+          id="editProductSale"
+          type="number"
+          value="${product.venta}"
+        >
+
+      </div>
+
+      <div class="formGroup">
+
+        <label>
+          Costo
+        </label>
+
+        <input
+          id="editProductCost"
+          type="number"
+          value="${product.costo}"
+        >
+
+      </div>
+
+      <div class="formGroup">
+
+        <label>
+          Stock
+        </label>
+
+        <input
+          id="editProductStock"
+          type="number"
+          value="${product.cantidad}"
+          min="0"
+        >
+
+      </div>
+
+    </div>
+
+    <div class="modalActions">
+
+      <button
+        class="secondaryButton"
+        type="button"
+        id="cancelEdit"
+      >
+        Cancelar
+      </button>
+
+      <button
+        class="primaryButton"
+        type="button"
+        id="saveEdit"
+      >
+        Guardar
+      </button>
+
+    </div>
+  `);
 
   document
-    .querySelectorAll(".product")
-    .forEach(element=>{
+    .getElementById(
+      "cancelEdit"
+    )
+    .onclick =
+      closeModal;
 
-      element.addEventListener(
-        "dragstart",
-        dragStart
-      );
+  document
+    .getElementById(
+      "saveEdit"
+    )
+    .onclick =
+      async () => {
 
-      element.addEventListener(
-        "dragover",
-        dragOver
-      );
+        const data =
+          await apiPost({
 
-      element.addEventListener(
-        "dragleave",
-        dragLeave
-      );
+            accion:
+              "editar_producto",
 
-      element.addEventListener(
-        "drop",
-        dragDrop
-      );
+            id:
+              product.id,
 
-      element.addEventListener(
-        "dragend",
-        dragEnd
-      );
+            proveedor_id:
+              Number(
+                document
+                  .getElementById(
+                    "editProductProvider"
+                  )
+                  .value
+              ),
 
-    });
+            producto:
+              document
+                .getElementById(
+                  "editProductName"
+                )
+                .value
+                .trim(),
 
+            capacidad:
+              document
+                .getElementById(
+                  "editProductCapacity"
+                )
+                .value,
+
+            venta:
+              Number(
+                document
+                  .getElementById(
+                    "editProductSale"
+                  )
+                  .value
+              ),
+
+            costo:
+              Number(
+                document
+                  .getElementById(
+                    "editProductCost"
+                  )
+                  .value
+              ),
+
+            cantidad:
+              Number(
+                document
+                  .getElementById(
+                    "editProductStock"
+                  )
+                  .value
+              )
+          });
+
+        if(!data.ok){
+
+          alert(
+            data.error ||
+            "No se pudo guardar."
+          );
+
+          return;
+        }
+
+        closeModal();
+
+        await cargarDatos();
+      };
 }
 
-let draggedProduct = null;
 
-function dragStart(event){
+// =====================================
+// MODAL
+// =====================================
 
-  draggedProduct = {
-    id:this.dataset.product,
-    providerId:this.dataset.provider
-  };
+function openModal(html){
 
-  this.classList.add("dragging");
+  document
+    .getElementById(
+      "modal"
+    )
+    .innerHTML =
+      html;
 
-  event.dataTransfer.effectAllowed = "move";
-
+  document
+    .getElementById(
+      "modalBackdrop"
+    )
+    .classList.remove(
+      "hidden"
+    );
 }
 
-function dragOver(event){
 
-  event.preventDefault();
+function closeModal(){
 
-  if(!draggedProduct) return;
-
-  if(
-    this.dataset.product !==
-    draggedProduct.id
-  ){
-
-    this.classList.add("drag-over");
-
-  }
-
+  document
+    .getElementById(
+      "modalBackdrop"
+    )
+    .classList.add(
+      "hidden"
+    );
 }
 
-function dragLeave(){
 
-  this.classList.remove("drag-over");
+// =====================================
+// CALCULADORA
+// =====================================
 
-}
+function renderCalculator(){
 
-function dragDrop(event){
-
-  event.preventDefault();
-
-  this.classList.remove("drag-over");
-
-  if(!draggedProduct) return;
-
-  const targetId =
-    this.dataset.product;
-
-  const targetProviderId =
-    this.dataset.provider;
-
-  if(
-    draggedProduct.id === targetId
-  ){
-    return;
-  }
-
-  const fromProvider =
-    findProvider(
-      draggedProduct.providerId
+  const container =
+    document.getElementById(
+      "calculatorItems"
     );
 
-  const toProvider =
-    findProvider(
-      targetProviderId
-    );
+  container.innerHTML = "";
 
-  if(!fromProvider || !toProvider){
-    return;
-  }
+  let totalCost = 0;
+  let totalSale = 0;
+  let totalItems = 0;
 
-  const fromIndex =
-    fromProvider.products.findIndex(
-      p => p.id === draggedProduct.id
-    );
+  Object.entries(
+    calculator
+  ).forEach(
+    ([id, quantity]) => {
 
-  const targetIndex =
-    toProvider.products.findIndex(
-      p => p.id === targetId
-    );
+      const product =
+        productos.find(
+          p =>
+            Number(p.id) ===
+            Number(id)
+        );
 
-  if(fromIndex < 0 || targetIndex < 0){
-    return;
-  }
+      if(!product) return;
 
-  const [moved] =
-    fromProvider.products.splice(
-      fromIndex,
-      1
-    );
+      const qty =
+        Number(quantity) || 0;
 
-  if(
-    fromProvider.id ===
-    toProvider.id
-  ){
+      if(qty <= 0) return;
 
-    let newIndex =
-      targetIndex;
+      totalItems += qty;
 
-    if(fromIndex < targetIndex){
-      newIndex--;
+      totalCost +=
+        Number(product.costo) *
+        qty;
+
+      totalSale +=
+        Number(product.venta) *
+        qty;
+
+      const item =
+        document.createElement(
+          "div"
+        );
+
+      item.className =
+        "calcItem";
+
+      const capacity =
+        product.capacidad !==
+          "Ninguno"
+          ? " · " +
+            product.capacidad
+          : "";
+
+      item.innerHTML = `
+
+        <div class="calcItemName">
+          ${escapeHtml(product.producto)}
+          ${escapeHtml(capacity)}
+        </div>
+
+        <div class="calcItemInfo">
+          ${qty} × ${money(product.venta)}
+        </div>
+
+      `;
+
+      container.appendChild(
+        item
+      );
     }
+  );
 
-    toProvider.products.splice(
-      newIndex + 1,
-      0,
-      moved
+  if(!totalItems){
+
+    container.innerHTML =
+      `<div class="empty">
+        No hay productos seleccionados.
+      </div>`;
+  }
+
+  const profit =
+    totalSale -
+    totalCost;
+
+  document
+    .getElementById(
+      "calcProfit"
+    )
+    .textContent =
+      money(profit);
+
+  document
+    .getElementById(
+      "calcCost"
+    )
+    .textContent =
+      money(totalCost);
+
+  document
+    .getElementById(
+      "calcSale"
+    )
+    .textContent =
+      money(totalSale);
+
+  const badge =
+    document.getElementById(
+      "calculatorBadge"
+    );
+
+  if(totalItems > 0){
+
+    badge.textContent =
+      totalItems;
+
+    badge.classList.remove(
+      "hidden"
     );
 
   }else{
 
-    toProvider.products.splice(
-      targetIndex + 1,
-      0,
-      moved
+    badge.classList.add(
+      "hidden"
+    );
+  }
+}
+
+
+// =====================================
+// ABRIR CALCULADORA
+// =====================================
+
+document
+  .getElementById(
+    "calculatorButton"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      document
+        .getElementById(
+          "calculator"
+        )
+        .classList.add(
+          "open"
+        );
+
+    }
+  );
+
+
+document
+  .getElementById(
+    "closeCalculator"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      document
+        .getElementById(
+          "calculator"
+        )
+        .classList.remove(
+          "open"
+        );
+
+    }
+  );
+
+
+// =====================================
+// VACIAR CALCULADORA
+// =====================================
+
+document
+  .getElementById(
+    "clearCalculator"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      calculator = {};
+
+      renderProviders();
+
+      renderCalculator();
+    }
+  );
+
+
+// =====================================
+// LOGOUT
+// =====================================
+
+document
+  .getElementById(
+    "logoutButton"
+  )
+  .addEventListener(
+    "click",
+    async () => {
+
+      try{
+
+        if(sessionToken){
+
+          await apiPost({
+            accion:"logout"
+          });
+
+        }
+
+      }catch(error){
+
+        console.error(error);
+
+      }
+
+      sessionStorage.removeItem(
+        "stock_session"
+      );
+
+      sessionToken = null;
+
+      showLogin();
+    }
+  );
+
+
+// =====================================
+// CERRAR MODAL TOCANDO AFUERA
+// =====================================
+
+document
+  .getElementById(
+    "modalBackdrop"
+  )
+  .addEventListener(
+    "click",
+    e => {
+
+      if(
+        e.target.id ===
+        "modalBackdrop"
+      ){
+
+        closeModal();
+
+      }
+    }
+  );
+
+
+// =====================================
+// INICIO
+// =====================================
+
+if(sessionToken){
+
+  showApp();
+
+  cargarDatos()
+    .catch(
+      () => showLogin()
     );
 
-  }
+}else{
 
-  save();
-  render();
-
-  toast("Orden guardado");
+  showLogin();
 
 }
-
-function dragEnd(){
-
-  document
-    .querySelectorAll(".product")
-    .forEach(element=>{
-      element.classList.remove(
-        "dragging",
-        "drag-over"
-      );
-    });
-
-  draggedProduct = null;
-
-}
-
-
-/* =========================================================
-   RESET
-========================================================= */
-
-function resetEverything(){
-
-  if(!confirm(
-    "Esto va a borrar todos los proveedores y productos guardados en este navegador. ¿Continuar?"
-  )){
-    return;
-  }
-
-  localStorage.removeItem(STORAGE_KEY);
-
-  data = {
-    providers:[]
-  };
-
-  calculator = {};
-
-  render();
-
-  toast("Datos eliminados");
-
-}
-
-
-/* =========================================================
-   START
-========================================================= */
-
-load();
-
-render();
 
 </script>
 
