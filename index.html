@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stock iPhone</title>
+<style>
+* {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f5f7;
+    color: #111;
+}
+header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #111;
+    color: white;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+header h1 {
+    margin: 0;
+    font-size: 20px;
+}
+.calc-btn {
+    position: relative;
+    border: 0;
+    background: white;
+    color: #111;
+    border-radius: 12px;
+    font-size: 24px;
+    width: 48px;
+    height: 44px;
+    cursor: pointer;
+}
+.badge {
+    position: absolute;
+    right: -5px;
+    top: -6px;
+    background: #e53935;
+    color: white;
+    border-radius: 50%;
+    min-width: 21px;
+    height: 21px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+main {
+    max-width: 1100px;
+    margin: auto;
+    padding: 16px;
+}
+.status {
+    background: white;
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 8px #0001;
+}
+.form {
+    background: white;
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px #0001;
+}
+.form h2 {
+    margin-top: 0;
+    font-size: 18px;
+}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+}
+input,
+button {
+    font: inherit;
+}
+input {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #ccc;
+    border-radius: 9px;
+}
+.btn {
+    border: 0;
+    border-radius: 9px;
+    padding: 11px 14px;
+    cursor: pointer;
+}
+.primary {
+    background: #111;
+    color: white;
+}
+.secondary {
+    background: #e9eaed;
+}
+.danger {
+    background: #e53935;
+    color: white;
+}
+.table-wrap {
+    background: white;
+    border-radius: 14px;
+    overflow: auto;
+    box-shadow: 0 2px 8px #0001;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 760px;
+}
+th,
+td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+}
+th {
+    background: #f8f8f8;
+    font-size: 13px;
+}
+.num {
+    text-align: right;
+}
+.actions {
+    display: flex;
+    gap: 7px;
+}
+.actions button {
+    border: 0;
+    border-radius: 7px;
+    padding: 7px 9px;
+    cursor: pointer;
+}
+.plus {
+    background: #111;
+    color: white;
+    font-size: 20px;
+    width: 38px;
+    height: 36px;
+}
+.edit {
+    background: #e9eaed;
+}
+.del {
+    background: #e53935;
+    color: white;
+}
+.empty {
+    text-align: center;
+    padding: 30px;
+    color: #777;
+}
+.drawer-bg {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #0007;
+    z-index: 20;
+}
+.drawer {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: min(440px, 100%);
+    background: white;
+    padding: 18px;
+    overflow-y: auto;
+}
+.drawer-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+.drawer-head h2 {
+    margin: 0;
+}
+.close {
+    border: 0;
+    background: #eee;
+    border-radius: 9px;
+    padding: 9px 12px;
+    cursor: pointer;
+}
+.selected {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 9px;
+}
+.selected-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+.selected small {
+    color: #666;
+}
+.summary {
+    border-top: 1px solid #ddd;
+    margin-top: 15px;
+    padding-top: 15px;
+}
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+}
+.gain {
+    font-weight: bold;
+    font-size: 19px;
+}
+.clear {
+    width: 100%;
+    margin-top: 12px;
+}
+.muted {
+    color: #666;
+    font-size: 13px;
+}
+@media (max-width: 700px) {
+    .grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .wide {
+        grid-column: 1 / -1;
+    }
+    main {
+        padding: 10px;
+    }
+    .form {
+        padding: 12px;
+    }
+}
+</style>
+</head>
+<body>
+<header>
+    <h1>📱 Stock iPhone</h1>
+    <button class="calc-btn" onclick="abrirCalculadora()">
+        🧮
+        <span id="badge" class="badge">0</span>
+    </button>
+</header>
+<main>
+    <div id="estado" class="status">
+        Cargando productos...
+    </div>
+    <section class="form">
+        <h2>Agregar producto</h2>
+        <div class="grid">
+            <input
+                id="producto"
+                class="wide"
+                placeholder="Producto (ej. iPhone 15 Pro 256GB)"
+            >
+            <input
+                id="proveedor"
+                placeholder="Proveedor"
+            >
+            <input
+                id="venta"
+                type="number"
+                step="0.01"
+                placeholder="Precio venta"
+            >
+            <input
+                id="costo"
+                type="number"
+                step="0.01"
+                placeholder="Costo"
+            >
+            <input
+                id="cantidad"
+                type="number"
+                min="0"
+                step="1"
+                placeholder="Cantidad"
+            >
+            <button
+                class="btn primary wide"
+                onclick="agregarProducto()"
+            >
+                Agregar producto
+            </button>
+        </div>
+    </section>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Proveedor</th>
+                    <th>Venta</th>
+                    <th>Costo</th>
+                    <th>Stock</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="tabla"></tbody>
+        </table>
+    </div>
+</main>
+<!-- CALCULADORA -->
+<div
+    id="drawerBg"
+    class="drawer-bg"
+    onclick="cerrarSiFondo(event)"
+>
+    <aside class="drawer">
+        <div class="drawer-head">
+            <h2>🧮 Calculadora</h2>
+            <button
+                class="close"
+                onclick="cerrarCalculadora()"
+            >
+                Cerrar
+            </button>
+        </div>
+        <div id="seleccionados"></div>
+        <div class="summary">
+            <div class="summary-row">
+                <span>Productos:</span>
+                <strong id="totalItems">0</strong>
+            </div>
+            <div class="summary-row">
+                <span>Total venta:</span>
+                <strong id="totalVenta">$0</strong>
+            </div>
+            <div class="summary-row">
+                <span>Total costo:</span>
+                <strong id="totalCosto">$0</strong>
+            </div>
+            <div class="summary-row gain">
+                <span>Ganancia:</span>
+                <span id="totalGanancia">$0</span>
+            </div>
+        </div>
+        <button
+            class="btn danger clear"
+            onclick="vaciarCalculadora()"
+        >
+            Vaciar calculadora
+        </button>
+    </aside>
+</div>
+<script>
+/* =========================================
+   GOOGLE SHEETS
+========================================= */
+const API_URL =
+"https://script.google.com/macros/s/AKfycbxIlyfSpJMoqPN5QTjutwKzI0jIOhFxQl1fuhQlUskmzxGZaOkFoWk8Jxm5zFrYPEI/exec";
+/* =========================================
+   VARIABLES
+========================================= */
+let productos = [];
+let seleccionados = [];
+/* =========================================
+   FUNCIONES GENERALES
+========================================= */
+function $(id) {
+    return document.getElementById(id);
+}
+function dinero(valor) {
+    return "$" + Number(valor || 0).toLocaleString(
+        "es-AR",
+        {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 2
+        }
+    );
+}
+function escapar(texto) {
+    return String(texto || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+/* =========================================
+   CARGAR PRODUCTOS
+========================================= */
+async function cargarProductos() {
+    $("estado").textContent =
+        "Cargando productos...";
+    try {
+        const respuesta =
+            await fetch(
+                API_URL + "?t=" + Date.now()
+            );
+        if (!respuesta.ok) {
+            throw new Error(
+                "HTTP " + respuesta.status
+            );
+        }
+        const datos =
+            await respuesta.json();
+        productos =
+            Array.isArray(datos)
+                ? datos
+                : [];
+        renderizar();
+        $("estado").textContent =
+            "✓ Conectado a Google Sheets";
+    } catch (error) {
+        console.error(error);
+        $("estado").textContent =
+            "❌ No se pudieron cargar los productos.";
+    }
+}
+/* =========================================
+   MOSTRAR TABLA
+========================================= */
+function renderizar() {
+    const tabla = $("tabla");
+    if (productos.length === 0) {
+        tabla.innerHTML =
+            '<tr>' +
+            '<td colspan="6" class="empty">' +
+            'No hay productos cargados.' +
+            '</td>' +
+            '</tr>';
+        return;
+    }
+    tabla.innerHTML =
+        productos.map(function(p) {
+            return `
+                <tr>
+                    <td>
+                        <strong>
+                            ${escapar(p.producto)}
+                        </strong>
+                    </td>
+                    <td>
+                        ${escapar(p.proveedor)}
+                    </td>
+                    <td class="num">
+                        ${dinero(p.venta)}
+                    </td>
+                    <td class="num">
+                        ${dinero(p.costo)}
+                    </td>
+                    <td class="num">
+                        ${Number(p.cantidad || 0)}
+                    </td>
+                    <td>
+                        <div class="actions">
+                            <button
+                                class="plus"
+                                onclick="agregarCalculadora('${String(p.id)}')"
+                            >
+                                +
+                            </button>
+                            <button
+                                class="edit"
+                                onclick="editarProducto('${String(p.id)}')"
+                            >
+                                Editar
+                            </button>
+                            <button
+                                class="del"
+                                onclick="eliminarProducto('${String(p.id)}')"
+                            >
+                                Eliminar
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        }).join("");
+}
+/* =========================================
+   ENVIAR A GOOGLE SHEETS
+========================================= */
+async function enviar(datos) {
+    const respuesta =
+        await fetch(
+            API_URL,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type":
+                        "text/plain;charset=utf-8"
+                },
+                body: JSON.stringify(datos)
+            }
+        );
+    if (!respuesta.ok) {
+        throw new Error(
+            "HTTP " + respuesta.status
+        );
+    }
+    return await respuesta.json();
+}
+/* =========================================
+   AGREGAR PRODUCTO
+========================================= */
+async function agregarProducto() {
+    const producto =
+        $("producto").value.trim();
+    const proveedor =
+        $("proveedor").value.trim();
+    const venta =
+        Number($("venta").value);
+    const costo =
+        Number($("costo").value);
+    const cantidad =
+        Number($("cantidad").value);
+    if (!producto) {
+        alert(
+            "Escribí el nombre del producto."
+        );
+        return;
+    }
+    if (
+        !Number.isFinite(venta) ||
+        !Number.isFinite(costo) ||
+        !Number.isFinite(cantidad)
+    ) {
+        alert(
+            "Completá correctamente venta, costo y cantidad."
+        );
+        return;
+    }
+    try {
+        $("estado").textContent =
+            "Guardando producto...";
+        const resultado =
+            await enviar({
+                accion: "agregar",
+                producto: producto,
+                proveedor: proveedor,
+                venta: venta,
+                costo: costo,
+                cantidad: cantidad
+            });
+        if (!resultado.ok) {
+            throw new Error(
+                resultado.mensaje ||
+                "No se pudo guardar"
+            );
+        }
+        $("producto").value = "";
+        $("proveedor").value = "";
+        $("venta").value = "";
+        $("costo").value = "";
+        $("cantidad").value = "";
+        await cargarProductos();
+    } catch (error) {
+        console.error(error);
+        alert(
+            "No se pudo guardar el producto.\n\n" +
+            error.message
+        );
+        $("estado").textContent =
+            "❌ Error al guardar.";
+    }
+}
+/* =========================================
+   EDITAR
+========================================= */
+async function editarProducto(id) {
+    const productoEncontrado =
+        productos.find(function(p) {
+            return String(p.id) === String(id);
+        });
+    if (!productoEncontrado) {
+        return;
+    }
+    const producto =
+        prompt(
+            "Producto:",
+            productoEncontrado.producto
+        );
+    if (producto === null) {
+        return;
+    }
+    const proveedor =
+        prompt(
+            "Proveedor:",
+            productoEncontrado.proveedor
+        );
+    if (proveedor === null) {
+        return;
+    }
+    const ventaTexto =
+        prompt(
+            "Precio de venta:",
+            productoEncontrado.venta
+        );
+    if (ventaTexto === null) {
+        return;
+    }
+    const costoTexto =
+        prompt(
+            "Costo:",
+            productoEncontrado.costo
+        );
+    if (costoTexto === null) {
+        return;
+    }
+    const cantidadTexto =
+        prompt(
+            "Cantidad:",
+            productoEncontrado.cantidad
+        );
+    if (cantidadTexto === null) {
+        return;
+    }
+    const venta =
+        Number(ventaTexto);
+    const costo =
+        Number(costoTexto);
+    const cantidad =
+        Number(cantidadTexto);
+    if (
+        !producto.trim() ||
+        !Number.isFinite(venta) ||
+        !Number.isFinite(costo) ||
+        !Number.isFinite(cantidad)
+    ) {
+        alert("Datos inválidos.");
+        return;
+    }
+    try {
+        $("estado").textContent =
+            "Actualizando...";
+        const resultado =
+            await enviar({
+                accion: "actualizar",
+                id: id,
+                producto:
+                    producto.trim(),
+                proveedor:
+                    proveedor.trim(),
+                venta: venta,
+                costo: costo,
+                cantidad: cantidad
+            });
+        if (!resultado.ok) {
+            throw new Error(
+                resultado.mensaje ||
+                "No se pudo actualizar"
+            );
+        }
+        await cargarProductos();
+    } catch (error) {
+        console.error(error);
+        alert(
+            "No se pudo actualizar.\n\n" +
+            error.message
+        );
+    }
+}
+/* =========================================
+   ELIMINAR
+========================================= */
+async function eliminarProducto(id) {
+    const productoEncontrado =
+        productos.find(function(p) {
+            return String(p.id) === String(id);
+        });
+    if (!productoEncontrado) {
+        return;
+    }
+    if (
+        !confirm(
+            "¿Eliminar " +
+            productoEncontrado.producto +
+            "?"
+        )
+    ) {
+        return;
+    }
+    try {
+        $("estado").textContent =
+            "Eliminando...";
+        const resultado =
+            await enviar({
+                accion: "eliminar",
+                id: id
+            });
+        if (!resultado.ok) {
+            throw new Error(
+                resultado.mensaje ||
+                "No se pudo eliminar"
+            );
+        }
+        seleccionados =
+            seleccionados.filter(function(p) {
+                return String(p.id) !== String(id);
+            });
+        actualizarCalculadora();
+        await cargarProductos();
+    } catch (error) {
+        console.error(error);
+        alert(
+            "No se pudo eliminar.\n\n" +
+            error.message
+        );
+    }
+}
+/* =========================================
+   CALCULADORA
+========================================= */
+function agregarCalculadora(id) {
+    const producto =
+        productos.find(function(p) {
+            return String(p.id) === String(id);
+        });
+    if (!producto) {
+        return;
+    }
+    const existente =
+        seleccionados.find(function(p) {
+            return String(p.id) === String(id);
+        });
+    if (existente) {
+        existente.unidades++;
+    } else {
+        seleccionados.push({
+            ...producto,
+            unidades: 1
+        });
+    }
+    actualizarCalculadora();
+}
+function quitarCalculadora(id) {
+    seleccionados =
+        seleccionados.filter(function(p) {
+            return String(p.id) !== String(id);
+        });
+    actualizarCalculadora();
+}
+function cambiarUnidades(id, cambio) {
+    const producto =
+        seleccionados.find(function(p) {
+            return String(p.id) === String(id);
+        });
+    if (!producto) {
+        return;
+    }
+    producto.unidades += cambio;
+    if (producto.unidades <= 0) {
+        quitarCalculadora(id);
+        return;
+    }
+    actualizarCalculadora();
+}
+/* =========================================
+   ACTUALIZAR CALCULADORA
+========================================= */
+function actualizarCalculadora() {
+    const cantidadTotal =
+        seleccionados.reduce(
+            function(total, producto) {
+                return total +
+                    producto.unidades;
+            },
+            0
+        );
+    $("badge").textContent =
+        cantidadTotal;
+    if (seleccionados.length === 0) {
+        $("seleccionados").innerHTML =
+            '<p class="muted">' +
+            'No seleccionaste productos. ' +
+            'Tocá + en un producto para agregarlo.' +
+            '</p>';
+    } else {
+        $("seleccionados").innerHTML =
+            seleccionados.map(function(p) {
+                return `
+                    <div class="selected">
+                        <div class="selected-top">
+                            <strong>
+                                ${escapar(p.producto)}
+                            </strong>
+                            <button
+                                class="del"
+                                onclick="quitarCalculadora('${String(p.id)}')"
+                            >
+                                ×
+                            </button>
+                        </div>
+                        <small>
+                            Venta:
+                            ${dinero(p.venta)}
+                            ·
+                            Costo:
+                            ${dinero(p.costo)}
+                        </small>
+                        <div
+                            style="
+                            display:flex;
+                            align-items:center;
+                            gap:8px;
+                            margin-top:8px;
+                            "
+                        >
+                            <button
+                                class="btn secondary"
+                                onclick="cambiarUnidades('${String(p.id)}', -1)"
+                            >
+                                −
+                            </button>
+                            <strong>
+                                ${p.unidades}
+                            </strong>
+                            <button
+                                class="btn secondary"
+                                onclick="cambiarUnidades('${String(p.id)}', 1)"
+                            >
+                                +
+                            </button>
+                            <span
+                                style="
+                                margin-left:auto;
+                                "
+                            >
+                                ${dinero(
+                                    Number(p.venta || 0) *
+                                    p.unidades
+                                )}
+                            </span>
+                        </div>
+                    </div>
+                `;
+            }).join("");
+    }
+    const totalVenta =
+        seleccionados.reduce(
+            function(total, producto) {
+                return total +
+                    Number(producto.venta || 0) *
+                    producto.unidades;
+            },
+            0
+        );
+    const totalCosto =
+        seleccionados.reduce(
+            function(total, producto) {
+                return total +
+                    Number(producto.costo || 0) *
+                    producto.unidades;
+            },
+            0
+        );
+    const ganancia =
+        totalVenta -
+        totalCosto;
+    $("totalItems").textContent =
+        cantidadTotal;
+    $("totalVenta").textContent =
+        dinero(totalVenta);
+    $("totalCosto").textContent =
+        dinero(totalCosto);
+    $("totalGanancia").textContent =
+        dinero(ganancia);
+}
+/* =========================================
+   ABRIR / CERRAR CALCULADORA
+========================================= */
+function abrirCalculadora() {
+    $("drawerBg").style.display =
+        "block";
+    actualizarCalculadora();
+}
+function cerrarCalculadora() {
+    $("drawerBg").style.display =
+        "none";
+}
+function cerrarSiFondo(event) {
+    if (
+        event.target === $("drawerBg")
+    ) {
+        cerrarCalculadora();
+    }
+}
+function vaciarCalculadora() {
+    seleccionados = [];
+    actualizarCalculadora();
+}
+/* =========================================
+   INICIAR
+========================================= */
+cargarProductos();
+</script>
+</body>
+</html>
