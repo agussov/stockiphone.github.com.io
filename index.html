@@ -737,13 +737,13 @@ button{
   margin-top:11px;
 
   display:grid;
-  grid-template-columns:minmax(0,1fr) auto;
+  grid-template-columns:minmax(0,1fr) auto auto;
   grid-template-rows:auto auto;
   grid-template-areas:
-    "sale order"
-    "stock controls";
+    "sale . order"
+    "sale stock controls";
   align-items:center;
-  column-gap:14px;
+  column-gap:12px;
   row-gap:8px;
   width:100%;
 }
@@ -755,10 +755,10 @@ button{
 
 .productBottom .stock{
   grid-area:stock;
-  justify-self:center;
+  justify-self:end;
   white-space:nowrap;
-  width:100%;
-  text-align:center;
+  width:auto;
+  text-align:right;
 }
 
 .productBottom .calcControls{
